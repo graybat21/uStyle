@@ -320,12 +320,12 @@
 								<div class="f-right"></div>
 								<div class="f-right">
 									<ul class="em-links-wishlist">
-										<li class="first last"><a href="wishlist.html"
+										<li class="first last"><a href="wishlist.do"
 											title="Wishlist">Wishlist</a></li>
 									</ul>
 								</div>
 								<ul class="list-inline f-right">
-									<li><a class="em-register-link" href="register.html"
+									<li><a class="em-register-link" href="register.do"
 										title="Register">Register</a></li>
 								</ul>
 
@@ -333,7 +333,7 @@
 								<!-- ë¡ê·¸ì¸ í¸ë²ê¸°ë¥ -->
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">
-									<a href="login.html" class="link-account" id="link-login"
+									<a href="login.do" class="link-account" id="link-login"
 										title="Login">Login</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">

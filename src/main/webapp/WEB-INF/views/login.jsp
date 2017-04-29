@@ -48,7 +48,7 @@
 											</div>
 										</div>
 										<form method="post" id="login-form">
-											<input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" />
+											<!-- <input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" /> -->
 											<div class="col2-set">
 												<div class="col-1 new-users">
 													<div class="content">
@@ -82,7 +82,7 @@
 																<div class="input-box">
 																	<input type="password" name="login[password]"
 																		class="input-text required-entry validate-password"
-																		id="pass" title="Password" />
+																		id="password" title="Password" />
 																</div></li>
 														</ul>
 														<div id="window-overlay" class="window-overlay"

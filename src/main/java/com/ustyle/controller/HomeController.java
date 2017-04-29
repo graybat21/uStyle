@@ -24,48 +24,57 @@ import com.ustyle.service.UserService;
  */
 @Controller
 public class HomeController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Inject
 	private UserService service;
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+
+		model.addAttribute("serverTime", formattedDate);
+
 		return "home";
 	}
-	
-	@RequestMapping("login.do")
-	public String login(Locale locale){
+
+	@RequestMapping(value = "login.do", method = RequestMethod.GET)
+	public String login(Locale locale) {
 		logger.info("login {}.", locale);
 		return "login";
 	}
-	@RequestMapping(value="register.do", method=RequestMethod.GET)
-	public String registerForm(){
+
+	// @RequestMapping(value="login.do", method=RequestMethod.POST)
+	// public ModelAndView loginSuccess(){
+	// ModelAndView mav=new ModelAndView();
+	// mav.addObject();
+	// mav.setViewName("");
+	// return mav;
+	// }
+
+	@RequestMapping(value = "register.do", method = RequestMethod.GET)
+	public String registerForm() {
 		return "register";
 	}
-	@RequestMapping(value="register.do", method=RequestMethod.POST)
-	public ModelAndView register(User user, BindingResult bindingResult,
-			HttpSession session) throws Exception{
-		ModelAndView mav=new ModelAndView("login");
-//		System.out.println(user);
+
+	@RequestMapping(value = "register.do", method = RequestMethod.POST)
+	public ModelAndView register(User user, BindingResult bindingResult, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView("login");
+		// System.out.println(user);
 		service.insert(user);
 		session.setAttribute("USER", user);
 		mav.addObject(user);
 		return mav;
-		
+
 	}
-	
+
 }
