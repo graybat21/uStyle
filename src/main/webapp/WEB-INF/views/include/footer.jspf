@@ -66,9 +66,6 @@
 																	title="em-sample-title" href="#"><span>Contact
 																			Us</span></a></li>
 																<li class="em-links-item"><a
-																	title="em-sample-title" href="#"><span>About
-																			Us</span></a></li>
-																<li class="em-links-item"><a
 																	title="em-sample-title" href="#"><span>Sitemap</span></a>
 																</li>
 																<li class="em-links-item"><a
@@ -159,19 +156,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-24">
-						<ul class="links">
-							<li class="first"><a href="#" title="Site Map">Site
-									Map</a></li>
-							<li><a href="#" title="Search Terms">Search Terms</a></li>
-							<li><a href="#" title="Advanced Search">Advanced
-									Search</a></li>
-							<li><a href="#" title="Orders and Returns">Orders and
-									Returns</a></li>
-							<li class=" last"><a href="#" title="Contact Us">Contact
-									Us</a></li>
-						</ul>
-					</div>
+					
 				</div>
 			</div>
 		</div>
