@@ -117,60 +117,6 @@
 													<div class="megamenu-wrapper wrapper-7_8258">
 														<div class="em_nav" id="toogle_menu_7_8258">
 															<ul class="hnav em_menu_mobile">
-																<!-- <li
-																	class="menu-item-link menu-item-depth-0 fa fa-home menu-item-parent">
-																	<a class="em-menu-link" href="/"> <span> Home
-																	</span>
-																</a> -->
-																	<!-- <ul class="menu-container">
-																		<li
-																			class="menu-item-hbox menu-item-depth-1 col-menu menu_col9 grid_18 menu-item-parent"
-																			style="">
-																			<ul class="menu-container">
-																				<li
-																					class="menu-item-vbox menu-item-depth-2 col-sm-12 menu-item-parent"
-																					style="">
-																					<ul class="menu-container">
-																						<li class="menu-item-text menu-item-depth-3  ">
-																							<ul class="em-line-01">
-																								<li>
-																									<h4>Layout styles</h4>
-																								</li>
-																								<li>
-																									<ul class="menu-link">
-																										<li><a href="#">Home Default</a></li>
-																										<li><a href="#">Home Style 02</a></li>
-																										<li><a href="#">Home Style 03</a></li>
-																										<li><a href="#">Home Style 04</a></li>
-																									</ul>
-																								</li>
-																							</ul>
-																						</li>
-																					</ul>
-																				</li>
-																				<li
-																					class="menu-item-vbox menu-item-depth-2 col-sm-12 menu-item-parent"
-																					style="">
-																					<ul class="menu-container">
-																						<li class="menu-item-text menu-item-depth-3  ">
-																							<div class="em-line-01">
-																								<h4>Header styles</h4>
-																								<div>
-																									<ul class="menu-link">
-																										<li><a href="#">Header Style 01</a></li>
-																										<li><a href="#">Header Style 02</a></li>
-																										<li><a href="#">Header Style 04</a></li>
-																										<li><a href="#">Header Style 03</a></li>
-																									</ul>
-																								</div>
-																							</div>
-																						</li>
-																					</ul>
-																				</li>
-																			</ul>
-																		</li>
-																	</ul>
-																</li> -->
 																<!-- /.menu-item-link -->
 																<li
 																	class="menu-item-link menu-item-depth-0 dd-menu-link fa fa-bars menu-item-parent">
