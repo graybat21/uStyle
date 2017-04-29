@@ -1,4 +1,4 @@
-package com.project.uStyle;
+package com.ustyle.domain;
 
 import java.util.Date;
 
