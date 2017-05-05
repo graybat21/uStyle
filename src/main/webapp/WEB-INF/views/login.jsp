@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -70,17 +71,16 @@
 														<h2>Registered Customers</h2>
 														<p>If you have an account with us, please log in.</p>
 														<ul class="form-list">
-															<li><label for="email" class="required"><em>*</em>Email
-																	Address</label>
+															<li><label for="email" class="required"><em>*</em>UserName</label>
 																<div class="input-box">
-																	<input type="text" name="login[username]" value=""
-																		id="email"
-																		class="input-text required-entry validate-email"
-																		title="Email Address" />
+																	<input type="text" name="username" value=""
+																		id="username"
+																		class="input-text required-entry validate-username"
+																		title="UserName" />
 																</div></li>
 															<li><label for="pass" class="required"><em>*</em>Password</label>
 																<div class="input-box">
-																	<input type="password" name="login[password]"
+																	<input type="password" name="password"
 																		class="input-text required-entry validate-password"
 																		id="pass" title="Password" />
 																</div></li>

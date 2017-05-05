@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <!DOCTYPE html>
@@ -50,7 +51,10 @@
     }
 </script>
 <script>
-
+	function pressKey() {
+		var _val = document.getElementById('phone').value.trim();
+		document.getElementById('phone').value = autoHypenPhone(_val);
+	}
     function autoHypenPhone(str){
         str = str.replace(/[^0-9]/g, '');
         var tmp = '';
@@ -78,14 +82,6 @@
         }
         return str;
     }
-
-var phone = document.getElementById('phone');
-
-phone.onkeyup = function(event){
-    event = event || window.event;
-    var _val = this.value.trim();
-    this.value = autoHypenPhone(_val);
-}
 </script>
 
 </head>
@@ -190,7 +186,7 @@ phone.onkeyup = function(event){
                                                         <div class="field">
 	                                                            <label for="phone" class="required"><em>*</em>Phone</label>
 	                                                            <div class="input-box">
-	                                                                <input type="text" name="phone" id="phone" title="Phone" class="input-text required-entry" maxlength="13" />
+	                                                                <input type="text" name="phone" id="phone" title="Phone" class="input-text required-entry" maxlength="13" onkeyup="pressKey()"/>
 	                                                            </div>
                                                             </div>
                                                         </li>

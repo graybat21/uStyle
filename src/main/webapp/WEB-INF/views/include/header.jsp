@@ -64,14 +64,14 @@
 									<ul class="top-header-link links">
 										<!-- ë¡ê·¸ì¸ ëììëì ìëììë ëì¤ëê² ë¤ë¦. -->
 										<li class="first col-xs-8"><a title="Log In"
-											class="login-link fa fa-user" href="#"><span>Log
+											class="login-link fa fa-user" href="login.do"><span>Log
 													In</span></a></li>
 										<!-- <li class="first col-xs-8"><a title="Log Out"
 														class="logout-link fa fa-user" href="#"><span>Log
 																Out</span></a></li>
 													 -->
 										<li class="col-xs-8"><a title="Sign up"
-											class='signup-link fa fa-sign-out' href="#"><span>Sign
+											class='signup-link fa fa-sign-out' href="register.do"><span>Sign
 													up</span></a></li>
 										<li class="last col-xs-8"><a href="#"
 											class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
@@ -320,20 +320,22 @@
 								<div class="f-right"></div>
 								<div class="f-right">
 									<ul class="em-links-wishlist">
-										<li class="first last"><a href="wishlist.html"
+										<li class="first last"><a href="wishlist.do"
 											title="Wishlist">Wishlist</a></li>
 									</ul>
 								</div>
+								
+								<!-- 로그인전 -->
+								<c:if test="${session_username == null }">
 								<ul class="list-inline f-right">
-									<li><a class="em-register-link" href="register.html"
+									<li><a class="em-register-link" href="register.do"
 										title="Register">Register</a></li>
 								</ul>
 
-
-								<!-- ë¡ê·¸ì¸ í¸ë²ê¸°ë¥ -->
+								<!-- header login -->
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">
-									<a href="login.html" class="link-account" id="link-login"
+									<a href="login.do" class="link-account" id="link-login"
 										title="Login">Login</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">
@@ -345,10 +347,10 @@
 													please log in.</p>
 												<ul class="form-list">
 													<li><label for="mini-login">UserName<em>*</em>
-													</label> <input type="text" name="login[username]" id="mini-login"
+													</label> <input type="text" name="username" id="mini-login"
 														class="input-text required-entry validate-email" /></li>
 													<li><label for="mini-password">Password<em>*</em>
-													</label> <input type="password" name="login[password]"
+													</label> <input type="password" name="password"
 														id="mini-password"
 														class="input-text required-entry validate-password" /></li>
 													<li><span class="required">* Required Fields</span></li>
@@ -376,6 +378,41 @@
 									</div>
 									<!-- /.em-account -->
 								</div>
+								</c:if>
+								
+								<!-- 로그인후 -->
+								<c:if test="${session_username != null }">
+								<%-- <ul class="list-inline f-right">
+									<li><a class="em-register-link" href="register.do"
+										title="point">${session_point } point</a></li>
+								</ul>
+								<div id="em-login-link"
+									class="account-link f-right em-non-login">
+									<a href="logout.do" class="link-account" id="link-login"
+										title="Logout">${session_username }님</a>
+									<div class="em-account" id="em-account-login-form"
+										style="display: none;">
+										<form method="post" id="top-login-form">
+											<input name="form_key" type="hidden" value="iMzNKKno559ogiTe" />
+											<div class="block-content">
+												<p class="login-title h6 primary">Login</p>
+												<p class="login-desc">If you have an account with us,
+													please log in.</p>
+												<div class="action-forgot">
+													<div class="login_forgotpassword">
+														<p>
+														</p>
+														<p>
+														</p>
+													</div>
+												</div>
+											</div>
+										</form>
+										<!-- /.top-login-form -->
+									</div>
+									<!-- /.em-account -->
+								</div> --%>
+								</c:if>
 								<!-- /#em-login-link -->
 
 
@@ -418,7 +455,7 @@
 								<div class="em-container-topcart">
 									<div class="em-summary-topcart">
 										<a class="em-amount-js-topcart em-amount-topcart"
-											title="Shopping Cart" href="cart.html"> <span
+											title="Shopping Cart" href="cart.do"> <span
 											class="em-topcart-text">My Cart:</span> <span
 											class="em-topcart-qty">0</span>
 										</a>
@@ -484,7 +521,7 @@
 																						<ul class="menu-container">
 																							<li
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
-																								class="em-menu-link" href="product-simple.html">Simple
+																								class="em-menu-link" href="product-simple.do">Simple
 																									product</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link" href="product-virtual.html">Virtual
@@ -1366,7 +1403,7 @@
 									<div class="em-container-topcart">
 										<div class="em-summary-topcart">
 											<a class="em-amount-js-topcart em-amount-topcart"
-												title="Shopping Cart" href="cart.html"> <span
+												title="Shopping Cart" href="cart.do"> <span
 												class="em-topcart-text">My Cart:</span> <span
 												class="em-topcart-qty">0</span>
 											</a>

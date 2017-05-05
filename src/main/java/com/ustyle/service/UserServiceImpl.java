@@ -9,20 +9,32 @@ import com.ustyle.domain.User;
 import com.ustyle.persistence.UserDAO;
 
 @Service
-public class UserServiceImpl implements UserService
-{
-	
+public class UserServiceImpl implements UserService {
+
 	@Inject
 	private UserDAO dao;
-	
+
 	@Transactional
 	@Override
-	public void insert(User user) throws Exception 
-	{
+	public void insert(User user) throws Exception {
 		dao.insert(user);
-		
 	}
 
-	
+	@Transactional
+	@Override
+	public User userLogin(User user) throws Exception {
+		return dao.userLogin(user);
+	}
+
+	@Transactional
+	@Override
+	public boolean userAuthOk(User user) throws Exception {
+		return dao.userAuthOk(user);
+	}
+
+	@Override
+	public void userPointInitialize(String username) throws Exception {
+		dao.userPointInitialize(username);
+	}
 	
 }

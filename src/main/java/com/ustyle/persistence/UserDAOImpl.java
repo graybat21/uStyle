@@ -20,4 +20,19 @@ public class UserDAOImpl implements UserDAO {
 		session.insert(namespace + ".insert", user);
 	}
 
+	@Override
+	public User userLogin(User user) {
+		return session.selectOne(namespace + ".userLogin", user);
+	}
+
+	@Override
+	public boolean userAuthOk(User user) {
+		return session.selectOne(namespace + ".userAuthOk", user);
+	}
+
+	@Override
+	public void userPointInitialize(String username) {
+		session.update(namespace + ".userPointInitialize", username);
+	}
+
 }

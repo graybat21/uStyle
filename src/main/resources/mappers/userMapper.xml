@@ -11,10 +11,24 @@
     </resultMap-->
      
     <insert id="insert" parameterType="com.ustyle.domain.User">
-    	insert into tbl_user(username, email, password, create_time, postcode, phone, realname, addr1, addr2)
-    	values(#{username}, #{email}, #{password}, now(), #{postcode}, #{phone}, #{realname}, #{addr1}, #{addr2} )
+    	insert into tbl_user(username, email, password, create_time, postcode, phone, realname, addr1, addr2, point)
+    	values(#{username}, #{email}, #{password}, now(), #{postcode}, #{phone}, #{realname}, #{addr1}, #{addr2}, #{point} )
     </insert>
+    
+    <select id="userLogin" parameterType="com.ustyle.domain.User" resultType="com.ustyle.domain.User">
+    	select * from tbl_user
+    	where username = #{username} and password = #{password}
+    </select>
      
+    <select id="userAuthOk" parameterType="com.ustyle.domain.User" resultType="boolean">
+    	select (point = #{point}) from tbl_user
+    	where username = #{username}
+    </select>
+    
+    <update id="userPointInitialize" parameterType="String">
+    	update tbl_user set point = 0 
+    	where username = #{username}
+    </update>
  
 </mapper>
 
