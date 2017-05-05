@@ -64,14 +64,14 @@
 									<ul class="top-header-link links">
 										<!-- ë¡ê·¸ì¸ ëììëì ìëììë ëì¤ëê² ë¤ë¦. -->
 										<li class="first col-xs-8"><a title="Log In"
-											class="login-link fa fa-user" href="#"><span>Log
+											class="login-link fa fa-user" href="login.do"><span>Log
 													In</span></a></li>
 										<!-- <li class="first col-xs-8"><a title="Log Out"
 														class="logout-link fa fa-user" href="#"><span>Log
 																Out</span></a></li>
 													 -->
 										<li class="col-xs-8"><a title="Sign up"
-											class='signup-link fa fa-sign-out' href="#"><span>Sign
+											class='signup-link fa fa-sign-out' href="register.do"><span>Sign
 													up</span></a></li>
 										<li class="last col-xs-8"><a href="#"
 											class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>

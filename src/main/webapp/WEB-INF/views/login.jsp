@@ -59,9 +59,9 @@
 															in your account and more.</p>
 													</div>
 													<div class="buttons-set">
-														<button type="button" title="Create an Account"
+														<button onclick="location.href='register.do'" type="button" title="Create an Account"
 															class="button">
-															<span><span>Create an Account</span></span>
+															<span>Create an Account</span>
 														</button>
 													</div>
 												</div>
