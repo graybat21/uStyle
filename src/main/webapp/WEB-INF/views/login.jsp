@@ -48,7 +48,7 @@
 											</div>
 										</div>
 										<form method="post" id="login-form">
-											<!-- <input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" /> -->
+											<input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" />
 											<div class="col2-set">
 												<div class="col-1 new-users">
 													<div class="content">
@@ -59,9 +59,9 @@
 															in your account and more.</p>
 													</div>
 													<div class="buttons-set">
-														<button onclick="location.href='register.do'" type="button" title="Create an Account"
+														<button type="button" title="Create an Account"
 															class="button">
-															<span>Create an Account</span>
+															<span><span>Create an Account</span></span>
 														</button>
 													</div>
 												</div>
@@ -82,7 +82,7 @@
 																<div class="input-box">
 																	<input type="password" name="login[password]"
 																		class="input-text required-entry validate-password"
-																		id="password" title="Password" />
+																		id="pass" title="Password" />
 																</div></li>
 														</ul>
 														<div id="window-overlay" class="window-overlay"

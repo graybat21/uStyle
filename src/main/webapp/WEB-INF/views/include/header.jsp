@@ -64,14 +64,14 @@
 									<ul class="top-header-link links">
 										<!-- ë¡ê·¸ì¸ ëììëì ìëììë ëì¤ëê² ë¤ë¦. -->
 										<li class="first col-xs-8"><a title="Log In"
-											class="login-link fa fa-user" href="login.do"><span>Log
+											class="login-link fa fa-user" href="#"><span>Log
 													In</span></a></li>
 										<!-- <li class="first col-xs-8"><a title="Log Out"
 														class="logout-link fa fa-user" href="#"><span>Log
 																Out</span></a></li>
 													 -->
 										<li class="col-xs-8"><a title="Sign up"
-											class='signup-link fa fa-sign-out' href="register.do"><span>Sign
+											class='signup-link fa fa-sign-out' href="#"><span>Sign
 													up</span></a></li>
 										<li class="last col-xs-8"><a href="#"
 											class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
@@ -320,12 +320,12 @@
 								<div class="f-right"></div>
 								<div class="f-right">
 									<ul class="em-links-wishlist">
-										<li class="first last"><a href="wishlist.do"
+										<li class="first last"><a href="wishlist.html"
 											title="Wishlist">Wishlist</a></li>
 									</ul>
 								</div>
 								<ul class="list-inline f-right">
-									<li><a class="em-register-link" href="register.do"
+									<li><a class="em-register-link" href="register.html"
 										title="Register">Register</a></li>
 								</ul>
 
@@ -333,7 +333,7 @@
 								<!-- ë¡ê·¸ì¸ í¸ë²ê¸°ë¥ -->
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">
-									<a href="login.do" class="link-account" id="link-login"
+									<a href="login.html" class="link-account" id="link-login"
 										title="Login">Login</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">
