@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.userMapper">
+ 
+    <!--resultMap id="userInfoMap" type="userVo">
+        <result column="USERID" property="userId" jdbcType="VARCHAR" javaType="string"/>
+        <result column="USERNAME" property="userName" jdbcType="VARCHAR" javaType="string"/>
+    </resultMap>
+    
+    <resultMap id="commonResultMap" type="hashMap">
+    </resultMap-->
+     
+    <insert id="insert" parameterType="com.ustyle.domain.User">
+    	insert into tbl_user(username, email, password, create_time, postcode, phone, realname, addr1, addr2, point)
+    	values(#{username}, #{email}, #{password}, now(), #{postcode}, #{phone}, #{realname}, #{addr1}, #{addr2}, #{point} )
+    </insert>
+    
+    <select id="userLogin" parameterType="com.ustyle.domain.User" resultType="com.ustyle.domain.User">
+    	select * from tbl_user
+    	where username = #{username}
+    </select>
+     
+    <select id="userAuthOk" parameterType="com.ustyle.domain.User" resultType="boolean">
+    	select (point = #{point}) from tbl_user
+    	where username = #{username}
+    </select>
+    
+    <select id="userExist" parameterType="String" resultType="int">
+    	select count(*) as cnt from tbl_user
+    	where username = #{username}
+    </select>
+    
+    <update id="userPointInitialize" parameterType="String">
+    	update tbl_user set point = 0 
+    	where username = #{username}
+    </update>
+ 
+</mapper>
+
+
