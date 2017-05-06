@@ -139,7 +139,7 @@ public class UserController {
 		mimeMessage.setFrom(new InternetAddress("ustyle1111@gmail.com"));
 		mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(email));
 
-		String subject = "uStyle - È¸¿ø°¡ÀÔ ÀÎÁõ¿äÃ»¸ŞÀÏ ÀÔ´Ï´Ù.";
+		String subject = "uStyle - íšŒì›ê°€ì… ì¸ì¦ìš”ì²­ë©”ì¼ ì…ë‹ˆë‹¤.";
 		mimeMessage.setSubject(subject);
 
 		StringBuilder sb = new StringBuilder();
@@ -148,11 +148,11 @@ public class UserController {
 		sb.append("<a href='" + uri + "'>");
 		sb.append("<img src='https://mark.trademarkia.com/logo-images/symeli-inc/ustyle-85007854.jpg'></a>");
 		sb.append("<h1>Welcome uStyle</h1>");
-		sb.append("ÀúÈñ uStyle¿¡ °¡ÀÔÇØ ÁÖ¼Å¼­ °¨»çµå¸³´Ï´Ù.<br>");
-		sb.append("ÀÎÁõÀ» °ÅÄ£ÈÄ ÀúÈñ »çÀÌÆ®¸¦ Á¤»óÀûÀ¸·Î ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.<br>");
+		sb.append("ì €í¬ uStyleì— ê°€ì…í•´ ì£¼ì…”ì„œ ê°ì‚¬ë“œë¦½ë‹ˆë‹¤.<br>");
+		sb.append("ì¸ì¦ì„ ê±°ì¹œí›„ ì €í¬ ì‚¬ì´íŠ¸ë¥¼ ì •ìƒì ìœ¼ë¡œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.<br>");
 		sb.append("<hr><br>");
 		sb.append("<a href='" + uri + "auth/" + username + "/" + joinCode + "'>");
-		sb.append("¸µÅ©¸¦ Å¬¸¯ÇÏ½Ã¸é ÀÎÁõµË´Ï´Ù.</a>");
+		sb.append("ë§í¬ë¥¼ í´ë¦­í•˜ì‹œë©´ ì¸ì¦ë©ë‹ˆë‹¤.</a>");
 		mimeMessage.setText(sb.toString(), "UTF-8", "html");
 
 		javaMailSenderImpl.send(mimeMessage);
@@ -180,12 +180,12 @@ public class UserController {
 
 	@RequestMapping("/authSuccess.do")
 	public String authSuccess() {
-		return "user/authSuccess/ÀÎÁõ ¼º°ø";
+		return "user/authSuccess/ì¸ì¦ ì„±ê³µ";
 	}
 
 	@RequestMapping("/authError.do")
 	public String authError() {
-		return "user/authError/ÀÎÁõ ½ÇÆĞ";
+		return "user/authError/ì¸ì¦ ì‹¤íŒ¨";
 	}
 
 	@RequestMapping(value = "duplicationCheck.do", method = RequestMethod.POST)
