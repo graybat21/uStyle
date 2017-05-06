@@ -1,6 +1,7 @@
 package com.ustyle.controller;
 
 import java.util.Random;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
@@ -112,7 +113,7 @@ public class UserController {
 		String encryptPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptPassword);
 
-		ModelAndView mav = new ModelAndView("joinSuccess");
+		ModelAndView mav = new ModelAndView("user/joinSuccess/JoinSuccess");
 
 		if (bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
@@ -120,9 +121,8 @@ public class UserController {
 			return mav;
 		}
 
-		int ran = new Random().nextInt(90000) + 10000; // 10000 ~ 99999
-		user.setPoint(ran);
-		String joinCode = String.valueOf(ran);
+		String joinCode = getUuid();
+		user.setAuth(joinCode);
 		sendMail(user.getUsername(), user.getEmail(), joinCode);
 
 		service.insert(user);
@@ -153,24 +153,23 @@ public class UserController {
 		sb.append("<hr><br>");
 		sb.append("<a href='" + uri + "auth/" + username + "/" + joinCode + "'>");
 		sb.append("링크를 클릭하시면 인증됩니다.</a>");
-		logger.info("content : {}", sb);
 		mimeMessage.setText(sb.toString(), "UTF-8", "html");
 
 		javaMailSenderImpl.send(mimeMessage);
 	}
 
-	@RequestMapping(value = "/auth/{username}/{point}")
-	public ModelAndView authOk(@PathVariable String username, @PathVariable String point) throws Exception {
+	@RequestMapping(value = "/auth/{username}/{auth}")
+	public ModelAndView authOk(@PathVariable String username, @PathVariable String auth) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
 		User user = new User();
-		user.setPoint(Integer.parseInt(point));
+		user.setAuth(auth);
 		user.setUsername(username);
 
 		boolean isUserAuthOk = service.userAuthOk(user);
 
 		if (isUserAuthOk) {
-			service.userPointInitialize(username);
+			service.userAuthInitialize(username);
 			mav.setViewName("redirect:/authSuccess.do");
 		} else {
 			mav.setViewName("redirect:/authError.do");
@@ -197,5 +196,8 @@ public class UserController {
 		int isUserExist = service.userExist(username);
 		return isUserExist;
 	}
-
+	
+	private String getUuid(){
+		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
 }
