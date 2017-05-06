@@ -31,8 +31,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void userPointInitialize(String username) {
-		session.update(namespace + ".userPointInitialize", username);
+	public void userAuthInitialize(String username) {
+		session.update(namespace + ".userAuthInitialize", username);
 	}
 
 	@Override

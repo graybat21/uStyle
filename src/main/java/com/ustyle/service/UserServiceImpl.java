@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void userPointInitialize(String username) throws Exception {
-		dao.userPointInitialize(username);
+	public void userAuthInitialize(String username) throws Exception {
+		dao.userAuthInitialize(username);
 	}
 	
 	@Transactional
