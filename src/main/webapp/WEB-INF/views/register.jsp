@@ -224,7 +224,7 @@ function isExistUser()
 		      }
 		    },
 		    error : function(error) {
-		      alert(error.statusText);
+		      alert(error.statusText);  
 		    }
 		  });
 
