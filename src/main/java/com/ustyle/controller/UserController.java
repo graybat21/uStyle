@@ -67,6 +67,8 @@ public class UserController {
 
 			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
 				return "user/loginError/No Match PW";
+			} else if (resultUser.getAuth() != "y") {
+				return "user/authError/Auth Error";
 			}
 
 			HttpSession session = request.getSession();
@@ -196,8 +198,8 @@ public class UserController {
 		int isUserExist = service.userExist(username);
 		return isUserExist;
 	}
-	
-	private String getUuid(){
+
+	private String getUuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 }
