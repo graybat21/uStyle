@@ -4,12 +4,10 @@
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
-<%@ include file="/WEB-INF/views/include/include-header.jspf"%>
 </head>
 <body class="cms-index-index">
 	<div class="wrapper">
 		<div class="page one-column">
-		<%@ include file="/WEB-INF/views/include/header.jsp"%>
 		
 		
 		<h1>로그인 성공</h1>
@@ -20,7 +18,6 @@
 		
 		
 		
-		<%@ include file="/WEB-INF/views/include/footer.jspf"%>
 		</div>
 		<!-- /.page -->
 	</div>
