@@ -197,39 +197,38 @@ function verifyOK()
 		return true;
 }
 
-function isExistUser()
+function isExistUser()		// use keyup event -> To check id
 {
 	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;	
 	
 	$("#username").keyup(function() {
-		  $.ajax({
-		    url : "/duplicationCheck.do",
-		    type : "post",
-		    contentType : 'application/json; charset=utf-8',
-		    //data : JSON.stringify({ username : $("#username").val() }),
-		    data : $("#username").val(),
-		    //dataType: "json",
-		    success : function(data) {
-		      if (data) {
-		      	$("#duplicateResult").text("이미 해당 아이디로 가입된 회원이 있습니다. 다른 아이디를 입력해주세요."); 
-		      } else {
-		        if ($("#username").val().length < 6) {
-		        $("#duplicateResult").text("아이디를 6자 이상 입력해주세요."); 
-		        } else if (!idReg.test($("#username").val())) {
-		        	$("#duplicateResult").text("아이디 형식이 올바르지 않습니다."); 
-		        }
-		        else {
-		        	$("#duplicateResult").text("사용 가능한 아이디입니다."); 
-		        }
-		      }
-		    },
-		    error : function(error) {
-		      alert(error.statusText);  
-		    }
-		  });
-
-		  return false;
-		});
+		if ( $("#username").val().length >= 6 )
+		{	
+			$.ajax({
+			  url : "/duplicationCheck.do",
+			  type : "post",
+			  contentType : 'application/json; charset=utf-8',
+			  //data : JSON.stringify({ username : $("#username").val() }),
+			  data : $("#username").val(),
+			  //dataType: "json",
+			  success : function(data) {
+			    if (data) {
+			    	$("#duplicateResult").text("이미 해당 아이디로 가입된 회원이 있습니다. 다른 아이디를 입력해주세요."); 
+			    } 
+			    else {
+			    	$("#duplicateResult").text(""); 
+			    } 
+			  },
+			  error : function(error) {
+			    alert(error.statusText);  
+			  }
+			});
+		}
+		else {
+	    	$("#duplicateResult").text("아이디를 6자 이상 입력해주세요."); 
+		}
+	  	return false;
+	});
 }
 	
 </script>
@@ -333,7 +332,7 @@ function isExistUser()
                                                         	<div class="field name-username">
                                                                 <label for="realname" class="required"><em>*</em>Real Name</label>
                                                                 <div class="input-box">
-                                                                    <input type="text" id="realname" name="realname" value="${user.realname}"title="RealName" maxlength="255" class="input-text required-entry" />
+                                                                    <input type="text" id="realname" name="realname" value="${user.realname}" title="RealName" maxlength="255" class="input-text required-entry" />
                                                                     <font color="red"><form:errors path="realname"/></font>
                                                                 </div>
                                                             </div>
