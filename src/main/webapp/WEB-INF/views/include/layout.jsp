@@ -8,51 +8,11 @@
 <head>
 <meta charset="UTF-8" />
 <title><tiles:getAsString name="title" /></title>
-
-<style>
-* {
-	vertical-align: top;
-}
-#wrap {
-	margin: 0 auto;
-	width: 1200px;
-}
-#content {
-	text-align: center;
-	min-height: 700px;
-	padding-top: 100px;
-}
-</style>
-
 </head>
 <body>
-	<div id="wrap">
-		<div id="header">
-			<tiles:insertAttribute name="header" />
-		</div>
-		<div id="content">
-			<tiles:insertAttribute name="content" />
-		</div>
-		<div id="footer">
-			<tiles:insertAttribute name="footer" />
-		</div>
-	</div>
+	<tiles:insertAttribute name="header" />
+	<tiles:insertAttribute name="content" />
+	<tiles:insertAttribute name="footer" />
 
 </body>
 </html>
-
-<!-- .box {
-	border: 1px solid #000;
-}
-
-#side {
-	width: 200px;
-	display: inline-block;
-	height: 600px;
-} */
-
-/* .contents {
-	display: inline-block;
-	width: 988.9px;
-	height: 600px;
-} -->
