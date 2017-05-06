@@ -1,11 +1,13 @@
 <%@ page pageEncoding="UTF-8"%>
 
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <%@ include file="/WEB-INF/views/include/include-header.jspf" %>
+
 <div class="em-wrapper-header">
 	<div id="em-mheader" class="visible-xs container">
 		<div id="em-mheader-top" class="row">
@@ -521,25 +523,13 @@
 																						<ul class="menu-container">
 																							<li
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
-																								class="em-menu-link" href="product-simple.do">Simple
-																									product</a></li>
+																								class="em-menu-link" href="product-simple.do">Blouses</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-virtual.html">Virtual
-																									Product</a></li>
+																								class="em-menu-link" href="product-virtual.html">Tops</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link"
-																								href="product-downloadable.html">Downloadable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link"
-																								href="product-configurable.html">Configurable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-grouped.html">Grouped
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1 last"><a
-																								class="em-menu-link" href="product-bundle.html">Bundle
-																									Product</a></li>
+																								href="product-downloadable.html">Jackets</a></li>
+																							
 																						</ul>
 																					</div>
 																				</div>
@@ -623,25 +613,13 @@
 																						<ul class="menu-container">
 																							<li
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
-																								class="em-menu-link" href="product-simple.html">Simple
-																									product</a></li>
+																								class="em-menu-link" href="product-simple.html">Skirts</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-virtual.html">Virtual
-																									Product</a></li>
+																								class="em-menu-link" href="product-virtual.html">Pants</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link"
-																								href="product-downloadable.html">Downloadable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link"
-																								href="product-configurable.html">Configurable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-grouped.html">Grouped
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1 last"><a
-																								class="em-menu-link" href="product-bundle.html">Bundle
-																									Product</a></li>
+																								href="product-downloadable.html">Shorts</a></li>
+																						
 																						</ul>
 																					</div>
 																				</div>
@@ -724,25 +702,13 @@
 																						<ul class="menu-container">
 																							<li
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
-																								class="em-menu-link" href="product-simple.html">Simple
-																									product</a></li>
+																								class="em-menu-link" href="product-simple.html">Totes</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-virtual.html">Virtual
-																									Product</a></li>
+																								class="em-menu-link" href="product-virtual.html">Backpacks</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link"
-																								href="product-downloadable.html">Downloadable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link"
-																								href="product-configurable.html">Configurable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-grouped.html">Grouped
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1 last"><a
-																								class="em-menu-link" href="product-bundle.html">Bundle
-																									Product</a></li>
+																								href="product-downloadable.html">Satchels</a></li>
+																						
 																						</ul>
 																					</div>
 																				</div>
@@ -807,7 +773,7 @@
 													<!-- /.menu-item-link -->
 													<li
 														class="menu-item-link menu-item-depth-0  menu-item-parent">
-														<a class="em-menu-link" href="#"> <span> Shoes
+														<a class="em-menu-link" href="#"> <span> Underwear
 														</span>
 													</a>
 														<ul class="menu-container">
@@ -826,25 +792,14 @@
 																						<ul class="menu-container">
 																							<li
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
-																								class="em-menu-link" href="product-simple.html">Simple
-																									product</a></li>
+																								class="em-menu-link" href="product-simple.html">Bras
+																								</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-virtual.html">Virtual
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link"
-																								href="product-downloadable.html">Downloadable
-																									Product</a></li>
+																								class="em-menu-link" href="product-virtual.html">Panties</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link"
-																								href="product-configurable.html">Configurable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-grouped.html">Grouped
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1 last"><a
-																								class="em-menu-link" href="product-bundle.html">Bundle
-																									Product</a></li>
+																								href="product-downloadable.html">Pajams</a></li>
+																						
 																						</ul>
 																					</div>
 																				</div>
@@ -910,6 +865,59 @@
 													<li
 														class="menu-item-link menu-item-depth-0 hidden-sm hidden-md menu-item-parent">
 														<a class="em-menu-link" href="#"> <span>
+																Shoes </span>
+													</a>
+														<ul class="menu-container">
+															<li
+																class="menu-item-hbox menu-item-depth-1 col-menu menu_col24 grid_24 menu-item-parent"
+																style="">
+																<ul class="menu-container" style="padding: 0 10px">
+																	<li
+																		class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6 alpha menu-item-parent"
+																		style="">
+																		<ul class="menu-container">
+																			<li class="menu-item-text menu-item-depth-3  ">
+																				<div class="em-line-01">
+																					<h5 class="text-uppercase">Product Types</h5>
+																					<div>
+																						<ul class="menu-container">
+																							<li
+																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
+																								class="em-menu-link" href="product-simple.html">Heels</a></li>
+																							<li class="menu-item-link menu-item-depth-1"><a
+																								class="em-menu-link" href="product-virtual.html">Sneakers</a></li>
+																							<li class="menu-item-link menu-item-depth-1"><a
+																								class="em-menu-link"
+																								href="product-downloadable.html">Flats</a></li>
+																							
+																						</ul>
+																					</div>
+																				</div>
+																			</li>
+																		</ul>
+																	</li>
+																	
+																		<li
+																		class="menu-item-vbox menu-item-depth-2 col-sm-18 grid_18 omega menu-item-parent"
+																		style="">
+																		<ul class="menu-container">
+																			<li class="menu-item-text menu-item-depth-3  ">
+																				<p class="img-banner-menu pull-right">
+																					<img class="img-responsive"
+																						src="http://placehold.it/560x374" alt="menu_adv" />
+																				</p>
+																			</li>
+																		</ul>
+																	</li>
+																</ul>
+															</li>
+															<!-- /.menu-item-hbox -->
+														</ul>
+													</li>
+													<!-- /.menu-item-link -->
+													<li
+														class="menu-item-link menu-item-depth-0 hidden-sm hidden-md menu-item-parent">
+														<a class="em-menu-link" href="#"> <span>
 																Accessories </span>
 													</a>
 														<ul class="menu-container">
@@ -928,31 +936,25 @@
 																						<ul class="menu-container">
 																							<li
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
-																								class="em-menu-link" href="product-simple.html">Simple
-																									product</a></li>
+																								class="em-menu-link" href="product-simple.html">Jewelry</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-virtual.html">Virtual
-																									Product</a></li>
+																								class="em-menu-link" href="product-virtual.html">Watches</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link"
-																								href="product-downloadable.html">Downloadable
-																									Product</a></li>
+																								href="product-downloadable.html">Hats</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link"
-																								href="product-configurable.html">Configurable
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-grouped.html">Grouped
-																									Product</a></li>
-																							<li class="menu-item-link menu-item-depth-1 last"><a
-																								class="em-menu-link" href="product-bundle.html">Bundle
-																									Product</a></li>
+																								href="product-downloadable.html">Sunglasses</a></li>
+																							
 																						</ul>
 																					</div>
 																				</div>
 																			</li>
 																		</ul>
 																	</li>
+																	
+																	
+																	
 																	<!-- <li
 																					class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6  menu-item-parent"
 																					style="">
