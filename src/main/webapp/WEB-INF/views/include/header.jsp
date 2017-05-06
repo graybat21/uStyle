@@ -1,11 +1,11 @@
-<%@ page pageEncoding="utf-8"%>
+<%@ page pageEncoding="UTF-8"%>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ include file="/WEB-INF/views/include/include-header.jspf" %>
 <div class="em-wrapper-header">
 	<div id="em-mheader" class="visible-xs container">
 		<div id="em-mheader-top" class="row">

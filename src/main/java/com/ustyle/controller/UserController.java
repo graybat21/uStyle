@@ -38,52 +38,48 @@ public class UserController {
 
 	@Inject
 	private UserService service;
-	
+
 	@Inject
 	private UserEntryValidator userEntryValidator;
-	
+
 	@Inject
 	BCryptPasswordEncoder passwordEncoder;
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value="login.do", method=RequestMethod.GET)
-	public String loginForm(){
-		return "login";
+	@RequestMapping(value = "login.do", method = RequestMethod.GET)
+	public String loginForm() {
+		return "user/login/LOGIN";
 	}
-	
-	@RequestMapping(value="login.do", method=RequestMethod.POST)
+
+	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
-		
+
 		try {
 			User resultUser = service.userLogin(user);
-			// username 과 password 를 이용해 정보불러옴.
-			// email 과 password 를 이용해서 정보불러옴?
-			logger.info("로그인을 통해 얻은 user 정보 {}", resultUser);
-			
+			logger.info("{}", resultUser);
+
 			String rawPassword = user.getPassword();
 			String encodedPassword = resultUser.getPassword();
-			
-			if ( resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword)) ) {
-				return "loginError"; // user 에 username, password 입력이 안됨.
+
+			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
+				return "user/loginError/No Match PW";
 			}
-			
+
 			HttpSession session = request.getSession();
-			
-			// 세션에 저장
+
 			session.setAttribute("USER", resultUser);
-	//		session.setAttribute("session_realname", resultUser.getRealname());
+			// session.setAttribute("session_realname",
+			// resultUser.getRealname());
 			session.setAttribute("session_username", resultUser.getUsername());
 			session.setAttribute("session_point", resultUser.getPoint());
-	//		session.setAttribute("TOKEN_SAVE_CHECK", "TRUE"); // 암호화 관련
-			
-			return "loginSuccess";
-		} 
-		catch (NullPointerException e)
-		{
-			return "loginError"; // user 에 username, password 입력이 안됨.
+			// session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
+
+			return "user/loginSuccess/LOGIN SUCCESS";
+		} catch (NullPointerException e) {
+			return "user/loginError/LOGIN ERROR";
 		}
 	}
 
@@ -92,8 +88,6 @@ public class UserController {
 
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession(false);
-		// true 가 default, session 미존재시 새로 session 생성
-		// false 일 경우, session 미존재시 그냥 null 값 반환
 		if (session != null) {
 			session.invalidate();
 		}
@@ -105,33 +99,30 @@ public class UserController {
 
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String registerForm() {
-		return "register";
+		return "user/register/Register";
 	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, HttpSession session) throws Exception {
-		
+	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, HttpSession session)
+			throws Exception {
+
 		logger.info(user.toString());
 		userEntryValidator.validate(user, bindingResult);
-		
-		/* ------------- 비밀번호 암호화하는 작업 시작 ------------- */
+
 		String encryptPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptPassword);
-		/* ------------- 비밀번호 암호화하는 작업 끝 ------------- */
-		
+
 		ModelAndView mav = new ModelAndView("joinSuccess");
-		
-		if ( bindingResult.hasErrors() )
-		{
+
+		if (bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
-			mav.setViewName("register");
+			mav.setViewName("user/register/Register");
 			return mav;
 		}
 
-		int ran = new Random().nextInt(90000) + 10000; // 10000 ~ 99999 : 5자리
-		user.setPoint(ran); // 포인트 칼럼 임시로 인증에 이용, 인증후 초기화
+		int ran = new Random().nextInt(90000) + 10000; // 10000 ~ 99999
+		user.setPoint(ran);
 		String joinCode = String.valueOf(ran);
-		// String username=user.getUsername();
 		sendMail(user.getUsername(), user.getEmail(), joinCode);
 
 		service.insert(user);
@@ -145,33 +136,29 @@ public class UserController {
 
 		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
 
-		// from, to 입력
 		mimeMessage.setFrom(new InternetAddress("ustyle1111@gmail.com"));
 		mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(email));
 
-		// 제목 입력
-		String subject = "uStyle - 회원가입 인증 코드 발급 안내 입니다.";
+		String subject = "uStyle - ȸ������ ������û���� �Դϴ�.";
 		mimeMessage.setSubject(subject);
 
-		// 내용 입력
 		StringBuilder sb = new StringBuilder();
-//		String uri = "http://localhost:8080/uStyle/";
+		// String uri = "http://localhost:8080/uStyle/";
 		String uri = "http://localhost:8080/";
 		sb.append("<a href='" + uri + "'>");
 		sb.append("<img src='https://mark.trademarkia.com/logo-images/symeli-inc/ustyle-85007854.jpg'></a>");
 		sb.append("<h1>Welcome uStyle</h1>");
-		sb.append("저희 uStyle를 가입해 주셔서 감사드립니다.<br>");
-		sb.append("아래 링크를 클릭하시면 사이트를 정상적으로 이용가능하십니다.<br>");
+		sb.append("���� uStyle�� ������ �ּż� ����帳�ϴ�.<br>");
+		sb.append("������ ��ģ�� ���� ����Ʈ�� ���������� �̿��Ͻ� �� �ֽ��ϴ�.<br>");
 		sb.append("<hr><br>");
 		sb.append("<a href='" + uri + "auth/" + username + "/" + joinCode + "'>");
-		sb.append("귀하의 인증 코드는 " + joinCode + " 입니다. 링크를 클릭하시면 인증됩니다.</a>");
-		logger.info("content : {}",sb);
+		sb.append("��ũ�� Ŭ���Ͻø� �����˴ϴ�.</a>");
+		logger.info("content : {}", sb);
 		mimeMessage.setText(sb.toString(), "UTF-8", "html");
 
 		javaMailSenderImpl.send(mimeMessage);
 	}
 
-	// 이메일을 통한 인증
 	@RequestMapping(value = "/auth/{username}/{point}")
 	public ModelAndView authOk(@PathVariable String username, @PathVariable String point) throws Exception {
 
@@ -183,7 +170,7 @@ public class UserController {
 		boolean isUserAuthOk = service.userAuthOk(user);
 
 		if (isUserAuthOk) {
-			service.userPointInitialize(username); // 인증완료후 포인트 초기화
+			service.userPointInitialize(username);
 			mav.setViewName("redirect:/authSuccess.do");
 		} else {
 			mav.setViewName("redirect:/authError.do");
@@ -194,18 +181,18 @@ public class UserController {
 
 	@RequestMapping("/authSuccess.do")
 	public String authSuccess() {
-		return "authSuccess";
+		return "user/authSuccess/���� ����";
 	}
 
 	@RequestMapping("/authError.do")
 	public String authError() {
-		return "authError";
+		return "user/authError/���� ����";
 	}
-	
-	@RequestMapping(value="duplicationCheck.do",method=RequestMethod.POST)
+
+	@RequestMapping(value = "duplicationCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public int userExist(@RequestBody String username) throws Exception {
-		
+
 		logger.info(username);
 		int isUserExist = service.userExist(username);
 		return isUserExist;

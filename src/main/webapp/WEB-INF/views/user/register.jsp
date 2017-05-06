@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html class='no-js'>
 <head>
-<%@ include file="/WEB-INF/views/include/include-header.jspf"%>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -240,7 +239,6 @@ function isExistUser()
 
 		<div class="page one-column">
 
-			<%@ include file="/WEB-INF/views/include/header.jsp" %>
 
 
 
@@ -429,7 +427,6 @@ function isExistUser()
 
 
 
-			<%@ include file="/WEB-INF/views/include/footer.jspf"%>
 
 			
 
