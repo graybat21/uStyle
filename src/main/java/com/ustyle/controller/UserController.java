@@ -197,7 +197,7 @@ public class UserController {
 		return isUserExist;
 	}
 	
-	public String getUuid(){
+	private String getUuid(){
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 }
