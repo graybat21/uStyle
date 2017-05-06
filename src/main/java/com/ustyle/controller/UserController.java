@@ -68,10 +68,7 @@ public class UserController {
 			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
 				return "user/loginError/No Match PW";
 			} else if (resultUser.getAuth() != "y") {
-				return "user/authError/Auth Error";
-			}
-			else if ( resultUser.getAuth() != "y" ) {
-				return "user/authError/Auth Error";
+				return "user/loginError/Auth Error";
 			}
 
 			HttpSession session = request.getSession();
