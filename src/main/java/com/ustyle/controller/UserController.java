@@ -64,11 +64,11 @@ public class UserController {
 
 			String rawPassword = user.getPassword();
 			String encodedPassword = resultUser.getPassword();
-
+			logger.info(resultUser.getAuth().toString());
 			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
 				return "user/loginError/No Match PW";
-			} else if (resultUser.getAuth() != "y") {
-				return "user/loginError/Auth Error";
+			} else if (!resultUser.getAuth().equals("y")) {
+				return "user/loginError/Login Error";
 			}
 
 			HttpSession session = request.getSession();
