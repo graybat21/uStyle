@@ -1,6 +1,6 @@
 package com.ustyle.controller;
 
-import java.util.Random;
+import java.util.Enumeration;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -72,8 +72,8 @@ public class UserController {
 			}
 
 			HttpSession session = request.getSession();
-
-			session.setAttribute("USER", resultUser);
+			
+			session.setAttribute("session_user", resultUser);
 			// session.setAttribute("session_realname",
 			// resultUser.getRealname());
 			session.setAttribute("session_username", resultUser.getUsername());
@@ -132,6 +132,21 @@ public class UserController {
 		mav.addObject(user);
 
 		return mav;
+	}
+	
+	@RequestMapping(value = "update.do", method = RequestMethod.GET)
+	public String updateForm() {
+//		HttpSession session = request.getSession();
+//		
+//		   Enumeration se = session.getAttributeNames();
+//		   
+//		   while(se.hasMoreElements()){
+//		    String getse = se.nextElement()+"";
+//		    logger.info("@@@@@@@ session : "+getse+" : "+session.getAttribute(getse));
+//		   }
+
+
+		return "user/update/Update";
 	}
 
 	private void sendMail(String username, String email, String joinCode) throws Exception {

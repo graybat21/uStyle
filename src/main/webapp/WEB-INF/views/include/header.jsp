@@ -385,7 +385,7 @@
 								<!-- 로그인후 -->
 								<c:if test="${session_username != null }">
 								<ul class="list-inline f-right">
-									<li><a class="em-register-link" href="register.do"
+									<li><a class="em-register-link" href="update.do"
 										title="point">${session_point } point</a></li>
 								</ul>
 								<div id="em-login-link"

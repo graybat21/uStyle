@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page session="false"%>
 <!DOCTYPE html>
 <html class='no-js'>
 <head>
@@ -14,7 +13,6 @@
 <body class="cms-index-index">
 
 	<div class="wrapper">
-
 		<div class="page one-column">
 
 
@@ -69,7 +67,7 @@
                                                                 <div class="field name-username">
                                                                     <label for="username" class="required"><em>*</em>User Name</label>
                                                                     <div class="input-box">
-                                                                        <input type="text" id="username" name="username" value="${user.username}" title="UserName" maxlength="20" class="input-text required-entry" readonly/>
+                                                                        <input type="text" id="username" name="username" value="${session_username}" title="UserName" maxlength="20" class="input-text required-entry" readonly/>
                                                                         <font color="red">
                                                                         	<span id="duplicateResult"></span><br>
                                                                         	<form:errors path="username"/>
@@ -109,14 +107,14 @@
                                                         	<div class="field name-username">
                                                                 <label for="realname" class="required"><em>*</em>Real Name</label>
                                                                 <div class="input-box">
-                                                                    <input type="text" id="realname" name="realname" value="${user.realname}" title="RealName" maxlength="255" class="input-text required-entry" />
+                                                                    <input type="text" id="realname" name="realname" value="${session_user.realname}" title="RealName" maxlength="255" class="input-text required-entry" />
                                                                     <font color="red"><form:errors path="realname"/></font>
                                                                 </div>
                                                             </div>
                                                             <div class="field name-username">
 	                                                            <label for="email" class="required"><em>*</em>Email Address</label>
 	                                                            <div class="input-box">
-	                                                                <input type="text" name="email" id="email" value="${user.email}" title="Email Address" class="input-text validate-email required-entry" />
+	                                                                <input type="text" name="email" id="email" value="${session_user.email}" title="Email Address" class="input-text validate-email required-entry" />
 	                                                                <font color="red"><form:errors path="email"/></font>
 	                                                            </div>
                                                             </div>
@@ -125,7 +123,7 @@
                                                         <div class="field">
 	                                                            <label for="phone" class="required"><em>*</em>Phone</label>
 	                                                            <div class="input-box">
-	                                                                <input type="text" name="phone" id="phone" title="Phone" value="${user.phone}" class="input-text required-entry" maxlength="13" onkeyup="pressKey()"/>
+	                                                                <input type="text" name="phone" id="phone" title="Phone" value="${session_user.phone}" class="input-text required-entry" maxlength="13" onkeyup="pressKey()"/>
 	                                                                <font color="red"><form:errors path="phone"/></font>
 	                                                            </div>
                                                             </div>
@@ -136,7 +134,7 @@
                                                                 <label for="postcode" class="required"><em>*</em>Postcode</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <input type="button" onclick="execDaumPostcode()" value="Find Postcode" class="button">
                                                                 <div class="input-box">
-                                                                    <input type="text" name="postcode" value="${user.postcode}" onclick="execDaumPostcode()" title="Confirm postcode" id="postcode" class="input-text required-entry" readonly/>
+                                                                    <input type="text" name="postcode" value="${session_user.postcode}" onclick="execDaumPostcode()" title="Confirm postcode" id="postcode" class="input-text required-entry" readonly/>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -144,13 +142,13 @@
                                                             <div class="field">
                                                                 <label for="addr1" class="required"><em>*</em>Addr1</label>
                                                                 <div class="input-box">
-                                                                    <input type="text" name="addr1" id="addr1" value="${user.addr1}" onclick="execDaumPostcode()" title="addr1" class="input-text required-entry" readonly />
+                                                                    <input type="text" name="addr1" id="addr1" value="${session_user.addr1}" onclick="execDaumPostcode()" title="addr1" class="input-text required-entry" readonly />
                                                                 </div>
                                                             </div>
                                                             <div class="field">
                                                                 <label for="addr2" class="required"><em>*</em>Addr2</label>
                                                                 <div class="input-box">
-                                                                    <input type="text" name="addr2" id="addr2" value="${user.addr2}" title="addr2" class="input-text required-entry" />
+                                                                    <input type="text" name="addr2" id="addr2" value="${session_user.addr2}" title="addr2" class="input-text required-entry" />
                                                                     <font color="red"><form:errors path="addr2"/></font>
                                                                 </div>
                                                             </div>
