@@ -73,7 +73,7 @@ public class UserController {
 
 			HttpSession session = request.getSession();
 			
-			session.setAttribute("session_user", resultUser);
+			// session.setAttribute("session_user", resultUser);
 			// session.setAttribute("session_realname",
 			// resultUser.getRealname());
 			session.setAttribute("session_username", resultUser.getUsername());
