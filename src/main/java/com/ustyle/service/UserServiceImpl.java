@@ -42,5 +42,10 @@ public class UserServiceImpl implements UserService {
 	public int userExist(String username) throws Exception {
 		return dao.userExist(username);
 	}
+
+	@Override
+	public void update(User user) throws Exception {
+		dao.update(user);
+	}
 	
 }
