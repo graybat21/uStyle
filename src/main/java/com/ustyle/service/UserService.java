@@ -9,4 +9,6 @@ public interface UserService {
 	public void userAuthInitialize(String username) throws Exception;
 	public int userExist(String username) throws Exception;
 	public void update(User user) throws Exception;
+	public void delete(User user) throws Exception;
+	
 }

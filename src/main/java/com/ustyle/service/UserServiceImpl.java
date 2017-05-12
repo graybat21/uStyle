@@ -47,5 +47,11 @@ public class UserServiceImpl implements UserService {
 	public void update(User user) throws Exception {
 		dao.update(user);
 	}
+
+	@Override
+	public void delete(User user) throws Exception {
+		dao.delete(user);
+	}
+	
 	
 }

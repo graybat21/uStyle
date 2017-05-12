@@ -169,6 +169,33 @@ public class UserController {
 		return mav;
 	}
 
+	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
+	public String deleteForm() {
+		return "user/deleteForm/Delete";
+	}
+	
+	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
+	public String delete(User user, HttpSession session)
+			throws Exception {
+
+		user.setUsername((String) session.getAttribute("session_username"));
+		logger.info(user.toString());
+		User resultUser = service.userLogin(user);
+		logger.info(resultUser.toString());
+		String encodedPassword = resultUser.getPassword();
+		String encryptPassword = passwordEncoder.encode(user.getPassword());
+		System.out.println(encodedPassword);
+		System.out.println(encryptPassword);
+//		user.setPassword(encryptPassword);
+		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
+			return "user/deleteError/No Match PW";
+		}
+		
+		service.delete(user);
+
+		return "redirect:/logout.do";
+	}
+	
 	private void sendMail(String username, String email, String joinCode) throws Exception {
 
 		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();

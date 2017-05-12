@@ -36,11 +36,15 @@
     </update>
     
     <update id="update">
-	update tbl_user set password = #{password}, postcode = #{postcode}, phone = #{phone}, realname = #{realname},
-	addr1 = #{addr1}, addr2 = #{addr2}, point = #{point}
-	where username = #{username}
+		update tbl_user set password = #{password}, postcode = #{postcode}, phone = #{phone}, realname = #{realname},
+		addr1 = #{addr1}, addr2 = #{addr2}, point = #{point}
+		where username = #{username}
 	</update>
  
+ 	<delete id="delete" parameterType="user">
+ 		delete from tbl_user 
+ 		where username = #{username} and password = #{password}
+ 	</delete>
 </mapper>
 
 

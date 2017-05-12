@@ -45,4 +45,10 @@ public class UserDAOImpl implements UserDAO {
 		session.update(namespace + ".update", user);
 	}
 
+	@Override
+	public void delete(User user) {
+		session.delete(namespace+".delete",user);
+	}
+
+	
 }
