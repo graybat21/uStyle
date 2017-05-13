@@ -130,7 +130,6 @@ public class UserController {
 		sendMail(user.getUsername(), user.getEmail(), joinCode);
 
 		service.insert(user);
-//		session.setAttribute("USER", user);
 		mav.addObject(user);
 
 		return mav;
@@ -183,9 +182,7 @@ public class UserController {
 		logger.info(resultUser.toString());
 		String encodedPassword = resultUser.getPassword();
 		String encryptPassword = user.getPassword();
-//		System.out.println(encodedPassword);
-//		System.out.println(encryptPassword);
-//		user.setPassword(encryptPassword);
+
 		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
 			return "user/deleteError/No Match PW";
 		}

@@ -35,7 +35,7 @@
     	where username = #{username}
     </update>
     
-    <update id="update">
+    <update id="update" parameterType="user">
 		update tbl_user set password = #{password}, postcode = #{postcode}, phone = #{phone}, realname = #{realname},
 		addr1 = #{addr1}, addr2 = #{addr2}, point = #{point}
 		where username = #{username}

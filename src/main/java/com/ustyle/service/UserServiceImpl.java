@@ -42,12 +42,14 @@ public class UserServiceImpl implements UserService {
 	public int userExist(String username) throws Exception {
 		return dao.userExist(username);
 	}
-
+	
+	@Transactional
 	@Override
 	public void update(User user) throws Exception {
 		dao.update(user);
 	}
-
+	
+	@Transactional
 	@Override
 	public void delete(String username) throws Exception {
 		dao.delete(username);
