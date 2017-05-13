@@ -40,4 +40,15 @@ public class UserDAOImpl implements UserDAO {
 		return session.selectOne(namespace + ".userExist", username);
 	}
 
+	@Override
+	public void update(User user) {
+		session.update(namespace + ".update", user);
+	}
+
+	@Override
+	public void delete(User user) {
+		session.delete(namespace+".delete",user);
+	}
+
+	
 }

@@ -7,6 +7,7 @@ public interface UserDAO {
 	public User userLogin(User user); //
 	public boolean userAuthOk(User user); // 
 	public void userAuthInitialize(String username); // 
-	public int userExist(String username); 
-	
+	public int userExist(String username);
+	public void update(User user);
+	public void delete(User user);
 }

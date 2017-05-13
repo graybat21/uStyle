@@ -1,6 +1,6 @@
 package com.ustyle.controller;
 
-import java.util.Random;
+import java.util.Enumeration;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -65,6 +65,7 @@ public class UserController {
 			String rawPassword = user.getPassword();
 			String encodedPassword = resultUser.getPassword();
 			logger.info(resultUser.getAuth().toString());
+			
 			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
 				return "user/loginError/No Match PW";
 			} else if (!resultUser.getAuth().equals("y")) {
@@ -72,15 +73,16 @@ public class UserController {
 			}
 
 			HttpSession session = request.getSession();
-
-			session.setAttribute("USER", resultUser);
-			// session.setAttribute("session_realname",
-			// resultUser.getRealname());
+			
+			session.setAttribute("session_user", resultUser);
+			// session.setAttribute("session_realname", resultUser.getRealname());
+			
 			session.setAttribute("session_username", resultUser.getUsername());
 			session.setAttribute("session_point", resultUser.getPoint());
 			// session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
 
 			return "user/loginSuccess/LOGIN SUCCESS";
+			
 		} catch (NullPointerException e) {
 			return "user/loginError/LOGIN ERROR";
 		}
@@ -128,12 +130,72 @@ public class UserController {
 		sendMail(user.getUsername(), user.getEmail(), joinCode);
 
 		service.insert(user);
-		session.setAttribute("USER", user);
+//		session.setAttribute("USER", user);
 		mav.addObject(user);
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "update.do", method = RequestMethod.GET)
+	public String updateForm() {
+		return "user/update/Update";
+	}
+	
+	@RequestMapping(value = "update.do", method = RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute @Valid User updateUser, BindingResult bindingResult, HttpSession session)
+			throws Exception {
 
+		logger.info(updateUser.toString());
+		userEntryValidator.validate(updateUser, bindingResult);
+
+		String encryptPassword = passwordEncoder.encode(updateUser.getPassword());
+		updateUser.setPassword(encryptPassword);
+
+		ModelAndView mav = new ModelAndView("user/updateSuccess/UpdateSuccess");
+
+		if (bindingResult.hasErrors()) {
+			mav.getModel().putAll(bindingResult.getModel());
+			mav.setViewName("user/update/Update");
+			return mav;
+		}
+
+		service.update(updateUser);
+		
+		if (session != null) {	// 회원정보를 변경한 후, 다시 로그인하도록 유도한다.
+			session.invalidate();
+		}
+		mav.addObject(updateUser);
+
+		return mav;
+	}
+
+	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
+	public String deleteForm() {
+		return "user/deleteForm/Delete";
+	}
+	
+	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
+	public String delete(User user, HttpSession session)
+			throws Exception {
+
+		user.setUsername((String) session.getAttribute("session_username"));
+		logger.info(user.toString());
+		User resultUser = service.userLogin(user);
+		logger.info(resultUser.toString());
+		String encodedPassword = resultUser.getPassword();
+		String encryptPassword = passwordEncoder.encode(user.getPassword());
+		System.out.println(encodedPassword);
+		System.out.println(encryptPassword);
+//		user.setPassword(encryptPassword);
+		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
+			return "user/deleteError/No Match PW";
+		}
+		
+		service.delete(user);
+
+		return "redirect:/logout.do";
+	}
+	
 	private void sendMail(String username, String email, String joinCode) throws Exception {
 
 		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();

@@ -1,4 +1,5 @@
 pom.properties
+
 *.class
 
-MANIFEST.MF
+MANIFEST
