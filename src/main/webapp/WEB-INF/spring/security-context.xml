@@ -9,7 +9,7 @@
 	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<http auto-config="true">
+	<!-- <http auto-config="true">
 		<intercept-url pattern="/admin/item/create**"
 			access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/admin/item/update**"
@@ -21,7 +21,7 @@
 		<intercept-url pattern="/admin/item/search**"
 			access="hasRole('ROLE_ADMIN')"/>
 		<form-login login-page="/admin/masterLogin" login-processing-url="/j_spring_security_check" 
-			authentication-failure-url="/admin/masterLogin?login_error=1" default-target-url="/admin.do" />
+			authentication-failure-url="/admin/masterLogin?login_error=1" default-target-url="/item/list" />
 		<session-management>
 			<concurrency-control
 				max-sessions="1" error-if-maximum-exceeded="true" />
@@ -37,6 +37,6 @@
 					authorities="ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>
-	</authentication-manager>
+	</authentication-manager> -->
 
 </beans:beans>
