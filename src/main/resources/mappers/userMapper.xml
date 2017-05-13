@@ -15,12 +15,12 @@
     	values(#{username}, #{email}, #{password}, now(), #{postcode}, #{phone}, #{realname}, #{addr1}, #{addr2}, #{point}, #{auth} )
     </insert>
     
-    <select id="userLogin" parameterType="com.ustyle.domain.User" resultType="com.ustyle.domain.User">
+    <select id="userLogin" parameterType="user" resultType="user">
     	select * from tbl_user
     	where username = #{username}
     </select>
      
-    <select id="userAuthOk" parameterType="com.ustyle.domain.User" resultType="boolean">
+    <select id="userAuthOk" parameterType="user" resultType="boolean">
     	select (auth = #{auth}) from tbl_user
     	where username = #{username}
     </select>

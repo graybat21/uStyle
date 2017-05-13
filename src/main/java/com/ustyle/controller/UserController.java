@@ -137,12 +137,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "update.do", method = RequestMethod.GET)
-	public String updateForm(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		if ( session.getAttribute("session_username") == null )
-			return "user/login/LOGIN";
-		
+	public String updateForm() {
 		return "user/update/Update";
 	}
 	
@@ -175,33 +170,26 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
-	public String deleteForm(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		if ( session.getAttribute("session_username") == null )
-			return "user/login/LOGIN";
-		
+	public String deleteForm() {
 		return "user/deleteForm/Delete";
 	}
 	
 	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
 	public String delete(User user, HttpSession session)
 			throws Exception {
-
 		user.setUsername((String) session.getAttribute("session_username"));
 		logger.info(user.toString());
 		User resultUser = service.userLogin(user);
 		logger.info(resultUser.toString());
 		String encodedPassword = resultUser.getPassword();
 		String encryptPassword = user.getPassword();
-		System.out.println(encodedPassword);
-		System.out.println(encryptPassword);
+//		System.out.println(encodedPassword);
+//		System.out.println(encryptPassword);
 //		user.setPassword(encryptPassword);
 		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
 			return "user/deleteError/No Match PW";
 		}
-		
-		service.delete(user);
+		service.delete(user.getUsername());
 
 		return "redirect:/logout.do";
 	}
