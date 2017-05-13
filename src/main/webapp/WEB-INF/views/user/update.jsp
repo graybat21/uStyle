@@ -44,7 +44,8 @@
                             <div class="em-wrapper-area02"></div>
                             <div class="em-main-container em-col1-layout">
                                 <div class="row">
-                                    <div class="em-col-main col-sm-24">
+                                
+                                	<div class="col-sm-18 col-sm-push-6 em-col-main">
                                         <div class="account-create">
                                             <div class="page-title">
                                                 <h1>Create an Account</h1>
@@ -176,6 +177,9 @@
                                             </form:form>
                                         </div>
                                     </div>
+                                    
+                                    <%@ include file="/WEB-INF/views/include/sidemenu.jspf" %>
+                                    
                                 </div>
                             </div>
                         </div>

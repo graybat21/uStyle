@@ -42,7 +42,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "main/home/MAIN";
+		return "user/mypage/MyPage";
 	}
 	
 }
