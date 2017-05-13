@@ -1,6 +1,7 @@
 package com.ustyle.controller;
 
-import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.User;
 import com.ustyle.service.UserService;
+import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.UserEntryValidator;
 
 @Controller
@@ -259,4 +261,5 @@ public class UserController {
 	private String getUuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
+	
 }

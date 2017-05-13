@@ -1,5 +1,8 @@
 package com.ustyle.persistence;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -47,8 +50,17 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void delete(String username) {
-		session.delete(namespace+".delete",username);
+		session.delete(namespace + ".delete", username);
 	}
 
-	
+	@Override
+	public int selectListCnt() {
+		return session.selectOne(namespace + ".selectListCnt");
+	}
+
+	@Override
+	public List<User> userList(HashMap<String, Object> map) {
+		return session.selectList(namespace + ".userList", map);
+	}
+
 }

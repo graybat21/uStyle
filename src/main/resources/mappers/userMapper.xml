@@ -45,6 +45,27 @@
  		delete from tbl_user 
  		where username = #{username}
  	</delete>
+ 	
+ 	<select id="selectListCnt" resultType="int">
+ 		select count(*) from tbl_user
+ 	</select>
+ 	
+ 	<select id="userList" resultType="user" parameterType="hashmap">
+		select 
+			username, email, realname, create_time, 
+			addr1, addr2, postcode, 
+			phone, point, auth 
+		from
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					username, email, realname, create_time, 
+					addr1, addr2, postcode, 
+					phone, point, auth 
+			from tbl_user, (SELECT @row_number:=0) as t
+          	ORDER BY create_time DESC
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
 </mapper>
 
 
