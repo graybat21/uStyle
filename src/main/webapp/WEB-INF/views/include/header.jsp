@@ -15,7 +15,7 @@
 			<!-- in mobile, left 4/24 - logo -->
 			<div id="em-mheader-logo" class="col-xs-4">
 				<div class="em-logo">
-					<a href="#" title="Furniture Commerce" class="logo"><strong>Furniture
+					<a href="index.do" title="Furniture Commerce" class="logo"><strong>Furniture
 							Commerce</strong><img src="images/logo_small.png" alt="Furniture Commerce" /></a>
 				</div>
 			</div>
@@ -444,7 +444,7 @@
 					<!-- ë¡ê³  -->
 					<div class="col-sm-12 text-center">
 						<div class="em-logo">
-							<a href="#" title="uStyle" class="logo"><strong>uStyle</strong><img
+							<a href="index.do" title="uStyle" class="logo"><strong>uStyle</strong><img
 								class="retina-img" src="images/logo.png" alt="uStyle" /></a>
 						</div>
 					</div>

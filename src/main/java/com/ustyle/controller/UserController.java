@@ -106,6 +106,11 @@ public class UserController {
 	public String registerForm() {
 		return "user/register/Register";
 	}
+	
+	@RequestMapping(value = "index.do", method = RequestMethod.GET)
+	public String Index() {
+		return "user/index/uStyleHome";
+	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, HttpSession session)
