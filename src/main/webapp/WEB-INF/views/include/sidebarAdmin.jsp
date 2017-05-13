@@ -34,6 +34,19 @@
             <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i>포인트관리</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-calendar"></i>
+            <span>이벤트관리</span>
+            <span class="pull-right-container">
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            </span>
+          </a>
+          <!-- <ul class="treeview-menu">
+            <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i>회원정보조회</a></li>
+            <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i>포인트관리</a></li>
+          </ul> -->
+        </li>
         <!-- <li>
           <a href="../widgets.html">
             <i class="fa fa-th"></i> <span>Widgets</span>

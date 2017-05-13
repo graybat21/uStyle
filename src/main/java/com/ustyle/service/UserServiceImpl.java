@@ -1,5 +1,8 @@
 package com.ustyle.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -53,6 +56,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(String username) throws Exception {
 		dao.delete(username);
+	}
+
+	@Override
+	public int selectListCnt() throws Exception {
+		return dao.selectListCnt();
+	}
+
+	@Override
+	public List<User> userList(HashMap<String, Object> map) throws Exception {
+		return dao.userList(map);
 	}
 	
 	
