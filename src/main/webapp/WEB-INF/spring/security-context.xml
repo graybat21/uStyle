@@ -15,7 +15,7 @@
 		<intercept-url pattern="/admin/ma**.do"
 			access="hasRole('ROLE_ADMIN')"/>
 		<form-login login-page="/admin/login.do" login-processing-url="/j_spring_security_check" 
-			authentication-failure-url="/admin/login.do?login_error=1" default-target-url="/" />
+			authentication-failure-url="/admin/login.do?login_error=1" default-target-url="/admin/main.do" />
 		<session-management>
 			<concurrency-control
 				max-sessions="2" error-if-maximum-exceeded="true" />

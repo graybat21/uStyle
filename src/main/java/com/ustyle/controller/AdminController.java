@@ -35,7 +35,7 @@ public class AdminController {
 //	}
 	
 	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
-	public String logou() {
+	public String logout() {
 		return "login/logoutAdmin";
 	}
 }
