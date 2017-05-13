@@ -137,7 +137,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "update.do", method = RequestMethod.GET)
-	public String updateForm() {
+	public String updateForm(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		if ( session.getAttribute("session_username") == null )
+			return "user/login/LOGIN";
+		
 		return "user/update/Update";
 	}
 	
@@ -170,7 +175,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
-	public String deleteForm() {
+	public String deleteForm(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		if ( session.getAttribute("session_username") == null )
+			return "user/login/LOGIN";
+		
 		return "user/deleteForm/Delete";
 	}
 	
@@ -183,7 +193,7 @@ public class UserController {
 		User resultUser = service.userLogin(user);
 		logger.info(resultUser.toString());
 		String encodedPassword = resultUser.getPassword();
-		String encryptPassword = passwordEncoder.encode(user.getPassword());
+		String encryptPassword = user.getPassword();
 		System.out.println(encodedPassword);
 		System.out.println(encryptPassword);
 //		user.setPassword(encryptPassword);
