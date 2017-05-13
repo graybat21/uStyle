@@ -15,7 +15,7 @@
 			<!-- in mobile, left 4/24 - logo -->
 			<div id="em-mheader-logo" class="col-xs-4">
 				<div class="em-logo">
-					<a href="#" title="Furniture Commerce" class="logo"><strong>Furniture
+					<a href="/" title="Furniture Commerce" class="logo"><strong>Furniture
 							Commerce</strong><img src="images/logo_small.png" alt="Furniture Commerce" /></a>
 				</div>
 			</div>
@@ -65,19 +65,28 @@
 								<div class="">
 									<ul class="top-header-link links">
 										<!-- ë¡ê·¸ì¸ ëììëì ìëììë ëì¤ëê² ë¤ë¦. -->
-										<li class="first col-xs-8"><a title="Log In"
-											class="login-link fa fa-user" href="login.do"><span>Log
-													In</span></a></li>
-										<!-- <li class="first col-xs-8"><a title="Log Out"
-														class="logout-link fa fa-user" href="#"><span>Log
-																Out</span></a></li>
-													 -->
-										<li class="col-xs-8"><a title="Sign up"
-											class='signup-link fa fa-sign-out' href="register.do"><span>Sign
-													up</span></a></li>
-										<li class="last col-xs-8"><a href="#"
-											class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
-										</li>
+										<!-- 로그인 전 -->
+										<c:if test="${session_username == null }">
+											<li class="first col-xs-8"><a title="Log In"
+												class="login-link fa fa-user" href="login.do"><span>Log
+														In</span></a></li>
+											<li class="col-xs-8"><a title="Sign up"
+												class='signup-link fa fa-sign-out' href="register.do"><span>Sign
+														up</span></a></li>
+											<li class="last col-xs-8"><a href="#"
+												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
+											</li>
+										</c:if>
+										<!-- 로그인 후 -->
+										<c:if test="${session_username != null }">
+											<li class="first col-xs-8"><a title="LogOut"
+															class="logout-link fa fa-user" href="logout.do"><span>LogOut</span></a></li>
+											<li class="col-xs-8"><a title="S"
+												class='signup-link fa fa-sign-out' href="update.do"><span>${session_point } point</span></a></li>
+											<li class="last col-xs-8"><a href="#"
+												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
+											</li>
+										</c:if>
 									</ul>
 									<!-- /.top-header-link -->
 								</div>
@@ -327,7 +336,7 @@
 									</ul>
 								</div>
 								
-								<!-- 로그인전 -->
+								<!-- 로그인 전 -->
 								<c:if test="${session_username == null }">
 								<ul class="list-inline f-right">
 									<li><a class="em-register-link" href="register.do"
@@ -382,7 +391,7 @@
 								</div>
 								</c:if>
 								
-								<!-- 로그인후 -->
+								<!-- 로그인 후 -->
 								<c:if test="${session_username != null }">
 								<ul class="list-inline f-right">
 									<li><a class="em-register-link" href="update.do"
@@ -444,7 +453,7 @@
 					<!-- ë¡ê³  -->
 					<div class="col-sm-12 text-center">
 						<div class="em-logo">
-							<a href="#" title="uStyle" class="logo"><strong>uStyle</strong><img
+							<a href="/" title="uStyle" class="logo"><strong>uStyle</strong><img
 								class="retina-img" src="images/logo.png" alt="uStyle" /></a>
 						</div>
 					</div>
@@ -494,7 +503,7 @@
 					<div class="col-sm-24">
 						<div class="line-top text-center">
 							<div class="em-logo-sticky f-left">
-								<a href="#" title="Furniture Commerce" class="logo"><img
+								<a href="/" title="Furniture Commerce" class="logo"><img
 									src="images/logo_small.png" alt="Furniture Commerce" /> </a>
 							</div>
 							<div class="em-menu-hoz">
