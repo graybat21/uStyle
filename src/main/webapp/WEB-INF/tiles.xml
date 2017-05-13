@@ -30,6 +30,9 @@
 	<definition name="login/loginAdmin" template="/WEB-INF/views/admin/loginAdmin.jsp">
         <put-attribute name="content" value=""/>  
     </definition>
+	<definition name="login/logoutAdmin" template="/WEB-INF/views/admin/logoutAdmin.jsp">
+        <put-attribute name="content" value=""/>  
+    </definition>
 
 
 

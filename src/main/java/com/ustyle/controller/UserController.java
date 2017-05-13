@@ -262,36 +262,4 @@ public class UserController {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 	
-	//==================================================================================
-	// admin 부분 여기다 구현, 나중에 admin컨트롤러로 옮김
-	
-	@RequestMapping("/admin/userList.do")
-	public ModelAndView userList(PageMaker pagemaker, String searchKeyword) throws Exception{
-		ModelAndView mav=new ModelAndView();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-//		map.put("searchKeyword", searchKeyword);
-		int page = 1;
-		int totalCnt = 0;
-		int countPerPage = 10;
-		int countPerPaging = 5;
-		
-		page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
-		pagemaker.setPage(page);
-
-		totalCnt = service.selectListCnt(); // DB연동_ 총 갯수 구해오기
-		pagemaker.setCount(totalCnt, countPerPaging);
-
-		int first = ((pagemaker.getPage() - 1) * countPerPage) + 1;
-		int last = first + countPerPage - 1;
-		map.put("first", first);
-		map.put("last", last);
-		
-		List<User> list = service.userList(map);
-		mav.addObject("userList",list);
-		mav.setViewName("user/userList");
-		
-		logger.info(list.toString());
-		return mav;
-	}
-	
 }
