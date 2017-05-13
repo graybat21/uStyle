@@ -1,0 +1,62 @@
+<%@ page pageEncoding="UTF-8"%>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+
+<!-- 사이드바 -->
+<div class="col-sm-6 col-sm-pull-18 em-col-left em-sidebar">
+	<div class="em-wrapper-area02"></div>
+	<div class="em-line-01 block block-layered-nav">
+		<div class="em-block-title block-title">
+			<strong><span>MyPage</span></strong>
+		</div>
+		<div class="block-content">
+			<p class="block-subtitle"></p>
+			<dl id="narrow-by-list">
+				<dt>회원정보</dt>
+				<dd>
+					<ol class="filter tree-filter">
+						<li>
+							<div class="label-icon">
+								<div class="label">
+									<a class="tree-item" href="update.do">회원정보수정</a>
+								</div>
+							</div>
+							<ol>
+								<li class="selected">
+									<div class="label-icon">
+										<div class="label">
+											<a class="tree-item" href="delete.do"> 회원탈퇴</a>
+										</div>
+									</div>
+								</li>
+							</ol>
+						</li>
+					</ol>
+				</dd>
+				<dt>찜</dt>
+				<dd>
+					<div class="rslider">
+						<div id="slider-range"></div>
+						<div class="values">
+							<span id="from-val"><span class="price">88</span></span> <span
+								id="to-val"><span class="price">721</span></span>
+						</div>
+					</div>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<!-- /.block-layered-nav -->
+	<div class="em-line-01 block block-list block-compare ">
+		<div class="em-block-title block-title">
+			<strong><span>Compare Products (0)</span></strong>
+		</div>
+		<div class="block-content">
+			<p class="empty">You have no items to compare.</p>
+		</div>
+	</div>
+	<!-- /.block-compare -->
+</div>
+<!-- /.em-sidebar -->
