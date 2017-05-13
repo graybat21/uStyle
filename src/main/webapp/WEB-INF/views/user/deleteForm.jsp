@@ -29,7 +29,7 @@
                                 	<!-- 본문내용 -->
                                     <div class="col-sm-18 col-sm-push-6 em-col-main">
                                         <div class="page-title category-title">
-                                            <h1>Shoes</h1>
+                                            <h1>회원 탈퇴</h1>
                                         </div>
                                         
                                         <div class="category-products">
