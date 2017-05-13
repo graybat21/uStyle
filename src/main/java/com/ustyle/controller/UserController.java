@@ -177,21 +177,19 @@ public class UserController {
 	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
 	public String delete(User user, HttpSession session)
 			throws Exception {
-
 		user.setUsername((String) session.getAttribute("session_username"));
 		logger.info(user.toString());
 		User resultUser = service.userLogin(user);
 		logger.info(resultUser.toString());
 		String encodedPassword = resultUser.getPassword();
-		String encryptPassword = passwordEncoder.encode(user.getPassword());
-		System.out.println(encodedPassword);
-		System.out.println(encryptPassword);
+		String encryptPassword = user.getPassword();
+//		System.out.println(encodedPassword);
+//		System.out.println(encryptPassword);
 //		user.setPassword(encryptPassword);
 		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
 			return "user/deleteError/No Match PW";
 		}
-		
-		service.delete(user);
+		service.delete(user.getUsername());
 
 		return "redirect:/logout.do";
 	}
