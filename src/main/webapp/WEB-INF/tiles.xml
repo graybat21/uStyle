@@ -26,6 +26,10 @@
 		<put-attribute name="title" value="ADMIN" />
 		<put-attribute name="content" value="/WEB-INF/views/admin/{1}/{2}.jsp" />
 	</definition>
+	
+	<definition name="login/loginAdmin" template="/WEB-INF/views/admin/loginAdmin.jsp">
+        <put-attribute name="content" value=""/>  
+    </definition>
 
 
 

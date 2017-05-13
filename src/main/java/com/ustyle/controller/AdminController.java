@@ -11,9 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
+	@RequestMapping(value = "main.do", method = RequestMethod.GET)
+	public String mainForm() {
+		
+		
+		return "item/base";
+	}
+	
 	@RequestMapping(value = "login.do", method = RequestMethod.GET)
 	public String loginForm() {
-		return "admin/login";
+		return "login/loginAdmin";
 	}
 
 //	@RequestMapping(value = "login.do", method = RequestMethod.POST)
@@ -26,4 +33,9 @@ public class AdminController {
 //			return "user/loginError/LOGIN ERROR";
 //		}
 //	}
+	
+	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
+	public String logou() {
+		return "login/logoutAdmin";
+	}
 }
