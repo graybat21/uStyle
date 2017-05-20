@@ -25,57 +25,87 @@ li:hover .list_title strong {color:#e62a4a;}
 .svc_paging ul li:hover a, .svc_paging ul li.active a {color:#e62a4a;background-color:#fff;}
 
 </style>
+
+<script>
+function userDelete(){
+	
+}
+</script>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>회원 리스트</h1>
-		<!-- <ol class="breadcrumb">
+<body>
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>회원 리스트</h1>
+			<!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Examples</a></li>
         <li class="active">404 error</li>
       </ol> -->
-	</section>
+		</section>
 
-	<!-- Main content -->
-	<section class="content">
-		<c:forEach var="list" items="${userList}">
-			<%-- <c:url var="viewURL" value="userDetail.do">
-				<c:param name="no" value="${list.no }" />
-			</c:url> --%>
-			<ul>
-				<li><%-- <a href="${viewURL }"> --%>
-						<p class="list_title" align="left">
-							<strong>${list.username }</strong>
-							<span>${list.email } / ${list.realname} / ${list.point}</span>
-						</p>
-						<p class="list_date">
-							<fmt:formatDate value="${list.create_time }" pattern="yyyy.MM.dd" />
-						</p>
-				</li>
-			</ul>
-		</c:forEach>
+		<!-- Main content -->
+		<section class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box">
+						<div class="box-header with-border">
+							<h3 class="box-title">Bordered Table</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<table class="table table-bordered">
+								
+								<tr>
+									<th style="width: 10px">#</th>
+									<th>username / realname</th>
+									<th>email</th>
+									<th style="width: 40px">point</th>
+								</tr>
+								
+								<c:forEach var="list" items="${userList}" varStatus="status">
+								<c:url var="deleteUser" value="/admin/userDelete.do">
+									<c:param name="username" value="${list.username }" />
+								</c:url>
+								<tr>
+									<td>${status.count }</td>
+									<td><strong><div id="${status.count}">${list.username }</div></strong> 
+										<span>${list.realname}</span></td>
+									<td>${list.email }</td>
+									<td><a href="${deleteUser }"><input type="button" value="탈 퇴" onclick="return deleteUser()"></a></td>
+								</tr>
+								</c:forEach>
+								<script type="text/javascript">		
+									function deleteUser() {
+										return confirm("선택한 회원을 탈퇴시키겠습니까?");
+									}
+								</script>	
+							</table>
+						</div>
+						<!-- 페이징 -->
+						<div class="box-footer clearfix">
+							<ul class="pagination pagination-sm no-margin pull-right">
+								<c:if test="${userPageMaker.prev }">
+									<li><a href='userList.do?page=${userPageMaker.start -1}'>이전</a></li>
+								</c:if>
+								<c:forEach begin="${userPageMaker.start }"
+									end="${userPageMaker.end}" var="idx">
+									<li
+										class='<c:out value="${idx == userPageMaker.page ? 'current' : ''}"/>'>
+										<a href='userList.do?page=${idx}'>${idx}</a>
+									</li>
+								</c:forEach>
+								<c:if test="${userPageMaker.next }">
+									<li><a href='userList.do?page=${userPageMaker.end +1}'>다음</a></li>
+								</c:if>
+							</ul>
+						</div>
+					</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
 
-		<!-- 페이징 -->
-		<div class="svc_paging">
-		<ul class="pageUL">
-			<c:if test="${userPageMaker.prev }">
-				<li><a href='userList.do?page=${userPageMaker.start -1}'>이전</a></li>
-			</c:if>
-			<c:forEach begin="${userPageMaker.start }" end="${userPageMaker.end}"
-				var="idx">
-				<li
-					class='<c:out value="${idx == userPageMaker.page ? 'current' : ''}"/>'>
-					<a href='userList.do?page=${idx}'>${idx}</a>
-				</li>
-			</c:forEach>
-			<c:if test="${userPageMaker.next }">
-				<li><a href='userList.do?page=${userPageMaker.end +1}'>다음</a></li>
-			</c:if>
-		</ul>
-		</div>
-	</section>
-	<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
 
+
+</body>
