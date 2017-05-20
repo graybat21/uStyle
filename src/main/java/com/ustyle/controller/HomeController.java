@@ -41,13 +41,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-<<<<<<< HEAD
-			
-		return "item/base";
-=======
-		
 		return "main/home/MAIN";
->>>>>>> 77fc599b61e8cc2cc085ae989300e33442bce8f0
 	}
 	
 }
