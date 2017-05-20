@@ -54,6 +54,8 @@ public class UserController {
 	public String loginForm() {
 		return "user/login/LOGIN";
 	}
+	
+	
 
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
@@ -135,7 +137,6 @@ public class UserController {
 		sendMail(user.getUsername(), user.getEmail(), joinCode);
 
 		service.insert(user);
-//		session.setAttribute("USER", user);
 		mav.addObject(user);
 
 		return mav;
@@ -179,24 +180,21 @@ public class UserController {
 		return "user/deleteForm/Delete";
 	}
 	
+	
 	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
 	public String delete(User user, HttpSession session)
 			throws Exception {
-
 		user.setUsername((String) session.getAttribute("session_username"));
 		logger.info(user.toString());
 		User resultUser = service.userLogin(user);
 		logger.info(resultUser.toString());
 		String encodedPassword = resultUser.getPassword();
-		String encryptPassword = passwordEncoder.encode(user.getPassword());
-		System.out.println(encodedPassword);
-		System.out.println(encryptPassword);
-//		user.setPassword(encryptPassword);
+		String encryptPassword = user.getPassword();
+
 		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
 			return "user/deleteError/No Match PW";
 		}
-		
-		service.delete(user);
+		service.delete(user.getUsername());
 
 		return "redirect:/logout.do";
 	}

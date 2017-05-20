@@ -15,6 +15,7 @@
 			<!-- in mobile, left 4/24 - logo -->
 			<div id="em-mheader-logo" class="col-xs-4">
 				<div class="em-logo">
+
 					<a href="index.do" title="Furniture Commerce" class="logo"><strong>Furniture
 							Commerce</strong><img src="images/logo_small.png" alt="Furniture Commerce" /></a>
 				</div>
@@ -65,19 +66,28 @@
 								<div class="">
 									<ul class="top-header-link links">
 										<!-- ë¡ê·¸ì¸ ëììëì ìëììë ëì¤ëê² ë¤ë¦. -->
-										<li class="first col-xs-8"><a title="Log In"
-											class="login-link fa fa-user" href="login.do"><span>Log
-													In</span></a></li>
-										<!-- <li class="first col-xs-8"><a title="Log Out"
-														class="logout-link fa fa-user" href="#"><span>Log
-																Out</span></a></li>
-													 -->
-										<li class="col-xs-8"><a title="Sign up"
-											class='signup-link fa fa-sign-out' href="register.do"><span>Sign
-													up</span></a></li>
-										<li class="last col-xs-8"><a href="#"
-											class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
-										</li>
+										<!-- 로그인 전 -->
+										<c:if test="${session_username == null }">
+											<li class="first col-xs-8"><a title="Log In"
+												class="login-link fa fa-user" href="login.do"><span>Log
+														In</span></a></li>
+											<li class="col-xs-8"><a title="Sign up"
+												class='signup-link fa fa-sign-out' href="register.do"><span>Sign
+														up</span></a></li>
+											<li class="last col-xs-8"><a href="#"
+												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
+											</li>
+										</c:if>
+										<!-- 로그인 후 -->
+										<c:if test="${session_username != null }">
+											<li class="first col-xs-8"><a title="LogOut"
+															class="logout-link fa fa-user" href="logout.do"><span>LogOut</span></a></li>
+											<li class="col-xs-8"><a title="S"
+												class='signup-link fa fa-sign-out' href="update.do"><span>${session_point } point</span></a></li>
+											<li class="last col-xs-8"><a href="#"
+												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
+											</li>
+										</c:if>
 									</ul>
 									<!-- /.top-header-link -->
 								</div>
@@ -327,7 +337,7 @@
 									</ul>
 								</div>
 								
-								<!-- 로그인전 -->
+								<!-- 로그인 전 -->
 								<c:if test="${session_username == null }">
 								<ul class="list-inline f-right">
 									<li><a class="em-register-link" href="register.do"
@@ -382,7 +392,7 @@
 								</div>
 								</c:if>
 								
-								<!-- 로그인후 -->
+								<!-- 로그인 후 -->
 								<c:if test="${session_username != null }">
 								<ul class="list-inline f-right">
 									<li><a class="em-register-link" href="update.do"
@@ -444,12 +454,13 @@
 					<!-- ë¡ê³  -->
 					<div class="col-sm-12 text-center">
 						<div class="em-logo">
-							<a href="index.do" title="uStyle" class="logo"><strong>uStyle</strong><img
-								class="retina-img" src="images/logo.png" alt="uStyle" /></a>
+							<a href="index.do" title="uStyle" class="logo"><strong>uStyle</strong>
+							<img class="retina-img" src="images/logo.png" alt="uStyle" /></a>
 						</div>
 					</div>
 
 					<!-- ì¼íì¹´í¸ -->
+					
 					<div class="col-sm-6">
 						<div class="em-top-cart f-right">
 							<div
@@ -477,6 +488,7 @@
 							<!-- /.em-wrapper-js-topcart -->
 						</div>
 						<!-- /.em-top-cart -->
+					
 					</div>
 
 
@@ -494,7 +506,7 @@
 					<div class="col-sm-24">
 						<div class="line-top text-center">
 							<div class="em-logo-sticky f-left">
-								<a href="#" title="Furniture Commerce" class="logo"><img
+								<a href="/" title="Furniture Commerce" class="logo"><img
 									src="images/logo_small.png" alt="Furniture Commerce" /> </a>
 							</div>
 							<div class="em-menu-hoz">
@@ -503,6 +515,7 @@
 										<div class="megamenu-wrapper wrapper-4_3366">
 											<div class="em_nav" id="toogle_menu_4_3366">
 												<ul class="hnav em_hoz_menu effect-menu">
+													
 													<li
 														class="menu-item-link menu-item-depth-0  menu-item-parent">
 														<a class="em-menu-link" href=""> <span> Tops </span>
@@ -1011,6 +1024,7 @@
 														</ul>
 													</li>
 													<!-- /.menu-item-link -->
+													
 													<!-- <li
 																	class="menu-item-link menu-item-depth-0  menu-item-parent">
 																	<a class="em-menu-link" href="#"> <span>
@@ -1259,7 +1273,7 @@
 																		class="menu-item-vbox menu-item-depth-2 col-sm-4 grid_4 menu-item-parent"
 																		style="">
 																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
+																			<li class="menu-item-text menu-item-depth-3">
 																				<div class="em-line-01">
 																					<h5 class="text-uppercase">Q ~ Z</h5>
 																					<div>
@@ -1290,6 +1304,10 @@
 																			</li>
 																		</ul>
 																	</li>
+														
+														
+													
+															
 																	<!-- <li
 																					class="menu-item-vbox menu-item-depth-2 col-sm-4 grid_4 omega menu-item-parent"
 																					style="">
@@ -1337,6 +1355,12 @@
 														</ul>
 													</li>
 													<!-- /.menu-item-link -->
+													
+															<li class ="menu-teim-link menu-item-depth-0 menu-item-parent">
+													<a class="em-menu-link" href="notice.do"> <span> C/S </span> 
+													 </a>
+													 </li>
+													 
 												</ul>
 												<!-- /.hnav -->
 											</div>
@@ -1374,6 +1398,8 @@
 								<!-- /.em-top-search -->
 							</div>
 							<!-- /.em-search -->
+							
+							
 							<div class="em-search em-search-sticky f-right">
 								<div class="em-top-search">
 									<div class="em-wrapper-js-search em-search-style01">
@@ -1405,7 +1431,7 @@
 									<div class="em-container-topcart">
 										<div class="em-summary-topcart">
 											<a class="em-amount-js-topcart em-amount-topcart"
-												title="Shopping Cart" href="cart.do"> <span
+												title="Shopping Cart" href="cart.do"> <span 
 												class="em-topcart-text">My Cart:</span> <span
 												class="em-topcart-qty">0</span>
 											</a>

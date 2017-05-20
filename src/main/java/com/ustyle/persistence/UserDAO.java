@@ -9,5 +9,5 @@ public interface UserDAO {
 	public void userAuthInitialize(String username); // 
 	public int userExist(String username);
 	public void update(User user);
-	public void delete(User user);
+	public void delete(String username);
 }

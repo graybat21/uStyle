@@ -46,8 +46,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void delete(User user) {
-		session.delete(namespace+".delete",user);
+	public void delete(String username) {
+		session.delete(namespace+".delete",username);
 	}
 
 	

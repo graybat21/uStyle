@@ -15,36 +15,16 @@
 	<div class="wrapper">
 		<div class="page one-column">
 
-
-
-
-			<!-- <div class="wrapper-breadcrums">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-24">
-							<div class="breadcrumbs">
-								<ul>
-									<li class="home"><a href="index.html"
-										title="Go to Home Page"><span>Home</span></a> <span
-										class="separator">/ </span></li>
-									<li class="cms_page"><strong>Login</strong></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
-			<!-- /.wrapper-breadcrums -->
-			
-			
-
 			<div class="em-wrapper-main">
                     <div class="container container-main">
                         <div class="em-inner-main">
                             <div class="em-wrapper-area02"></div>
                             <div class="em-main-container em-col1-layout">
                                 <div class="row">
-                                    <div class="em-col-main col-sm-24">
+                                
+                                	
+                                
+                                	<div class="col-sm-18 col-sm-push-6 em-col-main">
                                         <div class="account-create">
                                             <div class="page-title">
                                                 <h1>Create an Account</h1>
@@ -176,6 +156,9 @@
                                             </form:form>
                                         </div>
                                     </div>
+                                    
+                                    <%@ include file="/WEB-INF/views/include/sidemenu.jspf" %>
+                                    
                                 </div>
                             </div>
                         </div>

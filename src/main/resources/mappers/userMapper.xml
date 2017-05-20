@@ -10,17 +10,17 @@
     <resultMap id="commonResultMap" type="hashMap">
     </resultMap-->
      
-    <insert id="insert" parameterType="com.ustyle.domain.User">
+    <insert id="insert" parameterType="user">
     	insert into tbl_user(username, email, password, create_time, postcode, phone, realname, addr1, addr2, point, auth)
     	values(#{username}, #{email}, #{password}, now(), #{postcode}, #{phone}, #{realname}, #{addr1}, #{addr2}, #{point}, #{auth} )
     </insert>
     
-    <select id="userLogin" parameterType="com.ustyle.domain.User" resultType="com.ustyle.domain.User">
+    <select id="userLogin" parameterType="user" resultType="user">
     	select * from tbl_user
     	where username = #{username}
     </select>
      
-    <select id="userAuthOk" parameterType="com.ustyle.domain.User" resultType="boolean">
+    <select id="userAuthOk" parameterType="user" resultType="boolean">
     	select (auth = #{auth}) from tbl_user
     	where username = #{username}
     </select>
@@ -35,15 +35,15 @@
     	where username = #{username}
     </update>
     
-    <update id="update">
+    <update id="update" parameterType="user">
 		update tbl_user set password = #{password}, postcode = #{postcode}, phone = #{phone}, realname = #{realname},
 		addr1 = #{addr1}, addr2 = #{addr2}, point = #{point}
 		where username = #{username}
 	</update>
  
- 	<delete id="delete" parameterType="user">
+ 	<delete id="delete" parameterType="String">
  		delete from tbl_user 
- 		where username = #{username} and password = #{password}
+ 		where username = #{username}
  	</delete>
 </mapper>
 
