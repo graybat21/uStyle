@@ -72,7 +72,6 @@ public class User {
 		this.addr2 = addr2;
 	}
 
-
 	public String getPostcode() {
 		return postcode;
 	}
@@ -107,7 +106,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "\nUser [username=" + username + ", password=" + password + ", email=" + email + ", create_time="
+		return "User [username=" + username + ", password=" + password + ", email=" + email + ", create_time="
 				+ create_time + ", addr1=" + addr1 + ", addr2=" + addr2 + ", postcode=" + postcode + ", phone=" + phone
 				+ ", point=" + point + ", realname=" + realname + ", auth=" + auth + "]";
 	}

@@ -35,7 +35,7 @@ public class UserEntryValidator implements Validator
 		if ( !(StringUtils.hasLength(user.getAddr2())) )
 			errors.rejectValue("addr2", "error.required");
 
-		if ( !(StringUtils.hasLength(Integer.toString(user.getPostcode()))) )
+		if ( !(StringUtils.hasLength(user.getPostcode())) )
 			errors.rejectValue("postcode", "error.required");
 		
 		if ( !(StringUtils.hasLength(user.getPhone())) )

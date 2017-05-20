@@ -6,7 +6,8 @@
 <!DOCTYPE html>
 <html class='no-js'>
 <head>
-
+<meta name="_csrf_header" content="X-CSRF-TOKEN" />
+<meta name="${_csrf.parameterName}" content="${_csrf.token}" />
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/commonUser.js"></script>
 

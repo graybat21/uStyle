@@ -26,11 +26,10 @@ public class AdminController {
 
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
 	public String mainForm() {
-
-		return "item/base";
+		return "main/base";
 	}
 
-	@RequestMapping(value = "login.do", method = RequestMethod.GET)
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String loginForm() {
 		return "login/loginAdmin";
 	}
