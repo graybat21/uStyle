@@ -37,15 +37,96 @@ function userDelete(){
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>회원 리스트</h1>
-			<!-- <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">404 error</li>
-      </ol> -->
 		</section>
 
-		<!-- Main content -->
-		<section class="content">
+ <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">회원리스트</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>username / realname</th>
+					<th>email</th>
+					<th>phone</th>
+					<th>point</th>
+					<th>address</th>
+					<th>create_time</th>
+					<th style="width: 60px">act</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="list" items="${userList}" varStatus="status">
+					<c:url var="deleteUser" value="/admin/userDelete.do">
+						<c:param name="username" value="${list.username }" />
+					</c:url>
+					<c:url var="initPoint" value="/admin/initializePoint.do">
+						<c:param name="username" value="${list.username }" />
+					</c:url>
+					<tr>
+						<td>${status.count }</td>
+						<td><strong>${list.username }</strong> 
+							<span>${list.realname}</span></td>
+						<td>${list.email }</td>
+						<td>${list.phone }</td>
+						<td>${list.point}</td>
+						<td>${list.create_time }</td>
+						<td>${list.addr1 }&nbsp;${list.addr2 }&nbsp;${list.postcode }</td>
+						<td><a href="${deleteUser }"><input type="button" value="탈 퇴" onclick="return deleteUser()"></a>
+						<a href="${initPoint }"><input type="button" value="0포인트" onclick="return initPoint()"></a></td>
+					</tr>
+				</c:forEach>
+					<script>		
+						function deleteUser() {
+							return confirm("선택한 회원을 탈퇴시키겠습니까?");
+						}
+						function initPoint(){
+							return confirm("선택한 회원의 포인트롤 초기화시키겠습니까?");
+						}
+					</script>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      <!-- 페이징 -->
+						<div class="box-footer clearfix">
+							<ul class="pagination pagination-sm no-margin pull-right">
+								<c:if test="${userPageMaker.prev }">
+									<li><a href='userList.do?page=${userPageMaker.start -1}'>이전</a></li>
+								</c:if>
+								<c:forEach begin="${userPageMaker.start }"
+									end="${userPageMaker.end}" var="idx">
+									<li
+										class='<c:out value="${idx == userPageMaker.page ? 'current' : ''}"/>'>
+										<a href='userList.do?page=${idx}'>${idx}</a>
+									</li>
+								</c:forEach>
+								<c:if test="${userPageMaker.next }">
+									<li><a href='userList.do?page=${userPageMaker.end +1}'>다음</a></li>
+								</c:if>
+							</ul>
+						</div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+
+
+
+		<%-- <section class="content">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="box">
@@ -60,24 +141,39 @@ function userDelete(){
 									<th style="width: 10px">#</th>
 									<th>username / realname</th>
 									<th>email</th>
-									<th style="width: 40px">point</th>
+									<th>phone</th>
+									<th>point</th>
+									<th>address</th>
+									<th>create_time</th>
+									<th style="width: 60px">act</th>
 								</tr>
 								
-								<c:forEach var="list" items="${userList}" varStatus="status">
+							<c:forEach var="list" items="${userList}" varStatus="status">
 								<c:url var="deleteUser" value="/admin/userDelete.do">
+									<c:param name="username" value="${list.username }" />
+								</c:url>
+								<c:url var="initPoint" value="/admin/initializePoint.do">
 									<c:param name="username" value="${list.username }" />
 								</c:url>
 								<tr>
 									<td>${status.count }</td>
-									<td><strong><div id="${status.count}">${list.username }</div></strong> 
+									<td><strong>${list.username }</strong> 
 										<span>${list.realname}</span></td>
 									<td>${list.email }</td>
-									<td><a href="${deleteUser }"><input type="button" value="탈 퇴" onclick="return deleteUser()"></a></td>
+									<td>${list.phone }</td>
+									<td>${list.point}</td>
+									<td>${list.create_time }</td>
+									<td>${list.addr1 }&nbsp;${list.addr2 }&nbsp;${list.postcode }</td>
+									<td><a href="${deleteUser }"><input type="button" value="탈 퇴" onclick="return deleteUser()"></a>
+									<a href="${deleteUser }"><input type="button" value="0포인트" onclick="return initPoint()"></a></td>
 								</tr>
-								</c:forEach>
+							</c:forEach>
 								<script type="text/javascript">		
 									function deleteUser() {
 										return confirm("선택한 회원을 탈퇴시키겠습니까?");
+									}
+									function initPoint(){
+										return confirm("선택한 회원의 포인트롤 초기화시키겠습니까?");
 									}
 								</script>	
 							</table>
@@ -101,10 +197,7 @@ function userDelete(){
 							</ul>
 						</div>
 					</div>
-		</section>
-		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
+		</section> --%>
 
 
 

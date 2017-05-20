@@ -10,7 +10,7 @@ public class User {
 	private Date create_time;
 	private String addr1;
 	private String addr2;
-	private int postcode;
+	private String postcode;
 	private String phone;
 	private int point;
 	private String realname;
@@ -72,11 +72,12 @@ public class User {
 		this.addr2 = addr2;
 	}
 
-	public int getPostcode() {
+
+	public String getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 
@@ -106,7 +107,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", email=" + email + ", create_time="
+		return "\nUser [username=" + username + ", password=" + password + ", email=" + email + ", create_time="
 				+ create_time + ", addr1=" + addr1 + ", addr2=" + addr2 + ", postcode=" + postcode + ", phone=" + phone
 				+ ", point=" + point + ", realname=" + realname + ", auth=" + auth + "]";
 	}

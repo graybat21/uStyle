@@ -40,6 +40,10 @@
 		addr1 = #{addr1}, addr2 = #{addr2}, point = #{point}
 		where username = #{username}
 	</update>
+	<update id="updatePoint" parameterType="user">
+		update tbl_user set point = #{point}
+		where username = #{username}
+	</update>
  
  	<delete id="delete" parameterType="String">
  		delete from tbl_user 

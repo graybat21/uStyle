@@ -60,7 +60,7 @@ public class AdminController {
 		// map.put("searchKeyword", searchKeyword);
 		int page = 1;
 		int totalCnt = 0;
-		int countPerPage = 5;
+		int countPerPage = 10;
 		int countPerPaging = 3;
 
 		page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
@@ -81,6 +81,15 @@ public class AdminController {
 
 		logger.info(list.toString());
 		return mav;
+	}
+	
+	@RequestMapping("/admin/initializePoint.do")
+	public String initializePoint(@RequestParam String username)throws Exception{
+		User user = new User();
+		user.setUsername(username);
+		user.setPoint(0);
+		userService.updatePoint(user);
+		return "redirect:/admin/userList.do";
 	}
 	
 	@RequestMapping("userDelete.do")

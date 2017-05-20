@@ -17,6 +17,7 @@ public interface UserDAO {
 	public int userExist(String username);
 
 	public void update(User user);
+	public void updatePoint(User user);
 
 	public void delete(String username);
 

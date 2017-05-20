@@ -54,6 +54,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	@Override
+	public void updatePoint(User user) throws Exception {
+		dao.updatePoint(user);
+	}
+
+	@Transactional
+	@Override
 	public void delete(String username) throws Exception {
 		dao.delete(username);
 	}

@@ -52,6 +52,7 @@
                                                 <h1>Create an Account</h1>
                                             </div>
                                             <form:form commandName="user" method="post" id="form_validate" name="form_validate" onsubmit="return verifyOK()">
+                                            
                                                 <div class="fieldset">
                                                 	<spring:hasBindErrors name="user">
 														<font color="red">
@@ -62,6 +63,7 @@
 													</spring:hasBindErrors>
                                                     <input type="hidden" name="success_url" value="" />
                                                     <input type="hidden" name="error_url" value="" />
+                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                                     <h2 class="legend">Login Information</h2>
                                                     <ul class="form-list">
                                                         <li class="fields">

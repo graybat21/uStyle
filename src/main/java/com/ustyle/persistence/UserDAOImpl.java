@@ -49,6 +49,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public void updatePoint(User user) {
+		session.update(namespace + ".updatePoint", user);
+	}
+
+	@Override
 	public void delete(String username) {
 		session.delete(namespace + ".delete", username);
 	}
