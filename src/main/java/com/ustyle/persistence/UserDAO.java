@@ -17,10 +17,11 @@ public interface UserDAO {
 	public int userExist(String username);
 
 	public void update(User user);
+	public void updatePoint(User user);
 
 	public void delete(String username);
 
-	public int selectListCnt();
+	public int selectListCnt(HashMap<String, Object> map);
 
 	public List<User> userList(HashMap<String, Object> map);
 }

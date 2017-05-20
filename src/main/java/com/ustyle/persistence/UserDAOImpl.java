@@ -49,13 +49,18 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public void updatePoint(User user) {
+		session.update(namespace + ".updatePoint", user);
+	}
+
+	@Override
 	public void delete(String username) {
 		session.delete(namespace + ".delete", username);
 	}
 
 	@Override
-	public int selectListCnt() {
-		return session.selectOne(namespace + ".selectListCnt");
+	public int selectListCnt(HashMap<String,Object> map) {
+		return session.selectOne(namespace + ".selectListCnt",map);
 	}
 
 	@Override

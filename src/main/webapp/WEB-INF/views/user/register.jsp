@@ -53,6 +53,7 @@
                                                 <h1>Create an Account</h1>
                                             </div>
                                             <form:form commandName="user" method="post" id="form_validate" name="form_validate" onsubmit="return verifyOK()">
+                                            
                                                 <div class="fieldset">
                                                 	<spring:hasBindErrors name="user">
 														<font color="red">

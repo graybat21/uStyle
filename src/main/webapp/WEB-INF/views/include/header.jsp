@@ -15,7 +15,8 @@
 			<!-- in mobile, left 4/24 - logo -->
 			<div id="em-mheader-logo" class="col-xs-4">
 				<div class="em-logo">
-					<a href="/" title="Furniture Commerce" class="logo"><strong>Furniture
+
+					<a href="index.do" title="Furniture Commerce" class="logo"><strong>Furniture
 							Commerce</strong><img src="images/logo_small.png" alt="Furniture Commerce" /></a>
 				</div>
 			</div>
@@ -352,7 +353,6 @@
 										style="display: none;">
 										<form method="post" id="top-login-form">
 											<input name="form_key" type="hidden" value="iMzNKKno559ogiTe" />
-											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 											<div class="block-content">
 												<p class="login-title h6 primary">Login</p>
 												<p class="login-desc">If you have an account with us,
@@ -454,12 +454,13 @@
 					<!-- ë¡ê³  -->
 					<div class="col-sm-12 text-center">
 						<div class="em-logo">
-							<a href="/" title="uStyle" class="logo"><strong>uStyle</strong><img
-								class="retina-img" src="images/logo.png" alt="uStyle" /></a>
+							<a href="index.do" title="uStyle" class="logo"><strong>uStyle</strong>
+							<img class="retina-img" src="images/logo.png" alt="uStyle" /></a>
 						</div>
 					</div>
 
 					<!-- ì¼íì¹´í¸ -->
+					
 					<div class="col-sm-6">
 						<div class="em-top-cart f-right">
 							<div
@@ -487,6 +488,7 @@
 							<!-- /.em-wrapper-js-topcart -->
 						</div>
 						<!-- /.em-top-cart -->
+					
 					</div>
 
 
@@ -513,6 +515,7 @@
 										<div class="megamenu-wrapper wrapper-4_3366">
 											<div class="em_nav" id="toogle_menu_4_3366">
 												<ul class="hnav em_hoz_menu effect-menu">
+													
 													<li
 														class="menu-item-link menu-item-depth-0  menu-item-parent">
 														<a class="em-menu-link" href=""> <span> Tops </span>
@@ -1021,6 +1024,7 @@
 														</ul>
 													</li>
 													<!-- /.menu-item-link -->
+													
 													<!-- <li
 																	class="menu-item-link menu-item-depth-0  menu-item-parent">
 																	<a class="em-menu-link" href="#"> <span>
@@ -1269,7 +1273,7 @@
 																		class="menu-item-vbox menu-item-depth-2 col-sm-4 grid_4 menu-item-parent"
 																		style="">
 																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
+																			<li class="menu-item-text menu-item-depth-3">
 																				<div class="em-line-01">
 																					<h5 class="text-uppercase">Q ~ Z</h5>
 																					<div>
@@ -1300,6 +1304,10 @@
 																			</li>
 																		</ul>
 																	</li>
+														
+														
+													
+															
 																	<!-- <li
 																					class="menu-item-vbox menu-item-depth-2 col-sm-4 grid_4 omega menu-item-parent"
 																					style="">
@@ -1347,6 +1355,12 @@
 														</ul>
 													</li>
 													<!-- /.menu-item-link -->
+													
+															<li class ="menu-teim-link menu-item-depth-0 menu-item-parent">
+													<a class="em-menu-link" href="notice.do"> <span> C/S </span> 
+													 </a>
+													 </li>
+													 
 												</ul>
 												<!-- /.hnav -->
 											</div>
@@ -1384,6 +1398,8 @@
 								<!-- /.em-top-search -->
 							</div>
 							<!-- /.em-search -->
+							
+							
 							<div class="em-search em-search-sticky f-right">
 								<div class="em-top-search">
 									<div class="em-wrapper-js-search em-search-style01">
@@ -1415,7 +1431,7 @@
 									<div class="em-container-topcart">
 										<div class="em-summary-topcart">
 											<a class="em-amount-js-topcart em-amount-topcart"
-												title="Shopping Cart" href="cart.do"> <span
+												title="Shopping Cart" href="cart.do"> <span 
 												class="em-topcart-text">My Cart:</span> <span
 												class="em-topcart-qty">0</span>
 											</a>

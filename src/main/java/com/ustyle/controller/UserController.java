@@ -56,6 +56,8 @@ public class UserController {
 	public String loginForm() {
 		return "user/login/LOGIN";
 	}
+	
+	
 
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
@@ -107,6 +109,11 @@ public class UserController {
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String registerForm() {
 		return "user/register/Register";
+	}
+	
+	@RequestMapping(value = "index.do", method = RequestMethod.GET)
+	public String Index() {
+		return "user/index/uStyleHome";
 	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
@@ -174,6 +181,7 @@ public class UserController {
 	public String deleteForm() {
 		return "user/deleteForm/Delete";
 	}
+	
 	
 	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
 	public String delete(User user, HttpSession session)

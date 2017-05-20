@@ -17,10 +17,11 @@ public interface UserService {
 	public int userExist(String username) throws Exception;
 
 	public void update(User user) throws Exception;
-
+	public void updatePoint(User user) throws Exception;
+	
 	public void delete(String username) throws Exception;
 
-	public int selectListCnt() throws Exception;
+	public int selectListCnt(HashMap<String, Object> map) throws Exception;
 
 	public List<User> userList(HashMap<String, Object> map) throws Exception;
 
