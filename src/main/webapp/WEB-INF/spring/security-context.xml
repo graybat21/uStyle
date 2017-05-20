@@ -10,10 +10,14 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<http auto-config="true">
-		<intercept-url pattern="/admin/ma**.do"
+		<!--intercept-url pattern="/admin/login.do"
+			access="permitAll"/>
+		<intercept-url pattern="/admin/login.do"
+			access="permitAll"/-->
+		<intercept-url pattern="/admin/**.do"
 			access="hasRole('ROLE_ADMIN')"/>
-		<form-login login-page="/admin/login.do" login-processing-url="/admin/loginAuth" 
-			authentication-failure-url="/admin/login.do?login_error=1" default-target-url="/admin/main.do" />
+		<form-login login-page="/admin/login" login-processing-url="/admin/loginAuth" 
+			authentication-failure-url="/admin/login?login_error=1" default-target-url="/admin/main.do" />
 		<session-management>
 			<concurrency-control
 				max-sessions="2" error-if-maximum-exceeded="true" />
