@@ -55,6 +55,7 @@ public class AdminController {
 	public ModelAndView userList(PageMaker pagemaker, String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println("얍얍");
 		// map.put("searchKeyword", searchKeyword);
 		int page = 1;
 		int totalCnt = 0;
