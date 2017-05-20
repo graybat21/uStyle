@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int selectListCnt() throws Exception {
-		return dao.selectListCnt();
+	public int selectListCnt(HashMap<String, Object> map) throws Exception {
+		return dao.selectListCnt(map);
 	}
 
 	@Override

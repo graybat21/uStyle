@@ -50,8 +50,11 @@
  		where username = #{username}
  	</delete>
  	
- 	<select id="selectListCnt" resultType="int">
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_user
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if>
  	</select>
  	
  	<select id="userList" resultType="user" parameterType="hashmap">
@@ -65,6 +68,9 @@
 					addr1, addr2, postcode, 
 					phone, point, auth 
 			from tbl_user, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		where ${searchOption} like '%${searchKeyword}%'
+  			</if>
           	ORDER BY create_time DESC
 			) X 
 		where X.row_number between #{first} and #{last}

@@ -59,8 +59,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int selectListCnt() {
-		return session.selectOne(namespace + ".selectListCnt");
+	public int selectListCnt(HashMap<String,Object> map) {
+		return session.selectOne(namespace + ".selectListCnt",map);
 	}
 
 	@Override
