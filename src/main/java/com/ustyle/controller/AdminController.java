@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.User;
@@ -21,7 +22,7 @@ import com.ustyle.utils.PageMaker;
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@Inject
-	private UserService service;
+	private UserService userService;
 
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
 	public String mainForm() {
@@ -54,6 +55,7 @@ public class AdminController {
 	public ModelAndView userList(PageMaker pagemaker, String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println("얍얍");
 		// map.put("searchKeyword", searchKeyword);
 		int page = 1;
 		int totalCnt = 0;
@@ -63,7 +65,7 @@ public class AdminController {
 		page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
 		pagemaker.setPage(page);
 
-		totalCnt = service.selectListCnt(); // DB연동_ 총 갯수 구해오기
+		totalCnt = userService.selectListCnt(); // DB연동_ 총 갯수 구해오기
 		pagemaker.setCount(totalCnt, countPerPaging);
 
 		int first = ((pagemaker.getPage() - 1) * countPerPage) + 1;
@@ -71,12 +73,18 @@ public class AdminController {
 		map.put("first", first);
 		map.put("last", last);
 
-		List<User> list = service.userList(map);
+		List<User> list = userService.userList(map);
 		mav.addObject("userList", list);
 		mav.addObject("userPageMaker", pagemaker);
 		mav.setViewName("user/userList");
 
 		logger.info(list.toString());
 		return mav;
+	}
+	
+	@RequestMapping("userDelete.do")
+	public String userDelete(@RequestParam String username) throws Exception{
+		userService.delete(username);
+		return "redirect:/admin/userList.do";
 	}
 }
