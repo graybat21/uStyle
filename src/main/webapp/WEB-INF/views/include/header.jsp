@@ -16,7 +16,7 @@
 			<div id="em-mheader-logo" class="col-xs-4">
 				<div class="em-logo">
 					<a href="/" title="Furniture Commerce" class="logo"><strong>Furniture
-							Commerce</strong><img src="images/logo_small.png" alt="Furniture Commerce" /></a>
+							Commerce</strong><img src="${contextPath }images/logo_small.png" alt="Furniture Commerce" /></a>
 				</div>
 			</div>
 
