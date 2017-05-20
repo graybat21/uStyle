@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,7 +26,11 @@
             We could not find the page you were looking for.
             Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the search form.
           </p>
-
+			<form action="<c:url value='/admin/logout' />" method="post">		
+			  <input type="submit" value="LogOut" />
+			  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			</form>
+			<!-- 로그아웃 시, 반드시 POST 방식을 이용하여 전송되어야 함 -->
           <form class="search-form">
             <div class="input-group">
               <input type="text" name="search" class="form-control" placeholder="Search">

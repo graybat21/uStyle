@@ -38,9 +38,9 @@
   	<div class="login-box-body">
     	<p class="login-box-msg">uStyle 관리자 로그인</p>
     	<c:if test="${not empty param.login_error}">		
-			<font color="red">${SPRING_SECURITY_LAST_EXCEPTION.message}</font>
+			<font color="red">관리자 ID, PW가 올바르지 않습니다. 확인 후 다시 입력해주세요.</font>
 		</c:if>
-    	<form method="post" action="<c:url value='/j_spring_security_check' />">
+    	<form method="post" action="<c:url value='/admin/loginAuth' />">
     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<div class="form-group has-feedback">
 		  	<input type="text" name="username" class="form-control" placeholder="Admin Name">
