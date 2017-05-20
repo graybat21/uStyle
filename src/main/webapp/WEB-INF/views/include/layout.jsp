@@ -8,10 +8,17 @@
 <head>
 <meta charset="UTF-8" />
 <title><tiles:getAsString name="title" /></title>
+<style>
+#content {
+	min-height: 1000px
+}
+</style>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
+	<div id="content">
 	<tiles:insertAttribute name="content" />
+	</div>
 	<tiles:insertAttribute name="footer" />
 
 </body>

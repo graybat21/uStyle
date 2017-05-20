@@ -9,25 +9,17 @@
 	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- <http auto-config="true">
-		<intercept-url pattern="/admin/item/create**"
+	<http auto-config="true">
+		<intercept-url pattern="/admin/**.do"
 			access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/admin/item/update**"
-			access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/admin/item/delete**"
-			access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/admin/item/index**"
-			access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/admin/item/search**"
-			access="hasRole('ROLE_ADMIN')"/>
-		<form-login login-page="/admin/masterLogin" login-processing-url="/j_spring_security_check" 
-			authentication-failure-url="/admin/masterLogin?login_error=1" default-target-url="/item/list" />
+		<form-login login-page="/admin/login" login-processing-url="/admin/loginAuth" 
+			authentication-failure-url="/admin/login?login_error=1" default-target-url="/admin/main.do" />
 		<session-management>
 			<concurrency-control
-				max-sessions="1" error-if-maximum-exceeded="true" />
+				max-sessions="2" error-if-maximum-exceeded="true" />
 		</session-management>
-		<logout logout-url="/j_spring_security-logout" 
-			logout-success-url="/admin/masterLogout" invalidate-session="true" />
+		<logout logout-url="/admin/logout"
+			logout-success-url="/admin/main.do" invalidate-session="true" />
 	</http>
 	
 	<authentication-manager>
@@ -37,6 +29,6 @@
 					authorities="ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>
-	</authentication-manager> -->
-
+	</authentication-manager>
+	
 </beans:beans>

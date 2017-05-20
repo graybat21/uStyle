@@ -47,6 +47,7 @@
 										</div>
 										<form method="post" id="login-form">
 											<input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" />
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 											<div class="col2-set">
 												<div class="col-1 new-users">
 													<div class="content">

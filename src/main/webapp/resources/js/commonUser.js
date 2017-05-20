@@ -189,6 +189,9 @@ function isExistUser()		// use keyup event -> To check id
 {
 	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;	
 	
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var token = $("meta[name='_csrf']").attr("content");
+	
 	$("#username").keyup(function() {
 		if ( $("#username").val().length >= 6 )
 		{	
@@ -199,6 +202,9 @@ function isExistUser()		// use keyup event -> To check id
 			  //data : JSON.stringify({ username : $("#username").val() }),
 			  data : $("#username").val(),
 			  //dataType: "json",
+			  beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 			  success : function(data) {
 			    if (data) {
 			    	$("#duplicateResult").text("이미 해당 아이디로 가입된 회원이 있습니다. 다른 아이디를 입력해주세요."); 

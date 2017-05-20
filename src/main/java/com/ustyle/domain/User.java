@@ -10,7 +10,7 @@ public class User {
 	private Date create_time;
 	private String addr1;
 	private String addr2;
-	private int postcode;
+	private String postcode;
 	private String phone;
 	private int point;
 	private String realname;
@@ -72,11 +72,11 @@ public class User {
 		this.addr2 = addr2;
 	}
 
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 

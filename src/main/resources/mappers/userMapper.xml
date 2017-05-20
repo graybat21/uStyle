@@ -40,11 +40,42 @@
 		addr1 = #{addr1}, addr2 = #{addr2}, point = #{point}
 		where username = #{username}
 	</update>
+	<update id="updatePoint" parameterType="user">
+		update tbl_user set point = #{point}
+		where username = #{username}
+	</update>
  
  	<delete id="delete" parameterType="String">
  		delete from tbl_user 
  		where username = #{username}
  	</delete>
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_user
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if>
+ 	</select>
+ 	
+ 	<select id="userList" resultType="user" parameterType="hashmap">
+		select 
+			username, email, realname, create_time, 
+			addr1, addr2, postcode, 
+			phone, point, auth 
+		from
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					username, email, realname, create_time, 
+					addr1, addr2, postcode, 
+					phone, point, auth 
+			from tbl_user, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		where ${searchOption} like '%${searchKeyword}%'
+  			</if>
+          	ORDER BY create_time DESC
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
 </mapper>
 
 

@@ -21,28 +21,26 @@ public class PageMaker {
 		this.page = page;
 	}
 
-	public void setCount(Integer count, int countPerPaging) {
+	public void setCount(Integer count, int countPerPage, int countPerPaging) {
 		if (count < 1) {
 			return;
 		}
 		this.count = count;
-		calcPage(countPerPaging);
+		calcPage(countPerPage, countPerPaging);
 	}
 
-	private void calcPage(int countPerPaging) {
+	private void calcPage(int countPerPage, int countPerPaging) {
 		// page변수는 현재 페이지번호, 현재 페이지번호를 기준으로 끝 페이지를 계산한다.
 		int tempEnd = (int) (Math.ceil(page / (float) countPerPaging) * countPerPaging);
 		// 시작 페이지 계산
-		this.start = tempEnd - countPerPaging + 1;
+		this.start = tempEnd - countPerPaging + 1;// 1
 
-		if (tempEnd * countPerPaging > this.count) { // 가상으로 계산한 tempEnd크기가 실제
-														// count보다 많을경우
-			this.end = (int) Math.ceil(this.count / (float) countPerPaging);
-		} else {
-			this.end = tempEnd; // 실제 count가 tempEnd보다 많을경우
+		this.end = (int) Math.ceil(this.count / (float) countPerPage);
+		if (tempEnd * countPerPage < this.count){
+			this.end = tempEnd;
 		}
-		this.prev = this.start != 1;
-		this.next = this.end * countPerPaging < this.count;
+		this.prev = this.start == 1 ? false : true;
+		this.next = this.end * countPerPage >= this.count ? false : true;
 	}
 
 	public Integer getStart() {
