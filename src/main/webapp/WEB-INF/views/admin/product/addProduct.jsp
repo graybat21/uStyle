@@ -1,0 +1,184 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+.fileDrop {
+	width: 80%;
+	height: 100px;
+	border: 1px dotted gray;
+	background-color: lightslategrey;
+	margin: auto;
+}
+</style>
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>Add Product</h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+	<div class="row">
+		<!-- left column -->
+		<div class="col-md-12">
+			<!-- general form elements -->
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title">Add Product</h3>
+				</div>
+				<!-- /.box-header -->
+				
+				<form id="registerForm" role="form" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<div class="box-body">
+						<div class="col-sm-8 form-group">
+							<label for="exampleInputEmail1">상품명</label>
+							<input type="text" name="productname" class="form-control" placeholder="상품명을 입력하세요.">
+						</div>
+						<div class="col-sm-4 form-group">
+							<label for="exampleInputEmail1">브랜드</label>
+							<input type="text" name="brand" class="form-control" placeholder="상품의 브랜드를 입력하세요.">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">상세설명</label>
+							<textarea class="form-control" name="description" rows="3"
+								placeholder="상세 설명을 입력하세요."></textarea>
+						</div>
+						<div class="col-sm-6 form-group">
+							<label for="exampleInputEmail1">카테고리</label>
+							<input type="text" name="category" class="form-control" placeholder="상품의 카테고리를 입력하세요.">
+						</div>
+						<div class="col-sm-6 form-group">
+							<label for="exampleInputEmail1">서브 카테고리</label>
+							<input type="text" name="subcategory" class="form-control" placeholder="상품의 서브 카테고리를 입력하세요.">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">상품의 이미지 첨부(아래의 영역에 이미지를 Drag & Drop해주시면 됩니다)</label>
+							<div class="fileDrop"></div>
+						</div>
+					</div>
+					<!-- /.box-body -->
+					
+					<div class="box-footer">
+						<div>
+							<hr>
+						</div>
+						
+						<ul class="mailbox-attachments clearfix uploadedList">
+						</ul>
+						
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</form>
+			</div>
+			<!-- /.box -->
+		</div>
+		<!--/.col (left) -->
+		</div>
+		<!-- /.row -->
+	</section>
+	    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+ <script type="text/javascript" src="/resources/js/upload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<script id="template" type="text/x-handlebars-template">
+<li>
+	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}"
+	alt="Attachment"></span>
+	<div class="mailbox-attachment-info">
+		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+		<a href="{{fullName}}"
+			class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a>
+	</div>
+</li>
+</script>
+
+<script>
+	
+	var template = Handlebars.compile($("#template").html());
+	
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var token  = $("meta[name='_csrf']").attr("content");
+	
+	$(".fileDrop").on("dragenter dragover", function(event) {
+		event.preventDefault();
+	});
+
+	$(".fileDrop").on("drop", function(event) {
+		event.preventDefault();
+		
+		var files = event.originalEvent.dataTransfer.files;
+		
+		var file = files[0];
+		
+		console.log(file);
+		var formData = new FormData();
+		
+		formData.append("file", file);
+		
+		$.ajax({
+			url: '/uploadAjax',
+			data: formData,
+			dataType: 'text',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+		    },
+			success: function(data) {
+				var fileInfo = getFileInfo(data);
+				
+				var html = template(fileInfo);
+				
+				$(".uploadedList").append(html);
+			}	
+		});
+	});
+	
+	$("#registerForm").submit(function(event) {
+		event.preventDefault();
+		
+		var that = $(this);
+		
+		var str = "";
+		
+		$(".uploadedList .delbtn").each(function(index) {
+			str += "<input type='hidden' name='files[" + index + "]' value='" 
+				+ $(this).attr("href") + "'> ";
+		});
+		
+		that.append(str);
+		
+		that.get(0).submit();
+	});
+	
+	$(".uploadedList").on("click", ".delbtn", function(event){
+
+		event.preventDefault();
+
+		var that = $(this);
+
+		//alert("DELETE FILE");
+
+		$.ajax({
+			url: "/deleteFile",
+			type: "POST",
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+		    },
+			data: {fileName:$(this).attr("href")},
+			dataType: "text",
+			success: function(result){
+				console.log("RESULT: " + result);
+				if ( result == 'deleted' )
+					that.closest("li").remove();
+			}
+		});
+	});
+
+</script>
+  

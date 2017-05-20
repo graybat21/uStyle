@@ -16,9 +16,24 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/item/add.do"><i class="fa fa-circle-o"></i>상품추가</a></li>
+          	<li><a href="../../index2.html"><i class="fa fa-circle-o"></i>상품조회</a></li>
+            <li><a href="/admin/product/addProduct.do"><i class="fa fa-circle-o"></i>상품추가</a></li>
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i>상품수정</a></li>
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i>상품삭제</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>아이템관리</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          	<li><a href="../../index2.html"><i class="fa fa-circle-o"></i>아이템조회</a></li>
+            <li><a href="/admin/product/addItem.do"><i class="fa fa-circle-o"></i>아이템추가</a></li>
+            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i>아이템수정</a></li>
+            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i>아이템삭제</a></li>
           </ul>
         </li>
         <li class="treeview">

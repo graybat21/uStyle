@@ -6,6 +6,7 @@
 
 	<typeAliases>
 		<typeAlias alias="user" type="com.ustyle.domain.User" />
+		<typeAlias alias="product" type="com.ustyle.domain.Product" />
 	</typeAliases>
 
 </configuration>
