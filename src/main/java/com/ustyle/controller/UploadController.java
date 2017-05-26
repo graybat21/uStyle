@@ -76,11 +76,19 @@ public class UploadController
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception
 	{
-		logger.info("originalName: " + file.getOriginalFilename());
+		String originalFilename = file.getOriginalFilename();
 		
-		return new ResponseEntity<>(
-				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), 
+		logger.info("originalName: " + originalFilename);
+		
+		String formatName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+		logger.info(formatName.toString());
+		
+		if ( MediaUtils.getMediaType(formatName) != null )		// 파일의 이미지 업로드만 가능하게 함
+			return new ResponseEntity<String>(
+				UploadFileUtils.uploadFile(uploadPath, originalFilename, 
 						file.getBytes()), HttpStatus.CREATED);
+		else
+			return new ResponseEntity<String>("", HttpStatus.CREATED);
 	}
 	
 	@ResponseBody

@@ -4,20 +4,15 @@
 
 	<insert id="insert" parameterType="product">
 		<choose>
-		<when test="files == null">
-    		insert into tbl_product(productname, description, brand, category, subcategory)
-    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory} )
+		<when test="pictureUrl != null">
+    		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl)
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureUrl} )
     	</when>
     	<otherwise>
-    		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl)
-    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{files})
+    		insert into tbl_product(productname, description, brand, category, subcategory)
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory})
     	</otherwise>
     	</choose>
-    </insert>
-    
-    <insert id="updateImageUrl" parameterType="product">
-    	insert into tbl_product(productname, description, brand, category, subcategory)
-    	values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory} )
     </insert>
  
 </mapper>

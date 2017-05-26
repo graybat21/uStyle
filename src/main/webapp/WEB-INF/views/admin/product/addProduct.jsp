@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <style>
 .fileDrop {
 	width: 80%;
@@ -28,32 +30,44 @@
 				</div>
 				<!-- /.box-header -->
 				
-				<form id="registerForm" role="form" method="post">
+				<form:form commandName="product" id="registerForm" role="form" method="post">
+					<spring:hasBindErrors name="user">
+						<font color="red">
+							<c:forEach items="${errors.globalErrors}" var="error">
+								<spring:message code="${error.code}" />
+							</c:forEach>
+						</font>
+					</spring:hasBindErrors>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="box-body">
 						<div class="col-sm-8 form-group">
 							<label for="exampleInputEmail1">상품명</label>
-							<input type="text" name="productname" class="form-control" placeholder="상품명을 입력하세요.">
+							<input type="text" name="productname" value="${product.productname}" class="form-control" placeholder="상품명을 입력하세요.">
+							<font color="red"><form:errors path="productname"/></font>
 						</div>
 						<div class="col-sm-4 form-group">
 							<label for="exampleInputEmail1">브랜드</label>
-							<input type="text" name="brand" class="form-control" placeholder="상품의 브랜드를 입력하세요.">
+							<input type="text" name="brand" value="${product.brand}" class="form-control" placeholder="상품의 브랜드를 입력하세요.">
+							<font color="red"><form:errors path="brand"/></font>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">상세설명</label>
 							<textarea class="form-control" name="description" rows="3"
-								placeholder="상세 설명을 입력하세요."></textarea>
+								placeholder="상세 설명을 입력하세요.">${product.description}</textarea>
+							<font color="red"><form:errors path="description"/></font>
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">카테고리</label>
-							<input type="text" name="category" class="form-control" placeholder="상품의 카테고리를 입력하세요.">
+							<input type="text" name="category" value="${product.category}" class="form-control" placeholder="상품의 카테고리를 입력하세요.">
+							<font color="red"><form:errors path="category"/></font>
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">서브 카테고리</label>
-							<input type="text" name="subcategory" class="form-control" placeholder="상품의 서브 카테고리를 입력하세요.">
+							<input type="text" name="subcategory" value="${product.subcategory}" class="form-control" placeholder="상품의 서브 카테고리를 입력하세요.">
+							<font color="red"><form:errors path="subcategory"/></font>
 						</div>
 						<div class="form-group">
-							<label for="exampleInputEmail1">상품의 이미지 첨부(아래의 영역에 이미지를 Drag & Drop해주시면 됩니다)</label>
+							<label for="exampleInputEmail1">상품의 이미지 첨부(아래의 영역에 이미지를 Drag and Drop해주시면 됩니다)</label>
 							<div class="fileDrop"></div>
 						</div>
 					</div>
@@ -69,7 +83,7 @@
 						
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
-				</form>
+				</form:form>
 			</div>
 			<!-- /.box -->
 		</div>
@@ -130,11 +144,18 @@
 				xhr.setRequestHeader(header, token);
 		    },
 			success: function(data) {
-				var fileInfo = getFileInfo(data);
-				
-				var html = template(fileInfo);
-				
-				$(".uploadedList").append(html);
+				if ( checkImageType(data) )		// 이미지 업로드만 가능하게 함
+				{
+					var fileInfo = getFileInfo(data);
+					
+					var html = template(fileInfo);
+					
+					$(".uploadedList").append(html);
+				}
+				else
+				{
+					alert("이미지만 업로드 가능합니다.");
+				}
 			}	
 		});
 	});
