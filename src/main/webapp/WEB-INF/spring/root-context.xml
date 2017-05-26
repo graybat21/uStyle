@@ -61,6 +61,7 @@
 	<!-- Form 검증 관련 Bean 등록 -->
 	<bean id="loginValidator" class="com.ustyle.utils.LoginValidator" />
 	<bean id="userEntryValidator" class="com.ustyle.utils.UserEntryValidator" />
+	<bean id="productUploadValidator" class="com.ustyle.utils.ProductUploadValidator" />
 	
 	
 	<bean id="transactionManager"
