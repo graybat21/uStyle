@@ -14,7 +14,40 @@
     	</otherwise>
     	</choose>
     </insert>
- 
+ 	<select id="getNewProductId" resultType="int">
+ 		SELECT AUTO_INCREMENT
+		FROM information_schema.TABLES
+		WHERE TABLE_SCHEMA = 'ustyle'
+		AND TABLE_NAME = 'tbl_product'
+ 	</select>
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_product
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if>
+ 	</select>
+ 	
+ 	<select id="productList" resultType="product" parameterType="hashmap">
+		SELECT 
+			productid, productname, description, brand, 
+			category, subcategory
+		FROM
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					productid, productname, description, brand, 
+					category, subcategory
+			FROM tbl_product, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		WHERE ${searchOption} LIKE '%${searchKeyword}%'
+  			</if>
+          	ORDER BY productid DESC
+			) X 
+		WHERE X.row_number BETWEEN #{first} and #{last}
+	</select>
+	<delete id="delete" parameterType="int">
+ 		delete from tbl_product
+ 		where productid = #{productid}
+ 	</delete>
 </mapper>
 
 

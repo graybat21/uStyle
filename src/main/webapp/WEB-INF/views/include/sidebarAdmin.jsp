@@ -16,7 +16,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          	<li><a href="../../index2.html"><i class="fa fa-circle-o"></i>상품조회</a></li>
+          	<li><a href="/admin/product/productList.do"><i class="fa fa-circle-o"></i>상품조회</a></li>
             <li><a href="/admin/product/addProduct.do"><i class="fa fa-circle-o"></i>상품추가</a></li>
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i>상품수정</a></li>
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i>상품삭제</a></li>
