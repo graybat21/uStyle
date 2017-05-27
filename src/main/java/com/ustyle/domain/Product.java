@@ -10,7 +10,7 @@ public class Product {
 	private String description;
 	private String brand;
 	private String[] files;
-	private String pictureUrl;
+	private String pictureurl;
 	private String category;
 	private String subcategory;
 	private Date create_time;
@@ -63,17 +63,17 @@ public class Product {
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
 	}
-	public String getPictureUrl() {
-		return pictureUrl;
-	}
-	public void setPictureUrl(String pictureUrl) {
-		this.pictureUrl = pictureUrl;
-	}
 	
+	public String getPictureurl() {
+		return pictureurl;
+	}
+	public void setPictureurl(String pictureurl) {
+		this.pictureurl = pictureurl;
+	}
 	@Override
 	public String toString() {
 		return "\nProduct [productid=" + productid + ", productname=" + productname + ", description=" + description
-				+ ", brand=" + brand + ", files=" + Arrays.toString(files) + ", pictureUrl=" + pictureUrl
+				+ ", brand=" + brand + ", files=" + Arrays.toString(files) + ", pictureUrl=" + pictureurl
 				+ ", category=" + category + ", subcategory=" + subcategory + ", create_time=" + create_time + "]";
 	}
 }
