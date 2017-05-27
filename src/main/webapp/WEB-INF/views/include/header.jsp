@@ -353,6 +353,8 @@
 										style="display: none;">
 										<form method="post" id="top-login-form">
 											<input name="form_key" type="hidden" value="iMzNKKno559ogiTe" />
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+												
 											<div class="block-content">
 												<p class="login-title h6 primary">Login</p>
 												<p class="login-desc">If you have an account with us,

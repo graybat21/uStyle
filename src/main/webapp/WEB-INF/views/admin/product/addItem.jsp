@@ -58,7 +58,7 @@ function removeChar(event) {
 						</div>
 						<div class="col-sm-4 form-group">
 							<label for="exampleInputEmail1">상품 고유번호</label>
-							<input type="text" name="productid" class="form-control" placeholder="상품의 고유번호를 입력하세요.">
+							<input type="text" name="productid" class="form-control" placeholder="상품의 고유번호를 입력하세요." value="${productid }">
 						</div>
 						<div class="col-sm-2 form-group">
 							<label for="exampleInputEmail1">재고수량</label>

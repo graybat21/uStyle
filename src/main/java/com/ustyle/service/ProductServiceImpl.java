@@ -1,6 +1,8 @@
 package com.ustyle.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -31,6 +33,28 @@ public class ProductServiceImpl implements ProductService {
 			return;
 	}
 
+	@Override
+	public int selectListCnt(HashMap<String, Object> map) throws Exception {
+		return dao.selectListCnt(map);
+	}
+
+	@Override
+	public List<Product> productList(HashMap<String, Object> map) throws Exception {
+		return dao.productList(map);
+	}
+
+	@Override
+	public void delete(int productid) throws Exception {
+		dao.delete(productid);
+	}
+
+	@Override
+	public int getNewProductId() throws Exception {
+		return dao.getNewProductId();
+	}
+
+
+	
 //	@Transactional
 //	@Override
 //	public User userLogin(User user) throws Exception {
