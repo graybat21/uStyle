@@ -58,7 +58,7 @@
 											<td><strong>${list.productid }</strong></td>
 											<td>
 											<img src="${pageContext.request.contextPath}/resources/upload${list.pictureurl }" width="100px"></td>
-											<td>${list.productname }</td>
+											<td><a href="readProduct.do?productid=${list.productid}">${list.productname }</a></td>
 											<td>${list.brand}</td>
 											<td>${list.category }</td>
 											<td>${list.subcategory }</td>

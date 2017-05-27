@@ -67,10 +67,6 @@
 							<label for="exampleInputEmail1">서브 카테고리</label>
 							<input type="text" name="subcategory" value="${product.subcategory}" class="form-control" readonly>
 						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">이미지 주소</label>
-							<input type="text" name="imageurl" value="${product.files}" class="form-control" readonly>
-						</div>
 					</div>
 					<!--  /.box-body -->
 					
