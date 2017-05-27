@@ -17,7 +17,7 @@
 				<div class="em-logo">
 
 					<a href="index.do" title="Furniture Commerce" class="logo"><strong>Furniture
-							Commerce</strong><img src="images/logo_small.png" alt="Furniture Commerce" /></a>
+							Commerce</strong><img src="${pageContext.request.contextPath}/resources/images/logo_small.png" alt="Furniture Commerce" /></a>
 				</div>
 			</div>
 
@@ -457,7 +457,7 @@
 					<div class="col-sm-12 text-center">
 						<div class="em-logo">
 							<a href="index.do" title="uStyle" class="logo"><strong>uStyle</strong>
-							<img class="retina-img" src="images/logo.png" alt="uStyle" /></a>
+							<img class="retina-img" src="${pageContext.request.contextPath}/resources/images/logo.png" alt="uStyle" /></a>
 						</div>
 					</div>
 
@@ -509,7 +509,7 @@
 						<div class="line-top text-center">
 							<div class="em-logo-sticky f-left">
 								<a href="/" title="Furniture Commerce" class="logo"><img
-									src="images/logo_small.png" alt="Furniture Commerce" /> </a>
+									src="${pageContext.request.contextPath}/resources/images/logo_small.png" alt="Furniture Commerce" /> </a>
 							</div>
 							<div class="em-menu-hoz">
 								<div id="em-main-megamenu">

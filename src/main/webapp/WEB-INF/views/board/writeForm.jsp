@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,61 +7,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Write something else you want</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
- 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
- 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <script>
-  $(function () {
-    CKEDITOR.replace('editor1');
-  });
+	$(function() {
+		CKEDITOR.replace('editor1');
+	});
+
+	function sendData() {
+		if (!document.getElementById("title").value) {
+			alert("제목을 입력하세요.");
+			return false;
+		}
+		if (!CKEDITOR.instances.editor1.getData()) {
+			alert("내용을 입력하세요.");
+			return false;
+		}
+		
+		$("#notice_form").submit();
+	}
+	
+	function resetCkEditor(){
+		CKEDITOR.instances.editor1.setData('');
+	}
 </script>
 </head>
 <body>
-<div class="container">
-<table class="table table-bordered">
-    <thead>
-        <caption> 글쓰기 </caption>
-    </thead>
-    <tbody>
-        <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
-            <tr>
-                <th>제목: </th>
-                <td><input type="text" placeholder="제목을 입력하세요. " name="subject" class="form-control"/></td>
-            </tr>
-            <tr>
-                <th>내용: </th>
-                <td><textarea id="editor1" paceholder="This is my textarea to be replaced with CKEditor."
-                name="editor1" rows="10" cols="80" class="form-control"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <th>첨부파일: </th>
-                <td><input type="text" placeholder="파일을 선택하세요. " name="filename" class="form-control"/></td>
-            </tr>
-            <tr>
+	<div class="container">
+		<table class="table table-bordered">
+			<thead>
+			<caption>글쓰기</caption>
+			</thead>
+			<tbody>
+				<form id="notice_form" method="post" encType="multiplart/form-data">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<tr>
+						<th>제목:</th>
+						<td><input type="text" placeholder="제목을 입력하세요. " id="title"
+							name="title" class="form-control" /></td>
+					</tr>
+					<tr>
+						<th>내용:</th>
+						<td><textarea id="editor1"
+								name="content" rows="10" cols="80" class="form-control"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>첨부파일:</th>
+						<td><input type="text" placeholder="파일을 선택하세요. " name="file"
+							class="form-control" /></td>
+					</tr>
+					<!-- <tr>
                 <th>비밀번호: </th>
                 <td><input type="password" placeholder="비밀번호를 입력하세요" class="form-control"/></td>
-            </tr>
-            
-            <tr>
-                <td colspan="2">
-                    <input type="button" value="등록" onclick="sendData()" class="pull-right"/>
-                    <input type="button" value="reset" class="pull-left"/>
-                    <input type="button" value="글 목록으로... " class="pull-right" onclick="javascript:location.href='list.jsp'"/>
-                    <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
+            </tr> -->
+
+					<tr>
+						<td colspan="2"><input type="button" value="등록"
+							onclick="sendData()" class="pull-right" /> <input type="reset"
+							value="리셋" onclick="resetCkEditor()" class="pull-left" /> <input type="button"
+							value="글 목록으로... " class="pull-right"
+							onclick="location.href='notice.do'" /> <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
                     <a class="btn btn-default" type="reset"> reset </a>
                     <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
-                </td>
-            </tr>
-        </form>
-    </tbody>
-</table>
-</div>
+						</td>
+					</tr>
+				</form>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
