@@ -56,8 +56,8 @@
 										</c:url>
 										<tr>
 											<td><strong>${list.productid }</strong></td>
-											<td>pictureurl</td>
-											<%-- <img src="C:\zzz\upload${list.pictureurl[0] }" width="100px"> --%>
+											<td>
+											<img src="${pageContext.request.contextPath}/resources/upload${list.pictureurl }" width="100px"></td>
 											<td>${list.productname }</td>
 											<td>${list.brand}</td>
 											<td>${list.category }</td>

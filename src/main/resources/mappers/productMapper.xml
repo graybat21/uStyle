@@ -31,11 +31,11 @@
  	<select id="productList" resultType="product" parameterType="hashmap">
 		SELECT 
 			productid, productname, description, brand, 
-			category, subcategory
+			category, subcategory, pictureurl
 		FROM
 			(SELECT (@row_number:=@row_number+1) as row_number,
 					productid, productname, description, brand, 
-					category, subcategory
+					category, subcategory, pictureurl
 			FROM tbl_product, (SELECT @row_number:=0) as t
           	<if test="searchKeyword != null || searchKeyword == ''">
     		WHERE ${searchOption} LIKE '%${searchKeyword}%'

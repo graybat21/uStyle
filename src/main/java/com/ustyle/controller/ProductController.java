@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Product;
-import com.ustyle.domain.User;
 import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.ProductUploadValidator;
@@ -36,7 +35,9 @@ public class ProductController {
 
 	@Inject
 	private ProductUploadValidator validator;
-
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
 	@RequestMapping(value = "addProduct.do", method = RequestMethod.GET)
 	public String addProductForm() {
 		return "product/addProduct";
@@ -52,7 +53,7 @@ public class ProductController {
 		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
 		{
 			String filesStr = Arrays.toString(files);
-			product.setPictureUrl(filesStr);
+			product.setPictureurl(filesStr);
 		}
 
 		logger.info(product.toString());
@@ -103,17 +104,30 @@ public class ProductController {
 		List<Product> list = service.productList(map);
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		logger.info(list.toString());
+		String temp = null;
+		for (int i = 0; i < list.size(); i++) {
+			temp = list.get(i).getPictureurl();
+			if (temp.length() < 50) {
+				temp = "/ustylenone.jpg";
+			} else {
+				temp = temp.substring(1, 55);
+			}
+			System.out.println(temp);
+			list.get(i).setPictureurl(temp);
+		}
 		mav.addObject("productList", list);
 		mav.addObject("pageMaker", pagemaker);
 		mav.setViewName("product/productList");
 		mav.addObject("searchOption", searchOption);
 		mav.addObject("searchKeyword", searchKeyword);
+		mav.addObject("uploadPath", uploadPath);
 		return mav;
 	}
 
 	@RequestMapping("deleteProduct.do")
 	public String productDelete(@RequestParam int productid) throws Exception {
 		service.delete(productid);
+		// product 지워지면 자동으로 연관된 item도 지워짐?
 		return "redirect:/admin/product/productList.do";
 	}
 }
