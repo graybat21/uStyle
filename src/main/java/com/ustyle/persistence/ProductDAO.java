@@ -8,8 +8,10 @@ import com.ustyle.domain.Product;
 public interface ProductDAO {
 	public void insert(Product product);
 	public int selectListCnt(HashMap<String, Object> map);
-
 	public List<Product> productList(HashMap<String, Object> map);
+	public Product read(Integer pid) throws Exception;
+	public String selectPictureUrl(Integer pid) throws Exception;
+	
 //	public void insertImageUrl(String filesStr);
 //
 //	public User userLogin(User user); //

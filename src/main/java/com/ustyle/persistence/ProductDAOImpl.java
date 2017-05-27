@@ -22,6 +22,16 @@ public class ProductDAOImpl implements ProductDAO {
 	public void insert(Product product) {
 		session.insert(namespace + ".insert", product);
 	}
+	
+	@Override
+	public Product read(Integer productid) throws Exception {
+		return session.selectOne(namespace + ".read", productid);
+	}
+	
+	@Override
+	public String selectPictureUrl(Integer productid) throws Exception {
+		return session.selectOne(namespace + ".selectPictureUrl", productid);
+	}
 
 	@Override
 	public int selectListCnt(HashMap<String, Object> map) {
