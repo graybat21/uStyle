@@ -8,8 +8,9 @@ import com.ustyle.domain.Product;
 public interface ProductService {
 	public void insert(Product product) throws Exception;
 	public int selectListCnt(HashMap<String, Object> map) throws Exception;
-
 	public List<Product> productList(HashMap<String, Object> map) throws Exception;
+	public Product read(Integer bno) throws Exception;
+	public String selectPictureurl(Integer productid) throws Exception;
 
 //	public User userLogin(User user) throws Exception;
 //

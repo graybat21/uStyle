@@ -1,5 +1,6 @@
 package com.ustyle.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Product;
@@ -35,6 +38,7 @@ public class ProductController {
 
 	@Inject
 	private ProductUploadValidator validator;
+	
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
@@ -71,13 +75,34 @@ public class ProductController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/readPage", method = RequestMethod.GET)
-	public void readProduct(@RequestParam("pid") int pid, 
-				 ModelAndView mav) throws Exception
+	@RequestMapping(value = "readProduct.do", method = RequestMethod.GET)
+	public String readProduct(@RequestParam("productid") Integer productid, 
+				 Model model) throws Exception
 	{
-//		mav.addAttribute(service.read(bno));
+		Product readProduct = service.read(productid);
+		
+//		String[] imageFiles = readProduct.getPictureurl().split(",");
+//		readProduct.setFiles(imageFiles);
 
-		// return "redirect:/admin/main.do";
+		logger.info(readProduct.toString());
+		
+		model.addAttribute("product", readProduct);
+
+		 return "product/readProduct";
+	}
+	
+	@RequestMapping("readProductImage/{productid}")
+	@ResponseBody
+	public List<String> readProductImage(@PathVariable("productid") Integer productid) throws Exception
+	{
+		String readPictureUrl = service.selectPictureurl(productid).replaceAll("\\[|\\]", "");
+		String[] imageFiles = readPictureUrl.split(",");
+		List<String> readPictureList = new ArrayList<String>(Arrays.asList(imageFiles));
+		
+		for ( String aaa : readPictureList )
+			logger.info(aaa.toString());
+		
+		return readPictureList;
 	}
 
 	@RequestMapping(value = "addItem.do", method = RequestMethod.GET)

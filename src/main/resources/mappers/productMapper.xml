@@ -4,9 +4,9 @@
 
 	<insert id="insert" parameterType="product">
 		<choose>
-		<when test="pictureUrl != null">
+		<when test="pictureurl != null">
     		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl)
-    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureUrl} )
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureurl} )
     	</when>
     	<otherwise>
     		insert into tbl_product(productname, description, brand, category, subcategory)
@@ -14,6 +14,15 @@
     	</otherwise>
     	</choose>
     </insert>
+    
+    <select id="read" resultType="product">
+ 		select * from tbl_product where productid=#{productid}
+ 	</select>
+ 	
+ 	<select id="selectPictureUrl" resultType="java.lang.String">
+ 		select pictureurl from tbl_product where productid=#{productid}
+ 	</select>
+    
  	<select id="getNewProductId" resultType="int">
  		SELECT AUTO_INCREMENT
 		FROM information_schema.TABLES
