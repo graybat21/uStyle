@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
@@ -64,104 +64,92 @@
 		
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>날짜</th>
-					<th>조회수</th>
+					<th style="width: 10%; text-align: center">번호</th>
+					<th style="width: 53%; text-align: center">제목</th>
+					<th style="width: 10%; text-align: center">작성자</th>
+					<th style="width: 20%; text-align: center">날짜</th>
+					<th style="width: 7%; text-align: center">조회수</th>
 				</tr>		
 			</thead>
 			
 			<tbody>
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
-				
-				<tr>
-					<td>165</td>
-					<td>제목은 뭐롤하는게 좋을까요</td>
-					<td>병일쨩</td>
-					<td>2017.05.20</td>
-					<td>2</td>
-				</tr>
+			
+				<c:forEach var="item" items="${noticeList }">
+					<c:url var="viewNotice" value="noticeView.do">
+						<c:param name="bno" value="${item.bno }" />
+					</c:url> 
+					<tr>
+					
+						<td style="text-align: center;"><a href="${viewNotice }">${item.bno }</a></td>
+						<td style="text-align: center;"><a href="${viewNotice }">${item.title }</a></td>
+						<td style="text-align: center;">관리자</td>
+						<td style="text-align: center;">
+						<fmt:formatDate value="${item.regdate }" pattern="yyyy-MM-dd hh:mm"/>
+						</td>
+						<td style="text-align: center;">${item.viewcnt }</td>
+					</tr>
+				</c:forEach>
 				
 			</tbody>
 		</table>
-		<div class="btn btn-default pull-right">글쓰기</div>
+		<a href="noticeWrite.do"><div class="btn btn-default pull-right">글쓰기</div></a>
 	</div>
-	
-	
 		
 		
 	<div class="bottom">
 		
 		<div class="text-center">
 			<ul class="pagination">
-				<li><a href="#">1</a>
-				<li><a href="#">2</a>
-				<li><a href="#">3</a>
-				<li><a href="#">4</a>
-				<li><a href="#">5</a>
+				<c:if test="${pageMaker.prev }">
+					<c:if test="${searchKeyword != null }">
+						<c:url var="noticeListP" value="notice.do">
+							<c:param name="page" value="${pageMaker.start - 1}" />
+							<c:param name="o" value="${searchOption }"></c:param>
+							<c:param name="k" value="${searchKeyword }"></c:param>
+						</c:url>
+					</c:if>
+					<c:if test="${searchKeyword == null }">
+						<c:url var="noticeListP" value="notice.do">
+							<c:param name="page" value="${pageMaker.start - 1}" />
+						</c:url>
+					</c:if>
+					<li><a href="${noticeListP }">이전</a></li>
+				</c:if>
+				<c:forEach begin="${pageMaker.start }" end="${pageMaker.end}"
+					var="idx">
+					<c:if test="${searchKeyword != null }">
+						<c:url var="noticeListP" value="notice.do">
+							<c:param name="page" value="${idx}" />
+							<c:param name="o" value="${searchOption }"></c:param>
+							<c:param name="k" value="${searchKeyword }"></c:param>
+						</c:url>
+					</c:if>
+					<c:if test="${searchKeyword == null }">
+						<c:url var="noticeListP" value="notice.do">
+							<c:param name="page" value="${idx}" />
+						</c:url>
+					</c:if>
+					<li
+						class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>'>
+						<a href='${noticeListP }'>${idx}</a>
+					</li>
+
+				</c:forEach>
+				<c:if test="${pageMaker.next }">
+					<c:if test="${searchKeyword != null }">
+						<c:url var="noticeListP" value="notice.do">
+							<c:param name="page" value="${pageMaker.end + 1}" />
+							<c:param name="o" value="${searchOption }"></c:param>
+							<c:param name="k" value="${searchKeyword }"></c:param>
+						</c:url>
+					</c:if>
+					<c:if test="${searchKeyword == null }">
+						<c:url var="noticeListP" value="notice.do">
+							<c:param name="page" value="${pageMaker.end + 1}" />
+						</c:url>
+					</c:if>
+					<li><a href="${noticeListP }">다음</a></li>
+				</c:if>
 			</ul>
 		</div>
 		</div>

@@ -7,6 +7,7 @@
 	<typeAliases>
 		<typeAlias alias="user" type="com.ustyle.domain.User" />
 		<typeAlias alias="product" type="com.ustyle.domain.Product" />
+		<typeAlias alias="notice" type="com.ustyle.domain.Notice" />
 	</typeAliases>
 
 </configuration>

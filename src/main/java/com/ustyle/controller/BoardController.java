@@ -1,47 +1,28 @@
 package com.ustyle.controller;
 
-import java.util.Enumeration;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ustyle.domain.User;
-import com.ustyle.service.UserService;
-import com.ustyle.utils.UserEntryValidator;
+import com.ustyle.domain.Notice;
+import com.ustyle.service.NoticeService;
+import com.ustyle.utils.PageMaker;
 
 @Controller
 public class BoardController {
 
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	
-	@RequestMapping(value = "notice.do", method = RequestMethod.GET)
-	public String Board_notice() {
-		return "board/board_notice/Notice";
-	}
 	
 	@RequestMapping(value = "QA.do", method = RequestMethod.GET)
 	public String Board_QA() {
@@ -57,11 +38,10 @@ public class BoardController {
 	public String Board_FAQ() {
 		return "board/board_FAQ/FAQ";
 	}
-	
+
 	@RequestMapping(value = "write.do", method = RequestMethod.GET)
 	public String Board_write() {
 		return "board/writeForm/Write";
 	}
-	
-	
+
 }

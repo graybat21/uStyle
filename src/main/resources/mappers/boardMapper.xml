@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.boardMapper">
+ 
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_notice
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if> 
+ 	</select>
+ 	
+ 	<select id="noticeList" resultType="notice" parameterType="hashmap">
+		select 
+			title, content, regdate, viewcnt, replycnt 
+		from
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					bno, title, content, regdate, viewcnt, replycnt, pictureurl 
+			from tbl_notice, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		where ${searchOption} like '%${searchKeyword}%'
+  			</if>
+          	ORDER BY bno DESC
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
+</mapper>
+
+
