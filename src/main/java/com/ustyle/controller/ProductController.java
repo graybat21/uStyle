@@ -68,7 +68,6 @@ public class ProductController {
 		service.insert(product);
 		mav.addObject(product);
 		return mav;
-<<<<<<< HEAD
 	}
 	
 	@RequestMapping(value = "/readPage", method = RequestMethod.GET)
@@ -76,10 +75,8 @@ public class ProductController {
 				 ModelAndView mav) throws Exception
 	{
 //		mav.addAttribute(service.read(bno));
-=======
 
 		// return "redirect:/admin/main.do";
->>>>>>> a4ea6c56a698cd9f87974d59360b48e226e826f7
 	}
 
 	@RequestMapping(value = "addItem.do", method = RequestMethod.GET)
