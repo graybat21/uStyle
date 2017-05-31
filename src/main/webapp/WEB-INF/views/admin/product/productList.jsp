@@ -51,14 +51,14 @@
 										<c:url var="deleteProduct" value="/admin/product/deleteProduct.do">
 											<c:param name="productid" value="${list.productid }" />
 										</c:url>
-										<c:url var="addItem" value="/admin/product/addItem.do">
+										<c:url var="addItem" value="/admin/item/addItem.do">
 											<c:param name="productid" value="${list.productid }" />
 										</c:url>
 										<tr>
 											<td><strong>${list.productid }</strong></td>
 											<td>
-											<img src="${pageContext.request.contextPath}/resources/upload${list.pictureurl }" width="100px"></td>
-											<td><a href="readProduct.do?productid=${list.productid}">${list.productname }</a></td>
+											<img src="/displayFile?fileName=${list.pictureurl }" width="100px"></td>
+											<td><a href="readProduct.do?productid=${list.productid}&page=${pageMaker.page}">${list.productname }</a></td>
 											<td>${list.brand}</td>
 											<td>${list.category }</td>
 											<td>${list.subcategory }</td>

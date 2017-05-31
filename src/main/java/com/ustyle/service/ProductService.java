@@ -11,7 +11,7 @@ public interface ProductService {
 	public List<Product> productList(HashMap<String, Object> map) throws Exception;
 	public Product read(Integer bno) throws Exception;
 	public String selectPictureurl(Integer productid) throws Exception;
-
+	public void update(Product product) throws Exception;
 //	public User userLogin(User user) throws Exception;
 //
 //	public boolean userAuthOk(User user) throws Exception;

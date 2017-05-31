@@ -53,6 +53,24 @@
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
+	
+	<update id="update" parameterType="product">
+		<choose>
+		<when test="pictureurl != null">
+    		update tbl_product
+    		set productname = #{productname}, description = #{description}, brand = #{brand}, 
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = #{pictureurl}
+    		where productid = #{productid}
+    	</when>
+    	<otherwise>
+    		update tbl_product
+    		set productname = #{productname}, description = #{description}, brand = #{brand}, 
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = '[/ustylenone.jpg]'
+    		where productid = #{productid}
+    	</otherwise>
+    	</choose>
+    </update>
+	
 	<delete id="delete" parameterType="int">
  		delete from tbl_product
  		where productid = #{productid}

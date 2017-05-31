@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -50,8 +51,7 @@ public class ProductController {
 	@RequestMapping(value = "addProduct.do", method = RequestMethod.POST)
 	public ModelAndView addProduct(@ModelAttribute @Valid Product product, BindingResult bindingResult)
 			throws Exception {
-
-		validator.validate(product, bindingResult);
+		
 		String[] files = product.getFiles();
 
 		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
@@ -76,7 +76,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "readProduct.do", method = RequestMethod.GET)
-	public String readProduct(@RequestParam("productid") Integer productid, 
+	public String readProduct(@RequestParam("productid") Integer productid, @RequestParam("page") Integer page, 
 				 Model model) throws Exception
 	{
 		Product readProduct = service.read(productid);
@@ -87,8 +87,9 @@ public class ProductController {
 		logger.info(readProduct.toString());
 		
 		model.addAttribute("product", readProduct);
+		model.addAttribute("page", page);				// 목록으로 돌아갈 때, 페이지 번호를 유지시킴
 
-		 return "product/readProduct";
+		return "product/readProduct";
 	}
 	
 	@RequestMapping("readProductImage/{productid}")
@@ -98,11 +99,47 @@ public class ProductController {
 		String readPictureUrl = service.selectPictureurl(productid).replaceAll("\\[|\\]", "");
 		String[] imageFiles = readPictureUrl.split(",");
 		List<String> readPictureList = new ArrayList<String>(Arrays.asList(imageFiles));
+		readPictureList = readPictureList.stream().map(String :: trim).collect(Collectors.toList());		// 리스트 각 요소의 앞뒤 공백을 없애줌(Java 1.8부터 사용 가능)
 		
 		for ( String aaa : readPictureList )
 			logger.info(aaa.toString());
 		
 		return readPictureList;
+	}
+	
+	@RequestMapping(value = "modifyProduct.do", method = RequestMethod.GET)
+	public String modifyProductForm(@RequestParam("productid") Integer productid, 
+			@RequestParam("page") Integer page, Model model) throws Exception {
+		
+		Product modifyProduct = service.read(productid);
+		
+		logger.info(modifyProduct.toString());
+		
+		model.addAttribute("product", modifyProduct);
+		model.addAttribute("page", page);				// 목록으로 돌아갈 때, 페이지 번호를 유지시킴
+
+		 return "product/modifyProduct";
+	}
+	
+	@RequestMapping(value = "modifyProduct.do", method = RequestMethod.POST)
+	public ModelAndView modifyProduct(@ModelAttribute @Valid Product product, BindingResult bindingResult)
+			throws Exception {
+
+		String[] files = product.getFiles();
+
+		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
+		{
+			String filesStr = Arrays.toString(files);
+			product.setPictureurl(filesStr);
+		}
+
+		logger.info(product.toString());
+
+		ModelAndView mav = new ModelAndView("main/base");
+
+		service.update(product);
+		mav.addObject(product);
+		return mav;
 	}
 
 	@RequestMapping(value = "addItem.do", method = RequestMethod.GET)
@@ -116,7 +153,7 @@ public class ProductController {
 	}
 
 	@RequestMapping("productList.do")
-	public ModelAndView userList(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
+	public ModelAndView productList(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();

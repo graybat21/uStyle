@@ -55,6 +55,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> productList(HashMap<String, Object> map) throws Exception {
 		return dao.productList(map);
 	}
+	
+	@Override
+	public void update(Product product) throws Exception {
+		dao.update(product);
+	}
 
 	@Override
 	public void delete(int productid) throws Exception {

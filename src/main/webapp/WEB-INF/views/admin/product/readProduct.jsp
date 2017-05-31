@@ -37,13 +37,13 @@
 						<h3 class="box-title">상품 정보</h3>
 					</div>
 					
-					<%--form role="form" action="modifyPage" method="post">
-						<input type="hidden" name="bno" value="${boardVO.bno}">
-						<input type="hidden" name="page" value="${cri.page}">
-						<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+					<form role="form" action="modifyPage" method="post">
+						<input type="hidden" name="productid" value="${product.productid}">
+						<input type="hidden" name="page" value="${page}">
+						<%--input type="hidden" name="perPageNum" value="${cri.perPageNum}">
 						<input type="hidden" name="searchType" value="${cri.searchType}">
-						<input type="hidden" name="keyword" value="${cri.keyword}">
-					</form--%>
+						<input type="hidden" name="keyword" value="${cri.keyword}"--%>
+					</form>
 					
 					<div class="box-body">		
 					
@@ -354,7 +354,7 @@
 		console.log(formObj);
 		
 		$("#modifyBtn").on("click", function() {
-			formObj.attr("action", "/sboard/modifyPage");
+			formObj.attr("action", "/admin/product/modifyProduct.do");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
@@ -387,7 +387,7 @@
 		
 		$("#goListBtn").on("click", function() {
 			formObj.attr("method", "get");
-			formObj.attr("action", "/sboard/list");
+			formObj.attr("action", "/admin/product/productList.do");
 			formObj.submit();
 		});
 		
@@ -396,11 +396,14 @@
 		
 		$.getJSON("/admin/product/readProductImage/" + productid, function(list) {
 			$(list).each(function() {
-				var fileInfo = getFileInfo(this);
-				
-				var html = template(fileInfo);
-				
-				$(".uploadedList").append(html);
+				if ( this != "/ustylenone.jpg" )		// 기본 이미지 삭제를 막기 위한 작업
+				{
+					var fileInfo = getFileInfo(this);
+					
+					var html = template(fileInfo);
+					
+					$(".uploadedList").append(html);
+				}
 			});
 		});
 		

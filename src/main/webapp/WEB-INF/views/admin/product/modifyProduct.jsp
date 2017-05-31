@@ -15,7 +15,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Add Product</h1>
+      <h1>Modify Product</h1>
     </section>
 
     <!-- Main content -->
@@ -26,11 +26,11 @@
 			<!-- general form elements -->
 			<div class="box box-primary">
 				<div class="box-header">
-					<h3 class="box-title">Add Product</h3>
+					<h3 class="box-title">Modify Product</h3>
 				</div>
 				<!-- /.box-header -->
 				
-				<form id="registerForm" name="registerForm" method="post">
+				<form id="registerForm" name="registerForm" role="form" method="post">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="box-body">
 						<div class="col-sm-8 form-group">
@@ -69,7 +69,7 @@
 						<ul class="mailbox-attachments clearfix uploadedList">
 						</ul>
 						
-						<button type="button" class="btn btn-primary" onclick="return verifyOK()">Submit</button>
+						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
 				</form>
 			</div>
@@ -83,10 +83,10 @@
   </div>
   <!-- /.content-wrapper -->
   
-<script type="text/javascript" src="/resources/js/upload.js"></script>
+ <script type="text/javascript" src="/resources/js/upload.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
-<script id="template" type="text/x-handlebars-template">
+<script id="templateAttach" type="text/x-handlebars-template">
 <li>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}"
 	alt="Attachment"></span>
@@ -100,7 +100,7 @@
 
 <script>
 	
-	var template = Handlebars.compile($("#template").html());
+	var template = Handlebars.compile($("#templateAttach").html());
 	
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var token  = $("meta[name='_csrf']").attr("content");
@@ -148,6 +148,22 @@
 		});
 	});
 	
+	var productid = ${product.productid};
+	var template = Handlebars.compile($("#templateAttach").html());
+	
+	$.getJSON("/admin/product/readProductImage/" + productid, function(list) {
+		$(list).each(function() {
+			if ( this != "/ustylenone.jpg" )		// 기본 이미지 삭제를 막기 위한 작업
+			{
+				var fileInfo = getFileInfo(this);
+				
+				var html = template(fileInfo);
+				
+				$(".uploadedList").append(html);
+			}
+		});
+	});
+	
 	$("#registerForm").submit(function(event) {
 		event.preventDefault();
 		
@@ -191,5 +207,3 @@
 
 </script>
   
-
- 

@@ -11,6 +11,7 @@ public interface ProductDAO {
 	public List<Product> productList(HashMap<String, Object> map);
 	public Product read(Integer pid) throws Exception;
 	public String selectPictureUrl(Integer pid) throws Exception;
+	public void update(Product product);
 	
 //	public void insertImageUrl(String filesStr);
 //
