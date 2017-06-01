@@ -57,7 +57,7 @@
 										<tr>
 											<td><strong>${list.productid }</strong></td>
 											<td>
-											<img src="${pageContext.request.contextPath}/resources/upload${list.pictureurl }" width="100px"></td>
+											<img src="/displayFile?fileName=${list.pictureurl }" width="100px"></td>
 											<td><a href="readProduct.do?productid=${list.productid}">${list.productname }</a></td>
 											<td>${list.brand}</td>
 											<td>${list.category }</td>
