@@ -42,6 +42,11 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product> productList(HashMap<String, Object> map) {
 		return session.selectList(namespace + ".productList", map);
 	}
+	
+	@Override
+	public void update(Product product) {
+		session.update(namespace + ".update", product);
+	}
 
 	@Override
 	public void delete(int productid) {
