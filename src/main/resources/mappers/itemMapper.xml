@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ustyle.mappers. ">
- 
+<mapper namespace="com.ustyle.mappers.itemMapper">
+
+	<insert id="insert" parameterType="item">
+   		insert into tbl_item(originalprice, saleprice, color, size, stock, productid)
+   		values(#{originalprice}, #{saleprice}, #{color}, #{size}, #{stock}, #{productid} )
+    </insert>
  
 </mapper>
 
