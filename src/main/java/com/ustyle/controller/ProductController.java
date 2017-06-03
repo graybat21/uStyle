@@ -26,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ustyle.domain.Product;
 import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
-import com.ustyle.utils.ProductUploadValidator;
 
 @Controller
 @RequestMapping("/admin/product/*")
@@ -37,9 +36,6 @@ public class ProductController {
 	@Inject
 	private ProductService service;
 
-	@Inject
-	private ProductUploadValidator validator;
-	
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
@@ -196,7 +192,8 @@ public class ProductController {
 	@RequestMapping("deleteProduct.do")
 	public String productDelete(@RequestParam int productid) throws Exception {
 		service.delete(productid);
-		// product 지워지면 자동으로 연관된 item도 지워짐?
+		// product 지워지면 자동으로 연관된 item도 지워짐? 
+		// => product가 지워질 때, cascade 옵션이 아닌 no action 옵션을 써서 컨트롤러 상에서 product에 해당하는 item을 지우는 방향으로 진행되어야 할 것 같음.
 		return "redirect:/admin/product/productList.do";
 	}
 }

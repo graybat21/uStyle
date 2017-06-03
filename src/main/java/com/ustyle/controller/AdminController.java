@@ -34,18 +34,6 @@ public class AdminController {
 		return "login/loginAdmin";
 	}
 
-	// @RequestMapping(value = "login.do", method = RequestMethod.POST)
-	// public String login(HttpServletRequest request, User user) throws
-	// Exception {
-	//
-	// try {
-	//
-	//
-	// } catch (NullPointerException e) {
-	// return "user/loginError/LOGIN ERROR";
-	// }
-	// }
-
 	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
 	public String logout() {
 		return "login/logoutAdmin";

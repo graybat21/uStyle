@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="/resources/js/commonItem.js"></script>
 <style>
 .fileDrop {
 	width: 80%;
@@ -46,31 +47,32 @@ function removeChar(event) {
 				</div>
 				<!-- /.box-header -->
 				
-				<form id="registerForm" role="form" method="post">
+				<form id="registerItemForm" name="registerItemForm" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="box-body">
 						<div class="col-sm-3 form-group">
 							<label for="exampleInputEmail1">상품 색상</label>
-							<input type="text" name="color" class="form-control" placeholder="상품의 색상을 입력하세요.">
+							<input type="text" name="color" value="${item.color}" class="form-control" placeholder="상품의 색상을 입력하세요.">
 						</div>
 						<div class="col-sm-3 form-group">
 							<label for="exampleInputEmail1">사이즈</label>
-							<input type="text" name="size" class="form-control" placeholder="상품의 사이즈를 입력하세요.">
+							<input type="text" name="size" value="${item.size}" class="form-control" placeholder="상품의 사이즈를 입력하세요.">
 						</div>
 						<div class="col-sm-4 form-group">
 							<label for="exampleInputEmail1">상품 고유번호</label>
-							<input type="text" name="productid" class="form-control" placeholder="상품의 고유번호를 입력하세요." value="${productid }">
+							<input type="text" name="productid" value="${productid}" class="form-control" placeholder="상품의 고유번호를 입력하세요." readonly>
 						</div>
 						<div class="col-sm-2 form-group">
 							<label for="exampleInputEmail1">재고수량</label>
-							<input type="text" name="stock" class="form-control" placeholder="숫자로 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="stock" value="${item.stock}" class="form-control" placeholder="숫자로 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">정상가격</label>
-							<input type="text" name="originalprice" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="originalprice" value="${item.originalprice}" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">할인가격</label>
-							<input type="text" name="saleprice" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="saleprice" value="${item.saleprice}" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 					</div>
 					<!-- /.box-body -->
@@ -80,10 +82,7 @@ function removeChar(event) {
 							<hr>
 						</div>
 						
-						<ul class="mailbox-attachments clearfix uploadedList">
-						</ul>
-						
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary" onclick="return verifyOK()">Submit</button>
 					</div>
 				</form>
 			</div>

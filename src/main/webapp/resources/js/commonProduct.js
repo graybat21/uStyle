@@ -1,39 +1,39 @@
 function verifyOK()
 {
-	if ( document.registerForm.productname.value == '' )
+	if ( document.registerProductForm.productname.value == '' )
 	{
 		alert("상품명을 입력하세요.");
-		document.registerForm.productname.focus();
-		return;	
+		document.registerProductForm.productname.focus();
+		return false;	
 	}
-	else if ( document.registerForm.brand.value == "" ) 
+	else if ( document.registerProductForm.brand.value == "" ) 
 	{
 		alert("브랜드를 입력하세요.");
-		document.registerForm.brand.focus();
+		document.registerProductForm.brand.focus();
 		return false;
 	}
-	else if ( document.registerForm.description.value == "" ) 
+	else if ( document.registerProductForm.description.value == "" ) 
 	{
 		alert("상세설명을 입력하세요.");
-		document.registerForm.description.focus();
+		document.registerProductForm.description.focus();
 		return false;
 	}
-	else if ( document.registerForm.category.value == "" ) 
+	else if ( document.registerProductForm.category.value == "" ) 
 	{
 		alert("카테고리를 입력하세요.");
-		document.registerForm.category.focus();
+		document.registerProductForm.category.focus();
 		return false;
 	}
-	else if ( document.registerForm.subcategory.value == "" ) 
+	else if ( document.registerProductForm.subcategory.value == "" ) 
 	{
 		alert("서브 카테고리를 입력하세요.");
-		document.registerForm.subcategory.focus();
+		document.registerProductForm.subcategory.focus();
 		return false;
 	}
 	else
 	{
 		alert("모두 입력하였습니다.");
-		$("#registerForm").submit();
+		$("#registerProductForm").submit();
 		return true;
 	}
 }

@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <script src="/resources/js/commonProduct.js"></script>
 <style>
 .fileDrop {
@@ -30,7 +29,7 @@
 				</div>
 				<!-- /.box-header -->
 				
-				<form id="registerForm" name="registerForm" method="post">
+				<form id="registerProductForm" name="registerProductForm" method="post">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="box-body">
 						<div class="col-sm-8 form-group">
@@ -148,7 +147,7 @@
 		});
 	});
 	
-	$("#registerForm").submit(function(event) {
+	$("#registerProductForm").submit(function(event) {
 		event.preventDefault();
 		
 		var that = $(this);
