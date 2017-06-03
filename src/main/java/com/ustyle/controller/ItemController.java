@@ -1,5 +1,6 @@
 package com.ustyle.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,6 +61,12 @@ public class ItemController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
 		pagemaker.setPage(page);
+		if(searchKeyword == null || searchKeyword.trim() == ""){
+			List<Item> list=new ArrayList<>();
+			mav.addObject("itemList", list);
+			mav.setViewName("item/itemList");
+			return mav;
+		}
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);
 		int totalCnt = service.selectListCnt(map); // DB연동_ 총 갯수 구해오기

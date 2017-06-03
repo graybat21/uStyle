@@ -45,20 +45,20 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:if test="${itemList == null }">
-										<tr><td><strong>검색하세요</strong></td></tr>
+									<c:if test="${itemList.size() == 0 }">
+										<tr><td colspan="9" style="text-align: center"><strong>자료가 없습니다.</strong></td></tr>
 									</c:if>
-									<c:if test="${itemList != null }">
+									<c:if test="${itemList.size() != 0 }">
 									<c:forEach var="list" items="${itemList}" varStatus="status">
 										<c:url var="deleteItem" value="/admin/item/deleteItem.do">
 											<c:param name="itemid" value="${list.itemid }" />
 										</c:url>
-										<c:url var="addItem" value="/admin/item/addItem.do">
+										<c:url var="modifyItem" value="/admin/item/modifyItem.do">
 											<c:param name="itemid" value="${list.itemid }" />
 										</c:url>
 										<tr>
 											<td><strong>${list.productid }</strong></td>
-											<td>productName</td>
+											<td>${list.productname }</td>
 											<td>${list.itemid}</td>
 											<%-- <a href="readProduct.do?productid=${list.productid}&page=${pageMaker.page}"> --%>
 											<td>${list.originalprice}</td>
@@ -66,8 +66,8 @@
 											<td>${list.color }</td>
 											<td>${list.size }</td>
 											<td>${list.stock }</td>
-											<td><%-- <a href="${addItem }"><input type="button"
-													value="item추가" onclick="return addItem()"></a> --%>
+											<td><a href="${modifyItem }"><input type="button"
+													value="수정"></a>
 												<a href="${deleteItem }"><input type="button"
 													value="삭제" onclick="return deleteItem()"></a></td>
 										</tr>
