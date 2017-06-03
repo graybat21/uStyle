@@ -177,7 +177,7 @@
 </script>
 
 <script id="templateAttach" type="text/x-handlebars-template">
-<li data-src='{{pictureurl}}'>
+<li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" 
 	alt="Attachment"></span>
 	<div class="mailbox-attachment-info">
@@ -189,6 +189,10 @@
 <script>
 	
 	var productid = ${product.productid};
+	
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var token  = $("meta[name='_csrf']").attr("content");
+	
 	
 	$(document).ready(function() {
 		
@@ -203,29 +207,37 @@
 		});
 		
 		$("#removeBtn").on("click", function() {
+			var result = confirm("선택한 물품을 삭제하겠습니까?");
 			
-			var replyCnt = $("#replycntSmall").html().replace(/[^0-9]/g, "");
-			
-			if ( replyCnt > 0 )
+			if ( result )
 			{
-				alert("댓글이 달린 게시물은 삭제가 불가능합니다.");
-				return;
-			}
-			
-			var arr = [];
-			$(".uploadedList li").each(function(index) {
-				arr.push($(this).attr("data-src"));
-			});
-			
-			if ( arr.length > 0 )
-			{
-				$.post("/deleteAllFiles", {files: arr}, function() {
-					
+				var arr = [];
+
+				$.ajaxSetup({
+				    beforeSend: function(xhr) {
+				    	xhr.setRequestHeader(header, token);
+				    }
 				});
-			}	
-			
-			formObj.attr("action", "/sboard/removePage");
-			formObj.submit();
+				
+				$(".uploadedList li").each(function(index) {
+					arr.push($(this).attr("data-src"));
+				});
+				
+				if ( arr.length > 0 )
+				{
+					$.post("/deleteAllFiles", {files: arr}, function() {
+						
+					});
+				}	
+				
+				formObj.attr("action", "/admin/product/deleteProduct.do");
+				formObj.attr("method", "get");
+				formObj.submit();
+			}
+			else
+			{
+				
+			}
 		});
 		
 		$("#goListBtn").on("click", function() {

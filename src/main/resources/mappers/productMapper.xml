@@ -75,6 +75,11 @@
  		delete from tbl_product
  		where productid = #{productid}
  	</delete>
+ 	
+ 	<delete id="deleteItem" parameterType="int">
+ 		delete from tbl_item
+ 		where productid = #{productid}
+ 	</delete>
 </mapper>
 
 

@@ -192,8 +192,7 @@ public class ProductController {
 	@RequestMapping("deleteProduct.do")
 	public String productDelete(@RequestParam int productid) throws Exception {
 		service.delete(productid);
-		// product 지워지면 자동으로 연관된 item도 지워짐? 
-		// => product가 지워질 때, cascade 옵션이 아닌 no action 옵션을 써서 컨트롤러 상에서 product에 해당하는 item을 지우는 방향으로 진행되어야 할 것 같음.
+		// => product가 지워질 때, no action 제약조건으로 DB가 설계되었으므로, Service 단에서 product에 해당하는 item을 지우는 방향으로 진행
 		return "redirect:/admin/product/productList.do";
 	}
 }

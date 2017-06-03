@@ -52,6 +52,11 @@ public class ProductDAOImpl implements ProductDAO {
 	public void delete(int productid) {
 		session.delete(namespace + ".delete", productid);
 	}
+	
+	@Override
+	public void deleteItem(int productid) {
+		session.delete(namespace + ".deleteItem", productid);
+	}
 
 	@Override
 	public int getNewProductId() {

@@ -13,5 +13,6 @@ public interface ProductDAO {
 	public String selectPictureUrl(Integer pid) throws Exception;
 	public void update(Product product);
 	public void delete(int productid);
+	public void deleteItem(int productid);
 	public int getNewProductId();
 }
