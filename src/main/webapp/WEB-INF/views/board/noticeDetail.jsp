@@ -13,6 +13,7 @@
     <thead>
         <caption> 글쓰기 </caption>
     </thead>
+    
     <tbody>
             <tr>
                 <th>제목: </th>

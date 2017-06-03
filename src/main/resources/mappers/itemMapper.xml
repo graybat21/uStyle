@@ -7,6 +7,34 @@
    		values(#{originalprice}, #{saleprice}, #{color}, #{size}, #{stock}, #{productid} )
     </insert>
  
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_item
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if>
+ 	</select>
+ 	
+ 	<select id="itemList" resultType="item" parameterType="hashmap">
+		SELECT 
+			itemid, originalprice, saleprice, color, 
+			size, stock, productid
+		FROM
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					itemid, originalprice, saleprice, color, 
+					size, stock, productid
+			FROM tbl_item, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		WHERE ${searchOption} LIKE '%${searchKeyword}%'
+  			</if>
+          	ORDER BY itemid DESC
+			) X 
+		WHERE X.row_number BETWEEN #{first} and #{last}
+	</select>
+	
+	<delete id="deleteItem" parameterType="int">
+ 		delete from tbl_item
+ 		where itemid = #{itemid}
+ 	</delete>
 </mapper>
 
 
