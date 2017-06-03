@@ -15,7 +15,7 @@
 				<div class="col-xs-12">
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Product 리스트</h3>
+							<h3 class="box-title">Item 리스트</h3>
 							
 							<form action="itemList.do">
 							<select name="o">
