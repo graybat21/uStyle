@@ -28,7 +28,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          	<li><a href="../../index2.html"><i class="fa fa-circle-o"></i>아이템조회</a></li>
+          	<li><a href="/admin/item/itemList.do"><i class="fa fa-circle-o"></i>아이템조회</a></li>
           </ul>
         </li>
         <li class="treeview">

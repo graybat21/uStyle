@@ -72,10 +72,22 @@ public class NoticeController {
 
 		Notice notice = service.noticeView(bno);
 		logger.info(notice.toString());
-		System.out.println("얍얍");
 		mav.addObject("notice", notice);
 		mav.setViewName("board/noticeDetail/공지사항 상세보기");
 		return mav;
 	}
+	
+	@RequestMapping(value="noticeModify.do", method = RequestMethod.GET)
+	public String noticeModifyForm() {
+		return "board/writeForm/공지사항 글쓰기";
+	}
+
+	@RequestMapping(value = "noticeModify.do", method = RequestMethod.POST)
+	public String noticeModify(Notice notice) throws Exception {
+		service.noticeWrite(notice);
+		logger.info(notice.toString());
+		return "redirect:/notice.do";
+	}
+
 
 }

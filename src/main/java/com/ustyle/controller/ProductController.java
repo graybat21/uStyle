@@ -1,5 +1,6 @@
 package com.ustyle.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,6 +13,9 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Product;
 import com.ustyle.service.ProductService;
+import com.ustyle.utils.MediaUtils;
 import com.ustyle.utils.PageMaker;
 
 @Controller
@@ -191,8 +196,32 @@ public class ProductController {
 
 	@RequestMapping("deleteProduct.do")
 	public String productDelete(@RequestParam int productid) throws Exception {
+//		String[] picurl = service.selectPictureurl(productid).split(",");
+//		deleteFile(picurl);
+		
 		service.delete(productid);
 		// => product가 지워질 때, no action 제약조건으로 DB가 설계되었으므로, Service 단에서 product에 해당하는 item을 지우는 방향으로 진행
 		return "redirect:/admin/product/productList.do";
 	}
+	
+//	private void deleteFile(@RequestParam("files[]") String[] files)
+//	{
+//		logger.info("delete all files: " + files);
+//		
+//		for ( String fileName : files )
+//		{
+//			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+//			
+//			MediaType mType = MediaUtils.getMediaType(formatName);
+//			
+//			if ( mType != null )
+//			{
+//				String front = fileName.substring(0, 12);
+//				String end   = fileName.substring(14);
+//				new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+//			}
+//			
+//			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+//		}
+//	}
 }
