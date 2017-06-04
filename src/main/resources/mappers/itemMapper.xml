@@ -6,6 +6,10 @@
    		insert into tbl_item(originalprice, saleprice, color, size, stock, productid)
    		values(#{originalprice}, #{saleprice}, #{color}, #{size}, #{stock}, #{productid} )
     </insert>
+    
+    <select id="read" resultType="item">
+ 		select * from tbl_item where itemid=#{itemid}
+ 	</select>
  
  	<select id="selectListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_item as i, tbl_product as p
@@ -45,6 +49,13 @@
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
+	
+	<update id="update" parameterType="item">
+   		update tbl_item
+   		set originalprice = #{originalprice}, saleprice = #{saleprice}, color = #{color}, 
+   			size = #{size}, stock = #{stock}
+   		where itemid = #{itemid}
+   	</update>
 	
 	<delete id="deleteItem" parameterType="int">
  		delete from tbl_item
