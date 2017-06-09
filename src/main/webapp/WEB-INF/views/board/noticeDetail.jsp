@@ -35,6 +35,7 @@
             <tr>
                 <td colspan="2">
                     <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='notice.do'"/>
+                    <input type="button" value="글 수정 " class="pull-right" onclick="location.href='noticeModify.do'"/>
                     <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
                     <a class="btn btn-default" type="reset"> reset </a>
                     <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
