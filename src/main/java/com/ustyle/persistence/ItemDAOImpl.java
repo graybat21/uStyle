@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.ustyle.domain.Item;
+import com.ustyle.domain.Product;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {
@@ -32,7 +33,17 @@ public class ItemDAOImpl implements ItemDAO {
 	public List<Item> itemList(HashMap<String, Object> map) {
 		return session.selectList(namespace + ".itemList", map);
 	}
-
+	
+	@Override
+	public Item read(Integer itemid) throws Exception {
+		return session.selectOne(namespace + ".read", itemid);
+	}
+	
+	@Override
+	public void update(Item item) {
+		session.update(namespace + ".update", item);
+	}
+	
 	@Override
 	public void deleteItem(int itemid) {
 		session.delete(namespace + ".deleteItem", itemid);

@@ -1,6 +1,7 @@
 package com.ustyle.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,6 +89,33 @@ public class ItemController {
 		mav.addObject("searchOption", searchOption);
 		mav.addObject("searchKeyword", searchKeyword);
 		
+		return mav;
+	}
+	
+	@RequestMapping(value = "modifyItem.do", method = RequestMethod.GET)
+	public String modifyItemForm(@RequestParam("itemid") Integer itemid, 
+			Model model) throws Exception {
+		
+		Item modifyItem = service.read(itemid);
+		
+		logger.info(modifyItem.toString());
+		
+		model.addAttribute("item", modifyItem);
+//		model.addAttribute("page", page);				// 목록으로 돌아갈 때, 페이지 번호를 유지시킴
+
+		return "item/modifyItem";
+	}
+	
+	@RequestMapping(value = "modifyItem.do", method = RequestMethod.POST)
+	public ModelAndView modifyItem(@ModelAttribute @Valid Item item, BindingResult bindingResult)
+			throws Exception {
+
+		logger.info(item.toString());
+
+		ModelAndView mav = new ModelAndView("item/itemList");
+
+		service.update(item);
+		mav.addObject(item);
 		return mav;
 	}
 	

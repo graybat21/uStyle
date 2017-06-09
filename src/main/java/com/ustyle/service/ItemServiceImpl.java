@@ -6,9 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Item;
+import com.ustyle.domain.Product;
 import com.ustyle.persistence.ItemDAO;
 
 @Service
@@ -33,6 +35,18 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> itemList(HashMap<String, Object> map) throws Exception {
 		return dao.itemList(map);
+	}
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED)
+	@Override
+	public Item read(Integer itemid) throws Exception {
+		return dao.read(itemid);
+	}
+	
+	@Transactional
+	@Override
+	public void update(Item item) throws Exception {
+		dao.update(item);
 	}
 
 	@Transactional

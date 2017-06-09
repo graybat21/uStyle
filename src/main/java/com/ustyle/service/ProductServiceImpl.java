@@ -63,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void delete(int productid) throws Exception {
+		dao.deleteItem(productid);
 		dao.delete(productid);
 	}
 
