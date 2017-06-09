@@ -79,12 +79,12 @@ public class NoticeController {
 	
 	@RequestMapping(value="noticeModify.do", method = RequestMethod.GET)
 	public String noticeModifyForm() {
-		return "board/writeForm/공지사항 글쓰기";
+		return "board/noticeWrite/공지사항 글쓰기";
 	}
 
 	@RequestMapping(value = "noticeModify.do", method = RequestMethod.POST)
 	public String noticeModify(Notice notice) throws Exception {
-		service.noticeWrite(notice);
+		service.noticeModify(notice);
 		logger.info(notice.toString());
 		return "redirect:/notice.do";
 	}

@@ -14,4 +14,5 @@ public interface NoticeService {
 
 	public Notice noticeView(int bno) throws Exception;
 	
+	public void noticeModify(Notice notice) throws Exception;
 }

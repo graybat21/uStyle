@@ -64,7 +64,7 @@ public class ItemController {
 		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
 		pagemaker.setPage(page);
 		if(searchKeyword == null || searchKeyword.trim() == ""){
-			List<Item> list=new ArrayList<>();
+			List<Item> list=new ArrayList<Item>();
 			mav.addObject("itemList", list);
 			mav.setViewName("item/itemList");
 			return mav;

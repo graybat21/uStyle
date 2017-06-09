@@ -43,4 +43,9 @@ public class NoticeDAOImpl implements NoticeDAO {
 		session.update(namespace + ".viewCntPlus", bno);
 	}
 
+	@Override
+	public void noticeModify(Notice notice) {
+		session.update(namespace + ".noticeModify", notice);
+	}
+
 }
