@@ -12,10 +12,10 @@
  	
  	<select id="faqList" resultType="faq" parameterType="hashmap">
 		select 
-			bno, content, regdate, viewcnt, comment
+			bno, content, regdate, category, comment
 		from
 			(SELECT (@row_number:=@row_number+1) as row_number,
-					bno, content, regdate, viewcnt, comment
+					bno, content, regdate, category, comment
 			from tbl_faq, (SELECT @row_number:=0) as t
           	<if test="searchKeyword != null || searchKeyword == ''">
     		where ${searchOption} like '%${searchKeyword}%'
@@ -26,8 +26,8 @@
 	</select>
 	
 	<insert id="faqWrite" parameterType="faq">
-		insert into tbl_faq(content, viewcnt, comment)
-		values(#{content}, 0, #{comment})
+		insert into tbl_faq(content, category, comment)
+		values(#{content}, #{category}, #{comment})
 	</insert>
 	
 	<select id="faqView" parameterType="int" resultType="faq">

@@ -33,7 +33,7 @@ public class BoardAdminController {
 	public ModelAndView Board_notice_admin(PageMaker pagemaker,
 			@RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
-		ModelAndView mav = new ModelAndView("board/board_notice/Notice");
+		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);

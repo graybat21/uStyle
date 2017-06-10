@@ -36,17 +36,19 @@
 								<thead>
 									<tr>
 										<th style="width: 7%; text-align: center">글번호</th>
+										<th style="width: 7%; text-align: center">분류</th>
 										<th style="width: 53%; text-align: center">내용</th>
-										<th style="width: 20%; text-align: center">날짜</th>
-										<th style="width: 7%; text-align: center">조회수</th>
 									</tr>
 								</thead>
 								<script>
 									function viewComment(bno){
-										var str="comment_"+bno;
-										$('#comment_'+bno).click(function(){
+										if($('#comment_'+bno).css("display") == "none"){
 											$('#comment_'+bno).css("display","");
-										});
+										}
+										else{
+											$('#comment_'+bno).css("display","none");
+										}
+										/* if($('#comment_'+bno).css("display") == "") */
 									}
 								</script>
 
@@ -55,19 +57,18 @@
 									<c:forEach var="item" items="${faqList }">
 										<tr id="${item.bno }">
 											<td style="text-align: center;">${item.bno }</td>
-											<a href="javascript:viewComment(${item.bno })">
-											<td style="text-align: center;">${item.content }</td></a>
-											<td style="text-align: center;"><fmt:formatDate
-													value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td>
-											<td style="text-align: center;">${item.viewcnt }</td>
+											<td style="text-align: center;">${item.category }</td>
+										
+											<td style="text-align: center;">	<a href="javascript:viewComment(${item.bno })">${item.content }</a></td>
+											<%-- <td style="text-align: center;"><fmt:formatDate
+													value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td> --%>
 										</tr>
-										<c:if test="${item.comment != null }">
+										<%-- <c:if test="${item.comment != null }"> --%>
 										<tr>
-											<td id="comment_${item.bno }" colspan="4" style="display:none">
+											<td id="comment_${item.bno }" colspan="3" style="display:none">
 											${item.comment }
 											</td>
 										</tr>
-										</c:if>
 									</c:forEach>
 
 								</tbody>
