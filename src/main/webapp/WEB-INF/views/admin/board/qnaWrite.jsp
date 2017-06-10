@@ -31,20 +31,16 @@
 	});
 
 	function sendData() {
-		if (!document.getElementById("content").value) {
-			alert("질문을 입력하세요.");
-			return false;
-		}
-		if (!document.getElementById("category").value) {
-			alert("카테고리를 입력하세요.");
+		if (!document.getElementById("title").value) {
+			alert("제목을 입력하세요.");
 			return false;
 		}
 		if (!CKEDITOR.instances.editor1.getData()) {
-			alert("답변을 입력하세요.");
+			alert("내용을 입력하세요.");
 			return false;
 		}
 		
-		$("#notice_form").submit();
+		$("#qna_form").submit();
 	}
 	
 	function resetCkEditor(){
@@ -56,7 +52,7 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>공지사항게시판</h1>
+			<h1>Q&A게시판</h1>
 		</section>
 
 		<section class="content">
@@ -64,59 +60,61 @@
 				<div class="col-xs-12">
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">FAQ 리스트</h3>
-							
-							<%-- <form action="itemList.do">
-							<select name="o">
-								<option value="productname" ${param.o eq "productname" ? "selected" : "" }>productname</option>
-								<option value="productid" ${param.o eq "productid" ? "selected" : "" }>productid</option>
-								<option value="itemid" ${param.o eq "itemid" ? "selected" : "" }>itemid</option>
-							</select>
-							<input type="text" name="k" value="${searchKeyword }">
-							<input type="submit" value="검색">
-							</form> --%>
-							
+							<h3 class="box-title">Q&A 리스트</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-						
+						<table class="table table-bordered">
+    <tbody>
+            <tr>
+                <th>제목: </th>
+                <td>${qna.title }</td>
+            </tr>
+            <tr>
+                <th>작성자: </th>
+                <td>${qna.username}</td>
+            </tr>
+            <tr>
+                <th>분류: </th>
+                <td>${qna.category}</td>
+            </tr>
+            <tr>
+                <th>내용: </th>
+                <td>${qna.content }</td>
+            </tr>
+	</tbody></table>
+	
 		<table class="table table-bordered">
 			<thead>
 			<caption>글쓰기</caption>
 			</thead>
 			<tbody>
-				<form id="notice_form" method="post" encType="multiplart/form-data">
+				<form id="qna_form" method="post" encType="multiplart/form-data">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<tr>
-						<th>질문:</th>
-						<td><input type="text" placeholder="질문을 입력하세요. " id="content"
-							name="content" class="form-control" value="${faq.content }"/></td>
+						<th>제목:</th>
+						<td><input type="text" placeholder="질문을 입력하세요. " id="title"
+							name="title" class="form-control" value="[답변] ${qna.title }"/></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<th>분류:</th>
-						<td><!-- <input type="text" placeholder="분류를 입력하세요. " id="category"
-							name="category" class="form-control" /> -->
-							<select id="category" name="category">
-								<option value="회원정보관련">회원정보관련</option>
-								<option value="상품환불관련">상품환불관련</option>
-								<option value="배송관련">배송관련</option>
-							</select>
-						</td>
-					</tr>
+						<td>${qna.category }</td>
+					</tr> --%>
 					<tr>
 						<th>답변:</th>
 						<td><textarea id="editor1"
-								name="comment" rows="10" cols="80" class="form-control">${faq.comment}</textarea>
+								name="content" rows="10" cols="80" class="form-control"></textarea>
 						</td>
 					</tr>
-
+					<input type="hidden" name="category" value="${qna.category }">
+					<input type="hidden" name="bno" value="${qna.bno }">
 					<tr>
 						<td colspan="2"><input type="button" value="등록"
 							onclick="sendData()" class="pull-right" /> <input type="reset"
 							value="리셋" onclick="resetCkEditor()" class="pull-left" /> <input type="button"
 							value="글 목록으로... " class="pull-right"
-							onclick="location.href='faq.do'" /> <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
+							onclick="location.href='qna.do'" /> <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
                     <a class="btn btn-default" type="reset"> reset </a>
                     <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
 						</td>

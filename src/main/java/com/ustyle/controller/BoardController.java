@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Faq;
 import com.ustyle.domain.Notice;
+import com.ustyle.domain.Qna;
+import com.ustyle.domain.User;
 import com.ustyle.service.FaqService;
 import com.ustyle.service.NoticeService;
+import com.ustyle.service.QnaService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
@@ -27,7 +31,10 @@ public class BoardController {
 	private NoticeService noticeService;
 	@Inject
 	private FaqService faqService;
+	@Inject
+	private QnaService qnaService;
 	
+//	============================== Notice =================================
 	@RequestMapping(value = "notice.do", method = RequestMethod.GET)
 	public ModelAndView Board_notice(PageMaker pagemaker,
 			@RequestParam(value = "o", required = false) String searchOption,
@@ -67,6 +74,7 @@ public class BoardController {
 		return mav;
 	}
 	
+//	============================== FAQ =================================
 	@RequestMapping(value="faq.do", method=RequestMethod.GET)
 	public ModelAndView Board_faq(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
@@ -93,5 +101,66 @@ public class BoardController {
 		mav.addObject("searchOption", searchOption);
 		mav.addObject("searchKeyword", searchKeyword);
 		return mav;
+	}
+	
+//	============================== Q&A =================================
+	@RequestMapping(value="qna.do", method=RequestMethod.GET)
+	public ModelAndView Board_qna(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
+			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("searchKeyword", searchKeyword);
+		int totalCnt = qnaService.selectListCnt(map);
+		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
+		pagemaker.setPage(page);
+		int countPerPage = 10;
+		int countPerPaging = 5;
+		
+		int first = ((pagemaker.getPage() - 1) * countPerPage) + 1;
+		int last = first + countPerPage - 1;
+		map.put("first", first);
+		map.put("last", last);
+		List<Qna> list = qnaService.qnaList(map);
+		logger.info(list.toString());
+		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
+		mav.addObject("qnaList", list);
+		mav.addObject("pageMaker", pagemaker);
+		mav.setViewName("board/board_qna/QNA");
+		mav.addObject("searchOption", searchOption);
+		mav.addObject("searchKeyword", searchKeyword);
+		return mav;
+	}
+	
+	@RequestMapping(value = "qnaWrite.do", method = RequestMethod.GET)
+	public String qnaWriteForm(HttpSession session) {
+		if(session.getAttribute("session_user")==null){
+			return "redirect:/login.do";
+		}
+		return "board/qnaWrite/Q&A 글쓰기";
+	}
+
+	@RequestMapping(value = "qnaWrite.do", method = RequestMethod.POST)
+	public String qnaWrite(Qna qna, HttpSession session) throws Exception {
+		User user = (User) session.getAttribute("session_user");
+		qna.setUsername(user.getUsername());
+		qna.setRef(0);
+		qnaService.qnaWrite(qna);
+		logger.info(qna.toString());
+		return "redirect:/qna.do";
+	}
+	@RequestMapping("qnaView.do")
+	public ModelAndView qnaView(@RequestParam(value = "bno") int bno) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		Qna qna=qnaService.qnaView(bno);
+		mav.addObject("qna", qna);
+		mav.setViewName("board/qnaDetail/Q&A 상세보기");
+		return mav;
+	}
+	@RequestMapping("qnaDelete.do")
+	public String qnaDelete(@RequestParam(value = "bno") int bno)throws Exception{
+		qnaService.qnaDelete(bno);
+		return "redirect:/qna.do";
 	}
 }

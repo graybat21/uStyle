@@ -9,11 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.ustyle.domain.Faq;
-
+import com.ustyle.domain.Qna;
 @Repository
-public class FaqDAOImpl implements FaqDAO {
-
-	private static String namespace = "com.ustyle.mappers.faqMapper";
+public class QnaDAOImple implements QnaDAO {
+	private static String namespace = "com.ustyle.mappers.qnaMapper";
 	@Inject
 	private SqlSession session;
 
@@ -23,18 +22,18 @@ public class FaqDAOImpl implements FaqDAO {
 	}
 
 	@Override
-	public List<Faq> faqList(HashMap<String, Object> map) {
-		return session.selectList(namespace + ".faqList", map);
+	public List<Qna> qnaList(HashMap<String, Object> map) {
+		return session.selectList(namespace + ".qnaList", map);
 	}
 
 	@Override
-	public void faqWrite(Faq faq) {
-		session.insert(namespace + ".faqWrite", faq);
+	public void qnaWrite(Qna qna) {
+		session.insert(namespace+".qnaWrite",qna);
 	}
 
 	@Override
-	public Faq faqView(int bno) {
-		return session.selectOne(namespace + ".faqView", bno);
+	public Qna qnaView(int bno) {
+		return session.selectOne(namespace+".qnaView", bno);
 	}
 
 	@Override
@@ -43,13 +42,14 @@ public class FaqDAOImpl implements FaqDAO {
 	}
 
 	@Override
-	public void faqModify(Faq faq) {
-		session.update(namespace+".faqModify",faq);
+	public int getCurrentNo() {
+		return session.selectOne(namespace+".getCurrentNo");
 	}
 
 	@Override
-	public void faqDelete(int bno) {
-		session.delete(namespace+".faqDelete",bno);
+	public void qnaDelete(int bno) {
+		session.delete(namespace+".qnaDelete",bno);
 	}
+	
 
 }

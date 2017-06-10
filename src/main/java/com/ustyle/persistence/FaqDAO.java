@@ -18,4 +18,6 @@ public interface FaqDAO {
 	public void viewCntPlus(int bno);
 
 	public void faqModify(Faq faq);
+	
+	public void faqDelete(int bno);
 }

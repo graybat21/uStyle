@@ -15,4 +15,5 @@ public interface FaqService {
 	public Faq faqView(int bno) throws Exception;
 
 	public void faqModify(Faq faq) throws Exception;
+	public void faqDelete(int bno) throws Exception;
 }

@@ -53,7 +53,7 @@
 
 									<div class="page-header">
 										<h1>
-											공지사항 <small>최신 정보를 알려드립니다.</small>
+											Q&A<small>궁금한 점을 알려드립니다.</small>
 										</h1>
 									</div>
 
@@ -63,26 +63,29 @@
 											<thead>
 												<tr>
 													<th style="width: 10%; text-align: center">번호</th>
+													<th style="width: 10%; text-align: center">분류</th>
 													<th style="width: 53%; text-align: center">제목</th>
 													<th style="width: 10%; text-align: center">작성자</th>
-													<th style="width: 20%; text-align: center">날짜</th>
+													<th style="width: 10%; text-align: center">날짜</th>
 													<th style="width: 7%; text-align: center">조회수</th>
 												</tr>
 											</thead>
 
 											<tbody>
 
-												<c:forEach var="item" items="${noticeList }">
-													<c:url var="viewNotice" value="noticeView.do">
+												<c:forEach var="item" items="${qnaList }">
+													<c:url var="viewQna" value="qnaView.do">
 														<c:param name="bno" value="${item.bno }" />
 													</c:url>
 													<tr>
 
 														<td style="text-align: center;"><a
-															href="${viewNotice }">${item.bno }</a></td>
+															href="${viewQna }">${item.bno }</a></td>
 														<td style="text-align: center;"><a
-															href="${viewNotice }">${item.title }</a></td>
-														<td style="text-align: center;">관리자</td>
+															href="${viewQna }">${item.category }</a></td>
+														<td style="text-align: center;"><a
+															href="${viewQna }">${item.title }</a></td>
+														<td style="text-align: center;">${item.username }</td>
 														<td style="text-align: center;"><fmt:formatDate
 																value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td>
 														<td style="text-align: center;">${item.viewcnt }</td>
@@ -91,8 +94,8 @@
 
 											</tbody>
 										</table>
-										<!-- <a href="noticeWrite.do">
-										<div class="btn btn-default pull-right">글쓰기</div></a> -->
+										<a href="qnaWrite.do">
+										<div class="btn btn-default pull-right">글쓰기</div></a>
 									</div>
 
 
@@ -102,53 +105,53 @@
 											<ul class="pagination">
 												<c:if test="${pageMaker.prev }">
 													<c:if test="${searchKeyword != null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="qnaListP" value="qna.do">
 															<c:param name="page" value="${pageMaker.start - 1}" />
 															<c:param name="o" value="${searchOption }"></c:param>
 															<c:param name="k" value="${searchKeyword }"></c:param>
 														</c:url>
 													</c:if>
 													<c:if test="${searchKeyword == null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="qnaListP" value="qna.do">
 															<c:param name="page" value="${pageMaker.start - 1}" />
 														</c:url>
 													</c:if>
-													<li><a href="${noticeListP }">이전</a></li>
+													<li><a href="${qnaListP }">이전</a></li>
 												</c:if>
 												<c:forEach begin="${pageMaker.start }"
 													end="${pageMaker.end}" var="idx">
 													<c:if test="${searchKeyword != null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="qnaListP" value="qna.do">
 															<c:param name="page" value="${idx}" />
 															<c:param name="o" value="${searchOption }"></c:param>
 															<c:param name="k" value="${searchKeyword }"></c:param>
 														</c:url>
 													</c:if>
 													<c:if test="${searchKeyword == null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="qnaListP" value="qna.do">
 															<c:param name="page" value="${idx}" />
 														</c:url>
 													</c:if>
 													<li
 														class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>'>
-														<a href='${noticeListP }'>${idx}</a>
+														<a href='${qnaListP }'>${idx}</a>
 													</li>
 
 												</c:forEach>
 												<c:if test="${pageMaker.next }">
 													<c:if test="${searchKeyword != null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="qnaListP" value="qna.do">
 															<c:param name="page" value="${pageMaker.end + 1}" />
 															<c:param name="o" value="${searchOption }"></c:param>
 															<c:param name="k" value="${searchKeyword }"></c:param>
 														</c:url>
 													</c:if>
 													<c:if test="${searchKeyword == null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="qnaListP" value="qna.do">
 															<c:param name="page" value="${pageMaker.end + 1}" />
 														</c:url>
 													</c:if>
-													<li><a href="${noticeListP }">다음</a></li>
+													<li><a href="${qnaListP }">다음</a></li>
 												</c:if>
 											</ul>
 										</div>

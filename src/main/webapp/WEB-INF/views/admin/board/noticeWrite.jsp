@@ -87,12 +87,12 @@
 					<tr>
 						<th>제목:</th>
 						<td><input type="text" placeholder="제목을 입력하세요. " id="title"
-							name="title" class="form-control" /></td>
+							name="title" class="form-control" value="${notice.title }" /></td>
 					</tr>
 					<tr>
 						<th>내용:</th>
 						<td><textarea id="editor1"
-								name="content" rows="10" cols="80" class="form-control"></textarea>
+								name="content" rows="10" cols="80" class="form-control">${notice.content }</textarea>
 						</td>
 					</tr>
 					<tr>

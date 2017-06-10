@@ -44,6 +44,11 @@ public class FaqServiceImpl implements FaqService {
 	public void faqModify(Faq faq) throws Exception {
 		dao.faqModify(faq);
 	}
+
+	@Override
+	public void faqDelete(int bno) throws Exception {
+		dao.faqDelete(bno);
+	}
 	
 
 }
