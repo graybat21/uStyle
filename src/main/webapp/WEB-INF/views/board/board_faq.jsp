@@ -35,7 +35,7 @@
 			<div class="board-button">
 				<p>
 					<button class="btn btn-default" onclick="location.href='notice.do'">공지사항</button>
-					<button class="btn btn-default" onclick="location.href='faq.do'">FAQ</button>
+					<button class="btn btn-default" onclick="location.href='FAQ.do'">FAQ</button>
 					<button class="btn btn-default" onclick="location.href='QA.do'">Q&A</button>
 					<button class="btn btn-default" onclick="location.href='1on1.do'">1:1
 						문의</button>
@@ -53,7 +53,7 @@
 
 									<div class="page-header">
 										<h1>
-											공지사항 <small>최신 정보를 알려드립니다.</small>
+											FAQ <small>자주 묻는 질문들을 답해드립니다.</small>
 										</h1>
 									</div>
 
@@ -62,37 +62,44 @@
 
 											<thead>
 												<tr>
-													<th style="width: 10%; text-align: center">번호</th>
-													<th style="width: 53%; text-align: center">제목</th>
-													<th style="width: 10%; text-align: center">작성자</th>
-													<th style="width: 20%; text-align: center">날짜</th>
+													<th style="width: 7%; text-align: center">글번호</th>
+													<th style="width: 53%; text-align: center">내용</th>
+													<!-- <th style="width: 20%; text-align: center">날짜</th> -->
 													<th style="width: 7%; text-align: center">조회수</th>
 												</tr>
 											</thead>
+											<script>
+												function viewComment(bno){
+													var str="comment_"+bno;
+													$('#comment_'+bno).click(function(){
+														$('#comment_'+bno).css("display","");
+													});
+												}
+											</script>
 
 											<tbody>
 
-												<c:forEach var="item" items="${noticeList }">
-													<c:url var="viewNotice" value="noticeView.do">
-														<c:param name="bno" value="${item.bno }" />
-													</c:url>
-													<tr>
-
-														<td style="text-align: center;"><a
-															href="${viewNotice }">${item.bno }</a></td>
-														<td style="text-align: center;"><a
-															href="${viewNotice }">${item.title }</a></td>
-														<td style="text-align: center;">관리자</td>
-														<td style="text-align: center;"><fmt:formatDate
-																value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td>
+												<c:forEach var="item" items="${faqList }">
+													<tr id="${item.bno }">
+														<td style="text-align: center;">${item.bno }</td>
+														<a href="javascript:viewComment(${item.bno })">
+														<td style="text-align: center;">${item.content }</td></a>
+														<%-- <td style="text-align: center;"><fmt:formatDate
+																value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td> --%>
 														<td style="text-align: center;">${item.viewcnt }</td>
+													</tr>
+													<%-- <c:if test="${item.comment != null }"> --%>
+													<tr>
+														<td id="comment_${item.bno }" colspan="4" style="display:none">
+														${item.comment }
+														</td>
 													</tr>
 												</c:forEach>
 
 											</tbody>
 										</table>
-										<!-- <a href="noticeWrite.do">
-										<div class="btn btn-default pull-right">글쓰기</div></a> -->
+										<a href="faqWrite.do">
+										<div class="btn btn-default pull-right">글쓰기</div></a>
 									</div>
 
 
@@ -102,53 +109,53 @@
 											<ul class="pagination">
 												<c:if test="${pageMaker.prev }">
 													<c:if test="${searchKeyword != null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="faqListP" value="faq.do">
 															<c:param name="page" value="${pageMaker.start - 1}" />
 															<c:param name="o" value="${searchOption }"></c:param>
 															<c:param name="k" value="${searchKeyword }"></c:param>
 														</c:url>
 													</c:if>
 													<c:if test="${searchKeyword == null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="faqListP" value="faq.do">
 															<c:param name="page" value="${pageMaker.start - 1}" />
 														</c:url>
 													</c:if>
-													<li><a href="${noticeListP }">이전</a></li>
+													<li><a href="${faqListP }">이전</a></li>
 												</c:if>
 												<c:forEach begin="${pageMaker.start }"
 													end="${pageMaker.end}" var="idx">
 													<c:if test="${searchKeyword != null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="faqListP" value="faq.do">
 															<c:param name="page" value="${idx}" />
 															<c:param name="o" value="${searchOption }"></c:param>
 															<c:param name="k" value="${searchKeyword }"></c:param>
 														</c:url>
 													</c:if>
 													<c:if test="${searchKeyword == null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="faqListP" value="faq.do">
 															<c:param name="page" value="${idx}" />
 														</c:url>
 													</c:if>
 													<li
 														class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>'>
-														<a href='${noticeListP }'>${idx}</a>
+														<a href='${faqListP }'>${idx}</a>
 													</li>
 
 												</c:forEach>
 												<c:if test="${pageMaker.next }">
 													<c:if test="${searchKeyword != null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="faqListP" value="faq.do">
 															<c:param name="page" value="${pageMaker.end + 1}" />
 															<c:param name="o" value="${searchOption }"></c:param>
 															<c:param name="k" value="${searchKeyword }"></c:param>
 														</c:url>
 													</c:if>
 													<c:if test="${searchKeyword == null }">
-														<c:url var="noticeListP" value="notice.do">
+														<c:url var="faqListP" value="faq.do">
 															<c:param name="page" value="${pageMaker.end + 1}" />
 														</c:url>
 													</c:if>
-													<li><a href="${noticeListP }">다음</a></li>
+													<li><a href="${faqListP }">다음</a></li>
 												</c:if>
 											</ul>
 										</div>

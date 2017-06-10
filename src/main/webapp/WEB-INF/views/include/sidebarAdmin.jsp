@@ -46,6 +46,20 @@
         </li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-users"></i>
+            <span>게시판관리</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/notice.do"><i class="fa fa-circle-o"></i>공지사항게시판</a></li>
+            <li><a href="/admin/faq.do"><i class="fa fa-circle-o"></i>FAQ게시판</a></li>
+            <li><a href="/admin/qna.do"><i class="fa fa-circle-o"></i>QNA게시판</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-calendar"></i>
             <span>이벤트관리</span>
             <span class="pull-right-container">

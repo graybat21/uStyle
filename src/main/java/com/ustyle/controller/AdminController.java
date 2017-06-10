@@ -68,7 +68,7 @@ public class AdminController {
 		return mav;
 	}
 
-	@RequestMapping("/admin/initializePoint.do")
+	@RequestMapping("initializePoint.do")
 	public String initializePoint(@RequestParam String username) throws Exception {
 		User user = new User();
 		user.setUsername(username);
@@ -82,4 +82,6 @@ public class AdminController {
 		userService.delete(username);
 		return "redirect:/admin/userList.do";
 	}
+	
+	
 }

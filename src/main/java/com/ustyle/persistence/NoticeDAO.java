@@ -15,4 +15,6 @@ public interface NoticeDAO {
 	public Notice noticeView(int bno);
 	
 	public void viewCntPlus(int bno);
+	
+	public void noticeModify(Notice notice);
 }

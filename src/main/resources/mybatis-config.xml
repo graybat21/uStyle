@@ -9,6 +9,7 @@
 		<typeAlias alias="product" type="com.ustyle.domain.Product" />
 		<typeAlias alias="item" type="com.ustyle.domain.Item" />
 		<typeAlias alias="notice" type="com.ustyle.domain.Notice" />
+		<typeAlias alias="faq" type="com.ustyle.domain.Faq" />
 	</typeAliases>
 
 </configuration>

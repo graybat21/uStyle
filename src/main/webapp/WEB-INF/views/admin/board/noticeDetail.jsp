@@ -8,7 +8,32 @@
 
 </head>
 <body>
-<div class="container">
+<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>공지사항게시판</h1>
+		</section>
+
+		<section class="content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">공지사항 리스트</h3>
+							
+							<%-- <form action="itemList.do">
+							<select name="o">
+								<option value="productname" ${param.o eq "productname" ? "selected" : "" }>productname</option>
+								<option value="productid" ${param.o eq "productid" ? "selected" : "" }>productid</option>
+								<option value="itemid" ${param.o eq "itemid" ? "selected" : "" }>itemid</option>
+							</select>
+							<input type="text" name="k" value="${searchKeyword }">
+							<input type="submit" value="검색">
+							</form> --%>
+							
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
 <table class="table table-bordered">
     <thead>
         <caption> 글쓰기 </caption>
@@ -44,5 +69,6 @@
     </tbody>
 </table>
 </div>
+</div></div></div></section></div>
 </body>
 </html>

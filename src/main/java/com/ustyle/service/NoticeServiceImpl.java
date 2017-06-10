@@ -38,4 +38,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	
+	@Override
+	public void noticeModify(Notice notice) throws Exception {
+		dao.noticeModify(notice);
+	}
+
+	
 }
