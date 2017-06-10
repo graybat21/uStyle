@@ -9,6 +9,7 @@ public interface ProductDAO {
 	public void insert(Product product);
 	public int selectListCnt(HashMap<String, Object> map);
 	public List<Product> productList(HashMap<String, Object> map);
+	public List<Product> productListForSubcategory(String subcategory);
 	public Product read(Integer productid) throws Exception;
 	public String selectPictureUrl(Integer productid) throws Exception;
 	public void update(Product product);

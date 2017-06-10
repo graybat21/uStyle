@@ -2,9 +2,11 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
 
 <!-- ================= Favicon ================== -->
 <!-- Standard -->
@@ -34,90 +36,100 @@
 	rel='stylesheet' type='text/css' />
 
 <!-- Cloud Zoom CSS -->
-<!-- <link rel="stylesheet" type="text/css" href="css/em_cloudzoom.css" media="all" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="${myContextPath}/css/em_cloudzoom.css" media="all" /> -->
 
 <!-- Menu CSS -->
-<link rel="stylesheet" type="text/css" href="css/menu.css" media="all" />
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/menu.css" media="all" />
 <!-- Mega Menu CSS -->
-<link rel="stylesheet" type="text/css" href="css/megamenu.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/megamenu.css"
 	media="all" />
 
 <!-- Widget CSS -->
-<!-- <link rel="stylesheet" type="text/css" href="css/widgets.css" media="all" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="${myContextPath}/css/widgets.css" media="all" /> -->
 
+<!-- jQuery Ui CSS -->
+<link rel='stylesheet' type="text/css" href="${myContextPath}/css/jquery.ui.css" media="all" />
 <!-- Default CSS -->
-<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/styles.css" media="all" />
 <!-- Font Awesome CSS -->
-<link rel="stylesheet" type="text/css" href="css/font-awesome.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/font-awesome.css"
 	media="all" />
 <!-- Owl Carousel CSS -->
-<link rel="stylesheet" type="text/css" href="css/owl.carousel.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/owl.carousel.css"
 	media="all" />
 <!-- Responsive CSS -->
-<link rel="stylesheet" type="text/css" href="css/responsive.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/responsive.css"
 	media="all" />
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/bootstrap.css"
 	media="all" />
 
 <!-- Ajax Cart CSS -->
-<!-- <link rel="stylesheet" type="text/css" href="css/em_ajaxcart.css" media="all" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="${myContextPath}/css/em_ajaxcart.css" media="all" /> -->
 <!-- Blog Style CSS -->
-<link rel="stylesheet" type="text/css" href="css/blog-styles.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/blog-styles.css"
 	media="all" />
 <!-- Multi Deal Pro CSS -->
-<!-- <link rel="stylesheet" type="text/css" href="css/em_multidealpro.css" media="all" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="${myContextPath}/css/em_multidealpro.css" media="all" /> -->
 
 <!-- Product Labels CSS -->
-<link rel="stylesheet" type="text/css" href="css/em_productlabels.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/em_productlabels.css"
 	media="all" />
 
 <!-- Quick Shop CSS -->
-<!-- <link rel="stylesheet" type="text/css" href="css/em_quickshop.css" media="all" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="${myContextPath}/css/em_quickshop.css" media="all" /> -->
 
 <!-- Fancybox CSS -->
-<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/jquery.fancybox.css"
 	media="all" />
 
 <!-- Responsive Tab CSS -->
-<link rel="stylesheet" type="text/css" href="css/responsive-tabs.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/responsive-tabs.css"
 	media="all" />
 <!-- Print CSS -->
-<link rel="stylesheet" type="text/css" href="css/print.css"
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/print.css"
 	media="print" />
 <!-- Fashion Clean CSS -->
 <link rel='stylesheet' type='text/css' media='all'
-	href='css/fashionclean-style.css' />
+	href='${myContextPath}/css/fashionclean-style.css' />
 <!-- Style Fashion Clean CSS -->
 <link rel='stylesheet' type='text/css' media='all'
-	href='css/style_fashionclean.css' />
+	href='${myContextPath}/css/style_fashionclean.css' />
+<!-- Clothing CSS -->
+<!--link rel='stylesheet' type='text/css' media='all' href='css/clothing-style.css' /-->
+<!-- Style Clothing CSS -->
+<!--link rel='stylesheet' type='text/css' media='all' href='css/style_clothing.css' /-->
 
 <!-- Jquery Js -->
-<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/jquery-1.11.3.min.js"></script>
 <!-- Bootstrap Js -->
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/bootstrap.min.js"></script>
 <!-- Lazy Load Js -->
-<script type="text/javascript" src="js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/jquery.lazyload.min.js"></script>
 <!-- Owl Carousel Js -->
-<script type="text/javascript" src="js/owl.carousel.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/owl.carousel.js"></script>
 <!-- Ios Orientation Change Js -->
-<script type="text/javascript" src="js/ios-orientationchange-fix.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/ios-orientationchange-fix.js"></script>
 <!-- Hover Intent Js -->
-<script type="text/javascript" src="js/jquery.hoverIntent.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/jquery.hoverIntent.js"></script>
 <!-- Select UI Js -->
-<script type="text/javascript" src="js/selectUl.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/selectUl.js"></script>
 <!-- Throttle Js -->
-<script type="text/javascript" src="js/jquery.ba-throttle-debounce.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/jquery.ba-throttle-debounce.js"></script>
 <!-- EM Js -->
-<script type="text/javascript" src="js/em0131.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/em0131.js"></script>
 <!-- MegaMenu Js -->
-<script type="text/javascript" src="js/megamenu.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/megamenu.js"></script>
 <!-- Responsive Tab Js -->
-<script type="text/javascript" src="js/jquery.custom.responsiveTabs.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/jquery.custom.responsiveTabs.js"></script>
 <!-- Fancybox Js -->
-<script type="text/javascript" src="js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/jquery.fancybox.js"></script>
 <!-- Custom Js -->
-<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="${myContextPath}/js/custom.js"></script>
+<!-- Category Js -->
+<script type="text/javascript" src="${myContextPath}/js/em_category.js"></script>
+<!-- Slider Js -->
+<script type="text/javascript" src="${myContextPath}/js/jquery-ui.min.js"></script>
 <!-- 사용자 정의 css, js -->
 <!--link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>"/>
 <script src="<c:url value='/js/common.js'/>" charset="utf-8"></script-->

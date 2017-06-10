@@ -44,6 +44,11 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
+	public List<Product> productListForSubcategory(String subcategory) {
+		return session.selectList(namespace + ".productListForSubcategory", subcategory);
+	}
+	
+	@Override
 	public void update(Product product) {
 		session.update(namespace + ".update", product);
 	}

@@ -24,14 +24,14 @@ public class ProductServiceImpl implements ProductService {
 	public void insert(Product product) throws Exception {
 		dao.insert(product);
 		
-		String[] files = product.getFiles();
-		
-		String filesStr = Arrays.toString(files);
-		
-		System.out.println(filesStr);
-		
-		if ( files == null ) 
-			return;
+//		String[] files = product.getFiles();
+//		
+//		String filesStr = Arrays.toString(files);
+//		
+//		System.out.println(filesStr);
+//		
+//		if ( files == null ) 
+//			return;
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -54,6 +54,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> productList(HashMap<String, Object> map) throws Exception {
 		return dao.productList(map);
+	}
+	
+	@Override
+	public List<Product> productListForSubcategory(String subcategory) throws Exception {
+		return dao.productListForSubcategory(subcategory);
 	}
 	
 	@Override

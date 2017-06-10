@@ -48,9 +48,11 @@ public class ProductAdminController {
 			throws Exception {
 		
 		String[] files = product.getFiles();
-
+		
 		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
 		{
+			product.setMainpictureurl(files[0]); 		// 대표 이미지 추가
+			
 			String filesStr = Arrays.toString(files);
 			product.setPictureurl(filesStr);
 		}
@@ -124,6 +126,8 @@ public class ProductAdminController {
 
 		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
 		{
+			product.setMainpictureurl(files[0]); 		// 대표 이미지 수정
+			
 			String filesStr = Arrays.toString(files);
 			product.setPictureurl(filesStr);
 		}
