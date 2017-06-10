@@ -538,7 +538,7 @@
 																						<ul class="menu-container">
 																							<li
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
-																								class="em-menu-link" href="product-simple.do">Blouses</a></li>
+																								class="em-menu-link" href="product/productList.do?subcategory=Blouses">Blouses</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link" href="product-virtual.html">Tops</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a

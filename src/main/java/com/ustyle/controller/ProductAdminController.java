@@ -1,11 +1,9 @@
 package com.ustyle.controller;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -13,9 +11,6 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,14 +24,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Product;
 import com.ustyle.service.ProductService;
-import com.ustyle.utils.MediaUtils;
 import com.ustyle.utils.PageMaker;
 
 @Controller
 @RequestMapping("/admin/product/*")
-public class ProductController {
+public class ProductAdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductAdminController.class);
 
 	@Inject
 	private ProductService service;
@@ -98,9 +92,9 @@ public class ProductController {
 	public List<String> readProductImage(@PathVariable("productid") Integer productid) throws Exception
 	{
 		String readPictureUrl = service.selectPictureurl(productid).replaceAll("\\[|\\]", "");
-		String[] imageFiles = readPictureUrl.split(",");
+		String[] imageFiles = readPictureUrl.split(", ");
 		List<String> readPictureList = new ArrayList<String>(Arrays.asList(imageFiles));
-		readPictureList = readPictureList.stream().map(String :: trim).collect(Collectors.toList());		// 리스트 각 요소의 앞뒤 공백을 없애줌(Java 1.8부터 사용 가능)
+//		readPictureList = readPictureList.stream().map(String :: trim).collect(Collectors.toList());		// 리스트 각 요소의 앞뒤 공백을 없애줌(Java 1.8부터 사용 가능)
 		
 		for ( String aaa : readPictureList )
 			logger.info(aaa.toString());
