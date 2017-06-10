@@ -20,16 +20,17 @@ import com.ustyle.service.NoticeService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
-public class BoardController {
+public class BoardAdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BoardAdminController.class);
+
 	@Inject
 	private NoticeService noticeService;
 	@Inject
 	private FaqService faqService;
-	
-	@RequestMapping(value = "notice.do", method = RequestMethod.GET)
-	public ModelAndView Board_notice(PageMaker pagemaker,
+
+	@RequestMapping(value = "/admin/notice.do", method = RequestMethod.GET)
+	public ModelAndView Board_notice_admin(PageMaker pagemaker,
 			@RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView("board/board_notice/Notice");
@@ -51,23 +52,48 @@ public class BoardController {
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		mav.addObject("noticeList", list);
 		mav.addObject("pageMaker", pagemaker);
-		mav.setViewName("board/board_notice/공지사항");
+		mav.setViewName("board/board_notice");
 		mav.addObject("searchOption", searchOption);
 		mav.addObject("searchKeyword", searchKeyword);
 		return mav;
 	}
-	@RequestMapping("noticeView.do")
-	public ModelAndView noticeView(@RequestParam(value = "bno") int bno) throws Exception {
+
+	@RequestMapping(value = "/admin/noticeWrite.do", method = RequestMethod.GET)
+	public String noticeWriteFormAdmin() {
+		return "board/noticeWrite";
+	}
+
+	@RequestMapping(value = "/admin/noticeWrite.do", method = RequestMethod.POST)
+	public String noticeWriteAdmin(Notice notice) throws Exception {
+		noticeService.noticeWrite(notice);
+		logger.info(notice.toString());
+		return "redirect:/admin/notice.do";
+	}
+
+	@RequestMapping("/admin/noticeView.do")
+	public ModelAndView noticeView_admin(@RequestParam(value = "bno") int bno) throws Exception {
 		ModelAndView mav = new ModelAndView();
 
 		Notice notice = noticeService.noticeView(bno);
 		logger.info(notice.toString());
 		mav.addObject("notice", notice);
-		mav.setViewName("board/noticeDetail/공지사항 상세보기");
+		mav.setViewName("board/noticeDetail");
 		return mav;
 	}
-	
-	@RequestMapping(value="faq.do", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/admin/noticeModify.do", method = RequestMethod.GET)
+	public String noticeModifyForm() {
+		return "board/noticeWrite";
+	}
+
+	@RequestMapping(value = "/admin/noticeModify.do", method = RequestMethod.POST)
+	public String noticeModify(Notice notice) throws Exception {
+		noticeService.noticeModify(notice);
+		logger.info(notice.toString());
+		return "redirect:/admin/notice.do";
+	}
+
+	@RequestMapping(value = "/admin/faq.do", method = RequestMethod.GET)
 	public ModelAndView Board_faq(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -89,9 +115,20 @@ public class BoardController {
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		mav.addObject("faqList", list);
 		mav.addObject("pageMaker", pagemaker);
-		mav.setViewName("board/board_faq/FAQ");
+		mav.setViewName("board/board_faq");
 		mav.addObject("searchOption", searchOption);
 		mav.addObject("searchKeyword", searchKeyword);
 		return mav;
+	}
+	@RequestMapping(value = "/admin/faqWrite.do", method = RequestMethod.GET)
+	public String faqWriteForm() {
+		return "board/faqWrite";
+	}
+
+	@RequestMapping(value = "/admin/faqWrite.do", method = RequestMethod.POST)
+	public String faqWrite(Faq faq) throws Exception {
+		faqService.faqWrite(faq);
+		logger.info(faq.toString());
+		return "redirect:/admin/faq.do";
 	}
 }

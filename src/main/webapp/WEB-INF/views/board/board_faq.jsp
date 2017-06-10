@@ -64,7 +64,7 @@
 												<tr>
 													<th style="width: 7%; text-align: center">글번호</th>
 													<th style="width: 53%; text-align: center">내용</th>
-													<th style="width: 20%; text-align: center">날짜</th>
+													<!-- <th style="width: 20%; text-align: center">날짜</th> -->
 													<th style="width: 7%; text-align: center">조회수</th>
 												</tr>
 											</thead>
@@ -84,17 +84,16 @@
 														<td style="text-align: center;">${item.bno }</td>
 														<a href="javascript:viewComment(${item.bno })">
 														<td style="text-align: center;">${item.content }</td></a>
-														<td style="text-align: center;"><fmt:formatDate
-																value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td>
+														<%-- <td style="text-align: center;"><fmt:formatDate
+																value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td> --%>
 														<td style="text-align: center;">${item.viewcnt }</td>
 													</tr>
-													<c:if test="${item.comment != null }">
+													<%-- <c:if test="${item.comment != null }"> --%>
 													<tr>
 														<td id="comment_${item.bno }" colspan="4" style="display:none">
 														${item.comment }
 														</td>
 													</tr>
-													</c:if>
 												</c:forEach>
 
 											</tbody>

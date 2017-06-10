@@ -34,9 +34,9 @@ import com.ustyle.utils.PageMaker;
 
 @Controller
 @RequestMapping("/admin/product/*")
-public class ProductController {
+public class ProductAdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductAdminController.class);
 
 	@Inject
 	private ProductService service;
@@ -98,9 +98,9 @@ public class ProductController {
 	public List<String> readProductImage(@PathVariable("productid") Integer productid) throws Exception
 	{
 		String readPictureUrl = service.selectPictureurl(productid).replaceAll("\\[|\\]", "");
-		String[] imageFiles = readPictureUrl.split(",");
+		String[] imageFiles = readPictureUrl.split(", ");
 		List<String> readPictureList = new ArrayList<String>(Arrays.asList(imageFiles));
-		readPictureList = readPictureList.stream().map(String :: trim).collect(Collectors.toList());		// 리스트 각 요소의 앞뒤 공백을 없애줌(Java 1.8부터 사용 가능)
+//		readPictureList = readPictureList.stream().map(String :: trim).collect(Collectors.toList());		// 리스트 각 요소의 앞뒤 공백을 없애줌(Java 1.8부터 사용 가능)
 		
 		for ( String aaa : readPictureList )
 			logger.info(aaa.toString());

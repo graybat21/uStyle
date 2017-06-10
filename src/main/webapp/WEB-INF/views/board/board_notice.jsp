@@ -35,7 +35,7 @@
 			<div class="board-button">
 				<p>
 					<button class="btn btn-default" onclick="location.href='notice.do'">공지사항</button>
-					<button class="btn btn-default" onclick="location.href='FAQ.do'">FAQ</button>
+					<button class="btn btn-default" onclick="location.href='faq.do'">FAQ</button>
 					<button class="btn btn-default" onclick="location.href='QA.do'">Q&A</button>
 					<button class="btn btn-default" onclick="location.href='1on1.do'">1:1
 						문의</button>
@@ -91,8 +91,8 @@
 
 											</tbody>
 										</table>
-										<a href="noticeWrite.do">
-										<div class="btn btn-default pull-right">글쓰기</div></a>
+										<!-- <a href="noticeWrite.do">
+										<div class="btn btn-default pull-right">글쓰기</div></a> -->
 									</div>
 
 
