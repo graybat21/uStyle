@@ -32,11 +32,15 @@
 
 	function sendData() {
 		if (!document.getElementById("title").value) {
-			alert("제목을 입력하세요.");
+			alert("질문을 입력하세요.");
+			return false;
+		}
+		if (!document.getElementById("category").value) {
+			alert("카테고리를 입력하세요.");
 			return false;
 		}
 		if (!CKEDITOR.instances.editor1.getData()) {
-			alert("내용을 입력하세요.");
+			alert("답변을 입력하세요.");
 			return false;
 		}
 		
@@ -85,12 +89,23 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<tr>
-						<th>제목:</th>
+						<th>질문:</th>
 						<td><input type="text" placeholder="질문을 입력하세요. " id="title"
 							name="content" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th>내용:</th>
+						<th>분류:</th>
+						<td><!-- <input type="text" placeholder="분류를 입력하세요. " id="category"
+							name="category" class="form-control" /> -->
+							<select id="category" name="category">
+								<option value="회원정보관련">회원정보관련</option>
+								<option value="상품환불관련">상품환불관련</option>
+								<option value="배송관련">배송관련</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>답변:</th>
 						<td><textarea id="editor1"
 								name="comment" rows="10" cols="80" class="form-control"></textarea>
 						</td>
