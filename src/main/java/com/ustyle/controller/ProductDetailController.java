@@ -1,5 +1,6 @@
 package com.ustyle.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,19 +27,45 @@ public class ProductDetailController {
 	private ProductService service;
 	
 	@RequestMapping(value = "productList.do", method = RequestMethod.GET)
-	public ModelAndView productList(PageMaker pagemaker, 
-		@RequestParam(value = "rowsPerPage", required = false) Integer rowsPerPage, 
+	public ModelAndView productList(@RequestParam(value = "pageCount", required = false) Integer pageCount, 
+		@RequestParam(value = "countPerPage", required = false) Integer countPerPage, 
 		@RequestParam(value = "subcategory", required = false) String subcategory) throws Exception {
+		// http://localhost:8080/product/productList.do?subcategory=Blouses&page=2&countPerPage=12
+		
+		PageMaker pagemaker = new PageMaker();
+		
+		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
+		pagemaker.setPage(page);
 		
 		ModelAndView mav = new ModelAndView("product/productList/상품 리스트");
 		
-		List<Product> productList = service.productListForSubcategory(subcategory);
-		mav.addObject("productList", productList);
-		for ( Product p : productList )
-			logger.info(p.toString());
+		int totalCnt = service.selectListCntForSubcategory(subcategory); // DB연동_ 총 갯수 구해오기
 		
-//		logger.info(pagemaker.toString());
-//		System.out.println(rowsPerPage.intValue());
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int countPerPaging = 10;
+		
+		int pageCnt = ( countPerPage != null ) ? countPerPage.intValue() : 12;
+		
+		pagemaker.setCount(totalCnt, pageCnt, countPerPaging);
+
+		int first = ((pagemaker.getPage() - 1) * pageCnt) + 1;
+		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
+		
+		map.put("first", first);
+		map.put("last", last);
+		map.put("subcategory", subcategory);
+		
+		List<Product> productList = service.productListForSubcategory(map);
+		
+//		for ( Product p : productList )
+//			logger.info(p.toString());
+		
+		mav.addObject("productList", productList);
+		mav.addObject("subcategory", subcategory);
+		mav.addObject("totalCnt", totalCnt);
+		mav.addObject("first", first);
+		mav.addObject("last", last);
+		mav.addObject("pageMaker", pagemaker);
 		
 		return mav;
 		

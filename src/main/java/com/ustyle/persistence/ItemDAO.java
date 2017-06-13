@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.ustyle.domain.Item;
-import com.ustyle.domain.Product;
 
 public interface ItemDAO {
 	public void insert(Item item);

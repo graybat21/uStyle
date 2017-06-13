@@ -42,26 +42,27 @@
                                 <div class="row">
                                     <div class="col-sm-18 col-sm-push-6 em-col-main">
                                         <div class="page-title category-title">
-                                            <h1>Shoes</h1>
+                                            <h1>${subcategory}</h1>
                                         </div>
                                         
                                         <div class="category-products">
                                             <div class="toolbar-top">
                                                 <div class="toolbar">
                                                     <div class="pager">
-                                                        <p class="amount"> Items 1 to 12 of 20 total</p>
+                                                        <p class="amount"> Items ${first} to ${last} of ${totalCnt} total</p>
                                                         <div class="pages">
                                                             <ol>
                                                                 <li class="current">1</li>
                                                                 <li><a href="#">2</a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="next i-next" href="#" title="Next"> <img src="images/pager_arrow_right.gif" alt="Next" class="v-middle" /> </a>
+                                                                    <a class="fa fa-angle-right" href="#" title="Next">  </a>
+                                                                    <a class="fa fa-angle-double-right" href="#" title="Double Next">  </a>
                                                                 </li>
                                                             </ol>
                                                         </div>
                                                     </div><!-- /.pager -->
-                                                    <div class="sorter">
+                                                    <%--div class="sorter">
                                                         <div class="sort-by toolbar-switch">
                                                             <div class="toolbar-title">
                                                                 <label>Sort By</label>
@@ -82,69 +83,16 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                    </div><!-- /.sorter -->
+                                                    </div><!-- /.sorter --%>
                                                 </div>
                                             </div><!-- /.toolbar-top -->
                                             <div id="em-grid-mode">
                                                 <ul class="emcatalog-grid-mode products-grid emcatalog-disable-hover-below-mobile">
-                                                    <%--li class="item first">
-                                                        <div class="product-item">
-                                                            <div class="product-shop-top">
-                                                                <a href="product-detail.html" title="WIASSI Version 1" class="product-image"> <img class="em-img-lazy img-responsive em-alt-hover" src="http://placehold.it/220x220" width="220" height="220" alt="WIASSI Version 1" /> <img id="product-collection-image-206" class="em-img-lazy img-responsive em-alt-org" src="http://placehold.it/220x220" width="220" height="220" alt="WIASSI Version 1" /><span class="bkg-hover"></span> </a>
-                                                                <div class="bottom">
-                                                                    <div class="em-btn-addto text-center ">
-                                                                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="206"><span><span>Add to Cart</span></span>
-                                                                        </button>
-                                                                        <ul class="add-to-links">
-                                                                            <li><a href="#206" class="link-wishlist" title="Add to Wishlist">Add to Wishlist</a>
-                                                                            </li>
-                                                                            <li><a href="#206" class="link-compare" title="Add to Compare">Add to Compare</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="quickshop-link-container"> <a href="#" class="quickshop-link" title="Quickshop">Quickshop</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-shop">
-                                                                <div class="f-fix">
-                                                                    <h2 class="product-name text-center  "><a href="product-detail.html" title="WIASSI Version 1"> WIASSI Version 1 </a></h2>
-                                                                    <div class=" text-center">
-                                                                        <div class="ratings">
-                                                                            <div class="rating-box">
-                                                                                <div class="rating" style="width:%"></div>
-                                                                            </div> <span class="amount"><a href="#" onclick="206">(0)</a></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="text-center ">
-                                                                        <div class="price-box"> <span class="regular-price" id="product-price-206"> <span class="price"  content="750">$750.00</span> </span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="desc std text-center em-element-display-hover"> Morbi at ex at arcu posuere luctus. Maecenas eu nu...</div>
-                                                                </div>
-                                                            </div>
-                                                        </div><!-- /.product-item -->
-                                                    </li--%>
-                                                    
                                                     <c:forEach var="product" items="${productList}" varStatus="status">
 	                                                    <li class="item">
 	                                                        <div class="product-item">
 	                                                            <div class="product-shop-top">
-	                                                                <a href="product-detail.html" title="WIASSI Version 10" class="product-image"> <img class="em-img-lazy img-responsive em-alt-hover" src="http://placehold.it/220x220" width="220" height="220" alt="WIASSI Version 10" /> <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org" src="/displayFile?fileName=${product.mainpictureurl}" width="150px" height="150px" alt="WIASSI Version 10" /><span class="bkg-hover"></span> </a>
-	                                                                <div class="bottom">
-	                                                                    <div class="em-btn-addto text-center ">
-	                                                                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="215"><span><span>Add to Cart</span></span>
-	                                                                        </button>
-	                                                                        <ul class="add-to-links">
-	                                                                            <li><a href="#215" class="link-wishlist" title="Add to Wishlist">Add to Wishlist</a>
-	                                                                            </li>
-	                                                                            <li><a href="#215" class="link-compare" title="Add to Compare">Add to Compare</a>
-	                                                                            </li>
-	                                                                        </ul>
-	                                                                    </div>
-	                                                                    <div class="quickshop-link-container"> <a href="#10" class="quickshop-link" title="Quickshop">Quickshop</a>
-	                                                                    </div>
-	                                                                </div>
+	                                                                <a href="product-detail.html" title="WIASSI Version 10" class="product-image"> <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org" src="/displayFile?fileName=${product.mainpictureurl}" width="150px" height="150px" alt="WIASSI Version 10" /><span class="bkg-hover"></span> </a>
 	                                                            </div>
 	                                                            <div class="product-shop">
 	                                                                <div class="f-fix">
@@ -168,60 +116,46 @@
 	                                                        </div><!-- /.product-item -->
 	                                                    </li>
                                                     </c:forEach>
-                                                    <%--li class="item last">
-                                                        <div class="product-item">
-                                                            <div class="product-shop-top">
-                                                                <a href="#" title="WIASSI Version 2" class="product-image"> <img class="em-img-lazy img-responsive em-alt-hover" src="images/product/220x220/shoe_sp2_1.jpg" width="220" height="220" alt="WIASSI Version 2" /> <img id="product-collection-image-207" class="em-img-lazy img-responsive em-alt-org" src="http://placehold.it/220x220" width="220" height="220" alt="WIASSI Version 2" /><span class="bkg-hover"></span> </a>
-                                                                <div class="bottom">
-                                                                    <div class="em-btn-addto text-center ">
-                                                                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="207"><span><span>Add to Cart</span></span>
-                                                                        </button>
-                                                                        <ul class="add-to-links">
-                                                                            <li><a href="#207" class="link-wishlist" title="Add to Wishlist">Add to Wishlist</a>
-                                                                            </li>
-                                                                            <li><a href="#207" class="link-compare" title="Add to Compare">Add to Compare</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="quickshop-link-container"> <a href="#2" class="quickshop-link" title="Quickshop">Quickshop</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-shop">
-                                                                <div class="f-fix">
-                                                                    <h2 class="product-name text-center  "><a href="#" title="WIASSI Version 2"> WIASSI Version 2 </a></h2>
-                                                                    <div class=" text-center">
-                                                                        <div class="ratings">
-                                                                            <div class="rating-box">
-                                                                                <div class="rating" style="width:%"></div>
-                                                                            </div> <span class="amount"><a href="#" onclick="207">(0)</a></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="text-center ">
-                                                                        <div class="price-box"> <span class="regular-price" id="product-price-207"> <span class="price"  content="1500">$1,500.00</span> </span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="desc std text-center em-element-display-hover"> By popular demand, we've added half sizes to make your feet even happier.</div>
-                                                                </div>
-                                                            </div>
-                                                        </div><!-- /.product-item -->
-                                                    </li--%>
                                                 </ul>
                                             </div><!-- /.em-grid-mode -->
                                             
                                             <div class="toolbar-bottom em-box-03">
                                                 <div class="toolbar">
                                                     <div class="pager">
-                                                        <p class="amount"> Items 1 to 12 of 20 total</p>
+                                                        <p class="amount"> Items ${first} to ${last} of ${totalCnt} total</p>
                                                         <div class="pages">
                                                             <ol>
-                                                                <li class="current">1</li>
-                                                                <li><a href="#">2</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="next i-next" href="#" title="Next"> <img src="images/pager_arrow_right.gif" alt="Next" class="v-middle" /> </a>
-                                                                </li>
+                                                            	<c:if test="${pageMaker.prev }">
+																    <c:url var="productListP" value="productList.do">
+																        <c:param name="pageCount" value="${pageMaker.start - 1}" />
+																        <c:param name="countPerPage" value="12" />
+																        <c:param name="subcategory" value="${subcategory}" />
+																    </c:url>
+                                                            		<li><a class="fa fa-angle-left" href="${productListP }" title="Prev"> </a></li>
+                                                            	</c:if>
+                                                            	
+                                                            	<c:forEach begin="${pageMaker.start }" end="${pageMaker.end}" var="idx">
+																    <c:url var="productListP" value="productList.do">
+																        <c:param name="pageCount" value="${idx}" />
+																        <c:param name="countPerPage" value="12" />
+																        <c:param name="subcategory" value="${subcategory}" />
+																    </c:url>
+																    <li>
+																        <a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${productListP }'>${idx}</a>
+																    </li>    
+																</c:forEach>
+																
+																<c:if test="${pageMaker.next }">
+																    <c:url var="productListP" value="productList.do">
+																        <c:param name="pageCount" value="${pageMaker.end + 1}" />
+																        <c:param name="countPerPage" value="12" />
+																        <c:param name="subcategory" value="${subcategory}" />
+																    </c:url>
+																    <li><a class="fa fa-angle-right" href="${productListP }" title="Next"></a></li>
+																</c:if>
+                                                            	
                                                             </ol>
+                                                            
                                                         </div>
                                                     </div><!-- /.pager -->
                                                     <div class="sorter">

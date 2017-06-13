@@ -9,7 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.ustyle.domain.Item;
-import com.ustyle.domain.Product;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {

@@ -9,7 +9,8 @@ public interface ProductService {
 	public void insert(Product product) throws Exception;
 	public int selectListCnt(HashMap<String, Object> map) throws Exception;
 	public List<Product> productList(HashMap<String, Object> map) throws Exception;
-	public List<Product> productListForSubcategory(String subcategory) throws Exception;
+	public int selectListCntForSubcategory(String subcategory) throws Exception;
+	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception;
 	public Product read(Integer productid) throws Exception;
 	public String selectPictureurl(Integer productid) throws Exception;
 	public void update(Product product) throws Exception;

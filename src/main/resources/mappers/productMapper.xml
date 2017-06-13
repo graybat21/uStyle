@@ -54,14 +54,27 @@
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
 	
-	<select id="productListForSubcategory" resultType="product" parameterType="String">
+	<select id="selectListCntForSubcategory" resultType="int" parameterType="String">
+ 		SELECT count(*) 
+ 		FROM 
+ 			tbl_product
+ 		WHERE
+			subcategory = #{subcategory}
+ 	</select>
+	
+	<select id="productListForSubcategory" resultType="product" parameterType="hashmap">
 		SELECT 
 			productid, productname, description, brand, 
 			category, subcategory, pictureurl, mainpictureurl
 		FROM
-			tbl_product
-		WHERE
-			subcategory = #{subcategory}
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					productid, productname, description, brand, 
+					category, subcategory, pictureurl, mainpictureurl
+			FROM tbl_product, (SELECT @row_number:=0) as t
+			WHERE subcategory = #{subcategory}
+          	ORDER BY productid DESC
+			) X 
+		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
 	
 	<update id="update" parameterType="product">

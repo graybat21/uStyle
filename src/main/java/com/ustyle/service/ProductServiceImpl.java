@@ -1,6 +1,5 @@
 package com.ustyle.service;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,8 +56,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Product> productListForSubcategory(String subcategory) throws Exception {
-		return dao.productListForSubcategory(subcategory);
+	public int selectListCntForSubcategory(String subcategory) throws Exception {
+		return dao.selectListCntForSubcategory(subcategory);
+	}
+	
+	@Override
+	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception {
+		return dao.productListForSubcategory(map);
 	}
 	
 	@Override
