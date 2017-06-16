@@ -36,7 +36,7 @@
 	rel='stylesheet' type='text/css' />
 
 <!-- Cloud Zoom CSS -->
-<!-- <link rel="stylesheet" type="text/css" href="${myContextPath}/css/em_cloudzoom.css" media="all" /> -->
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/em_cloudzoom.css" media="all" />
 
 <!-- Menu CSS -->
 <link rel="stylesheet" type="text/css" href="${myContextPath}/css/menu.css" media="all" />
@@ -82,6 +82,8 @@
 <!-- Fancybox CSS -->
 <link rel="stylesheet" type="text/css" href="${myContextPath}/css/jquery.fancybox.css"
 	media="all" />
+<!-- Lightbox CSS -->
+<link rel="stylesheet" type="text/css" href="${myContextPath}/css/lightbox.css" media="all" />
 
 <!-- Responsive Tab CSS -->
 <link rel="stylesheet" type="text/css" href="${myContextPath}/css/responsive-tabs.css"
@@ -124,6 +126,8 @@
 <script type="text/javascript" src="${myContextPath}/js/jquery.custom.responsiveTabs.js"></script>
 <!-- Fancybox Js -->
 <script type="text/javascript" src="${myContextPath}/js/jquery.fancybox.js"></script>
+<!-- Cloud Zoom Js -->
+<script type="text/javascript" src="${myContextPath}/js/cloud-zoom.js"></script>
 <!-- Custom Js -->
 <script type="text/javascript" src="${myContextPath}/js/custom.js"></script>
 <!-- Category Js -->

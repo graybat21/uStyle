@@ -92,7 +92,7 @@
 	                                                    <li class="item">
 	                                                        <div class="product-item">
 	                                                            <div class="product-shop-top">
-	                                                                <a href="product-detail.html" title="WIASSI Version 10" class="product-image"> <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org" src="/displayFile?fileName=${product.mainpictureurl}" width="150px" height="150px" alt="WIASSI Version 10" /><span class="bkg-hover"></span> </a>
+	                                                                <a href="/product/productDetail.do?productid=${product.productid}" title="WIASSI Version 10" class="product-image"> <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org" src="/displayFile?fileName=${product.mainpictureurl}" width="150px" height="150px" alt="WIASSI Version 10" /><span class="bkg-hover"></span> </a>
 	                                                            </div>
 	                                                            <div class="product-shop">
 	                                                                <div class="f-fix">
@@ -351,4 +351,3 @@
         </script>
 
     </body>
-</html>

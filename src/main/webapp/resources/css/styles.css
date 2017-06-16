@@ -7103,11 +7103,15 @@ div.desc {
     max-width: 100%;
 }
 .product-view-detail .product-img-box .media-left .product-image img {
-    max-width: 100%;
+    max-width: 80%;		/* 이미지 크기 조정 */
     border: 1px solid #f7f7f7;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 5px;	
+    
+    margin-left: auto;	/* 이미지 가운데 정렬 */
+    margin-right: auto;
+    display: block;
 }
 .product-view-detail .product-img-box .more-views {
     position: relative;

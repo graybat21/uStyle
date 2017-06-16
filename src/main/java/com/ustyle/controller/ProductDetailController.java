@@ -70,4 +70,20 @@ public class ProductDetailController {
 		return mav;
 		
 	}
+	
+	@RequestMapping(value = "productDetail.do", method = RequestMethod.GET)
+	public ModelAndView productDetail(@RequestParam(value = "productid", required = false) 
+						Integer productid) throws Exception {
+		ModelAndView mav = new ModelAndView("product/productDetail/상품 상세");
+		Product product = service.read(productid);
+		
+		String mainPictureUrl = product.getMainpictureurl();
+		
+		product.setMainpictureurl(mainPictureUrl.replace("/s_", "/"));
+		
+		logger.info(product.toString());
+		
+		mav.addObject("product", product);
+		return mav;
+	}
 }
