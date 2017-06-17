@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 	<body class="contacts-index-index ">
     	
@@ -97,20 +98,11 @@
                                                                             </p>
                                                                             
                                                                             <div class="price-box"> 
-                                                                            	<span class="price" content="750"><del>$750.00</del></span>
-                                                                            	<span class="price" id="product-price-206"> <span class="price" content="500" style="font-color:red">$500.00</span> </span>
+                                                                            <c:if test="${ product.originalprice > product.saleprice }">
+                                                                            	<span class="price"><del><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></del></span>
+                                                                            </c:if>
+                                                                            	<span class="price" id="product-price-206"> <span class="price" style="font-color:red"><fmt:formatNumber value="${product.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
                                                                             </div>
-                                                                            <ul class="tier-prices product-pricing">
-                                                                                <li class="tier-price tier-0"> Buy 5 for <span class="price">$12.51</span> each and&nbsp;
-                                                                                    <strong class="benefit">save&nbsp;<span class="percent tier-0">8</span>% </strong> <span class="msrp-price-hide-message"> </span>
-                                                                                </li>
-                                                                                <li class="tier-price tier-1"> Buy 10 for <span class="price">$11.51</span> each and&nbsp;
-                                                                                    <strong class="benefit">save&nbsp;<span class="percent tier-1">15</span>% </strong> <span class="msrp-price-hide-message"> </span>
-                                                                                </li>
-                                                                                <li class="tier-price tier-2"> Buy 20 for <span class="price">$9.51</span> each and&nbsp;
-                                                                                    <strong class="benefit">save&nbsp;<span class="percent tier-2">30</span>% </strong> <span class="msrp-price-hide-message"> </span>
-                                                                                </li>
-                                                                            </ul>
                                                                         </div>
                                                                     </div><!-- /.em-product-info-basic -->
                                                                     <div id="product-options-wrapper" class="product-options" style="overflow-y: hidden;">

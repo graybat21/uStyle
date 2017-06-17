@@ -77,7 +77,7 @@
 						<ul class="mailbox-attachments clearfix uploadedList">
 						</ul>
 						
-						<button type="submit" class="btn btn-primary" onclick="return verifyOK()">Submit</button>
+						<button type="button" class="btn btn-primary" onclick="return verifyOK()">Submit</button>
 					</div>
 				</form>
 			</div>
@@ -94,7 +94,7 @@
  <script type="text/javascript" src="/resources/js/upload.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
-<script id="templateAttach" type="text/x-handlebars-template">
+<script id="template" type="text/x-handlebars-template">
 <li>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}"
 	alt="Attachment"></span>
@@ -108,7 +108,7 @@
 
 <script>
 	
-	var template = Handlebars.compile($("#templateAttach").html());
+	var template = Handlebars.compile($("#template").html());
 	
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var token  = $("meta[name='_csrf']").attr("content");
@@ -123,7 +123,7 @@
 		var files = event.originalEvent.dataTransfer.files;
 		
 		var file = files[0];
-		
+
 		console.log(file);
 		var formData = new FormData();
 		
@@ -157,7 +157,7 @@
 	});
 	
 	var productid = ${product.productid};
-	var template = Handlebars.compile($("#templateAttach").html());
+	var template = Handlebars.compile($("#template").html());
 	
 	$.getJSON("/admin/product/readProductImage/" + productid, function(list) {
 		$(list).each(function() {
@@ -172,7 +172,7 @@
 		});
 	});
 	
-	$("#registerForm").submit(function(event) {
+	$("#registerProductForm").submit(function(event) {
 		event.preventDefault();
 		
 		var that = $(this);
@@ -183,7 +183,6 @@
 			str += "<input type='hidden' name='files[" + index + "]' value='" 
 				+ $(this).attr("href") + "'> ";
 		});
-		
 		that.append(str);
 		
 		that.get(0).submit();
