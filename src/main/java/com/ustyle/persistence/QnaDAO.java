@@ -10,14 +10,19 @@ public interface QnaDAO {
 
 	public List<Qna> qnaList(HashMap<String, Object> map);
 
-	 public void qnaWrite(Qna qna);
-	
-	 public Qna qnaView(int bno);
+	public void qnaWrite(Qna qna);
+
+	public Qna qnaView(int bno);
 
 	public void viewCntPlus(int bno);
+
 	public int getCurrentNo();
 	
-	// public void faqModify(Faq faq);
+	public int getFamilyNo(int parent);
+
+	public void qnaModify(Qna qna);
 	//
-	 public void qnaDelete(int bno);
+	public void qnaDelete(int bno);
+
+	public List<Qna> myQnaList(HashMap<String, Object> map);
 }

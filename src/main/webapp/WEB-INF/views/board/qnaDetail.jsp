@@ -40,8 +40,8 @@
             <tr>
                 <td colspan="2">
                     <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='qna.do'"/>
-                    <input type="button" value="글 수정 " class="pull-right" onclick="location.href='qnaModify.do'"/>
                     <c:if test="${qna.username == sessionScope.session_username }">
+                    <input type="button" value="글 수정 " class="pull-right" onclick="location.href='qnaModify.do?bno=${qna.bno}'"/>
                     <input type="button" value="글 삭제 " class="pull-right" onclick="location.href='qnaDelete.do?bno=${qna.bno}'"/>
                     </c:if>
                     <%-- <input type="button" value="글 답변 " class="pull-right" onclick="location.href='qnaReply.do?bno=${qna.bno}'"/> --%>

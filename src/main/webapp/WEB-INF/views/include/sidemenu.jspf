@@ -40,8 +40,10 @@
 					<div class="rslider">
 						<div id="slider-range"></div>
 						<div class="values">
-							<span id="from-val"><span class="price">88</span></span> <span
-								id="to-val"><span class="price">721</span></span>
+							<span id="from-val"><span class="price">Q&A</span></span>
+							<a href="${myQnaList.do }"> 
+							<span id="to-val"><span class="price">내가쓴글</span></span>
+							</a>
 						</div>
 					</div>
 				</dd>

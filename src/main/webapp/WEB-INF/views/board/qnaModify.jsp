@@ -35,6 +35,10 @@
 			alert("제목을 입력하세요.");
 			return false;
 		}
+		if (!document.getElementById("category").value) {
+			alert("카테고리를 입력하세요.");
+			return false;
+		}
 		if (!CKEDITOR.instances.editor1.getData()) {
 			alert("내용을 입력하세요.");
 			return false;
@@ -64,54 +68,43 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-						<table class="table table-bordered">
-    <tbody>
-            <tr>
-                <th>제목: </th>
-                <td>${qna.title }</td>
-            </tr>
-            <tr>
-                <th>작성자: </th>
-                <td>${qna.username}</td>
-            </tr>
-            <tr>
-                <th>분류: </th>
-                <td>${qna.category}</td>
-            </tr>
-            <tr>
-                <th>내용: </th>
-                <td>${qna.content }</td>
-            </tr>
-	</tbody></table>
-	
+						
 		<table class="table table-bordered">
 			<thead>
-			<caption>글쓰기</caption>
+			<caption>수정하기</caption>
 			</thead>
 			<tbody>
 				<form id="qna_form" method="post" encType="multiplart/form-data">
-					
+					<input type="hidden" name="bno" value="${bno }">
+					<input type="hidden" name="family" value="${bno }">
+					<input type="hidden" name="parent" value="${qna.parent }">
+					<input type="hidden" name="depth" value="${qna.depth }">
+					<input type="hidden" name="indent" value="${qna.indent }">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<tr>
 						<th>제목:</th>
 						<td><input type="text" placeholder="질문을 입력하세요. " id="title"
-							name="title" class="form-control" value="[답변] ${qna.title }"/></td>
+							name="title" class="form-control" value="${qna.title }"/></td>
 					</tr>
-					<%-- <tr>
+					<tr>
 						<th>분류:</th>
-						<td>${qna.category }</td>
-					</tr> --%>
+						<td><!-- <input type="text" placeholder="분류를 입력하세요. " id="category"
+							name="category" class="form-control" /> -->
+							<select id="category" name="category">
+								<option value="회원정보관련">회원정보관련</option>
+								<option value="상품환불관련">상품환불관련</option>
+								<option value="배송관련">배송관련</option>
+							</select>
+						</td>
+					</tr>
 					<tr>
 						<th>답변:</th>
 						<td><textarea id="editor1"
-								name="content" rows="10" cols="80" class="form-control"></textarea>
+								name="content" rows="10" cols="80" class="form-control">${qna.content}</textarea>
 						</td>
 					</tr>
-					<input type="hidden" name="category" value="${qna.category }">
-					<input type="hidden" name="family" value="${qna.family }">
-					<input type="hidden" name="parent" value="${qna.bno }">
-					<input type="hidden" name="bno" value="${qna.bno }">
+
 					<tr>
 						<td colspan="2"><input type="button" value="등록"
 							onclick="sendData()" class="pull-right" /> <input type="reset"

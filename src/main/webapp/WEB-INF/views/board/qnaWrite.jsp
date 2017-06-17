@@ -75,12 +75,13 @@
 			</thead>
 			<tbody>
 				<form id="qna_form" method="post" encType="multiplart/form-data">
+					<%-- <input type="hidden" name="family" value="${bno }"> --%>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<tr>
 						<th>제목:</th>
 						<td><input type="text" placeholder="질문을 입력하세요. " id="title"
-							name="title" class="form-control" value="${qna.title }"/></td>
+							name="title" class="form-control" value=""/></td>
 					</tr>
 					<tr>
 						<th>분류:</th>
@@ -96,7 +97,7 @@
 					<tr>
 						<th>답변:</th>
 						<td><textarea id="editor1"
-								name="content" rows="10" cols="80" class="form-control">${qna.comment}</textarea>
+								name="content" rows="10" cols="80" class="form-control"></textarea>
 						</td>
 					</tr>
 

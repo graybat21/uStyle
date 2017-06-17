@@ -64,7 +64,7 @@
             <tr>
                 <td colspan="2">
                     <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='qna.do'"/>
-                    <input type="button" value="답변하기 " class="pull-right" onclick="location.href='qnaReply.do?bno=${qna.bno}'"/>
+                    <input type="button" value="답변하기 " class="pull-right" onclick="location.href='qnaReply.do?parent=${qna.bno}'"/>
                     <input type="button" value="삭제하기" class="pull-right" onclick="location.href='qnaDelete.do?bno=${qna.bno}'"/>
                 </td>
             </tr>

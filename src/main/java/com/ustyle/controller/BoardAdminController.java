@@ -203,16 +203,17 @@ public class BoardAdminController {
 		return "redirect:/admin/qna.do";
 	}
 	@RequestMapping(value = "/admin/qnaReply.do", method = RequestMethod.GET)
-	public String qnaReplyForm(@RequestParam(value = "bno") int bno,Model model) throws Exception {
-		Qna qna = qnaService.qnaView(bno);
+	public String qnaReplyForm(@RequestParam(value = "parent") int parent,Model model) throws Exception {
+		Qna qna = qnaService.qnaView(parent);
 		model.addAttribute("qna",qna);
 		return "board/qnaWrite";
 	}
 	@RequestMapping(value = "/admin/qnaReply.do", method = RequestMethod.POST)
 	public String qnaReply(Qna qna) throws Exception {
 		qna.setUsername("관리자");
-		qna.setRef(1);
-		qna.setRestep(qna.getBno());
+//		qna.setParent(qna.getBno());
+		qna.setDepth(1);
+		qna.setIndent(1);
 		qnaService.qnaWrite(qna);
 		logger.info(qna.toString());
 		return "redirect:/admin/qna.do";

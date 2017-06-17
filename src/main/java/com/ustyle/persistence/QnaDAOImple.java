@@ -47,9 +47,23 @@ public class QnaDAOImple implements QnaDAO {
 	}
 
 	@Override
+	public int getFamilyNo(int parent) {
+		return session.selectOne(namespace+".getFamilyNo",parent);
+	}
+
+	@Override
 	public void qnaDelete(int bno) {
 		session.delete(namespace+".qnaDelete",bno);
 	}
-	
+
+	@Override
+	public List<Qna> myQnaList(HashMap<String, Object> map) {
+		return session.selectList(namespace+".myQnaList",map);
+	}
+
+	@Override
+	public void qnaModify(Qna qna) {
+		session.update(namespace+".qnaModify",qna);
+	}
 
 }

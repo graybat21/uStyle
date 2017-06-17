@@ -11,9 +11,10 @@ public class Qna {
 	private String category;
 	private Date regdate;
 	private int viewcnt;
-	private int ref;
-	private int restep;
-	private int relevel;
+	private int family;
+	private int parent;
+	private int depth;
+	private int indent;
 
 	public int getBno() {
 		return bno;
@@ -71,35 +72,43 @@ public class Qna {
 		this.viewcnt = viewcnt;
 	}
 
-	public int getRef() {
-		return ref;
+	public int getFamily() {
+		return family;
 	}
 
-	public void setRef(int ref) {
-		this.ref = ref;
+	public void setFamily(int family) {
+		this.family = family;
 	}
 
-	public int getRestep() {
-		return restep;
+	public int getParent() {
+		return parent;
 	}
 
-	public void setRestep(int restep) {
-		this.restep = restep;
+	public void setParent(int parent) {
+		this.parent = parent;
 	}
 
-	public int getRelevel() {
-		return relevel;
+	public int getDepth() {
+		return depth;
 	}
 
-	public void setRelevel(int relevel) {
-		this.relevel = relevel;
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+
+	public int getIndent() {
+		return indent;
+	}
+
+	public void setIndent(int indent) {
+		this.indent = indent;
 	}
 
 	@Override
 	public String toString() {
 		return "\nQna [bno=" + bno + ", username=" + username + ", title=" + title + ", content=" + content
-				+ ", category=" + category + ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", ref=" + ref
-				+ ", restep=" + restep + ", relevel=" + relevel + "]";
+				+ ", category=" + category + ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", family=" + family
+				+ ", parent=" + parent + ", depth=" + depth + ", indent=" + indent + "]";
 	}
 
 }
