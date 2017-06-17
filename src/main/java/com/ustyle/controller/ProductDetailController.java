@@ -29,9 +29,10 @@ public class ProductDetailController {
 	@RequestMapping(value = "productList.do", method = RequestMethod.GET)
 	public ModelAndView productList(@RequestParam(value = "pageCount", required = false) Integer pageCount, 
 		@RequestParam(value = "countPerPage", required = false) Integer countPerPage, 
-		@RequestParam(value = "subcategory", required = false) String subcategory) throws Exception {
+		@RequestParam(value = "subcategory", required = false) String subcategory, 
+		@RequestParam(value="sortby",  defaultValue="productid") String sortby) throws Exception {
 		// http://localhost:8080/product/productList.do?subcategory=Blouses&page=2&countPerPage=12
-		
+		// &sortby=productid
 		PageMaker pagemaker = new PageMaker();
 		
 		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
@@ -50,11 +51,10 @@ public class ProductDetailController {
 
 		int first = ((pagemaker.getPage() - 1) * pageCnt) + 1;
 		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
-		
 		map.put("first", first);
 		map.put("last", last);
 		map.put("subcategory", subcategory);
-		
+		map.put("sortby", sortby);
 		List<Product> productList = service.productListForSubcategory(map);
 		
 //		for ( Product p : productList )

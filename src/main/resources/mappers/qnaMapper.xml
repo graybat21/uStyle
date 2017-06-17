@@ -76,8 +76,6 @@
           	order by restep desc, bno asc
 			) X 
 		where X.row_number between #{first} and #{last}
-		
-		
 	</select>
 	<!-- <update id="qnaModify" parameterType="qna">
 		update tbl_qna set title = #{title}, content = #{content}

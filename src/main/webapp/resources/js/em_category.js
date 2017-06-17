@@ -46,14 +46,20 @@ function toolbarCategory() {
     if (!isMobile) {
         var sToolbar = $('.toolbar-top').find('.toolbar-show');
         var sSortby = $('.toolbar-top').find('.sortby');
-        if(sToolbar.length){
+//        alert(sSortby.val());
+        /*if(sToolbar.length){
             sToolbar.insertUl();
             sToolbar.selectUl();
         }
         if(sSortby.length){
             sSortby.insertUl();
             sSortby.selectUl();
-        }
+        }*/
+//        if(getElementById("sortby").onchange()){
+//        	sortForm.submit();
+//        }
+//        var vSortby = $(sSortby).val();
+//        location.href = "productList.do?subcategory=";
     }
 };
 
@@ -61,6 +67,7 @@ function toolbarCategory() {
 window.afterLayerUpdate = function() {
     var $ = jQuery;
     toolbarCategory();  
+//    toolbarCategoryChange();
     setTimeout(function(){
         setEqualHeightItemsCategory();
     },500);

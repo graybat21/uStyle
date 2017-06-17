@@ -62,18 +62,25 @@
                                                             </ol>
                                                         </div>
                                                     </div><!-- /.pager -->
-                                                    <%--div class="sorter">
+                                                    
+                                                    
+                                                    <div class="sorter">
                                                         <div class="sort-by toolbar-switch">
                                                             <div class="toolbar-title">
                                                                 <label>Sort By</label>
-                                                                <select class="sortby" name="sortby">
-                                                                    <option value="position" selected="selected"> Position</option>
-                                                                    <option value="name"> Name</option>
-                                                                    <option value="price"> Price</option>
+                                                                <form name="sortForm">
+                                                                <input type="hidden" name="pageCount" value="${pageCount }">
+                                                                <input type="hidden" name="countPerPage" value="${countPerPage }">
+                                                                <input type="hidden" name="subcategory" value="${subcategory}">
+                                                                <select class="sortby" name="sortby" id="sortby" onchange="javascript:sortForm.submit()">
+                                                                    <option value="create_time" selected="selected"> 등록순</option>
+                                                                    <option value="productname"> 이름순</option>
+                                                                    <option value="productid"> 가격순</option>
                                                                 </select>
+                                                                </form>
                                                             </div>
                                                         </div>
-                                                        <div class="limiter toolbar-switch">
+                                                        <!-- <div class="limiter toolbar-switch">
                                                             <div class="toolbar-title">
                                                                 <label>Show</label>
                                                                 <select class="toolbar-show">
@@ -82,8 +89,10 @@
                                                                     <option value="36"> 36</option>
                                                                 </select>
                                                             </div>
-                                                        </div>
-                                                    </div><!-- /.sorter --%>
+                                                        </div> -->
+                                                    </div><!-- /.sorter -->
+                                                    
+                                                    
                                                 </div>
                                             </div><!-- /.toolbar-top -->
                                             <div id="em-grid-mode">
@@ -107,7 +116,8 @@
 	                                                                    <div class="text-center ">
 	                                                                        <div class="price-box"> 
 		                                                                        <span class="regular-price" id="product-price-215">
-		                                                                        <span class="price" content="1500">$1,500.00
+		                                                                        <span class="price" content="1500">
+		                                                                        <%-- ${product.originalprice } --%>
 		                                                                        </span></span>
 	                                                                        </div>
 	                                                                    </div>

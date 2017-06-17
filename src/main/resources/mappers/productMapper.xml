@@ -72,7 +72,7 @@
 					category, subcategory, pictureurl, mainpictureurl
 			FROM tbl_product, (SELECT @row_number:=0) as t
 			WHERE subcategory = #{subcategory}
-          	ORDER BY productid DESC
+          	ORDER BY ${sortby} DESC
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
