@@ -31,8 +31,8 @@
 	});
 
 	function sendData() {
-		if (!document.getElementById("content").value) {
-			alert("질문을 입력하세요.");
+		if (!document.getElementById("title").value) {
+			alert("제목을 입력하세요.");
 			return false;
 		}
 		if (!document.getElementById("category").value) {
@@ -40,11 +40,11 @@
 			return false;
 		}
 		if (!CKEDITOR.instances.editor1.getData()) {
-			alert("답변을 입력하세요.");
+			alert("내용을 입력하세요.");
 			return false;
 		}
 		
-		$("#notice_form").submit();
+		$("#qna_form").submit();
 	}
 	
 	function resetCkEditor(){
@@ -56,7 +56,7 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>공지사항게시판</h1>
+			<h1>Q&A게시판</h1>
 		</section>
 
 		<section class="content">
@@ -64,34 +64,28 @@
 				<div class="col-xs-12">
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">FAQ 리스트</h3>
-							
-							<%-- <form action="itemList.do">
-							<select name="o">
-								<option value="productname" ${param.o eq "productname" ? "selected" : "" }>productname</option>
-								<option value="productid" ${param.o eq "productid" ? "selected" : "" }>productid</option>
-								<option value="itemid" ${param.o eq "itemid" ? "selected" : "" }>itemid</option>
-							</select>
-							<input type="text" name="k" value="${searchKeyword }">
-							<input type="submit" value="검색">
-							</form> --%>
-							
+							<h3 class="box-title">Q&A 리스트</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
 						
 		<table class="table table-bordered">
 			<thead>
-			<caption>글쓰기</caption>
+			<caption>수정하기</caption>
 			</thead>
 			<tbody>
-				<form id="notice_form" method="post" encType="multiplart/form-data">
+				<form id="qna_form" method="post" encType="multiplart/form-data">
+					<input type="hidden" name="bno" value="${bno }">
+					<input type="hidden" name="family" value="${bno }">
+					<input type="hidden" name="parent" value="${qna.parent }">
+					<input type="hidden" name="depth" value="${qna.depth }">
+					<input type="hidden" name="indent" value="${qna.indent }">
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 					<tr>
-						<th>질문:</th>
-						<td><input type="text" placeholder="질문을 입력하세요. " id="content"
-							name="content" class="form-control" value="${faq.content }"/></td>
+						<th>제목:</th>
+						<td><input type="text" placeholder="질문을 입력하세요. " id="title"
+							name="title" class="form-control" value="${qna.title }"/></td>
 					</tr>
 					<tr>
 						<th>분류:</th>
@@ -107,7 +101,7 @@
 					<tr>
 						<th>답변:</th>
 						<td><textarea id="editor1"
-								name="comment" rows="10" cols="80" class="form-control">${faq.comment}</textarea>
+								name="content" rows="10" cols="80" class="form-control">${qna.content}</textarea>
 						</td>
 					</tr>
 
@@ -116,7 +110,7 @@
 							onclick="sendData()" class="pull-right" /> <input type="reset"
 							value="리셋" onclick="resetCkEditor()" class="pull-left" /> <input type="button"
 							value="글 목록으로... " class="pull-right"
-							onclick="location.href='faq.do'" /> <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
+							onclick="location.href='qna.do'" /> <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
                     <a class="btn btn-default" type="reset"> reset </a>
                     <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
 						</td>

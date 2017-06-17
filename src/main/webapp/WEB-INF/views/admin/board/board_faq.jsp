@@ -38,6 +38,7 @@
 										<th style="width: 7%; text-align: center">글번호</th>
 										<th style="width: 7%; text-align: center">분류</th>
 										<th style="width: 53%; text-align: center">내용</th>
+										<th style="width: 7%; text-align: center">action</th>
 									</tr>
 								</thead>
 								<script>
@@ -59,13 +60,20 @@
 											<td style="text-align: center;">${item.bno }</td>
 											<td style="text-align: center;">${item.category }</td>
 										
-											<td style="text-align: center;">	<a href="javascript:viewComment(${item.bno })">${item.content }</a></td>
+											<td style="text-align: center;">	
+											<a href="javascript:viewComment(${item.bno })">${item.content }</a></td>
 											<%-- <td style="text-align: center;"><fmt:formatDate
 													value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td> --%>
+											<td>
+												<a href="faqModify.do?bno=${item.bno }">
+												<div class="btn btn-default pull-right">수정</div></a>
+												<a href="faqDelete.do?bno=${item.bno }">
+												<div class="btn btn-default pull-right">삭제</div></a>
+											</td>
 										</tr>
 										<%-- <c:if test="${item.comment != null }"> --%>
 										<tr>
-											<td id="comment_${item.bno }" colspan="3" style="display:none">
+											<td id="comment_${item.bno }" colspan="4" style="display:none">
 											${item.comment }
 											</td>
 										</tr>

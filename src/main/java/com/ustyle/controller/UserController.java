@@ -1,6 +1,5 @@
 package com.ustyle.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ustyle.domain.Qna;
 import com.ustyle.domain.User;
 import com.ustyle.service.UserService;
-import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.UserEntryValidator;
 
 @Controller
@@ -85,7 +84,8 @@ public class UserController {
 			session.setAttribute("session_point", resultUser.getPoint());
 			// session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
 
-			return "user/loginSuccess/LOGIN SUCCESS";
+//			return "user/loginSuccess/LOGIN SUCCESS";
+			return "redirect:/qna.do";
 			
 		} catch (NullPointerException e) {
 			return "user/loginError/LOGIN ERROR";
@@ -144,6 +144,7 @@ public class UserController {
 		return mav;
 	}
 	
+		
 	@RequestMapping(value = "update.do", method = RequestMethod.GET)
 	public String updateForm() {
 		return "user/update/Update";

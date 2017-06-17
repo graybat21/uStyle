@@ -47,4 +47,9 @@ public class FaqDAOImpl implements FaqDAO {
 		session.update(namespace+".faqModify",faq);
 	}
 
+	@Override
+	public void faqDelete(int bno) {
+		session.delete(namespace+".faqDelete",bno);
+	}
+
 }

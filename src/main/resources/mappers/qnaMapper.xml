@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.qnaMapper">
+ 
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_qna
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if> 
+ 	</select>
+ 	
+ 	<select id="qnaList" resultType="qna" parameterType="hashmap">
+		select 
+			bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
+		from
+			(select (@row_number:=@row_number+1) as row_number,
+				bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
+			from tbl_qna, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		where ${searchOption} like '%${searchKeyword}%'
+  			</if>
+          	order by family desc
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	<select id="getCurrentNo" resultType="int">
+		select max(Last_Insert_ID(bno)) from tbl_qna
+	</select>
+	<select id="getFamilyNo" parameterType="int" resultType="int">
+		select family from tbl_qna where bno = #{parent} 
+	</select>
+	<insert id="qnaWrite" parameterType="qna">
+		insert into tbl_qna(title, content, category, username, family, parent, depth, indent)
+		values(#{title}, #{content}, #{category}, #{username}, #{family}, #{parent},#{depth},#{indent})
+	</insert>
+	
+	<select id="qnaView" parameterType="int" resultType="qna">
+		select * from tbl_qna where bno = #{bno}
+	</select>
+	
+	<update id="qnaModify" parameterType="qna">
+		update tbl_qna set title = #{title}, content = #{content}, category = #{category}
+		where bno = #{bno}
+	</update>
+	<update id="viewCntPlus" parameterType="int">
+		update tbl_qna set viewcnt = viewcnt + 1 where bno = #{bno}
+	</update>
+	
+	<delete id="qnaDelete" parameterType="int">
+		delete from tbl_qna where bno = #{bno}
+	</delete>
+	
+	<select id="selectMyListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_qna
+ 		where 
+ 			restep in (select bno from tbl_qna where username = #{username})
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		and ${searchOption} like '%${searchKeyword}%'
+		</if> 
+ 	</select>
+	<select id="myQnaList" resultType="qna" parameterType="hashmap">
+		select 
+			bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
+		from
+			(select (@row_number:=@row_number+1) as row_number,
+				bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
+			from 
+				(select * from tbl_qna 
+				where family in 
+					(select bno from tbl_qna where username = #{username})
+				), (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		where ${searchOption} like '%${searchKeyword}%'
+  			</if>
+          	order by restep desc, bno asc
+			) X 
+		where X.row_number between #{first} and #{last}
+		
+		
+	</select>
+	<!-- <update id="qnaModify" parameterType="qna">
+		update tbl_qna set title = #{title}, content = #{content}
+		where bno = #{bno}
+	</update> -->
+</mapper>
+
+

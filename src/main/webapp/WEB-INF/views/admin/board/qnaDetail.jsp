@@ -42,15 +42,19 @@
     <tbody>
             <tr>
                 <th>제목: </th>
-                <td>${notice.title }</td>
+                <td>${qna.title }</td>
+            </tr>
+            <tr>
+                <th>작성자: </th>
+                <td>${qna.username}</td>
+            </tr>
+            <tr>
+                <th>분류: </th>
+                <td>${qna.category}</td>
             </tr>
             <tr>
                 <th>내용: </th>
-                <td>${notice.content }</td>
-            </tr>
-            <tr>
-                <th>첨부파일: </th>
-                <td>...</td>
+                <td>${qna.content }</td>
             </tr>
             <!-- <tr>
                 <th>비밀번호: </th>
@@ -59,11 +63,9 @@
             
             <tr>
                 <td colspan="2">
-                    <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='notice.do'"/>
-                    <input type="button" value="글 수정 " class="pull-right" onclick="location.href='noticeModify.do?bno=${notice.bno}'"/>
-                    <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
-                    <a class="btn btn-default" type="reset"> reset </a>
-                    <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
+                    <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='qna.do'"/>
+                    <input type="button" value="답변하기 " class="pull-right" onclick="location.href='qnaReply.do?parent=${qna.bno}'"/>
+                    <input type="button" value="삭제하기" class="pull-right" onclick="location.href='qnaDelete.do?bno=${qna.bno}'"/>
                 </td>
             </tr>
     </tbody>

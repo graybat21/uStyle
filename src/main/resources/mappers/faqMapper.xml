@@ -36,6 +36,13 @@
 	<update id="viewCntPlus" parameterType="int">
 		update tbl_faq set viewcnt = viewcnt + 1 where bno = #{bno}
 	</update>
+	<update id="faqModify" parameterType="faq"> 
+		update tbl_faq set content = #{content}, comment = #{comment}, category = #{category}
+		where bno = #{bno}
+	</update>
+	<delete id="faqDelete" parameterType="int">
+		delete from tbl_faq where bno = #{bno}
+	</delete>
 </mapper>
 
 

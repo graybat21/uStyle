@@ -36,6 +36,10 @@
 	<update id="viewCntPlus" parameterType="int">
 		update tbl_notice set viewcnt = viewcnt + 1 where bno = #{bno}
 	</update>
+	<update id="noticeModify" parameterType="notice">
+		update tbl_notice set title = #{title}, content = #{content}
+		where bno = #{bno}
+	</update>
 </mapper>
 
 
