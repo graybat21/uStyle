@@ -16,7 +16,7 @@
 			<div id="em-mheader-logo" class="col-xs-4">
 				<div class="em-logo">
 
-					<a href="index.do" title="Furniture Commerce" class="logo"><strong>Furniture
+					<a href="/index.do" title="uStyle" class="logo"><strong>Furniture
 							Commerce</strong><img src="${pageContext.request.contextPath}/resources/images/logo_small.png" alt="Furniture Commerce" /></a>
 				</div>
 			</div>
@@ -69,10 +69,10 @@
 										<!-- 로그인 전 -->
 										<c:if test="${session_username == null }">
 											<li class="first col-xs-8"><a title="Log In"
-												class="login-link fa fa-user" href="login.do"><span>Log
+												class="login-link fa fa-user" href="/login.do"><span>Log
 														In</span></a></li>
 											<li class="col-xs-8"><a title="Sign up"
-												class='signup-link fa fa-sign-out' href="register.do"><span>Sign
+												class='signup-link fa fa-sign-out' href="/register.do"><span>Sign
 														up</span></a></li>
 											<li class="last col-xs-8"><a href="#"
 												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
@@ -340,14 +340,14 @@
 								<!-- 로그인 전 -->
 								<c:if test="${session_username == null }">
 								<ul class="list-inline f-right">
-									<li><a class="em-register-link" href="register.do"
+									<li><a class="em-register-link" href="/register.do"
 										title="Register">Register</a></li>
 								</ul>
 
 								<!-- header login -->
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">
-									<a href="login.do" class="link-account" id="link-login"
+									<a href="/login.do" class="link-account" id="link-login"
 										title="Login">Login</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">

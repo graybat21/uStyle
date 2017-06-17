@@ -141,16 +141,6 @@ public class ProductAdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = "addItem.do", method = RequestMethod.GET)
-	public String addItemForm(@RequestParam(value = "productid", required = false) String productid, Model model)
-			throws Exception {
-		if (productid == null) {
-			productid = String.valueOf(service.getNewProductId());
-		}
-		model.addAttribute("productid", productid);
-		return "product/addItem";
-	}
-
 	@RequestMapping("productList.do")
 	public ModelAndView productList(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {

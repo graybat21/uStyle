@@ -67,6 +67,14 @@
 							<label for="exampleInputEmail1">서브 카테고리</label>
 							<input type="text" name="subcategory" value="${product.subcategory}" class="form-control" readonly>
 						</div>
+						<div class="col-sm-6 form-group">
+							<label for="exampleInputEmail1">정상가격</label>
+							<input type="text" name="originalprice" value="${product.originalprice}" class="form-control" readonly>
+						</div>
+						<div class="col-sm-6 form-group">
+							<label for="exampleInputEmail1">할인가격</label>
+							<input type="text" name="saleprice" value="${product.saleprice}" class="form-control" readonly>
+						</div>
 					</div>
 					<!--  /.box-body -->
 					

@@ -58,18 +58,17 @@
                                                                         </p>
                                                                     </div><!-- /.media-left -->
                                                                     <div class="more-views">
-                                                                        <ul class="em-moreviews-slider ">
-                                                                            <li class="item">
-                                                                                <a class="cloud-zoom-gallery" rel="useZoom:'image_zoom', smallImage:'http://placehold.it/800x800', adjustX:5, adjustY:-5, position:'inside'" onclick="return false" href="http://placehold.it/1000x1000"> <img src="http://placehold.it/1000x1000" alt="" /> </a> <a class="no-display" href="http://placehold.it/1000x1000" rel="lightbox[em_lightbox]">lightbox moreview</a>
-                                                                            </li>
-                                                                            <li class="item">
-                                                                                <a class="cloud-zoom-gallery" rel="useZoom:'image_zoom', smallImage:'http://placehold.it/800x800', adjustX:5, adjustY:-5, position:'inside'" onclick="return false" href="http://placehold.it/1000x1000"> <img src="http://placehold.it/100x100" alt="" /> </a> <a class="no-display" href="http://placehold.it/1000x1000" rel="lightbox[em_lightbox]">lightbox moreview</a>
-                                                                            </li>
-                                                                            <li class="item">
-                                                                                <a class="cloud-zoom-gallery" rel="useZoom:'image_zoom', smallImage:'http://placehold.it/800x800', adjustX:5, adjustY:-5, position:'inside'" onclick="return false" href="http://placehold.it/1000x1000"> <img src="http://placehold.it/100x100" alt="" /> </a> <a class="no-display" href="http://placehold.it/1000x1000" rel="">lightbox moreview</a>
-                                                                            </li>
+	                                                                    <ul class="em-moreviews-slider">
+	                                                                   		<c:forEach var="picture" items="${pictureList}" varStatus="status">
+	                                                                            <li class="item">
+	                                                                                <a class="cloud-zoom-gallery" rel="useZoom:'image_zoom', smallImage:'http://placehold.it/800x800', adjustX:5, adjustY:-5, position:'inside'" onclick="return false" href="http://placehold.it/1000x1000"> <img src="/displayFile?fileName=${picture}" alt="" /> </a> <a class="no-display" href="http://placehold.it/1000x1000" rel="lightbox[em_lightbox]">lightbox moreview</a>
+	                                                                            </li>
+	                                                                        </c:forEach>
                                                                         </ul>
                                                                     </div><!-- /.more-views -->
+                                                                    <script>
+                                                                    
+                                                                    </script>
                                                                 </div>
                                                             </div><!-- /.em-product-view-primary -->
                                                             <div class="em-product-view-secondary em-product-shop col-sm-8">
@@ -568,6 +567,13 @@
         <!-- Lightbox Js -->
         <script type="text/javascript" src="/resources/js/lightbox.min.js"></script>
         <script type="text/javascript">
+	        $( ".em-moreviews-slider li a" ).click(function() {
+	            var address = $(this).children("img");
+	            $(".product-image img").attr("src", address.attr("src").replace("/s_", "/"));
+	            $(this).parent().addClass("on").siblings().removeClass("on");
+	            return false;
+	        });
+        
             jQuery('.cloud-zoom-gallery').click(function() {
                 jQuery('#zoom-btn').attr('href', this.href);
             });
