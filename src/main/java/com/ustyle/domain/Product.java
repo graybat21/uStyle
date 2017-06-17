@@ -10,6 +10,7 @@ public class Product {
 	private String description;
 	private String brand;
 	private String[] files;
+	private String mainpictureurl;
 	private String pictureurl;
 	private String category;
 	private String subcategory;
@@ -64,16 +65,25 @@ public class Product {
 		this.create_time = create_time;
 	}
 	
+	public String getMainpictureurl() {
+		return mainpictureurl;
+	}
+	public void setMainpictureurl(String mainpictureurl) {
+		this.mainpictureurl = mainpictureurl;
+	}
+	
 	public String getPictureurl() {
 		return pictureurl;
 	}
 	public void setPictureurl(String pictureurl) {
 		this.pictureurl = pictureurl;
 	}
+	
 	@Override
 	public String toString() {
-		return "\nProduct [productid=" + productid + ", productname=" + productname + ", description=" + description
-				+ ", brand=" + brand + ", files=" + Arrays.toString(files) + ", pictureUrl=" + pictureurl
-				+ ", category=" + category + ", subcategory=" + subcategory + ", create_time=" + create_time + "]";
+		return "Product [productid=" + productid + ", productname=" + productname + ", description=" + description
+				+ ", brand=" + brand + ", files=" + Arrays.toString(files) + ", mainpictureurl=" + mainpictureurl
+				+ ", pictureurl=" + pictureurl + ", category=" + category + ", subcategory=" + subcategory
+				+ ", create_time=" + create_time + "]";
 	}
 }

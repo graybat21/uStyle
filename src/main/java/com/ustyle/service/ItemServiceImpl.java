@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Item;
-import com.ustyle.domain.Product;
 import com.ustyle.persistence.ItemDAO;
 
 @Service

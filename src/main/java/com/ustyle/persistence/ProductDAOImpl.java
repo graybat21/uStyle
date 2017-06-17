@@ -19,7 +19,7 @@ public class ProductDAOImpl implements ProductDAO {
 	private SqlSession session;
 
 	@Override
-	public void insert(Product product) {
+	public void insert(Product product) throws Exception {
 		session.insert(namespace + ".insert", product);
 	}
 	
@@ -34,32 +34,42 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int selectListCnt(HashMap<String, Object> map) {
+	public int selectListCnt(HashMap<String, Object> map) throws Exception {
 		return session.selectOne(namespace + ".selectListCnt", map);
 	}
 
 	@Override
-	public List<Product> productList(HashMap<String, Object> map) {
+	public List<Product> productList(HashMap<String, Object> map) throws Exception {
 		return session.selectList(namespace + ".productList", map);
 	}
 	
 	@Override
-	public void update(Product product) {
+	public int selectListCntForSubcategory(String subcategory) throws Exception {
+		return session.selectOne(namespace + ".selectListCntForSubcategory", subcategory);
+	}
+	
+	@Override
+	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception {
+		return session.selectList(namespace + ".productListForSubcategory", map);
+	}
+	
+	@Override
+	public void update(Product product) throws Exception {
 		session.update(namespace + ".update", product);
 	}
 
 	@Override
-	public void delete(int productid) {
+	public void delete(int productid) throws Exception {
 		session.delete(namespace + ".delete", productid);
 	}
 	
 	@Override
-	public void deleteItem(int productid) {
+	public void deleteItem(int productid) throws Exception {
 		session.delete(namespace + ".deleteItem", productid);
 	}
 
 	@Override
-	public int getNewProductId() {
+	public int getNewProductId() throws Exception {
 		return session.selectOne(namespace + ".getNewProductId");
 	}
 }

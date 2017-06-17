@@ -5,8 +5,8 @@
 	<insert id="insert" parameterType="product">
 		<choose>
 		<when test="pictureurl != null">
-    		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl)
-    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureurl} )
+    		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl, mainpictureurl)
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureurl}, #{mainpictureurl} )
     	</when>
     	<otherwise>
     		insert into tbl_product(productname, description, brand, category, subcategory)
@@ -40,15 +40,38 @@
  	<select id="productList" resultType="product" parameterType="hashmap">
 		SELECT 
 			productid, productname, description, brand, 
-			category, subcategory, pictureurl
+			category, subcategory, pictureurl, mainpictureurl
 		FROM
 			(SELECT (@row_number:=@row_number+1) as row_number,
 					productid, productname, description, brand, 
-					category, subcategory, pictureurl
+					category, subcategory, pictureurl, mainpictureurl
 			FROM tbl_product, (SELECT @row_number:=0) as t
           	<if test="searchKeyword != null || searchKeyword == ''">
     		WHERE ${searchOption} LIKE '%${searchKeyword}%'
   			</if>
+          	ORDER BY productid DESC
+			) X 
+		WHERE X.row_number BETWEEN #{first} and #{last}
+	</select>
+	
+	<select id="selectListCntForSubcategory" resultType="int" parameterType="String">
+ 		SELECT count(*) 
+ 		FROM 
+ 			tbl_product
+ 		WHERE
+			subcategory = #{subcategory}
+ 	</select>
+	
+	<select id="productListForSubcategory" resultType="product" parameterType="hashmap">
+		SELECT 
+			productid, productname, description, brand, 
+			category, subcategory, pictureurl, mainpictureurl
+		FROM
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					productid, productname, description, brand, 
+					category, subcategory, pictureurl, mainpictureurl
+			FROM tbl_product, (SELECT @row_number:=0) as t
+			WHERE subcategory = #{subcategory}
           	ORDER BY productid DESC
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}
@@ -59,13 +82,13 @@
 		<when test="pictureurl != null">
     		update tbl_product
     		set productname = #{productname}, description = #{description}, brand = #{brand}, 
-    			category = #{category}, subcategory = #{subcategory}, pictureurl = #{pictureurl}
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = #{pictureurl}, mainpictureurl = #{mainpictureurl}
     		where productid = #{productid}
     	</when>
     	<otherwise>
     		update tbl_product
     		set productname = #{productname}, description = #{description}, brand = #{brand}, 
-    			category = #{category}, subcategory = #{subcategory}, pictureurl = '[/ustylenone.jpg]'
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = '[/ustylenone.jpg]', mainpictureurl = '/ustylenone.jpg'
     		where productid = #{productid}
     	</otherwise>
     	</choose>

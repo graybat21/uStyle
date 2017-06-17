@@ -1,11 +1,9 @@
 package com.ustyle.controller;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -13,9 +11,6 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Product;
 import com.ustyle.service.ProductService;
-import com.ustyle.utils.MediaUtils;
 import com.ustyle.utils.PageMaker;
 
 @Controller
@@ -54,9 +48,11 @@ public class ProductAdminController {
 			throws Exception {
 		
 		String[] files = product.getFiles();
-
+		
 		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
 		{
+			product.setMainpictureurl(files[0]); 		// 대표 이미지 추가
+			
 			String filesStr = Arrays.toString(files);
 			product.setPictureurl(filesStr);
 		}
@@ -130,6 +126,8 @@ public class ProductAdminController {
 
 		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
 		{
+			product.setMainpictureurl(files[0]); 		// 대표 이미지 수정
+			
 			String filesStr = Arrays.toString(files);
 			product.setPictureurl(filesStr);
 		}
