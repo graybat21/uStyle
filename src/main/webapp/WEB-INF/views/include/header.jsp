@@ -540,10 +540,10 @@
 																								class="menu-item-link menu-item-depth-1 first label-hot-menu"><a
 																								class="em-menu-link" href="/product/productList.do?subcategory=Blouses">Blouses</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
-																								class="em-menu-link" href="product-virtual.html">Tops</a></li>
+																								class="em-menu-link" href="/product/productList.do?subcategory=Tops">Tops</a></li>
 																							<li class="menu-item-link menu-item-depth-1"><a
 																								class="em-menu-link"
-																								href="product-downloadable.html">Jackets</a></li>
+																								href="/product/productList.do?subcategory=Jackets">Jackets</a></li>
 																							
 																						</ul>
 																					</div>

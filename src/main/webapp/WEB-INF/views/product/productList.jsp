@@ -21,9 +21,15 @@
                             <div class="col-sm-24">
                                 <div class="breadcrumbs">
                                     <ul>
-                                        <li class="home"> <a href="/" title="Home"><span>Home</span></a> <span class="separator">/ </span>
+                                        <li class="home"> <a href="/" title="Home"><span>Home</span></a> 
+                                        <span class="separator">/ </span>
                                         </li>
-                                        <li class="contact"> <strong> Shoes</strong>
+                                        <li class="contact"> <!-- <a href="/"> -->
+                                        <span>${productList[0].category }</span>
+                                        </a>
+                                        <span class="separator">/ </span>
+                                        </li>
+                                        <li class="contact"> <strong> ${subcategory }</strong>
                                         </li>
                                     </ul>
                                 </div>
@@ -62,18 +68,25 @@
                                                             </ol>
                                                         </div>
                                                     </div><!-- /.pager -->
-                                                    <%--div class="sorter">
+                                                    
+                                                    
+                                                    <div class="sorter">
                                                         <div class="sort-by toolbar-switch">
                                                             <div class="toolbar-title">
                                                                 <label>Sort By</label>
-                                                                <select class="sortby" name="sortby">
-                                                                    <option value="position" selected="selected"> Position</option>
-                                                                    <option value="name"> Name</option>
-                                                                    <option value="price"> Price</option>
+                                                                <form name="sortForm">
+                                                                <input type="hidden" name="pageCount" value="${pageCount }">
+                                                                <input type="hidden" name="countPerPage" value="${countPerPage }">
+                                                                <input type="hidden" name="subcategory" value="${subcategory}">
+                                                                <select class="sortby" name="sortby" id="sortby" onchange="javascript:sortForm.submit()">
+                                                                    <option value="create_time" selected="selected"> 등록순</option>
+                                                                    <option value="productname"> 이름순</option>
+                                                                    <option value="originalprice"> 가격순</option>
                                                                 </select>
+                                                                </form>
                                                             </div>
                                                         </div>
-                                                        <div class="limiter toolbar-switch">
+                                                        <!-- <div class="limiter toolbar-switch">
                                                             <div class="toolbar-title">
                                                                 <label>Show</label>
                                                                 <select class="toolbar-show">
@@ -82,8 +95,10 @@
                                                                     <option value="36"> 36</option>
                                                                 </select>
                                                             </div>
-                                                        </div>
-                                                    </div><!-- /.sorter --%>
+                                                        </div> -->
+                                                    </div><!-- /.sorter -->
+                                                    
+                                                    
                                                 </div>
                                             </div><!-- /.toolbar-top -->
                                             <div id="em-grid-mode">
@@ -107,7 +122,8 @@
 	                                                                    <div class="text-center ">
 	                                                                        <div class="price-box"> 
 		                                                                        <span class="regular-price" id="product-price-215">
-		                                                                        <span class="price" content="1500">$1,500.00
+		                                                                        <span class="price" content="1500">
+		                                                                        ${product.originalprice }
 		                                                                        </span></span>
 	                                                                        </div>
 	                                                                    </div>
@@ -130,6 +146,10 @@
 																        <c:param name="pageCount" value="${pageMaker.start - 1}" />
 																        <c:param name="countPerPage" value="12" />
 																        <c:param name="subcategory" value="${subcategory}" />
+																        <c:param name="sortby" value="${sortby}" />
+																        <c:if test="${brand != null || brand == '' }">
+																        <c:param name="brand" value="${brand}" />
+																        </c:if>
 																    </c:url>
                                                             		<li><a class="fa fa-angle-left" href="${productListP }" title="Prev"> </a></li>
                                                             	</c:if>
@@ -139,6 +159,10 @@
 																        <c:param name="pageCount" value="${idx}" />
 																        <c:param name="countPerPage" value="12" />
 																        <c:param name="subcategory" value="${subcategory}" />
+																        <c:param name="sortby" value="${sortby}" />
+																        <c:if test="${brand != null || brand == '' }">
+																        <c:param name="brand" value="${brand}" />
+																        </c:if>
 																    </c:url>
 																    <li>
 																        <a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${productListP }'>${idx}</a>
@@ -150,6 +174,10 @@
 																        <c:param name="pageCount" value="${pageMaker.end + 1}" />
 																        <c:param name="countPerPage" value="12" />
 																        <c:param name="subcategory" value="${subcategory}" />
+																        <c:param name="sortby" value="${sortby}" />
+																        <c:if test="${brand != null || brand == '' }">
+																        <c:param name="brand" value="${brand}" />
+																        </c:if>
 																    </c:url>
 																    <li><a class="fa fa-angle-right" href="${productListP }" title="Next"></a></li>
 																</c:if>
@@ -169,7 +197,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="limiter toolbar-switch">
+                                                        <!-- <div class="limiter toolbar-switch">
                                                             <div class="toolbar-title">
                                                                 <label>Show</label>
                                                                 <select class="toolbar-show">
@@ -178,12 +206,15 @@
                                                                     <option value="36"> 36</option>
                                                                 </select>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div><!-- /.sorter -->
                                                 </div>
                                             </div><!-- /.toolbar-bottom -->
                                         </div><!-- /.category-products -->
                                     </div><!-- /.em-col-main -->
+                                    
+                                    
+									<!-- left sidemenu -->
                                     <div class="col-sm-6 col-sm-pull-18 em-col-left em-sidebar">
                                         <div class="em-wrapper-area02"></div>
                                         <div class="em-line-01 block block-layered-nav">
@@ -191,19 +222,23 @@
                                             </div>
                                             <div class="block-content">
                                                 <p class="block-subtitle">Shopping Options</p>
-                                                <dl id="narrow-by-list"><dt> Category</dt>
+                                                <dl id="narrow-by-list"><dt> ${productList[0].category }</dt>
                                                     <dd>
                                                         <ol class="filter tree-filter">
                                                             <li>
-                                                                <div class="label-icon">
+                                                                <!-- <div class="label-icon">
                                                                     <div class="label"> <a class="tree-item" href="#">All Categories</a> (273)</div>
-                                                                </div>
+                                                                </div> -->
                                                                 <ol>
+                                                                	<c:forEach var="item" items="${subcategoryList }">
                                                                     <li class="selected">
                                                                         <div class="label-icon">
-                                                                            <div class="label"> Fashion (20)</div>
+                                                                        	<a href="/product/productList.do?subcategory=${item.subcategory }">
+                                                                            <div class="label">
+                                                                             ${item.subcategory } (${item.count })</div></a>
                                                                         </div>
                                                                     </li>
+                                                                	</c:forEach>
                                                                 </ol>
                                                             </li>
                                                         </ol>
@@ -212,6 +247,7 @@
                                                         <div class="rslider">
                                                             <div id="slider-range"></div>
                                                             <div class="values">
+                                                            <!-- priceList 이용할까 말까? -->
                                                                 <span id="from-val"><span class="price">88</span></span>
                                                                 <span id="to-val"><span class="price">721</span></span>
                                                             </div>
@@ -219,13 +255,9 @@
                                                     </dd><dt> Brand</dt>
                                                     <dd>
                                                         <ol>
-                                                            <li> <a href="#">Acer</a> (0)</li>
-                                                            <li> <a href="#">Apple</a> (0)</li>
-                                                            <li> <a href="#">Dell</a> (0)</li>
-                                                            <li> <a href="#">Gateway</a> (0)</li>
-                                                            <li> <a href="#">IBM</a> (0)</li>
-                                                            <li> <a href="#">Sony</a> (0)</li>
-                                                            <li> <a href="#">Toshiba</a> (0)</li>
+                                                        	<c:forEach var="brand" items="${brandList }">
+                                                            	<li> <a href="/product/productList.do?subcategory=${subcategory }&brand=${brand.brand }">${brand.brand }</a> (${brand.count })</li>
+                                                            </c:forEach>
                                                         </ol>
                                                     </dd>
                                                 </dl>
