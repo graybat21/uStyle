@@ -22,23 +22,23 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insert(Product product) throws Exception {
 		dao.insert(product);
-		
-//		String[] files = product.getFiles();
-//		
-//		String filesStr = Arrays.toString(files);
-//		
-//		System.out.println(filesStr);
-//		
-//		if ( files == null ) 
-//			return;
+
+		// String[] files = product.getFiles();
+		//
+		// String filesStr = Arrays.toString(files);
+		//
+		// System.out.println(filesStr);
+		//
+		// if ( files == null )
+		// return;
 	}
-	
+
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public Product read(Integer productid) throws Exception {
 		return dao.read(productid);
 	}
-	
+
 	@Transactional
 	@Override
 	public String selectPictureurl(Integer productid) throws Exception {
@@ -54,17 +54,17 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> productList(HashMap<String, Object> map) throws Exception {
 		return dao.productList(map);
 	}
-	
+
 	@Override
-	public int selectListCntForSubcategory(String subcategory) throws Exception {
-		return dao.selectListCntForSubcategory(subcategory);
+	public int selectListCntForSubcategory(HashMap<String, Object> map) throws Exception {
+		return dao.selectListCntForSubcategory(map);
 	}
-	
+
 	@Override
 	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception {
 		return dao.productListForSubcategory(map);
 	}
-	
+
 	@Override
 	public void update(Product product) throws Exception {
 		dao.update(product);
@@ -80,4 +80,21 @@ public class ProductServiceImpl implements ProductService {
 	public int getNewProductId() throws Exception {
 		return dao.getNewProductId();
 	}
+
+	@Override
+	public List<HashMap<String, Object>> brandListForSubcategory(String subcategory) throws Exception {
+		return dao.brandListForSubcategory(subcategory);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> subcategoryListForSubcategory(String subcategory) throws Exception {
+		return dao.subcategoryListForSubcategory(subcategory);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> priceRangeForSubcategory(String subcategory) throws Exception {
+		return dao.priceRangeForSubcategory(subcategory);
+	}
+	
+
 }

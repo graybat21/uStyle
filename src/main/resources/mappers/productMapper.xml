@@ -54,12 +54,15 @@
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
 	
-	<select id="selectListCntForSubcategory" resultType="int" parameterType="String">
+	<select id="selectListCntForSubcategory" resultType="int" parameterType="hashmap">
  		SELECT count(*) 
  		FROM 
  			tbl_product
  		WHERE
 			subcategory = #{subcategory}
+		<if test="brand != null || brand == ''">
+		AND brand = #{brand}
+		</if>
  	</select>
 	
 	<select id="productListForSubcategory" resultType="product" parameterType="hashmap">
@@ -72,9 +75,47 @@
 					category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
 			FROM tbl_product, (SELECT @row_number:=0) as t
 			WHERE subcategory = #{subcategory}
+			<if test="brand != null || brand == ''">
+			AND brand = #{brand}
+			</if>
           	ORDER BY ${sortby} DESC
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}
+	</select>
+	<select id="brandListForSubcategory" parameterType="String" resultType="hashmap">
+		SELECT 
+			count(brand) count, brand 
+		FROM 
+			tbl_product 
+		WHERE 
+			subcategory = #{subcategory} 
+		GROUP BY brand
+	</select>
+	<select id="subcategoryListForSubcategory" parameterType="String" resultType="hashmap">
+		SELECT 
+			count(subcategory) count, subcategory 
+		FROM 
+			tbl_product 
+		WHERE 
+			category in (
+				SELECT 
+					category 
+				FROM 
+					tbl_product 
+				WHERE 
+					subcategory = #{subcategory}
+				GROUP BY category
+			) 
+		GROUP BY subcategory
+	</select>
+	<select id="priceRangeForSubcategory" parameterType="String" resultType="int">
+		SELECT 
+			count(originalprice) count, originalprice 
+		FROM 
+			tbl_product 
+		WHERE 
+			subcategory = #{subcategory} 
+		GROUP BY originalprice
 	</select>
 	
 	<update id="update" parameterType="product">

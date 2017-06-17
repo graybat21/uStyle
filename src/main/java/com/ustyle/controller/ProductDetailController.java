@@ -32,6 +32,7 @@ public class ProductDetailController {
 	public ModelAndView productList(@RequestParam(value = "pageCount", required = false) Integer pageCount, 
 		@RequestParam(value = "countPerPage", required = false) Integer countPerPage, 
 		@RequestParam(value = "subcategory", required = false) String subcategory, 
+		@RequestParam(value = "brand", required = false) String brand, 
 		@RequestParam(value="sortby",  defaultValue="productid") String sortby) throws Exception {
 		// http://localhost:8080/product/productList.do?subcategory=Blouses&page=2&countPerPage=12
 		// &sortby=productid
@@ -42,9 +43,11 @@ public class ProductDetailController {
 		
 		ModelAndView mav = new ModelAndView("product/productList/상품 리스트");
 		
-		int totalCnt = service.selectListCntForSubcategory(subcategory); // DB연동_ 총 갯수 구해오기
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("subcategory", subcategory);
+		map.put("brand", brand);
+		int totalCnt = service.selectListCntForSubcategory(map); // DB연동_ 총 갯수 구해오기
+		
 		int countPerPaging = 10;
 		
 		int pageCnt = ( countPerPage != null ) ? countPerPage.intValue() : 12;
@@ -55,15 +58,22 @@ public class ProductDetailController {
 		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
 		map.put("first", first);
 		map.put("last", last);
-		map.put("subcategory", subcategory);
 		map.put("sortby", sortby);
 		List<Product> productList = service.productListForSubcategory(map);
-		
+		List<HashMap<String,Object>> brandList = service.brandListForSubcategory(subcategory);
+		List<HashMap<String,Object>> subcategoryList = service.subcategoryListForSubcategory(subcategory);
+		List<HashMap<String,Object>> priceList = service.priceRangeForSubcategory(subcategory);
 //		for ( Product p : productList )
 //			logger.info(p.toString());
-		
+		logger.info(brandList.toString());
 		mav.addObject("productList", productList);
+		mav.addObject("brandList",brandList);
+		mav.addObject("subcategoryList",subcategoryList);
+		mav.addObject("priceList",priceList);
+		
 		mav.addObject("subcategory", subcategory);
+		mav.addObject("brand", brand);
+		mav.addObject("sortby", sortby);
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("first", first);
 		mav.addObject("last", last);
