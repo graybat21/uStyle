@@ -42,6 +42,8 @@
 										<th style="width: 100px">category</th>
 										<th style="width: 100px">subcategory</th>
 										<th>description</th>
+										<th>originalprice</th>
+										<th>saleprice</th>
 										<th style="width: 60px">act</th>
 									</tr>
 								</thead>
@@ -62,6 +64,8 @@
 											<td>${list.category }</td>
 											<td>${list.subcategory }</td>
 											<td>${list.description }</td>
+											<td>${list.originalprice }</td>
+											<td>${list.saleprice }</td>
 											<td><a href="${addItem }"><input type="button"
 													value="item추가" onclick="return addItem()"></a>
 												<a href="${deleteProduct }"><input type="button"
@@ -142,8 +146,5 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
-
-
-
 
 </body>

@@ -1,5 +1,7 @@
 package com.ustyle.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,12 +80,19 @@ public class ProductDetailController {
 		Product product = service.read(productid);
 		
 		String mainPictureUrl = product.getMainpictureurl();
-		
 		product.setMainpictureurl(mainPictureUrl.replace("/s_", "/"));
+		
+		String readPictureUrl = product.getPictureurl().replaceAll("\\[|\\]", "");
+		String[] imageFiles = readPictureUrl.split(", ");
+		List<String> pictureList = new ArrayList<String>(Arrays.asList(imageFiles));
+		
+		for ( String aaa : pictureList )
+			logger.info(aaa.toString());
 		
 		logger.info(product.toString());
 		
 		mav.addObject("product", product);
+		mav.addObject("pictureList", pictureList);
 		return mav;
 	}
 }

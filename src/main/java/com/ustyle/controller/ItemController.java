@@ -1,7 +1,6 @@
 package com.ustyle.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ustyle.domain.Item;
 import com.ustyle.domain.Product;
 import com.ustyle.service.ItemService;
+import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
@@ -31,15 +31,24 @@ public class ItemController {
 	private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
 	@Inject
-	private ItemService service;
+	private ProductService productService;
+	
+	@Inject
+	private ItemService itemService;
+	
 
 	@RequestMapping(value = "addItem.do", method = RequestMethod.GET)
-	public String addItemForm(@RequestParam(value = "productid", required = false) String productid, Model model)
+	public String addItemForm(@RequestParam(value = "productid", required = false) Integer productid, Model model)
 			throws Exception {
-//		if (productid == null) {		// NPE 처리
-//			productid = String.valueOf(service.getNewProductId());
-//		}
+		Product product = productService.read(productid);
+		
+		int originalprice = product.getOriginalprice();
+		int saleprice = product.getSaleprice();
+		
+			
 		model.addAttribute("productid", productid);
+		model.addAttribute("originalprice", originalprice);
+		model.addAttribute("saleprice", saleprice);
 		return "item/addItem";
 	}
 	
@@ -51,7 +60,7 @@ public class ItemController {
 
 		ModelAndView mav = new ModelAndView("main/base");
 
-		service.insert(item);
+		itemService.insert(item);
 		mav.addObject(item);
 		return mav;
 	}
@@ -71,7 +80,7 @@ public class ItemController {
 		}
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);
-		int totalCnt = service.selectListCnt(map); // DB연동_ 총 갯수 구해오기
+		int totalCnt = itemService.selectListCnt(map); // DB연동_ 총 갯수 구해오기
 		int countPerPage = 10;
 		int countPerPaging = 5;
 
@@ -79,7 +88,7 @@ public class ItemController {
 		int last = first + countPerPage - 1;
 		map.put("first", first);
 		map.put("last", last);
-		List<Item> list = service.itemList(map);
+		List<Item> list = itemService.itemList(map);
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		logger.info(list.toString());
 		
@@ -96,7 +105,7 @@ public class ItemController {
 	public String modifyItemForm(@RequestParam("itemid") Integer itemid, 
 			Model model) throws Exception {
 		
-		Item modifyItem = service.read(itemid);
+		Item modifyItem = itemService.read(itemid);
 		
 		logger.info(modifyItem.toString());
 		
@@ -114,14 +123,14 @@ public class ItemController {
 
 		ModelAndView mav = new ModelAndView("item/itemList");
 
-		service.update(item);
+		itemService.update(item);
 		mav.addObject(item);
 		return mav;
 	}
 	
 	@RequestMapping("deleteItem.do")
 	public String itemDelete(@RequestParam int itemid) throws Exception {
-		service.deleteItem(itemid);
+		itemService.deleteItem(itemid);
 		return "redirect:/admin/item/itemList.do";
 	}
 }

@@ -12,7 +12,10 @@ public class Product {
 	private String[] files;
 	private String mainpictureurl;
 	private String pictureurl;
+	private int originalprice;
+	private int saleprice;
 	private String category;
+
 	private String subcategory;
 	private Date create_time;
 	
@@ -45,6 +48,18 @@ public class Product {
 	}
 	public void setFiles(String[] files) {
 		this.files = files;
+	}
+	public int getOriginalprice() {
+		return originalprice;
+	}
+	public void setOriginalprice(int originalprice) {
+		this.originalprice = originalprice;
+	}
+	public int getSaleprice() {
+		return saleprice;
+	}
+	public void setSaleprice(int saleprice) {
+		this.saleprice = saleprice;
 	}
 	public String getCategory() {
 		return category;
@@ -83,7 +98,7 @@ public class Product {
 	public String toString() {
 		return "Product [productid=" + productid + ", productname=" + productname + ", description=" + description
 				+ ", brand=" + brand + ", files=" + Arrays.toString(files) + ", mainpictureurl=" + mainpictureurl
-				+ ", pictureurl=" + pictureurl + ", category=" + category + ", subcategory=" + subcategory
-				+ ", create_time=" + create_time + "]";
+				+ ", pictureurl=" + pictureurl + ", originalprice=" + originalprice + ", saleprice=" + saleprice
+				+ ", category=" + category + ", subcategory=" + subcategory + ", create_time=" + create_time + "]";
 	}
 }

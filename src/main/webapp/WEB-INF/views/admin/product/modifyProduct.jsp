@@ -30,7 +30,7 @@
 				</div>
 				<!-- /.box-header -->
 				
-				<form id="registerForm" name="registerForm" role="form" method="post">
+				<form id="registerProductForm" name="registerProductForm" method="post">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="box-body">
 						<div class="col-sm-8 form-group">
@@ -54,6 +54,14 @@
 							<label for="exampleInputEmail1">서브 카테고리</label>
 							<input type="text" name="subcategory" value="${product.subcategory}" class="form-control" placeholder="상품의 서브 카테고리를 입력하세요.">
 						</div>
+						<div class="col-sm-6 form-group">
+							<label for="exampleInputEmail1">정상가격</label>
+							<input type="text" name="originalprice" value="${product.originalprice}" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+						</div>
+						<div class="col-sm-6 form-group">
+							<label for="exampleInputEmail1">할인가격</label>
+							<input type="text" name="saleprice" value="${product.saleprice}" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">상품의 이미지 첨부(아래의 영역에 이미지를 Drag and Drop해주시면 됩니다)</label>
 							<div class="fileDrop"></div>
@@ -69,7 +77,7 @@
 						<ul class="mailbox-attachments clearfix uploadedList">
 						</ul>
 						
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary" onclick="return verifyOK()">Submit</button>
 					</div>
 				</form>
 			</div>

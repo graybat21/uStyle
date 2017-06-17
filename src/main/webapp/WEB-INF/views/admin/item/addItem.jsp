@@ -10,24 +10,6 @@
 	margin: auto;
 }
 </style>
-<script>
-function onlyNumber(event){
-	event = event || window.event;
-	var keyID = (event.which) ? event.which : event.keyCode;
-	if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
-		return;
-	else
-		return false;
-}
-function removeChar(event) {
-	event = event || window.event;
-	var keyID = (event.which) ? event.which : event.keyCode;
-	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
-		return;
-	else
-		event.target.value = event.target.value.replace(/[^0-9]/g, "");
-}
-</script>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -68,11 +50,11 @@ function removeChar(event) {
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">정상가격</label>
-							<input type="text" name="originalprice" value="${item.originalprice}" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="originalprice" value="${originalprice}" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">할인가격</label>
-							<input type="text" name="saleprice" value="${item.saleprice}" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="saleprice" value="${saleprice}" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 					</div>
 					<!-- /.box-body -->

@@ -5,12 +5,12 @@
 	<insert id="insert" parameterType="product">
 		<choose>
 		<when test="pictureurl != null">
-    		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl, mainpictureurl)
-    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureurl}, #{mainpictureurl} )
+    		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice)
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureurl}, #{mainpictureurl}, #{originalprice}, #{saleprice} )
     	</when>
     	<otherwise>
-    		insert into tbl_product(productname, description, brand, category, subcategory)
-    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory})
+    		insert into tbl_product(productname, description, brand, category, subcategory, originalprice, saleprice)
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{originalprice}, #{saleprice})
     	</otherwise>
     	</choose>
     </insert>
@@ -40,11 +40,11 @@
  	<select id="productList" resultType="product" parameterType="hashmap">
 		SELECT 
 			productid, productname, description, brand, 
-			category, subcategory, pictureurl, mainpictureurl
+			category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
 		FROM
 			(SELECT (@row_number:=@row_number+1) as row_number,
 					productid, productname, description, brand, 
-					category, subcategory, pictureurl, mainpictureurl
+					category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
 			FROM tbl_product, (SELECT @row_number:=0) as t
           	<if test="searchKeyword != null || searchKeyword == ''">
     		WHERE ${searchOption} LIKE '%${searchKeyword}%'
@@ -65,11 +65,11 @@
 	<select id="productListForSubcategory" resultType="product" parameterType="hashmap">
 		SELECT 
 			productid, productname, description, brand, 
-			category, subcategory, pictureurl, mainpictureurl
+			category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
 		FROM
 			(SELECT (@row_number:=@row_number+1) as row_number,
 					productid, productname, description, brand, 
-					category, subcategory, pictureurl, mainpictureurl
+					category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
 			FROM tbl_product, (SELECT @row_number:=0) as t
 			WHERE subcategory = #{subcategory}
           	ORDER BY ${sortby} DESC
@@ -82,13 +82,15 @@
 		<when test="pictureurl != null">
     		update tbl_product
     		set productname = #{productname}, description = #{description}, brand = #{brand}, 
-    			category = #{category}, subcategory = #{subcategory}, pictureurl = #{pictureurl}, mainpictureurl = #{mainpictureurl}
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = #{pictureurl}, 
+    			mainpictureurl = #{mainpictureurl}, originalprice = #{originalprice}, saleprice = #{saleprice}
     		where productid = #{productid}
     	</when>
     	<otherwise>
     		update tbl_product
     		set productname = #{productname}, description = #{description}, brand = #{brand}, 
-    			category = #{category}, subcategory = #{subcategory}, pictureurl = '[/ustylenone.jpg]', mainpictureurl = '/ustylenone.jpg'
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = '[/ustylenone.jpg]',
+    			mainpictureurl = '/ustylenone.jpg', originalprice = #{originalprice}, saleprice = #{saleprice}
     		where productid = #{productid}
     	</otherwise>
     	</choose>
