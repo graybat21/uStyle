@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 	<body class="catalog-category-view">
     	
@@ -24,9 +25,9 @@
                                         <li class="home"> <a href="/" title="Home"><span>Home</span></a> 
                                         <span class="separator">/ </span>
                                         </li>
-                                        <li class="contact"> <!-- <a href="/"> -->
+                                        <li class="contact"> <!--a href="/"-->
                                         <span>${productList[0].category }</span>
-                                        </a>
+                                        <!--/a-->
                                         <span class="separator">/ </span>
                                         </li>
                                         <li class="contact"> <strong> ${subcategory }</strong>
@@ -107,11 +108,11 @@
 	                                                    <li class="item">
 	                                                        <div class="product-item">
 	                                                            <div class="product-shop-top">
-	                                                                <a href="/product/productDetail.do?productid=${product.productid}" title="WIASSI Version 10" class="product-image"> <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org" src="/displayFile?fileName=${product.mainpictureurl}" width="150px" height="150px" alt="WIASSI Version 10" /><span class="bkg-hover"></span> </a>
+	                                                                <a href="/product/productDetail.do?productid=${product.productid}" title="${product.productname}" class="product-image"> <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org" src="/displayFile?fileName=${product.mainpictureurl}" width="150px" height="150px" alt="${product.productname}" /><span class="bkg-hover"></span> </a>
 	                                                            </div>
 	                                                            <div class="product-shop">
 	                                                                <div class="f-fix">
-	                                                                    <h2 class="product-name text-center  "><a href="product-detail.html" title="WIASSI Version 10">${product.productname}</a></h2>
+	                                                                    <h2 class="product-name text-center  "><a href="product-detail.html" title="${product.productname}">${product.productname}</a></h2>
 	                                                                    <div class=" text-center">
 	                                                                        <div class="ratings">
 	                                                                            <div class="rating-box">
@@ -121,10 +122,10 @@
 	                                                                    </div>
 	                                                                    <div class="text-center ">
 	                                                                        <div class="price-box"> 
-		                                                                        <span class="regular-price" id="product-price-215">
-		                                                                        <span class="price" content="1500">
-		                                                                        ${product.originalprice }
-		                                                                        </span></span>
+		                                                                        <c:if test="${ product.originalprice > product.saleprice }">
+	                                                                            	<span class="price"><del><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></del></span><br>
+	                                                                            </c:if>
+		                                                                        <span class="price" id="product-price-206"> <span class="price" style="font-color:red"><fmt:formatNumber value="${product.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
 	                                                                        </div>
 	                                                                    </div>
 	                                                                </div>
@@ -235,7 +236,8 @@
                                                                         <div class="label-icon">
                                                                         	<a href="/product/productList.do?subcategory=${item.subcategory }">
                                                                             <div class="label">
-                                                                             ${item.subcategory } (${item.count })</div></a>
+                                                                             ${item.subcategory } (${item.count })
+                                                                             </div></a>
                                                                         </div>
                                                                     </li>
                                                                 	</c:forEach>

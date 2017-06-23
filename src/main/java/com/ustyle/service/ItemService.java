@@ -12,7 +12,15 @@ public interface ItemService {
 
 	public List<Item> itemList(HashMap<String, Object> map) throws Exception;
 	
+	public List<String> selectColorList(Integer productid) throws Exception;
+	
+	public List<Item> selectedColorItemList(Item selectedColorItem) throws Exception;
+	
+	public Item selectedColorSizeItem(Item selectedSizeItem) throws Exception;
+	
 	public Item read(Integer itemid) throws Exception;
+	
+	public int totalItem(Integer productid) throws Exception;
 	
 	public void update(Item item) throws Exception;
 
