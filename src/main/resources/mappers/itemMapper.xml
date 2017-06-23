@@ -50,6 +50,42 @@
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
 	
+	<select id="selectColorList" resultType="String" parameterType="int">
+		SELECT DISTINCT 
+			color 
+		FROM
+			tbl_item
+		WHERE
+			productid = #{productid}
+	</select>
+	
+	<select id="selectedColorItemList" resultType="item" parameterType="item">
+		SELECT 
+			* 
+		FROM
+			tbl_item
+		WHERE
+			color = #{color} AND productid = #{productid}
+	</select>
+	
+	<select id="selectedColorSizeItem" resultType="item" parameterType="item">
+		SELECT 
+			* 
+		FROM
+			tbl_item
+		WHERE
+			color = #{color} AND size = #{size} AND productid = #{productid}
+	</select>
+	
+	<select id="totalItem" resultType="int" parameterType="int">
+		SELECT 
+			COALESCE(sum(stock), 0)
+		FROM
+			tbl_item
+		WHERE
+			productid = #{productid}
+	</select>
+	
 	<update id="update" parameterType="item">
    		update tbl_item
    		set originalprice = #{originalprice}, saleprice = #{saleprice}, color = #{color}, 

@@ -47,7 +47,12 @@
                                         <div class="product-view">
                                             <div class="product-essential">
                                                 <form method="post" id="product_addtocart_form">
-                                                    <input name="form_key" type="hidden" value="N4DL2crX27DuHSDk" />
+                                                    <%--input type="hidden" name="form_key" value="N4DL2crX27DuHSDk" /--%>
+                                                    <input type="hidden" id="selectedItemColor" name="selectedItemColor" value="" />
+                                                    <input type="hidden" id="selectedItemSize" name="selectedItemSize" value="" />
+                                                    <input type="hidden" id="productid" name="productid" value="${product.productid}" />
+                                                    <input type="hidden" id="itemid" name="itemid" value="" />
+                                                    
                                                     <div class="product-view-detail">
                                                         <div class="em-product-view row">
                                                             <div class="em-product-view-primary em-product-img-box col-sm-16 first">
@@ -84,12 +89,19 @@
                                                                         </div>
                                                                         <div class="em-sku-availability">
                                                                             <p class="sku">SKU: ${product.productid}</p>
-                                                                            <p class="availability in-stock"> Availability: <span class="value">In stock</span>
+                                                                            <p class="availability in-stock"> Availability: 
+	                                                                            <c:if test="${totalItemNum > 0}">
+	                                                                            	<span class="value">In stock</span>
+	                                                                            </c:if>
+	                                                                            <c:if test="${totalItemNum == 0}">
+	                                                                            	<span class="value">Out of stock</span>
+	                                                                            </c:if>
                                                                             </p>
                                                                         </div>
                                                                         <div class="short-description">
                                                                             <h2>Quick Overview</h2>
                                                                             <div class="std">${product.description}</div>
+                                                                            <div class="std">가격은 색상 혹은 사이즈에 따라 다를 수 있습니다.</div>
                                                                         </div>
                                                                         
                                                                         <div>
@@ -97,16 +109,19 @@
                                                                             <p class="availability in-stock">Availability: <span>In stock</span>
                                                                             </p>
                                                                             
-                                                                            <div class="price-box"> 
-                                                                            <c:if test="${ product.originalprice > product.saleprice }">
-                                                                            	<span class="price"><del><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></del></span>
-                                                                            </c:if>
-                                                                            	<span class="price" id="product-price-206"> <span class="price" style="font-color:red"><fmt:formatNumber value="${product.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
+                                                                            <div id="price-box-wrapper" class="price-box"> 
+	                                                                            <c:if test="${ product.originalprice > product.saleprice }">
+	                                                                            	<span id="price-original" class="price"><del><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></del></span>
+	                                                                            </c:if>
+                                                                            	<span id="price-sale" class="price"><fmt:formatNumber value="${product.saleprice}" type="currency" currencySymbol="￦"/></span>
                                                                             </div>
                                                                         </div>
                                                                     </div><!-- /.em-product-info-basic -->
+                                                                    
+                                                                    <c:if test="${totalItemNum > 0}">
+
                                                                     <div id="product-options-wrapper" class="product-options" style="overflow-y: hidden;">
-                                                                        <dl class="last"><dt class="swatch-attr"> <label class="required" id="color_label"> <em>*</em>Color: <span class="select-label" id="select_label_color">Red</span> </label></dt>
+                                                                        <dl class="last"><dt class="swatch-attr"> <label class="required" id="color_label"> <em>*</em>Color: <span class="select-label" id="select_label_color">Please Select Color</span> </label></dt>
                                                                             <dd class="clearfix swatch-attr">
                                                                                 <div class="input-box">
                                                                                     <select class="required-entry super-attribute-select no-display swatch-select" id="attribute272" name="super_attribute[272]">
@@ -115,22 +130,24 @@
                                                                                         <option value="26" data-label="red">Red</option>
                                                                                     </select>
                                                                                     <ul class="configurable-swatch-list clearfix" id="configurable_swatch_color">
-                                                                                        <li id="option22" class="option-green wide-swatch">
-                                                                                            <a style="height: 23px; min-width: 23px;" title="Green" class="swatch-link swatch-link-272" id="swatch22" name="green" href="javascript:void(0)"> <span style="height: 21px; min-width: 21px; line-height: 21px;" class="swatch-label"> Green </span> <span class="x">X</span> </a>
-                                                                                        </li>
-                                                                                        <li id="option26" class="option-red selected">
-                                                                                            <a style="height: 23px; min-width: 23px;" title="Red" class="swatch-link swatch-link-272" id="swatch26" name="red" href="javascript:void(0)"> <span style="height: 21px; min-width: 21px; line-height: 21px;" class="swatch-label"> Red </span> <span class="x">X</span> </a>
-                                                                                        </li>
+	                                                                                    <c:forEach var="itemColor" items="${itemColorList}">
+	                                                                                        <li id="option22" class="option-green wide-swatch">
+	                                                                                            <a style="height: 23px; min-width: 23px;" title="${itemColor}" class="swatch-link swatch-link-272" id="swatch22" name="${itemColor}" value="${itemColor}"> <span style="height: 21px; min-width: 21px; line-height: 21px;" class="swatch-label">${itemColor}</span> <span class="x">X</span> </a>
+	                                                                                        </li>
+	                                                                                        <!--li id="option26" class="option-red selected">
+	                                                                                            <a style="height: 23px; min-width: 23px;" title="${itemColor}" class="swatch-link swatch-link-272" id="swatch26" name="${itemColor}" href="javascript:void(0)"> <span style="height: 21px; min-width: 21px; line-height: 21px;" class="swatch-label">${itemColor}</span> <span class="x">X</span> </a>
+	                                                                                        </li-->
+	                                                                                    </c:forEach>
                                                                                     </ul>
                                                                                 </div>
                                                                             </dd><dt><label class="required"><em>*</em>Size</label></dt>
                                                                             <dd class="last">
                                                                                 <div class="input-box">
-                                                                                    <select class="required-entry super-attribute-select" id="attribute525" name="super_attribute[525]">
+                                                                                    <select class="required-entry super-attribute-select" id="attribute-size" name="super_attribute[525]">
                                                                                         <option value="">Choose an Option...</option>
-                                                                                        <option value="100" data-label="small" disabled="disabled">Small</option>
+                                                                                        <%--option value="100" data-label="small" disabled="disabled">Small</option>
                                                                                         <option value="99" data-label="medium">Medium</option>
-                                                                                        <option value="98" data-label="large">Large</option>
+                                                                                        <option value="98" data-label="large">Large</option--%>
                                                                                     </select>
                                                                                 </div>
                                                                             </dd>
@@ -141,13 +158,19 @@
                                                                         <div class="add-to-cart">
                                                                             <label for="qty">Qty:</label>
                                                                             <div class="qty_cart">
-                                                                                <div class="qty-ctl">
+                                                                            	<select class="required-entry super-attribute-select" id="attribute-qty" name="super_attribute[525]">
+                                                                                	<option value="1">1</option>
+                                                                                	<c:forEach var="qty" begin="2" end="10" step="1">
+                                                                                		<option value="${qty}">${qty}</option>
+                                                                                	</c:forEach>
+                                                                                </select>
+                                                                                <%--div class="qty-ctl">
                                                                                     <button title="decrease" onclick="changeQty(0); return false;" class="decrease">decrease</button>
                                                                                 </div>
-                                                                                <input type="text" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="input-text qty" />
+                                                                                <input type="text" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="input-text qty" readonly/>
                                                                                 <div class="qty-ctl">
                                                                                     <button title="increase" onclick="changeQty(1); return false;" class="increase">increase</button>
-                                                                                </div>
+                                                                                </div--%>
                                                                             </div>
                                                                             <ul class="add-to-links">
                                                                                 <li><a title="Add to Wishlist" href="#" class="link-wishlist">Add to Wishlist</a>
@@ -156,13 +179,16 @@
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="button_addto">
-                                                                                <button type="button" title="Buy Now" id="em-buy-now" class="button btn-em-buy-now"><span><span>Buy Now</span></span>
-                                                                                </button>
+                                                                                <%--button type="button" title="Buy Now" id="em-buy-now" class="button btn-em-buy-now"><span><span>Buy Now</span></span>
+                                                                                </button--%>
                                                                                 <button type="button" title="Add to Cart" id="product-addtocart-button" class="button btn-cart btn-cart-detail"><span><span>Add to Cart</span></span>
                                                                                 </button>
                                                                             </div>
                                                                         </div><!-- /.add-to-cart -->
                                                                     </div>
+                                                                    
+                                                                    </c:if>
+                                                                    
                                                                 </div>
                                                             </div><!-- /.em-product-view-secondary -->
                                                         </div>
@@ -205,7 +231,7 @@
                                                                             <p class="note">Use spaces to separate tags. Use single quotes (') for phrases.</p>
                                                                         </div><!-- /.box-collateral-content -->
                                                                     </div><!-- /.box-collateral -->
-                                                                    <div class="box-collateral  em-line-01">
+                                                                    <div class="box-collateral em-line-01">
                                                                         <div class="em-block-title">
                                                                             <h2>Custom Tab N</h2>
                                                                         </div>
@@ -559,16 +585,150 @@
         <!-- Lightbox Js -->
         <script type="text/javascript" src="/resources/js/lightbox.min.js"></script>
         <script type="text/javascript">
+	        var header = $("meta[name='_csrf_header']").attr("content");
+	    	var token  = $("meta[name='_csrf']").attr("content");
+        
+        	/*
+        		상품의 썸네일 이미지를 클릭했을 때, 클릭한 이미지를 메인이미지가 있던 곳에 불러오게 하는 작업
+        	*/
 	        $( ".em-moreviews-slider li a" ).click(function() {
 	            var address = $(this).children("img");
 	            $(".product-image img").attr("src", address.attr("src").replace("/s_", "/"));
 	            $(this).parent().addClass("on").siblings().removeClass("on");
 	            return false;
 	        });
-        
+        	
+	        /*
+    			색상을 선택했을 때 수행되는 작업
+    		*/
+
+	        $( "#configurable_swatch_color li a" ).click(function() {
+	        	var productid = $("#productid").val();
+	        	var selectedColor = $(this).attr("value");
+	        	
+	        	$("span#select_label_color").text(selectedColor);
+	        	$("#selectedItemColor").val(selectedColor);
+	        	
+	        	$.ajax({
+	        		url: "/product/selectedColor.do",
+	    			data: JSON.stringify({productid: productid, color: selectedColor}),
+	    			dataType: 'text',
+	    			type: 'POST',    
+	    			headers : {
+	    				"Content-Type": "application/json; charset=utf-8",
+	    				"X-HTTP-Method-Override": "POST"
+	    			},
+	    			beforeSend: function(xhr){
+	    				xhr.setRequestHeader(header, token);
+	    		    },
+	    			success: function(data) {
+	    				var result = JSON.parse(data);
+	    				var makeOptionHtml = "<option value=''>Choose an Option...</option>";
+	    				
+	    				console.log(data);
+	    				
+	    				$.each(result, function(idx, obj) {
+    						if ( obj.stock > 0 )
+	    						makeOptionHtml += "<option value='" + obj.size + "'>" + obj.size + "</option>";
+    						else
+    							makeOptionHtml += "<option value='" + obj.size + "' disabled>" + obj.size + "- Out of Stock</option>";
+    					});
+	    				
+	    				console.log(makeOptionHtml);
+	    				
+	    				$("#attribute-size").empty(); 
+	    				$("#attribute-size").html(makeOptionHtml);
+	    			},
+	    			error: function(request, status, error) {
+	    			    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+    			    }
+	        	});
+	        });
+	        
+	        /*
+				사이즈를 선택했을 때 수행되는 작업(Item별로 남아있는 수량을 고려하여 Qty Select Box 옵션값을 조정한다. 그리고 색상과 사이즈에 맞춘 가격을 올바르게 표시한다.)
+			*/
+	        
+	        $("select#attribute-size").change(function() {
+	        	var productid     = $("#productid").val();
+	        	var selectedColor = $("#selectedItemColor").val();
+	        	
+	        	var selectedSize  = $(this).children(":selected").html();
+	        	
+	        	$("#selectedItemSize").val(selectedSize);
+	        	
+	        	$.ajax({
+	        		url: "/product/selectedSize.do",
+	    			data: JSON.stringify({productid: productid, color: selectedColor, size: selectedSize}),
+	    			dataType: 'text',
+	    			type: 'POST',    
+	    			headers : {
+	    				"Content-Type": "application/json; charset=utf-8",
+	    				"X-HTTP-Method-Override": "POST"
+	    			},
+	    			beforeSend: function(xhr){
+	    				xhr.setRequestHeader(header, token);
+	    		    },
+	    			success: function(data) {
+	    				var result = JSON.parse(data);
+	    				console.log(result);
+	    				
+	    				var makeOptionHtml = "<option value='1'>1</option>";
+	    				
+	    				if ( result.stock > 1 )		
+	    				{
+	    					for ( var i = 2; i <= 10; i++ )
+	    					{	
+	    						if ( i > result.stock )
+	    							break;
+	    						
+    							makeOptionHtml += "<option value='" + i + "'>" + i +"</option>";
+	    					}
+	    				}
+	    				
+	    				console.log(makeOptionHtml);
+	    				
+	    				$("#attribute-qty").empty(); 
+	    				$("#attribute-qty").html(makeOptionHtml);
+	    				
+	    				var originalprice = parseInt(result.originalprice);
+	    				var saleprice = parseInt(result.saleprice);
+	    				
+	    				var makePriceHtml = "";
+	    				
+	    				if ( originalprice > saleprice )
+	    				{
+	    					makePriceHtml += "<span id='price-original' class='price'><del>" + "￦" + set_comma(originalprice) + "</del></span>";
+    					}
+	    				
+	    				makePriceHtml += "<span id='price-sale' class='price'>" + "￦" + set_comma(saleprice) + "</span>";
+	    				
+	    				$("#price-box-wrapper").empty(); 
+	    				$("#price-box-wrapper").html(makePriceHtml);
+	    				
+	    				$("#itemid").val(result.itemid);
+	    			},
+	    			error: function(request, status, error) {
+	    			    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+    			    }
+	        	});
+	        });
+        	
             jQuery('.cloud-zoom-gallery').click(function() {
                 jQuery('#zoom-btn').attr('href', this.href);
             });
+            
+            function set_comma(n) { 
+            	var reg = /(^[+-]?\d+)(\d{3})/; 
+            	
+            	n += ''; 
+            	
+            	while (reg.test(n)) 
+            		n = n.replace(reg, '$1' + ',' + '$2'); 
+            	
+            	return n; 
+            }
+            
             function doSliderMoreview() {
                 var owl = $("ul.em-moreviews-slider");
                 if (owl.length) {
@@ -599,8 +759,8 @@
             function changeQty(increase) {
                 var qty = parseInt($('#qty').val());
                 if (!isNaN(qty)) {
-                    console.log(qty)
-                    qty = increase ? qty + 1 : (qty > 1 ? qty - 1 : 1);
+                    console.log(qty);
+                    qty = increase ? (qty > 9 ? 10 : qty + 1) : (qty > 1 ? qty - 1 : 1);
                     $('#qty').val(qty);
                 }
             }

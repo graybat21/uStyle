@@ -10,12 +10,16 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ustyle.domain.Item;
 import com.ustyle.domain.Product;
+import com.ustyle.service.ItemService;
 import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
 
@@ -26,7 +30,10 @@ public class ProductDetailController {
 	private static final Logger logger = LoggerFactory.getLogger(ProductDetailController.class);
 
 	@Inject
-	private ProductService service;
+	private ProductService productService;
+	
+	@Inject
+	private ItemService itemService;
 	
 	@RequestMapping(value = "productList.do", method = RequestMethod.GET)
 	public ModelAndView productList(@RequestParam(value = "pageCount", required = false) Integer pageCount, 
@@ -46,7 +53,7 @@ public class ProductDetailController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("subcategory", subcategory);
 		map.put("brand", brand);
-		int totalCnt = service.selectListCntForSubcategory(map); // DB연동_ 총 갯수 구해오기
+		int totalCnt = productService.selectListCntForSubcategory(map); // DB연동_ 총 갯수 구해오기
 		
 		int countPerPaging = 10;
 		
@@ -59,10 +66,10 @@ public class ProductDetailController {
 		map.put("first", first);
 		map.put("last", last);
 		map.put("sortby", sortby);
-		List<Product> productList = service.productListForSubcategory(map);
-		List<HashMap<String,Object>> brandList = service.brandListForSubcategory(subcategory);
-		List<HashMap<String,Object>> subcategoryList = service.subcategoryListForSubcategory(subcategory);
-		List<HashMap<String,Object>> priceList = service.priceRangeForSubcategory(subcategory);
+		List<Product> productList = productService.productListForSubcategory(map);
+		List<HashMap<String,Object>> brandList = productService.brandListForSubcategory(subcategory);
+		List<HashMap<String,Object>> subcategoryList = productService.subcategoryListForSubcategory(subcategory);
+		List<HashMap<String,Object>> priceList = productService.priceRangeForSubcategory(subcategory);
 //		for ( Product p : productList )
 //			logger.info(p.toString());
 		logger.info(brandList.toString());
@@ -83,11 +90,19 @@ public class ProductDetailController {
 		
 	}
 	
+	/**
+	 * 상품 상세정보를 상세페이지에 불러오는 메소드
+	 * 
+	 * @param productid
+	 * @return mav
+	 * @throws Exception
+	 */
+	
 	@RequestMapping(value = "productDetail.do", method = RequestMethod.GET)
 	public ModelAndView productDetail(@RequestParam(value = "productid", required = false) 
 						Integer productid) throws Exception {
 		ModelAndView mav = new ModelAndView("product/productDetail/상품 상세");
-		Product product = service.read(productid);
+		Product product = productService.read(productid);
 		
 		String mainPictureUrl = product.getMainpictureurl();
 		product.setMainpictureurl(mainPictureUrl.replace("/s_", "/"));
@@ -101,8 +116,58 @@ public class ProductDetailController {
 		
 		logger.info(product.toString());
 		
+		List<String> itemColorList = itemService.selectColorList(productid);		// 상품의 색상을 리스트로 가져옴
+		
+		int totalItemNum = itemService.totalItem(productid);
+		System.out.println(totalItemNum);
+		
+		for ( String color : itemColorList )
+			logger.info(color.toString());
+		
 		mav.addObject("product", product);
+		mav.addObject("totalItemNum", totalItemNum);
 		mav.addObject("pictureList", pictureList);
+		mav.addObject("itemColorList", itemColorList);
+		
 		return mav;
+	}
+	
+	/**
+	 * 선택된 색상에 해당하는 Item 객체 리스트를 가져오는 메소드
+	 * 
+	 * @param selectedColorItem
+	 * @return selectedColorItemList
+	 * @throws Exception
+	 */
+	
+	@ResponseBody
+	@RequestMapping(value = "selectedColor.do", method = RequestMethod.POST)
+	public List<Item> selectedColorAjax(@RequestBody Item selectedColorItem) throws Exception {
+		
+		List<Item> selectedColorItemList = itemService.selectedColorItemList(selectedColorItem);
+		
+		for ( Item eachItem : selectedColorItemList )
+			logger.info(eachItem.toString());
+		
+		return selectedColorItemList;
+	}
+	
+	/**
+	 * 선택된 색상, 사이즈에 해당하는 Item 객체 한 개를 가져오는 메소드
+	 * 
+	 * @param selectedSizeItem
+	 * @return selectedColorSizeItem
+	 * @throws Exception
+	 */
+	
+	@ResponseBody
+	@RequestMapping(value = "selectedSize.do", method = RequestMethod.POST)
+	public Item selectedSizeAjax(@RequestBody Item selectedSizeItem) throws Exception {
+		
+		Item selectedColorSizeItem = itemService.selectedColorSizeItem(selectedSizeItem);
+		
+		logger.info(selectedColorSizeItem.toString());
+		
+		return selectedColorSizeItem;
 	}
 }

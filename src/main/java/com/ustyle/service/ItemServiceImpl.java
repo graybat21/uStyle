@@ -36,10 +36,33 @@ public class ItemServiceImpl implements ItemService {
 		return dao.itemList(map);
 	}
 	
+	@Transactional
+	@Override
+	public List<String> selectColorList(Integer productid) throws Exception {
+		return dao.selectColorList(productid);
+	}
+	
+	@Transactional
+	@Override
+	public List<Item> selectedColorItemList(Item selectedColorItem) throws Exception {
+		return dao.selectedColorItemList(selectedColorItem);
+	}
+	
+	@Transactional
+	@Override
+	public Item selectedColorSizeItem(Item selectedSizeItem) throws Exception {
+		return dao.selectedColorSizeItem(selectedSizeItem);
+	}
+	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public Item read(Integer itemid) throws Exception {
 		return dao.read(itemid);
+	}
+	
+	@Override
+	public int totalItem(Integer productid) throws Exception {
+		return dao.totalItem(productid);
 	}
 	
 	@Transactional
@@ -53,5 +76,4 @@ public class ItemServiceImpl implements ItemService {
 	public void deleteItem(int itemid) throws Exception {
 		dao.deleteItem(itemid);
 	}
-	
 }

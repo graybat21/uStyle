@@ -34,8 +34,28 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 	
 	@Override
+	public List<String> selectColorList(Integer productid) {
+		return session.selectList(namespace + ".selectColorList", productid);
+	}
+	
+	@Override
+	public List<Item> selectedColorItemList(Item selectedColorItem) {
+		return session.selectList(namespace + ".selectedColorItemList", selectedColorItem);
+	}
+	
+	@Override
+	public Item selectedColorSizeItem(Item selectedSizeItem) {
+		return session.selectOne(namespace + ".selectedColorSizeItem", selectedSizeItem);
+	}
+	
+	@Override
 	public Item read(Integer itemid) throws Exception {
 		return session.selectOne(namespace + ".read", itemid);
+	}
+	
+	@Override
+	public int totalItem(Integer productid) {
+		return session.selectOne(namespace + ".totalItem", productid);
 	}
 	
 	@Override
@@ -47,5 +67,4 @@ public class ItemDAOImpl implements ItemDAO {
 	public void deleteItem(int itemid) {
 		session.delete(namespace + ".deleteItem", itemid);
 	}
-
 }

@@ -7090,7 +7090,7 @@ div.desc {
     right: 45px;
 }
 .product-view-detail select {
-    width: 100%;
+    width: 70%;
 }
 .product-view-detail .product-img-box {
     margin-bottom: 50px;
@@ -7230,7 +7230,7 @@ div.desc {
     margin: 0;
 }
 .product-view-detail .product-shop .add-to-cart label {
-    display: none;
+    /*display: none;*/
 }
 .product-view-detail .product-shop .ratings {
     float: left;
@@ -7324,13 +7324,15 @@ div.desc {
     margin: 0;
 }
 .product-view-detail button.button {
-    width: 49%;
+    /*width: 49%;*/
+    width: 70%;
     margin-right: 2%;
     text-align: center;
 }
 .product-view-detail button.button.btn-cart {
     margin-right: 0;
-    float: right;
+    margin-top: 10px;
+    /*float: right;*/
 }
 .product-view-detail button.button.btn-cart:before {
     font-size: 100%;
