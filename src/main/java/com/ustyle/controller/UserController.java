@@ -1,6 +1,5 @@
 package com.ustyle.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ustyle.domain.Qna;
 import com.ustyle.domain.User;
 import com.ustyle.service.UserService;
 import com.ustyle.utils.UserEntryValidator;
@@ -51,14 +49,14 @@ public class UserController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value = "login.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String loginForm() {
 		return "user/login/LOGIN";
 	}
 	
 	
 
-	@RequestMapping(value = "login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginPost.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
 
 		try {
@@ -80,12 +78,12 @@ public class UserController {
 			session.setAttribute("session_user", resultUser);
 			// session.setAttribute("session_realname", resultUser.getRealname());
 			
-			session.setAttribute("session_username", resultUser.getUsername());
-			session.setAttribute("session_point", resultUser.getPoint());
+//			session.setAttribute("session_username", resultUser.getUsername());
+//			session.setAttribute("session_point", resultUser.getPoint());
 			// session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
 
-//			return "user/loginSuccess/LOGIN SUCCESS";
-			return "redirect:/qna.do";
+			return "user/loginSuccess/LOGIN SUCCESS";
+			//return "redirect:/qna.do";
 			
 		} catch (NullPointerException e) {
 			return "user/loginError/LOGIN ERROR";
@@ -106,17 +104,17 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "register.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/register.do", method = RequestMethod.GET)
 	public String registerForm() {
 		return "user/register/Register";
 	}
 	
-	@RequestMapping(value = "index.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public String Index() {
 		return "user/index/uStyleHome";
 	}
 
-	@RequestMapping(value = "register.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, HttpSession session)
 			throws Exception {
 
@@ -145,12 +143,12 @@ public class UserController {
 	}
 	
 		
-	@RequestMapping(value = "update.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
 	public String updateForm() {
 		return "user/update/Update";
 	}
 	
-	@RequestMapping(value = "update.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute @Valid User updateUser, BindingResult bindingResult, HttpSession session)
 			throws Exception {
 
@@ -178,16 +176,16 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "delete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
 	public String deleteForm() {
 		return "user/deleteForm/Delete";
 	}
 	
 	
-	@RequestMapping(value = "delete.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
 	public String delete(User user, HttpSession session)
 			throws Exception {
-		user.setUsername((String) session.getAttribute("session_username"));
+		//////////user.setUsername((String) session.getAttribute("session_username"));
 		logger.info(user.toString());
 		User resultUser = service.userLogin(user);
 		logger.info(resultUser.toString());
@@ -258,7 +256,7 @@ public class UserController {
 		return "user/authError/인증 실패";
 	}
 
-	@RequestMapping(value = "duplicationCheck.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/duplicationCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public int userExist(@RequestBody String username) throws Exception {
 

@@ -46,12 +46,13 @@
                                         <div id="messages_product_view"></div>
                                         <div class="product-view">
                                             <div class="product-essential">
-                                                <form method="post" id="product_addtocart_form">
-                                                    <%--input type="hidden" name="form_key" value="N4DL2crX27DuHSDk" /--%>
-                                                    <input type="hidden" id="selectedItemColor" name="selectedItemColor" value="" />
-                                                    <input type="hidden" id="selectedItemSize" name="selectedItemSize" value="" />
+                                                <form action="/cart/addCart.do" method="post" id="product_addtocart_form" name="product_addtocart_form">
+                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                                    <input type="hidden" id="selectedItemColor" name="color" value="" />
+                                                    <input type="hidden" id="selectedItemSize" name="size" value="" />
                                                     <input type="hidden" id="productid" name="productid" value="${product.productid}" />
                                                     <input type="hidden" id="itemid" name="itemid" value="" />
+                                                    <input type="hidden" id="count" name="count" value="1" />
                                                     
                                                     <div class="product-view-detail">
                                                         <div class="em-product-view row">
@@ -124,11 +125,11 @@
                                                                         <dl class="last"><dt class="swatch-attr"> <label class="required" id="color_label"> <em>*</em>Color: <span class="select-label" id="select_label_color">Please Select Color</span> </label></dt>
                                                                             <dd class="clearfix swatch-attr">
                                                                                 <div class="input-box">
-                                                                                    <select class="required-entry super-attribute-select no-display swatch-select" id="attribute272" name="super_attribute[272]">
+                                                                                    <%--select class="required-entry super-attribute-select no-display swatch-select" id="attribute272" name="super_attribute[272]">
                                                                                         <option value="">Choose an Option...</option>
                                                                                         <option value="22" data-label="green">Green +$5.25</option>
                                                                                         <option value="26" data-label="red">Red</option>
-                                                                                    </select>
+                                                                                    </select--%>
                                                                                     <ul class="configurable-swatch-list clearfix" id="configurable_swatch_color">
 	                                                                                    <c:forEach var="itemColor" items="${itemColorList}">
 	                                                                                        <li id="option22" class="option-green wide-swatch">
@@ -143,8 +144,8 @@
                                                                             </dd><dt><label class="required"><em>*</em>Size</label></dt>
                                                                             <dd class="last">
                                                                                 <div class="input-box">
-                                                                                    <select class="required-entry super-attribute-select" id="attribute-size" name="super_attribute[525]">
-                                                                                        <option value="">Choose an Option...</option>
+                                                                                    <select class="required-entry super-attribute-select" id="attribute-size">
+                                                                                        <option value="" selected="true" disabled>Choose an Option...</option>
                                                                                         <%--option value="100" data-label="small" disabled="disabled">Small</option>
                                                                                         <option value="99" data-label="medium">Medium</option>
                                                                                         <option value="98" data-label="large">Large</option--%>
@@ -158,7 +159,7 @@
                                                                         <div class="add-to-cart">
                                                                             <label for="qty">Qty:</label>
                                                                             <div class="qty_cart">
-                                                                            	<select class="required-entry super-attribute-select" id="attribute-qty" name="super_attribute[525]">
+                                                                            	<select class="required-entry super-attribute-select" id="attribute-qty">
                                                                                 	<option value="1">1</option>
                                                                                 	<c:forEach var="qty" begin="2" end="10" step="1">
                                                                                 		<option value="${qty}">${qty}</option>
@@ -181,7 +182,7 @@
                                                                             <div class="button_addto">
                                                                                 <%--button type="button" title="Buy Now" id="em-buy-now" class="button btn-em-buy-now"><span><span>Buy Now</span></span>
                                                                                 </button--%>
-                                                                                <button type="button" title="Add to Cart" id="product-addtocart-button" class="button btn-cart btn-cart-detail"><span><span>Add to Cart</span></span>
+                                                                                <button type="submit" title="Add to Cart" id="product-addtocart-button" class="button btn-cart btn-cart-detail"><span><span>Add to Cart</span></span>
                                                                                 </button>
                                                                             </div>
                                                                         </div><!-- /.add-to-cart -->
@@ -584,230 +585,7 @@
         <script type="text/javascript" src="/resources/js/em_product_view.js"></script>
         <!-- Lightbox Js -->
         <script type="text/javascript" src="/resources/js/lightbox.min.js"></script>
-        <script type="text/javascript">
-	        var header = $("meta[name='_csrf_header']").attr("content");
-	    	var token  = $("meta[name='_csrf']").attr("content");
-        
-        	/*
-        		상품의 썸네일 이미지를 클릭했을 때, 클릭한 이미지를 메인이미지가 있던 곳에 불러오게 하는 작업
-        	*/
-	        $( ".em-moreviews-slider li a" ).click(function() {
-	            var address = $(this).children("img");
-	            $(".product-image img").attr("src", address.attr("src").replace("/s_", "/"));
-	            $(this).parent().addClass("on").siblings().removeClass("on");
-	            return false;
-	        });
-        	
-	        /*
-    			색상을 선택했을 때 수행되는 작업
-    		*/
-
-	        $( "#configurable_swatch_color li a" ).click(function() {
-	        	var productid = $("#productid").val();
-	        	var selectedColor = $(this).attr("value");
-	        	
-	        	$("span#select_label_color").text(selectedColor);
-	        	$("#selectedItemColor").val(selectedColor);
-	        	
-	        	$.ajax({
-	        		url: "/product/selectedColor.do",
-	    			data: JSON.stringify({productid: productid, color: selectedColor}),
-	    			dataType: 'text',
-	    			type: 'POST',    
-	    			headers : {
-	    				"Content-Type": "application/json; charset=utf-8",
-	    				"X-HTTP-Method-Override": "POST"
-	    			},
-	    			beforeSend: function(xhr){
-	    				xhr.setRequestHeader(header, token);
-	    		    },
-	    			success: function(data) {
-	    				var result = JSON.parse(data);
-	    				var makeOptionHtml = "<option value=''>Choose an Option...</option>";
-	    				
-	    				console.log(data);
-	    				
-	    				$.each(result, function(idx, obj) {
-    						if ( obj.stock > 0 )
-	    						makeOptionHtml += "<option value='" + obj.size + "'>" + obj.size + "</option>";
-    						else
-    							makeOptionHtml += "<option value='" + obj.size + "' disabled>" + obj.size + "- Out of Stock</option>";
-    					});
-	    				
-	    				console.log(makeOptionHtml);
-	    				
-	    				$("#attribute-size").empty(); 
-	    				$("#attribute-size").html(makeOptionHtml);
-	    			},
-	    			error: function(request, status, error) {
-	    			    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
-    			    }
-	        	});
-	        });
-	        
-	        /*
-				사이즈를 선택했을 때 수행되는 작업(Item별로 남아있는 수량을 고려하여 Qty Select Box 옵션값을 조정한다. 그리고 색상과 사이즈에 맞춘 가격을 올바르게 표시한다.)
-			*/
-	        
-	        $("select#attribute-size").change(function() {
-	        	var productid     = $("#productid").val();
-	        	var selectedColor = $("#selectedItemColor").val();
-	        	
-	        	var selectedSize  = $(this).children(":selected").html();
-	        	
-	        	$("#selectedItemSize").val(selectedSize);
-	        	
-	        	$.ajax({
-	        		url: "/product/selectedSize.do",
-	    			data: JSON.stringify({productid: productid, color: selectedColor, size: selectedSize}),
-	    			dataType: 'text',
-	    			type: 'POST',    
-	    			headers : {
-	    				"Content-Type": "application/json; charset=utf-8",
-	    				"X-HTTP-Method-Override": "POST"
-	    			},
-	    			beforeSend: function(xhr){
-	    				xhr.setRequestHeader(header, token);
-	    		    },
-	    			success: function(data) {
-	    				var result = JSON.parse(data);
-	    				console.log(result);
-	    				
-	    				var makeOptionHtml = "<option value='1'>1</option>";
-	    				
-	    				if ( result.stock > 1 )		
-	    				{
-	    					for ( var i = 2; i <= 10; i++ )
-	    					{	
-	    						if ( i > result.stock )
-	    							break;
-	    						
-    							makeOptionHtml += "<option value='" + i + "'>" + i +"</option>";
-	    					}
-	    				}
-	    				
-	    				console.log(makeOptionHtml);
-	    				
-	    				$("#attribute-qty").empty(); 
-	    				$("#attribute-qty").html(makeOptionHtml);
-	    				
-	    				var originalprice = parseInt(result.originalprice);
-	    				var saleprice = parseInt(result.saleprice);
-	    				
-	    				var makePriceHtml = "";
-	    				
-	    				if ( originalprice > saleprice )
-	    				{
-	    					makePriceHtml += "<span id='price-original' class='price'><del>" + "￦" + set_comma(originalprice) + "</del></span>";
-    					}
-	    				
-	    				makePriceHtml += "<span id='price-sale' class='price'>" + "￦" + set_comma(saleprice) + "</span>";
-	    				
-	    				$("#price-box-wrapper").empty(); 
-	    				$("#price-box-wrapper").html(makePriceHtml);
-	    				
-	    				$("#itemid").val(result.itemid);
-	    			},
-	    			error: function(request, status, error) {
-	    			    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
-    			    }
-	        	});
-	        });
-        	
-            jQuery('.cloud-zoom-gallery').click(function() {
-                jQuery('#zoom-btn').attr('href', this.href);
-            });
-            
-            function set_comma(n) { 
-            	var reg = /(^[+-]?\d+)(\d{3})/; 
-            	
-            	n += ''; 
-            	
-            	while (reg.test(n)) 
-            		n = n.replace(reg, '$1' + ',' + '$2'); 
-            	
-            	return n; 
-            }
-            
-            function doSliderMoreview() {
-                var owl = $("ul.em-moreviews-slider");
-                if (owl.length) {
-                    owl.owlCarousel({
-                        // Navigation
-                        navigation: true,
-                        navigationText: ["Previous", "Next"],
-                        pagination: false,
-                        paginationNumbers: false,
-                        // Responsive
-                        responsive: true,
-                        items: 7,
-                        /*items above 1200px browser width*/
-                        itemsDesktop: [1200, 4],
-                        /*//items between 1199px and 981px*/
-                        itemsDesktopSmall: [992, 7],
-                        itemsTablet: [768, 3],
-                        itemsMobile: [480, 2],
-                        // CSS Styles
-                        baseClass: "owl-carousel",
-                        theme: "owl-theme",
-                        transitionStyle: false,
-                        addClassActive: true,
-                    });
-                }
-            }
-
-            function changeQty(increase) {
-                var qty = parseInt($('#qty').val());
-                if (!isNaN(qty)) {
-                    console.log(qty);
-                    qty = increase ? (qty > 9 ? 10 : qty + 1) : (qty > 1 ? qty - 1 : 1);
-                    $('#qty').val(qty);
-                }
-            }
-
-            (function($) {
-                $(window).load(function() {
-                    if (!isPhone) {
-                    	$('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
-                    }
-                    doSliderMoreview();
-
-                    /* Up sell */
-                    var owl = $("#em-upsell");
-                    if (owl.length) {
-                        owl.owlCarousel({
-                            // Navigation
-                            navigation: true,
-                            navigationText: ["Previous", "Next"],
-                            pagination: false,
-                            paginationNumbers: false,
-                            // Responsive
-                            responsive: true,
-                            items: 4,
-                            /*items above 1200px browser width*/
-                            itemsDesktop: [1200, 4],
-                            /*//items between 1199px and 981px*/
-                            itemsDesktopSmall: [992, 3],
-                            itemsTablet: [768, 3],
-                            itemsMobile: [480, 2],
-                            // CSS Styles
-                            baseClass: "owl-carousel",
-                            theme: "owl-theme",
-                            transitionStyle: false,
-                            addClassActive: true,
-                            afterMove: function() {
-                                var $_img = owl.find('img.em-img-lazy');
-                                if ($_img.length) {
-                                    var timeout = setTimeout(function() {
-                                        $_img.trigger("appear");
-                                    }, 200);
-                                }
-                            },
-                        });
-                    }
-                });
-            })(jQuery);
-        </script>
-
+        <!-- 상품의 상세페이지 관련 스크립트 함수들이 선언된 Js 파일 -->
+        <script type="text/javascript" src="/resources/js/commonProductDetail.js"></script>
     </body>
 </html>

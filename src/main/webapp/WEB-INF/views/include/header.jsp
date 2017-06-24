@@ -69,7 +69,7 @@
 									<ul class="top-header-link links">
 										<!-- ë¡ê·¸ì¸ ëììëì ìëììë ëì¤ëê² ë¤ë¦. -->
 										<!-- 로그인 전 -->
-										<c:if test="${session_username == null }">
+										<c:if test="${session_user['username'] == null }">
 											<li class="first col-xs-8"><a title="Log In"
 												class="login-link fa fa-user" href="/login.do"><span>Log
 														In</span></a></li>
@@ -81,11 +81,11 @@
 											</li>
 										</c:if>
 										<!-- 로그인 후 -->
-										<c:if test="${session_username != null }">
+										<c:if test="${session_user['username'] != null }">
 											<li class="first col-xs-8"><a title="LogOut"
-															class="logout-link fa fa-user" href="logout.do"><span>LogOut</span></a></li>
+															class="logout-link fa fa-user" href="/logout.do"><span>LogOut</span></a></li>
 											<li class="col-xs-8"><a title="S"
-												class='signup-link fa fa-sign-out' href="update.do"><span>${session_point } point</span></a></li>
+												class='signup-link fa fa-sign-out' href="/update.do"><span>${session_point } point</span></a></li>
 											<li class="last col-xs-8"><a href="#"
 												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
 											</li>
@@ -340,7 +340,7 @@
 								</div>
 								
 								<!-- 로그인 전 -->
-								<c:if test="${session_username == null }">
+								<c:if test="${session_user['username'] == null }">
 								<ul class="list-inline f-right">
 									<li><a class="em-register-link" href="/register.do"
 										title="Register">Register</a></li>
@@ -397,15 +397,15 @@
 								</c:if>
 								
 								<!-- 로그인 후 -->
-								<c:if test="${session_username != null }">
+								<c:if test="${session_user['username'] != null }">
 								<ul class="list-inline f-right">
-									<li><a class="em-register-link" href="update.do"
-										title="point">${session_point } point</a></li>
+									<li><a class="em-register-link" href="/update.do"
+										title="point">${session_user['point'] } point</a></li>
 								</ul>
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">
-									<a href="logout.do" class="link-account" id="link-login"
-										title="Logout">${session_username }님</a>
+									<a href="/logout.do" class="link-account" id="link-login"
+										title="Logout">${session_user['username'] }님</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">
 										<form method="post" id="top-login-form">
