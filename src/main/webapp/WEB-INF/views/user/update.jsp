@@ -8,7 +8,6 @@
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/commonUser.js"></script>
-
 </head>
 <body class="cms-index-index">
    
@@ -45,7 +44,7 @@
                                                                 <div class="field name-username">
                                                                     <label for="username" class="required"><em>*</em>User Name</label>
                                                                     <div class="input-box">
-                                                                        <input type="text" id="username" name="username" value="${session_username}" title="UserName" maxlength="20" class="input-text required-entry" readonly/>
+                                                                        <input type="text" id="username" name="username" value="${session_user.username}" title="UserName" maxlength="20" class="input-text required-entry" readonly/>
                                                                         <font color="red">
                                                                         	<span id="duplicateResult"></span><br>
                                                                         	<form:errors path="username"/>

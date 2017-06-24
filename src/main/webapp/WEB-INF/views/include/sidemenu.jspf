@@ -35,15 +35,14 @@
 						</li>
 					</ol>
 				</dd>
-				<dt>찜</dt>
+				<a class="tree-item" href="pin.do">
+				<dt>PinBoard</dt></a>
 				<dd>
 					<div class="rslider">
 						<div id="slider-range"></div>
 						<div class="values">
 							<span id="from-val"><span class="price">Q&A</span></span>
-							<c:url var="myQnaList" value="myQnaList.do">
-							</c:url>
-							<a href="${myQnaList }"> 
+							<a href="myQnaList.do"> 
 							<span id="to-val"><span class="price">내가쓴글</span></span>
 							</a>
 						</div>
