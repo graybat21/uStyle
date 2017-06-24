@@ -42,6 +42,9 @@
 						<div id="slider-range"></div>
 						<div class="values">
 							<span id="from-val"><span class="price">Q&A</span></span>
+							<a href="myQnaList.do">
+							<span id="to-val"><span class="price">내가쓴글</span></span>
+							</a>
 						</div>
 					</div>
 				</dd>
