@@ -59,14 +59,40 @@ public class UserController {
 	@RequestMapping(value = "/loginPost.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
 
-		try {
+//		try {
 			User resultUser = service.userLogin(user);
 			logger.info("{}", resultUser);
 
 			String rawPassword = user.getPassword();
 			String encodedPassword = resultUser.getPassword();
 			logger.info(resultUser.getAuth().toString());
+
+		if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
+            return "user/loginError/No Match PW";
+		} 
+		else if (!resultUser.getAuth().equals("y")) {
+            return "user/loginError/Login Error";
+        }
+
+         HttpSession session = request.getSession();
+
+         session.setAttribute("session_user", resultUser);
+         
+         User loginUser = (User) session.getAttribute("session_user");
+         logger.info(loginUser.toString());
+         
+         String dest = (String)session.getAttribute("dest");
+
+         if ( dest == null || dest.equals("") ) {
+            return "redirect:/";
+         }
+         else {
+            return "redirect:"+dest;
+         }
+			  
+			 
 			
+			/*
 			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
 				return "user/loginError/No Match PW";
 			} else if (!resultUser.getAuth().equals("y")) {
@@ -87,10 +113,11 @@ public class UserController {
 			
 			return "user/loginSuccess/LOGIN SUCCESS";
 			//return "redirect:/qna.do";
-			
-		} catch (NullPointerException e) {
-			return "user/loginError/LOGIN ERROR";
-		}
+			*/
+//		} 
+//		catch (NullPointerException e) {
+//			return "user/loginError/LOGIN ERROR";
+//		}
 	}
 
 	@RequestMapping("/logout.do")

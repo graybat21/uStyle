@@ -19,9 +19,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response,
 			Object Handler, ModelAndView modelAndView) throws Exception {
-		HttpSession session = request.getSession();
-		Object dest = session.getAttribute("dest");
-		response.sendRedirect(dest != null ? (String)dest : "/");
+//		HttpSession session = request.getSession();
+//		Object dest = session.getAttribute("dest");
+//		response.sendRedirect(dest != null ? (String)dest : "/");
 	}
 	
 	@Override

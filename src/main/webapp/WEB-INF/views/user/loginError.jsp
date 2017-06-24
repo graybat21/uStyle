@@ -5,7 +5,14 @@
 <html class='no-js' lang='ko'>
 <head>
 </head>
-<body class="cms-index-index">
+<script>
+function noMatch()
+{
+	alert('아이디와 패스워드를 다시 확인하세요.');
+	location.href= '/login.do';
+}
+</script>
+<body class="cms-index-index" onload="noMatch()">
 	<div class="wrapper">
 		<div class="page one-column">
 		
