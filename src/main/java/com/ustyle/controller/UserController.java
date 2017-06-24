@@ -100,7 +100,7 @@ public class UserController {
 			}
 
 			HttpSession session = request.getSession();
-			
+
 			session.setAttribute("session_user", resultUser);
 			// session.setAttribute("session_realname", resultUser.getRealname());
 			
@@ -111,7 +111,14 @@ public class UserController {
 			User loginUser = (User) session.getAttribute("session_user");
 			logger.info(loginUser.toString());
 			
-			return "user/loginSuccess/LOGIN SUCCESS";
+			String dest = (String)session.getAttribute("dest");
+			System.out.println(dest);
+			if(dest == null || dest.equals("")){
+				return "redirect:/";
+			}else{
+				return "redirect:"+dest;
+			}
+//			return "user/loginSuccess/LOGIN SUCCESS";
 			//return "redirect:/qna.do";
 			*/
 //		} 
