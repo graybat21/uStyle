@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -118,7 +121,7 @@ public class ProductDetailController {
 		
 		List<String> itemColorList = itemService.selectColorList(productid);		// 상품의 색상을 리스트로 가져옴
 		
-		int totalItemNum = itemService.totalItem(productid);
+		int totalItemNum = itemService.totalItem(productid);		// 하나의 상품에 속하는 아이템의 총 개수 
 		System.out.println(totalItemNum);
 		
 		for ( String color : itemColorList )

@@ -56,8 +56,22 @@
 		<!--beans:constructor-arg value="/upload"></beans:constructor-arg-->
 	</beans:bean>
 	
+	<!-- Interceptor -->	
+	<beans:bean id="loginInterceptor" class="com.ustyle.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor" class="com.ustyle.interceptor.AuthInterceptor"></beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/loginPost.do" />
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	
+		<interceptor>
+			<mapping path="/cart/addCart.do" />
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="com.ustyle" />
-	
-	
 	
 </beans:beans>
