@@ -10,6 +10,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.ustyle.domain.User;
+
 public class LoginInterceptor extends HandlerInterceptorAdapter
 {
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
@@ -18,17 +20,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter
 	public void postHandle(HttpServletRequest request, HttpServletResponse response,
 			Object Handler, ModelAndView modelAndView) throws Exception {
 		HttpSession session = request.getSession();
-		ModelMap modelMap = modelAndView.getModelMap();
-		Object user = modelMap.get("user");
-		
-		if ( user != null )
-		{
-			logger.info("new login success");
-			session.setAttribute("session_user", user);
-			Object dest = session.getAttribute("dest");
-			
-			response.sendRedirect(dest != null ? (String)dest : "/");
-		}
+		Object dest = session.getAttribute("dest");
+		response.sendRedirect(dest != null ? (String)dest : "/");
 	}
 	
 	@Override

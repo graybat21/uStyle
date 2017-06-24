@@ -81,7 +81,10 @@ public class UserController {
 //			session.setAttribute("session_username", resultUser.getUsername());
 //			session.setAttribute("session_point", resultUser.getPoint());
 			// session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
-
+			
+			User loginUser = (User) session.getAttribute("session_user");
+			logger.info(loginUser.toString());
+			
 			return "user/loginSuccess/LOGIN SUCCESS";
 			//return "redirect:/qna.do";
 			
@@ -146,6 +149,7 @@ public class UserController {
 	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
 	public String updateForm() {
 		return "user/update/Update";
+		
 	}
 	
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
