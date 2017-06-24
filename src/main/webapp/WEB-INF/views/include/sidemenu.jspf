@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -35,13 +35,18 @@
 						</li>
 					</ol>
 				</dd>
-				<dt>찜</dt>
+				<a class="tree-item" href="pin.do">
+				<dt>PinBoard</dt></a>
 				<dd>
 					<div class="rslider">
 						<div id="slider-range"></div>
 						<div class="values">
 							<span id="from-val"><span class="price">Q&A</span></span>
+<<<<<<< HEAD
 							<%--a href="${myQnaList.do }"> 
+=======
+							<a href="myQnaList.do"> 
+>>>>>>> 8b4c1f834f36a5389f8e987c60ee32c09059171c
 							<span id="to-val"><span class="price">내가쓴글</span></span>
 							</a--%>
 						</div>

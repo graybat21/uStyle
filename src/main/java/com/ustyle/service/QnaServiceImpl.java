@@ -62,6 +62,11 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
+	public int selectMyListCnt(HashMap<String, Object> map) throws Exception {
+		return dao.selectMyListCnt(map);
+	}
+
+	@Override
 	public List<Qna> myQnaList(HashMap<String, Object> map) throws Exception {
 		return dao.myQnaList(map);
 	}

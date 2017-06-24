@@ -8,21 +8,18 @@
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/commonUser.js"></script>
-
 </head>
 <body class="cms-index-index">
-
+   
 	<div class="wrapper">
 		<div class="page one-column">
 
 			<div class="em-wrapper-main">
-                    <div class="container container-main">
+                   <div class="container container-main">
                         <div class="em-inner-main">
                             <div class="em-wrapper-area02"></div>
                             <div class="em-main-container em-col1-layout">
                                 <div class="row">
-                                
-                                	
                                 
                                 	<div class="col-sm-18 col-sm-push-6 em-col-main">
                                         <div class="account-create">
@@ -30,7 +27,7 @@
                                                 <h1>Create an Account</h1>
                                             </div>
                                             <form:form commandName="user" method="post" id="form_validate" name="form_validate" onsubmit="return verifyOK()">
-                                                <div class="fieldset">
+                                             <div class="fieldset">
                                                 	<spring:hasBindErrors name="user">
 														<font color="red">
 															<c:forEach items="${errors.globalErrors}" var="error">
@@ -47,7 +44,7 @@
                                                                 <div class="field name-username">
                                                                     <label for="username" class="required"><em>*</em>User Name</label>
                                                                     <div class="input-box">
-                                                                        <input type="text" id="username" name="username" value="${session_username}" title="UserName" maxlength="20" class="input-text required-entry" readonly/>
+                                                                        <input type="text" id="username" name="username" value="${session_user.username}" title="UserName" maxlength="20" class="input-text required-entry" readonly/>
                                                                         <font color="red">
                                                                         	<span id="duplicateResult"></span><br>
                                                                         	<form:errors path="username"/>
@@ -175,6 +172,6 @@
 
 	</div>
 	<!-- /.wrapper -->
-
+ 
 </body>
 </html>

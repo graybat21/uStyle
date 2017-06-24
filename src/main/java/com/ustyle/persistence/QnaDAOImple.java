@@ -57,6 +57,11 @@ public class QnaDAOImple implements QnaDAO {
 	}
 
 	@Override
+	public int selectMyListCnt(HashMap<String, Object> map) {
+		return session.selectOne(namespace+".selectMyListCnt", map);
+	}
+
+	@Override
 	public List<Qna> myQnaList(HashMap<String, Object> map) {
 		return session.selectList(namespace+".myQnaList",map);
 	}
