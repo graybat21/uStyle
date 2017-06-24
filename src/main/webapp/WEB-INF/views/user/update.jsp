@@ -11,18 +11,16 @@
 
 </head>
 <body class="cms-index-index">
-
+   
 	<div class="wrapper">
 		<div class="page one-column">
 
 			<div class="em-wrapper-main">
-                    <div class="container container-main">
+                   <div class="container container-main">
                         <div class="em-inner-main">
                             <div class="em-wrapper-area02"></div>
                             <div class="em-main-container em-col1-layout">
                                 <div class="row">
-                                
-                                	
                                 
                                 	<div class="col-sm-18 col-sm-push-6 em-col-main">
                                         <div class="account-create">
@@ -30,7 +28,7 @@
                                                 <h1>Create an Account</h1>
                                             </div>
                                             <form:form commandName="user" method="post" id="form_validate" name="form_validate" onsubmit="return verifyOK()">
-                                                <div class="fieldset">
+                                             <div class="fieldset">
                                                 	<spring:hasBindErrors name="user">
 														<font color="red">
 															<c:forEach items="${errors.globalErrors}" var="error">
@@ -175,6 +173,6 @@
 
 	</div>
 	<!-- /.wrapper -->
-
+ 
 </body>
 </html>

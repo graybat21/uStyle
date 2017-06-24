@@ -24,5 +24,6 @@ public interface QnaDAO {
 	//
 	public void qnaDelete(int bno);
 
+	public int selectMyListCnt(HashMap<String, Object> map);
 	public List<Qna> myQnaList(HashMap<String, Object> map);
 }

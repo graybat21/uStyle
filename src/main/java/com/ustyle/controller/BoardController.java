@@ -164,37 +164,37 @@ public class BoardController {
 		qnaService.qnaDelete(bno);
 		return "redirect:/qna.do";
 	}
-//	@RequestMapping(value="myQnaList.do", method=RequestMethod.GET)
-//	public ModelAndView myQnaList(HttpSession session,PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
-//			@RequestParam(value = "k", required = false) String searchKeyword)throws Exception{
-//
-//		ModelAndView mav=new ModelAndView();
-//		HashMap<String, Object> map	 = new HashMap<String, Object>();
-//		map.put("searchOption", searchOption);
-//		map.put("searchKeyword", searchKeyword);
-//		int totalCnt = qnaService.selectMyListCnt(map);
-//		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
-//		pagemaker.setPage(page);
-//		int countPerPage = 10;
-//		int countPerPaging = 5;
-//		
-//		int first = ((pagemaker.getPage() - 1) * countPerPage) + 1;
-//		int last = first + countPerPage - 1;
-//		map.put("first", first);
-//		map.put("last", last);
-//		User user = (User) session.getAttribute("session_user");
-//		map.put("username", user.getUsername());
-//		List<Qna> list=qnaService.myQnaList(map);
-//		
-//		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
-//		mav.addObject("pageMaker", pagemaker);
-//		mav.addObject("searchOption", searchOption);
-//		mav.addObject("searchKeyword", searchKeyword);
-//		
-//		mav.addObject("myQnaList",list);
-//		mav.setViewName("?/?/My Q&A");
-//		return mav;
-//	}
+	@RequestMapping(value="myQnaList.do", method=RequestMethod.GET)
+	public ModelAndView myQnaList(HttpSession session,PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
+			@RequestParam(value = "k", required = false) String searchKeyword)throws Exception{
+
+		ModelAndView mav=new ModelAndView();
+		HashMap<String, Object> map	 = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("searchKeyword", searchKeyword);
+		int totalCnt = qnaService.selectMyListCnt(map);
+		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
+		pagemaker.setPage(page);
+		int countPerPage = 10;
+		int countPerPaging = 5;
+		
+		int first = ((pagemaker.getPage() - 1) * countPerPage) + 1;
+		int last = first + countPerPage - 1;
+		map.put("first", first);
+		map.put("last", last);
+		User user = (User) session.getAttribute("session_user");
+		map.put("username", user.getUsername());
+		List<Qna> list=qnaService.myQnaList(map);
+		
+		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
+		mav.addObject("pageMaker", pagemaker);
+		mav.addObject("searchOption", searchOption);
+		mav.addObject("searchKeyword", searchKeyword);
+		
+		mav.addObject("myQnaList",list);
+		mav.setViewName("user/myQnaList/My Q&A");
+		return mav;
+	}
 
 	@RequestMapping(value="qnaModify.do", method=RequestMethod.GET)
 	public ModelAndView qnaModifyForm(@RequestParam(value = "bno") int bno, HttpSession session) throws Exception {

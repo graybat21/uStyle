@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -41,7 +41,9 @@
 						<div id="slider-range"></div>
 						<div class="values">
 							<span id="from-val"><span class="price">Q&A</span></span>
-							<a href="${myQnaList.do }"> 
+							<c:url var="myQnaList" value="myQnaList.do">
+							</c:url>
+							<a href="${myQnaList }"> 
 							<span id="to-val"><span class="price">내가쓴글</span></span>
 							</a>
 						</div>

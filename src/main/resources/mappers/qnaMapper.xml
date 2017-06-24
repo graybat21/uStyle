@@ -54,28 +54,27 @@
 	<select id="selectMyListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_qna
  		where 
- 			restep in (select bno from tbl_qna where username = #{username})
+ 			family in (select bno from tbl_qna where username = #{username})
  		<if test="searchKeyword != null || searchKeyword == ''">
    		and ${searchOption} like '%${searchKeyword}%'
 		</if> 
  	</select>
 	<select id="myQnaList" resultType="qna" parameterType="hashmap">
 		select 
-			bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
-		from
-			(select (@row_number:=@row_number+1) as row_number,
+			*
+		from 
+			(select 
+				(@row_number:=@row_number+1) as row_number,
 				bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
-			from 
-				(select * from tbl_qna 
-				where family in 
-					(select bno from tbl_qna where username = #{username})
-				), (SELECT @row_number:=0) as t
-          	<if test="searchKeyword != null || searchKeyword == ''">
-    		where ${searchOption} like '%${searchKeyword}%'
-  			</if>
-          	order by restep desc, bno asc
+			from tbl_qna, (SELECT @row_number:=0) as t
+			where family in 
+				(select bno from tbl_qna where username = #{username})
+				<if test="searchKeyword != null || searchKeyword == ''">
+    		and ${searchOption} like '%${searchKeyword}%'
+	  			</if>
+			order by family
 			) X 
-		where X.row_number between #{first} and #{last}
+		where X.row_number between  #{first} and #{last}
 	</select>
 	<!-- <update id="qnaModify" parameterType="qna">
 		update tbl_qna set title = #{title}, content = #{content}
