@@ -146,8 +146,6 @@ $("#product-addtocart-button").click(function() {
 		return false;
 	}
 	
-	
-	
 	$("#product_addtocart_form").submit();	
 });
 

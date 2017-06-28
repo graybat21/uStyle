@@ -316,10 +316,10 @@
                         if (wWin > 1200) {
                             sGrid.removeClass().addClass(sDesktop + '4');
                         } else {
-                            if (wWin <= 1200 && wWin > 768) {
-                                sGrid.removeClass().addClass(sDesktopSmall + '3');
-                            } else {
-                                if (wWin <= 768 && wWin > 480) {
+                        	 if (wWin <= 1200 && wWin > 768) {
+                                 sGrid.removeClass().addClass(sDesktopSmall + '3');
+                             } else {
+                                 if (wWin <= 768 && wWin > 480) {
                                     sGrid.removeClass().addClass(sTablet + '3');
                                 } else {
                                     sGrid.removeClass().addClass(sMobile + '2');

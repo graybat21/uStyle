@@ -59,5 +59,9 @@
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
+	
+	<session-config>
+		<session-timeout>180</session-timeout>
+	</session-config>
 
 </web-app>

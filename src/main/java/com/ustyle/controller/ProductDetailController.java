@@ -114,18 +114,11 @@ public class ProductDetailController {
 		String[] imageFiles = readPictureUrl.split(", ");
 		List<String> pictureList = new ArrayList<String>(Arrays.asList(imageFiles));
 		
-		for ( String aaa : pictureList )
-			logger.info(aaa.toString());
-		
 		logger.info(product.toString());
 		
 		List<String> itemColorList = itemService.selectColorList(productid);		// 상품의 색상을 리스트로 가져옴
 		
 		int totalItemNum = itemService.totalItem(productid);		// 하나의 상품에 속하는 아이템의 총 개수 
-		System.out.println(totalItemNum);
-		
-		for ( String color : itemColorList )
-			logger.info(color.toString());
 		
 		mav.addObject("product", product);
 		mav.addObject("totalItemNum", totalItemNum);

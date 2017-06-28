@@ -8,6 +8,7 @@
 		<typeAlias alias="user" type="com.ustyle.domain.User" />
 		<typeAlias alias="product" type="com.ustyle.domain.Product" />
 		<typeAlias alias="item" type="com.ustyle.domain.Item" />
+		<typeAlias alias="cart" type="com.ustyle.domain.Cart" />
 		<typeAlias alias="notice" type="com.ustyle.domain.Notice" />
 		<typeAlias alias="faq" type="com.ustyle.domain.Faq" />
 		<typeAlias alias="qna" type="com.ustyle.domain.Qna" />
