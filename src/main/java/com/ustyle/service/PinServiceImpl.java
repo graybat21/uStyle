@@ -16,9 +16,9 @@ public class PinServiceImpl implements PinService {
 
 	@Inject
 	private PinBoardDAO pinBoardDao;
-//	@Inject
-//	private PinDAO pinDao;
-	
+	// @Inject
+	// private PinDAO pinDao;
+
 	@Override
 	public void createPinBoard(HashMap<String, Object> map) throws Exception {
 		pinBoardDao.createPinBoard(map);
@@ -30,30 +30,30 @@ public class PinServiceImpl implements PinService {
 	}
 
 	@Override
-	public void modifyPinBoardName(String pinboardname) throws Exception  {
-//		pinBoardDao.modifyPinBoardName(pinboardname);
+	public void modifyPinBoardName(PinBoard pinBoard) throws Exception {
+		pinBoardDao.modifyPinBoardName(pinBoard);
 	}
 
 	@Override
-	public void deletePinBoard(int pinboardno) throws Exception  {
-//		pinDao.deletePins(pinboardno);
-//		pinBoardDao.deletePinBoard(pinboardno);
+	public void deletePinBoard(int pinboardno) throws Exception {
+//		 pinDao.deletePins(pinboardno);
+		 pinBoardDao.deletePinBoard(pinboardno);
 	}
 
 	@Override
-	public List<Pin> getPins(int pinboardno) throws Exception  {
-//		return pinDao.getPins(pinboardno);
+	public List<Pin> getPins(int pinboardno) throws Exception {
+		// return pinDao.getPins(pinboardno);
 		return null;
 	}
 
 	@Override
-	public void insertPin(Pin pin) throws Exception  {
-//		pinDao.insertPin(pin);
+	public void insertPin(Pin pin) throws Exception {
+		// pinDao.insertPin(pin);
 	}
 
 	@Override
-	public void deletePin(int pinno) throws Exception  {
-//		pinDao.deletePin(pinno);
+	public void deletePin(int pinno) throws Exception {
+		// pinDao.deletePin(pinno);
 	}
 
 }

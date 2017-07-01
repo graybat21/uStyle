@@ -55,8 +55,8 @@ public class PinController {
 	}
 
 	@RequestMapping(value = "modifyPinBoardName.do", method = RequestMethod.POST)
-	public String modifyPinBoardName(@RequestParam String pinboardname) throws Exception {
-		pinService.modifyPinBoardName(pinboardname);
+	public String modifyPinBoardName(@RequestParam PinBoard pinBoard) throws Exception {
+		pinService.modifyPinBoardName(pinBoard);
 		return "redirect:/pin.do";
 	}
 	@RequestMapping(value = "deletePinBoard.do", method = RequestMethod.POST)
