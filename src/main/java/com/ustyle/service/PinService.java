@@ -11,9 +11,11 @@ public interface PinService {
 
 	public List<PinBoard> getPinBoardList(String username) throws Exception;
 
-	public void modifyPinBoardName(String pinboardname) throws Exception;
+	public void modifyPinBoardName(PinBoard pinBoard) throws Exception;
 
 	public void deletePinBoard(int pinboardno) throws Exception;
+	
+	//===================================================================== //
 
 	public List<Pin> getPins(int pinboardno) throws Exception;
 

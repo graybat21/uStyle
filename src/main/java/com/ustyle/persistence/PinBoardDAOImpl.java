@@ -24,7 +24,17 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 
 	@Override
 	public List<PinBoard> getPinBoardList(String username) {
-		return session.selectList(namespace+".getPinBoardList",username);
+		return session.selectList(namespace + ".getPinBoardList", username);
+	}
+
+	@Override
+	public void modifyPinBoardName(PinBoard pinBoard) {
+		session.update(namespace + ".modifyPinBoardName", pinBoard);
+	}
+
+	@Override
+	public void deletePinBoard(int pinboardno) {
+		session.delete(namespace + ".deletePinBoard", pinboardno);
 	}
 
 }

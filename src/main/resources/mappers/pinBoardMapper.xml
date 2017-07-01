@@ -10,6 +10,16 @@
 	<select id="getPinBoardList" parameterType="String" resultType="pinBoard">
 		select * from tbl_pinboard where username = #{username}
 	</select>
+	
+	<update id="modifyPinBoardName" parameterType="PinBoard">
+		update tbl_pinboard set pinboardname = #{pinboardname}
+		where pinboardno = #{pinboardno}
+	</update>
+	
+	<delete id="deletePinBoard" parameterType="int">
+		delete tbl_pinboard where pinboardno = #{pinboardno}
+	</delete>
+	
 </mapper>
 
 
