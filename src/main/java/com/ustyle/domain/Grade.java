@@ -15,6 +15,7 @@ public class Grade {
 	private int buy_term;
 	private int min;
 	private int max;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -52,5 +53,9 @@ public class Grade {
 		this.point_ratio = point_ratio;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Grade [idx=" + idx + ", grade=" + grade + ", point_ratio=" + point_ratio + ", buy_term=" + buy_term
+				+ ", min=" + min + ", max=" + max + "]";
+	}
 }

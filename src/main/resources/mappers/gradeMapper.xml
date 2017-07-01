@@ -5,6 +5,7 @@
 	<select id="selectList" resultType="grade">
 		select * from tbl_grade
 	</select>	
+	
 	<insert id="insert" parameterType="grade">
    		insert into tbl_grade(grade, point_ratio, buy_term, min, max)
    		values(#{grade}, #{point_ratio}, #{buy_term}, #{min}, #{max})

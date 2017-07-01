@@ -49,7 +49,7 @@
 										<!-- <input type="hidden" name="_method" value="put" /> -->
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										<tr>
-											<td><input type="text" name="idx" value="${list.idx }" readonly></strong></td>
+											<td><strong><input type="text" name="idx" value="${list.idx }" readonly></strong></td>
 											<td><input type="text" name="grade" value="${list.grade }"></td>
 											<td><input type="text" name="point_ratio" value="${list.point_ratio}"></td>
 											<td><input type="text" name="buy_term" value="${list.buy_term}"></td>

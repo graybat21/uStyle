@@ -116,7 +116,7 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = "modifyItem.do", method = RequestMethod.POST)
-	public ModelAndView modifyItem(@ModelAttribute @Valid Item item, BindingResult bindingResult)
+	public ModelAndView modifyItem(@ModelAttribute @Valid Item item)
 			throws Exception {
 
 		logger.info(item.toString());
