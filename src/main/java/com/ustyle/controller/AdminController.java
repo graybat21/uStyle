@@ -8,12 +8,15 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ustyle.domain.Grade;
 import com.ustyle.domain.User;
+import com.ustyle.service.GradeService;
 import com.ustyle.service.UserService;
 import com.ustyle.utils.PageMaker;
 
@@ -23,6 +26,8 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@Inject
 	private UserService userService;
+	@Inject
+	private GradeService gradeService;
 
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
 	public String mainForm() {
@@ -84,4 +89,28 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping(value="grade.do", method=RequestMethod.GET)
+	public String gradeList(Model model)throws Exception{
+		List<Grade> gradeList = gradeService.selectList();
+		model.addAttribute(gradeList);
+		return "grade/gradeList";
+	}
+	@RequestMapping(value="grade.do", method=RequestMethod.POST)
+	public String gradeInsert(@RequestParam Grade grade)throws Exception{
+		gradeService.insert(grade);
+		return "redirect:/admin/grade.do";
+	}
+	@RequestMapping(value="gradeUpdate.do", method=RequestMethod.POST)
+	public String gradeUpdate(@RequestParam Grade grade)throws Exception{
+		gradeService.update(grade);
+		return "redirect:/admin/grade.do";
+	}
+	
+//	@RequestMapping(value="grade.do", method=RequestMethod.DELETE)
+//	@RequestMapping(value="deleteGrade.do", method=RequestMethod.POST)
+	@RequestMapping("deleteGrade.do")
+	public String gradeDelete(@RequestParam int idx)throws Exception{
+		gradeService.delete(idx);
+		return "redirect:/admin/grade.do";
+	}
 }

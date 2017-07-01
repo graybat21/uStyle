@@ -42,6 +42,7 @@
           <ul class="treeview-menu">
             <li><a href="/admin/userList.do"><i class="fa fa-circle-o"></i>회원정보조회</a></li>
             <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i>포인트관리</a></li>
+            <li><a href="/admin/grade.do"><i class="fa fa-circle-o"></i>등급관리</a></li>
           </ul>
         </li>
         <li class="treeview">
