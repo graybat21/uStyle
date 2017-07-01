@@ -85,7 +85,7 @@
 											<li class="first col-xs-8"><a title="LogOut"
 															class="logout-link fa fa-user" href="/logout.do"><span>LogOut</span></a></li>
 											<li class="col-xs-8"><a title="S"
-												class='signup-link fa fa-sign-out' href="/update.do"><span>${session_point } point</span></a></li>
+												class='signup-link fa fa-sign-out' href="/update.do"><span>${session_user['point']} point</span></a></li>
 											<li class="last col-xs-8"><a href="#"
 												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
 											</li>

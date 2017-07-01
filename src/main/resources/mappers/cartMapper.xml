@@ -15,7 +15,7 @@
 		where 
 			I.itemid in ( select itemid from tbl_cart where username = #{username} ) 
 			and 
-			P.productid = I.productid and I.itemid = C.itemid
+			P.productid = I.productid and I.itemid = C.itemid and C.username = #{username}
  	</select>
  	
  	<select id="selectUserItemidList" resultType="hashmap" parameterType="String">
