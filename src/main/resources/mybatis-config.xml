@@ -13,6 +13,7 @@
 		<typeAlias alias="faq" type="com.ustyle.domain.Faq" />
 		<typeAlias alias="qna" type="com.ustyle.domain.Qna" />
 		<typeAlias alias="pinBoard" type="com.ustyle.domain.PinBoard"/>
+		<typeAlias alias="grade" type="com.ustyle.domain.Grade"/>
 	</typeAliases>
 
 </configuration>
