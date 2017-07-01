@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ustyle.mappers. ">
- 
- 
+<mapper namespace="com.ustyle.mappers.pinBoardMapper">
+	
+	<insert id="createPinBoard" parameterType="hashmap">
+		insert into tbl_pinboard(username, pinboardname) 
+		values(#{username},#{pinboardname})
+	</insert>
+	
+	<select id="getPinBoardList" parameterType="String" resultType="pinBoard">
+		select * from tbl_pinboard where username = #{username}
+	</select>
+	
+	<update id="modifyPinBoardName" parameterType="PinBoard">
+		update tbl_pinboard set pinboardname = #{pinboardname}
+		where pinboardno = #{pinboardno}
+	</update>
+	
+	<delete id="deletePinBoard" parameterType="int">
+		delete tbl_pinboard where pinboardno = #{pinboardno}
+	</delete>
+	
 </mapper>
 
 
