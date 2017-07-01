@@ -68,6 +68,7 @@
 	
 		<interceptor>
 			<mapping path="/cart/addCart.do" />
+			<mapping path="/cart/viewCart.do" />
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>

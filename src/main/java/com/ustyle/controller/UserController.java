@@ -46,7 +46,9 @@ public class UserController {
 	BCryptPasswordEncoder passwordEncoder;
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * 로그인 페이지를 띄워주는 메소드
+	 * @param request
+	 * @return 각각의 페이지(로그인이 이미 되어있는 경우, 메인 페이지로 리다이렉션됨)
 	 */
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
@@ -54,51 +56,53 @@ public class UserController {
 		return "user/login/LOGIN";
 	}
 	
+	/**
+	 * 로그인 페이지에서 로그인 버튼을 눌렀을 때 수행되는 메소드
+	 * @param request, user
+	 * @return 로그인 이전 페이지, 만약 없거나 로그인 페이지일 경우 메인 페이지
+	 */
 	
-
 	@RequestMapping(value = "/loginPost.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
 
-		try {
-			User resultUser = service.userLogin(user);
-			logger.info("{}", resultUser);
+		User resultUser = service.userLogin(user);
+		logger.info("{}", resultUser);
+		
+		if ( resultUser == null || !resultUser.getAuth().equals("y")) {
+            return "user/loginError/Login Error";
+        }
 
-			String rawPassword = user.getPassword();
-			String encodedPassword = resultUser.getPassword();
-			logger.info(resultUser.getAuth().toString());
-			
-			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
-				return "user/loginError/No Match PW";
-			} else if (!resultUser.getAuth().equals("y")) {
-				return "user/loginError/Login Error";
-			}
+		String rawPassword = user.getPassword();
+		String encodedPassword = resultUser.getPassword();
+		logger.info(resultUser.getAuth().toString());
 
-			HttpSession session = request.getSession();
+		if ( !(passwordEncoder.matches(rawPassword, encodedPassword)) ) {
+            return "user/loginError/No Match PW";
+		} 
 
-			session.setAttribute("session_user", resultUser);
-			// session.setAttribute("session_realname", resultUser.getRealname());
-			
-//			session.setAttribute("session_username", resultUser.getUsername());
-//			session.setAttribute("session_point", resultUser.getPoint());
-			// session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
-			
-			User loginUser = (User) session.getAttribute("session_user");
-			logger.info(loginUser.toString());
-			
-			String dest = (String)session.getAttribute("dest");
-			System.out.println(dest);
-			if(dest == null || dest.equals("")){
-				return "redirect:/";
-			}else{
-				return "redirect:"+dest;
-			}
-//			return "user/loginSuccess/LOGIN SUCCESS";
-			//return "redirect:/qna.do";
-			
-		} catch (NullPointerException e) {
-			return "user/loginError/LOGIN ERROR";
-		}
+         HttpSession session = request.getSession();
+
+         session.setAttribute("session_user", resultUser);
+         
+         User loginUser = (User) session.getAttribute("session_user");
+         logger.info(loginUser.toString());
+         
+         String dest = (String)session.getAttribute("dest");	
+         logger.info("dest: " + dest);
+
+         if ( dest == null || dest.equals("") || dest.endsWith("/login.do") ) {
+            return "redirect:/";
+         }
+         else {
+            return "redirect:" + dest;
+         }
 	}
+	
+	/**
+	 * 로그아웃을 수행하는 메소드
+	 * @param request
+	 * @return 로그인 페이지
+	 */
 
 	@RequestMapping("/logout.do")
 	public ModelAndView logout(HttpServletRequest request) {
@@ -108,8 +112,9 @@ public class UserController {
 		if (session != null) {
 			session.invalidate();
 		}
+		
 		mav.addObject("user", new User());
-		mav.setViewName("redirect:/login.do");
+		mav.setViewName("redirect:/");
 
 		return mav;
 	}
@@ -151,7 +156,6 @@ public class UserController {
 
 		return mav;
 	}
-	
 		
 	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
 	public String updateForm() {
@@ -192,11 +196,9 @@ public class UserController {
 		return "user/deleteForm/Delete";
 	}
 	
-	
 	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
 	public String delete(User user, HttpSession session)
 			throws Exception {
-		//////////user.setUsername((String) session.getAttribute("session_username"));
 		logger.info(user.toString());
 		User resultUser = service.userLogin(user);
 		logger.info(resultUser.toString());

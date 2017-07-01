@@ -1,7 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ustyle.mappers. ">
- 
+<mapper namespace="com.ustyle.mappers.cartMapper">
+	
+	<insert id="insert" parameterType="cart">
+   		insert into tbl_cart(count, username, itemid)
+   		values(#{count}, #{username}, #{itemid})
+    </insert>
+    
+    <select id="selectUserCartList" resultType="hashmap" parameterType="String">
+		select
+			P.mainpictureurl, P.productid, P.productname, P.brand, P.subcategory, I.itemid, I.color, I.size, I.saleprice, C.count, C.cartno
+		from 
+			tbl_product P, tbl_item I, tbl_cart C
+		where 
+			I.itemid in ( select itemid from tbl_cart where username = #{username} ) 
+			and 
+			P.productid = I.productid and I.itemid = C.itemid
+ 	</select>
+ 	
+ 	<select id="selectUserItemidList" resultType="hashmap" parameterType="String">
+		select 
+			itemid, COALESCE(sum(count), 0) as totalcount 
+		from 
+			tbl_cart 
+		where 
+			username = #{username} group by itemid
+ 	</select>
+ 	
+ 	<update id="update" parameterType="cart">
+   		update tbl_cart
+   		set count = #{count}
+   		where cartno = #{cartno}
+   	</update>
+   	
+   	<delete id="delete" parameterType="int">
+   		delete from tbl_cart
+   		where cartno = #{cartno}
+   	</delete>
+   	
+   	<delete id="deleteAll" parameterType="String">
+   		delete from tbl_cart
+   		where username = #{username}
+   	</delete>
+   	
+   	<select id="selectUserCartOne" resultType="cart" parameterType="int">
+		select
+			*
+		from 
+			tbl_cart
+		where 
+			cartno = #{cartno}
+ 	</select>
  
 </mapper>
 

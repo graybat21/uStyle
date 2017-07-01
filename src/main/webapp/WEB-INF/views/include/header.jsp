@@ -472,20 +472,10 @@
 								<div class="em-container-topcart">
 									<div class="em-summary-topcart">
 										<a class="em-amount-js-topcart em-amount-topcart"
-											title="Shopping Cart" href="cart.do"> <span
+											title="Shopping Cart" href="/cart/viewCart.do"> <span
 											class="em-topcart-text">My Cart:</span> <span
 											class="em-topcart-qty">0</span>
 										</a>
-									</div>
-									<div class="em-container-js-topcart topcart-popup"
-										style="display: none">
-										<div class="topcart-popup-content">
-											<p class="em-block-subtitle">Shopping Cart</p>
-											<div class="topcart-content">
-												<p class="amount-content ">You have no items in your
-													shopping cart.</p>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -1435,7 +1425,7 @@
 									<div class="em-container-topcart">
 										<div class="em-summary-topcart">
 											<a class="em-amount-js-topcart em-amount-topcart"
-												title="Shopping Cart" href="cart.do"> <span 
+												title="Shopping Cart" href="/cart/viewCart.do"> <span 
 												class="em-topcart-text">My Cart:</span> <span
 												class="em-topcart-qty">0</span>
 											</a>
