@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.ustyle.domain.Item;
+import com.ustyle.domain.Sales;
 
 public interface ItemDAO {
 	public void insert(Item item);
@@ -15,6 +16,7 @@ public interface ItemDAO {
 	public Item read(Integer itemid) throws Exception;
 	public int totalItem(Integer productid);
 	public void update(Item item);
+	public void updateForSales(Sales sales);
 	public void deleteItem(int itemid);
 	
 }

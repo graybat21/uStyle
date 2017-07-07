@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ustyle.mappers. ">
- 
+<mapper namespace="com.ustyle.mappers.salesMapper">
+
+	<insert id="insert" parameterType="sales">
+   		insert into tbl_sales(count, purchaseid, itemid)
+   		values(#{count}, #{purchaseid}, #{itemid})
+    </insert>
+    
+    <insert id="insertPurchase" parameterType="purchase" keyColumn="purchaseid" useGeneratedKeys="true" keyProperty="purchaseid">
+   		insert into tbl_purchase(recipientname, shippingaddr1, shippingaddr2, shippingpostcode, recipientphone, username, purchasedate, usedpoint)
+   		values(#{recipientname}, #{shippingaddr1}, #{shippingaddr2}, #{shippingpostcode}, #{recipientphone}, #{username}, now(), #{usedpoint})
+    </insert>
+    
+    <update id="updateUsedPoint" parameterType="purchase">
+    	update tbl_user
+    	set point = point - #{usedpoint}
+    	where username = #{username}
+    </update>
+	
+	<select id="selectUserCartListForPurchase" resultType="sales" parameterType="String">
+		select
+			itemid, count
+		from 
+			tbl_cart
+		where 
+			username = #{username}
+ 	</select>
  
 </mapper>
 

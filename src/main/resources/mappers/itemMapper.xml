@@ -92,6 +92,12 @@
    			size = #{size}, stock = #{stock}
    		where itemid = #{itemid}
    	</update>
+   	
+   	<update id="updateForSales" parameterType="sales">
+   		update tbl_item
+   		set stock = stock - #{count}
+   		where itemid = #{itemid}
+   	</update>
 	
 	<delete id="deleteItem" parameterType="int">
  		delete from tbl_item

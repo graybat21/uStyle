@@ -20,11 +20,11 @@
  	
  	<select id="selectUserItemidList" resultType="hashmap" parameterType="String">
 		select 
-			itemid, COALESCE(sum(count), 0) as totalcount 
+			I.itemid, COALESCE(sum(count), 0) as totalcount, P.productname, P.brand, I.saleprice, I.color, I.size
 		from 
-			tbl_cart 
+			tbl_product P, tbl_item I, tbl_cart C
 		where 
-			username = #{username} group by itemid
+			username = #{username} and P.productid = I.productid and I.itemid = C.itemid group by I.itemid;
  	</select>
  	
  	<update id="update" parameterType="cart">

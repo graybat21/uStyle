@@ -47,7 +47,7 @@ public class CartDAOImpl implements CartDAO {
 	public List<HashMap<String, Object>> selectUserItemidList(String username) {
 		return session.selectList(namespace + ".selectUserItemidList", username);
 	}
-
+	
 	@Override
 	public Cart selectUserCartOne(int cartno) {
 		return session.selectOne(namespace + ".selectUserCartOne", cartno);

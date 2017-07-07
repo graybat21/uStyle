@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.ustyle.domain.Item;
+import com.ustyle.domain.Sales;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {
@@ -61,6 +62,11 @@ public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public void update(Item item) {
 		session.update(namespace + ".update", item);
+	}
+	
+	@Override
+	public void updateForSales(Sales sales) {
+		session.update(namespace + ".updateForSales", sales);
 	}
 	
 	@Override
