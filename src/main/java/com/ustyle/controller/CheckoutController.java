@@ -25,6 +25,7 @@ import com.ustyle.service.CartService;
 import com.ustyle.service.ItemService;
 import com.ustyle.service.ProductService;
 import com.ustyle.service.SalesService;
+import com.ustyle.service.UserService;
 
 @Controller
 @RequestMapping("/checkout/*")
@@ -32,6 +33,9 @@ public class CheckoutController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CheckoutController.class);
 	private static final int SHIPPING_PRICE = 3000;
+	
+	@Inject
+	private UserService userService;
 	
 	@Inject
 	private ProductService productService;
@@ -141,7 +145,11 @@ public class CheckoutController {
 		logger.info("AFTER PURCHASE = " + purchase.toString());
 		
 		int purchaseid = purchase.getPurchaseid();
+		
+		int pointAfterPurchase = userService.selectOneUser(username).getPoint(); 
 
+		session.setAttribute("session_userpoint", pointAfterPurchase);
+		
 		List<Sales> salesList = salesService.selectUserCartListForPurchase(username);
 		
 		for ( Sales sales : salesList )
