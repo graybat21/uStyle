@@ -73,4 +73,9 @@ public class UserServiceImpl implements UserService {
 	public List<User> userList(HashMap<String, Object> map) throws Exception {
 		return dao.userList(map);
 	}
+	
+	@Override
+	public User selectOneUser(String username) throws Exception {
+		return dao.selectOneUser(username);
+	}
 }

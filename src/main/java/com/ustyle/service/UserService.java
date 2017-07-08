@@ -16,4 +16,5 @@ public interface UserService {
 	public void delete(String username) throws Exception;
 	public int selectListCnt(HashMap<String, Object> map) throws Exception;
 	public List<User> userList(HashMap<String, Object> map) throws Exception;
+	public User selectOneUser(String username) throws Exception;
 }

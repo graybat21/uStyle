@@ -76,6 +76,17 @@
 		where X.row_number between #{first} and #{last}
 	</select>
 	
+	<select id="selectUserOne" resultType="user" parameterType="String">
+		select 
+			username, email, realname, create_time, 
+			addr1, addr2, postcode, 
+			phone, point, auth 
+		from
+			tbl_user
+		where
+			username = #{username}
+	</select>
+	
 </mapper>
 
 

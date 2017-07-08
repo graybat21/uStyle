@@ -83,6 +83,7 @@ public class UserController {
          HttpSession session = request.getSession();
 
          session.setAttribute("session_user", resultUser);
+         session.setAttribute("session_userpoint", resultUser.getPoint());
          
          User loginUser = (User) session.getAttribute("session_user");
          logger.info(loginUser.toString());

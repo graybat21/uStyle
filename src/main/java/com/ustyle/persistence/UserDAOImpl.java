@@ -68,4 +68,9 @@ public class UserDAOImpl implements UserDAO {
 		return session.selectList(namespace + ".userList", map);
 	}
 
+	@Override
+	public User selectOneUser(String username) {
+		return session.selectOne(namespace + ".selectUserOne", username);
+	}
+
 }

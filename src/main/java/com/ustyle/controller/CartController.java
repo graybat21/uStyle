@@ -65,8 +65,8 @@ public class CartController {
 		
 		for ( HashMap<String, Object> map : userCartInfoList )
 		{
-			int eachPrice = (int) map.get("saleprice");
-			int eachCount = (int) map.get("count");
+			int eachPrice = (Integer) map.get("saleprice");
+			int eachCount = (Integer) map.get("count");
 			
 			totalPrice += eachPrice * eachCount;
 			

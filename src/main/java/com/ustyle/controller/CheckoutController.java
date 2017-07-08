@@ -25,6 +25,7 @@ import com.ustyle.service.CartService;
 import com.ustyle.service.ItemService;
 import com.ustyle.service.ProductService;
 import com.ustyle.service.SalesService;
+import com.ustyle.service.UserService;
 
 @Controller
 @RequestMapping("/checkout/*")
@@ -32,6 +33,9 @@ public class CheckoutController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CheckoutController.class);
 	private static final int SHIPPING_PRICE = 3000;
+	
+	@Inject
+	private UserService userService;
 	
 	@Inject
 	private ProductService productService;
@@ -70,7 +74,7 @@ public class CheckoutController {
 		        logger.info(" value = " + map.get(key));
 		    }
 		    
-			int eachItemid = (int) map.get("itemid");
+			int eachItemid = (Integer) map.get("itemid");
 			int eachTotalCount = Integer.parseInt(String.valueOf(map.get("totalcount")));		
 			// HashMap<String, Object>으로 받을 때, MySQL sum 함수를 이용한 값을 int형으로 받지 못하므로, 위와 같이 String으로 받은 후 int로 다시 변환하였다.
 			
@@ -95,7 +99,7 @@ public class CheckoutController {
 				return mav;
 			}
 			
-			int eachItemPrice = (int) map.get("saleprice");
+			int eachItemPrice = (Integer) map.get("saleprice");
 			
 			totalPrice += ( eachItemPrice * eachTotalCount );
 		}
@@ -141,7 +145,11 @@ public class CheckoutController {
 		logger.info("AFTER PURCHASE = " + purchase.toString());
 		
 		int purchaseid = purchase.getPurchaseid();
+		
+		int pointAfterPurchase = userService.selectOneUser(username).getPoint(); 
 
+		session.setAttribute("session_userpoint", pointAfterPurchase);
+		
 		List<Sales> salesList = salesService.selectUserCartListForPurchase(username);
 		
 		for ( Sales sales : salesList )
