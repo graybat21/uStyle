@@ -191,25 +191,4 @@ public class ProductAdminController {
 		// => product가 지워질 때, no action 제약조건으로 DB가 설계되었으므로, Service 단에서 product에 해당하는 item을 지우는 방향으로 진행
 		return "redirect:/admin/product/productList.do";
 	}
-	
-//	private void deleteFile(@RequestParam("files[]") String[] files)
-//	{
-//		logger.info("delete all files: " + files);
-//		
-//		for ( String fileName : files )
-//		{
-//			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-//			
-//			MediaType mType = MediaUtils.getMediaType(formatName);
-//			
-//			if ( mType != null )
-//			{
-//				String front = fileName.substring(0, 12);
-//				String end   = fileName.substring(14);
-//				new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
-//			}
-//			
-//			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-//		}
-//	}
 }

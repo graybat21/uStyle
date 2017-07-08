@@ -87,6 +87,19 @@
 			username = #{username}
 	</select>
 	
+	<select id="selectUserPurchaseList" resultType="hashmap" parameterType="String">
+		select 
+			X.mainpictureurl, X.productname, X.brand, X.color, X.size, X.saleprice, X.count, X.purchasedate
+		from ( select (@row_number:=@row_number+1) as row_number,
+					P.mainpictureurl, P.productname, P.brand, I.color, I.size, I.saleprice, S.count, C.purchasedate
+				from
+					tbl_purchase C, tbl_sales S, tbl_product P, tbl_item I, (SELECT @row_number:=0) as t
+				where 
+					S.itemid = I.itemid and P.productid = I.productid and C.purchaseid = S.purchaseid
+					and C.username = #{username} 
+				order by DATE(C.purchasedate) DESC ) X 
+	</select>
+	<!--WHERE X.row_number BETWEEN #{first} and #{last}-->
 </mapper>
 
 

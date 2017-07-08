@@ -82,11 +82,13 @@
 										</c:if>
 										<!-- 로그인 후 -->
 										<c:if test="${session_user['username'] != null }">
-											<li class="first col-xs-8"><a title="LogOut"
+											<li class="first col-xs-6"><a title="LogOut"
 															class="logout-link fa fa-user" href="/logout.do"><span>LogOut</span></a></li>
-											<li class="col-xs-8"><a title="S"
+											<li class="col-xs-6"><a title="S"
 												class='signup-link fa fa-sign-out' href="/update.do"><span>${session_userpoint} point</span></a></li>
-											<li class="last col-xs-8"><a href="#"
+											<li class="col-xs-6"><a title="S"
+												class='signup-link fa fa-sign-out' href="/purchaseList.do"><span>Purchase List</span></a></li>
+											<li class="last col-xs-6"><a href="#"
 												class="checkout-link fa fa-shopping-cart"><span>Cart</span></a>
 											</li>
 										</c:if>
@@ -401,6 +403,8 @@
 								<ul class="list-inline f-right">
 									<li><a class="em-register-link" href="/update.do"
 										title="point">${session_userpoint } point</a></li>
+									<li><a href="/purchaseList.do"
+										title="Purchase List">Purchase List</a></li>
 								</ul>
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">

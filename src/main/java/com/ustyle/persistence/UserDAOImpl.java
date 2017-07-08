@@ -60,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int selectListCnt(HashMap<String,Object> map) {
-		return session.selectOne(namespace + ".selectListCnt",map);
+		return session.selectOne(namespace + ".selectListCnt", map);
 	}
 
 	@Override
@@ -71,6 +71,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User selectOneUser(String username) {
 		return session.selectOne(namespace + ".selectUserOne", username);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map) {
+		return session.selectList(namespace + ".selectUserPurchaseList", map);
 	}
 
 }

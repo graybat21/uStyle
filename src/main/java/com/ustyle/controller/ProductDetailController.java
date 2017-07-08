@@ -43,7 +43,7 @@ public class ProductDetailController {
 		@RequestParam(value = "countPerPage", required = false) Integer countPerPage, 
 		@RequestParam(value = "subcategory", required = false) String subcategory, 
 		@RequestParam(value = "brand", required = false) String brand, 
-		@RequestParam(value="sortby",  defaultValue="productid") String sortby) throws Exception {
+		@RequestParam(value = "sortby",  defaultValue = "productid") String sortby) throws Exception {
 		// http://localhost:8080/product/productList.do?subcategory=Blouses&page=2&countPerPage=12
 		// &sortby=productid
 		PageMaker pagemaker = new PageMaker();
@@ -56,6 +56,7 @@ public class ProductDetailController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("subcategory", subcategory);
 		map.put("brand", brand);
+		
 		int totalCnt = productService.selectListCntForSubcategory(map); // DB연동_ 총 갯수 구해오기
 		
 		int countPerPaging = 10;
@@ -77,9 +78,9 @@ public class ProductDetailController {
 //			logger.info(p.toString());
 		logger.info(brandList.toString());
 		mav.addObject("productList", productList);
-		mav.addObject("brandList",brandList);
-		mav.addObject("subcategoryList",subcategoryList);
-		mav.addObject("priceList",priceList);
+		mav.addObject("brandList", brandList);
+		mav.addObject("subcategoryList", subcategoryList);
+		mav.addObject("priceList", priceList);
 		
 		mav.addObject("subcategory", subcategory);
 		mav.addObject("brand", brand);

@@ -137,6 +137,12 @@
 	                                                                        </td>
 	                                                                    </tr>
 	                                                                    <tr>
+	                                                                        <td style="" class="a-right" colspan="1"> <strong>Total</strong>
+	                                                                        </td>
+	                                                                        <td style="" class="a-right"> <strong><span class="price" id="totalPrice_span"><fmt:formatNumber value="${finalPrice}" type="currency" currencySymbol="￦"/></span></strong>
+	                                                                        </td>
+	                                                                    </tr>
+	                                                                    <tr>
 	                                                                        <td style="" class="a-right" colspan="1"> Use Point</td>
 	                                                                        <td style="" class="a-right"> 
 	                                                                        	<span class="price" id="usepoint"></span>
@@ -410,6 +416,11 @@
 	        	if ( parseInt(maxPoint) < parseInt(usePoint) )
         		{
 	        		alert('입력하신 포인트가 가지고 있는 포인트보다 많습니다. 다시 확인 후 입력해주세요.');
+	        		return;
+        		}
+	        	else if ( parseInt(usePoint) > parseInt(finalPrice) )
+        		{
+	        		alert('입력하신 포인트가 결제금액보다 많습니다. 다시 확인 후 입력해주세요.');
 	        		return;
         		}
 	        	

@@ -1,5 +1,8 @@
 package com.ustyle.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -26,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.User;
 import com.ustyle.service.UserService;
+import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.UserEntryValidator;
 
 @Controller
@@ -37,7 +41,7 @@ public class UserController {
 	private JavaMailSenderImpl javaMailSenderImpl;
 
 	@Inject
-	private UserService service;
+	private UserService userService;
 
 	@Inject
 	private UserEntryValidator userEntryValidator;
@@ -65,7 +69,7 @@ public class UserController {
 	@RequestMapping(value = "/loginPost.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
 
-		User resultUser = service.userLogin(user);
+		User resultUser = userService.userLogin(user);
 		logger.info("{}", resultUser);
 		
 		if ( resultUser == null || !resultUser.getAuth().equals("y")) {
@@ -152,14 +156,14 @@ public class UserController {
 		user.setAuth(joinCode);
 		sendMail(user.getUsername(), user.getEmail(), joinCode);
 
-		service.insert(user);
+		userService.insert(user);
 		mav.addObject(user);
 
 		return mav;
 	}
 		
 	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
-	public String updateForm() {
+	public String updateForm(HttpSession session) {
 		return "user/update/Update";
 		
 	}
@@ -182,7 +186,7 @@ public class UserController {
 			return mav;
 		}
 
-		service.update(updateUser);
+		userService.update(updateUser);
 		
 		if (session != null) {	// 회원정보를 변경한 후, 다시 로그인하도록 유도한다.
 			session.invalidate();
@@ -201,7 +205,7 @@ public class UserController {
 	public String delete(User user, HttpSession session)
 			throws Exception {
 		logger.info(user.toString());
-		User resultUser = service.userLogin(user);
+		User resultUser = userService.userLogin(user);
 		logger.info(resultUser.toString());
 		String encodedPassword = resultUser.getPassword();
 		String encryptPassword = user.getPassword();
@@ -209,7 +213,7 @@ public class UserController {
 		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
 			return "user/deleteError/No Match PW";
 		}
-		service.delete(user.getUsername());
+		userService.delete(user.getUsername());
 
 		return "redirect:/logout.do";
 	}
@@ -248,10 +252,10 @@ public class UserController {
 		user.setAuth(auth);
 		user.setUsername(username);
 
-		boolean isUserAuthOk = service.userAuthOk(user);
+		boolean isUserAuthOk = userService.userAuthOk(user);
 
 		if (isUserAuthOk) {
-			service.userAuthInitialize(username);
+			userService.userAuthInitialize(username);
 			mav.setViewName("redirect:/authSuccess.do");
 		} else {
 			mav.setViewName("redirect:/authError.do");
@@ -275,8 +279,35 @@ public class UserController {
 	public int userExist(@RequestBody String username) throws Exception {
 
 		logger.info(username);
-		int isUserExist = service.userExist(username);
+		int isUserExist = userService.userExist(username);
 		return isUserExist;
+	}
+	
+	@RequestMapping("/purchaseList.do")
+	public ModelAndView purchaseList(HttpSession session, Integer pageCount) throws Exception {
+		ModelAndView mav = new ModelAndView("user/purchaseList/구매내역");
+		User loginUser = (User) session.getAttribute("session_user");
+		String loginUsername = loginUser.getUsername();
+		
+		HashMap<String, Object> searchQueryMap = new HashMap<String, Object>();
+		searchQueryMap.put("username", loginUsername);
+		
+		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
+		List<HashMap<String, Object>> userPurchaseList = userService.selectUserPurchaseList(searchQueryMap);
+		PageMaker pagemaker = new PageMaker();
+		
+		for ( HashMap<String, Object> map : userPurchaseList )
+		{
+			Iterator<String> iterator = map.keySet().iterator();
+		    while (iterator.hasNext()) {
+		        String key = (String) iterator.next();
+		        logger.info("key = " + key);
+		        logger.info(" value = " + map.get(key));
+		    }
+		}
+		
+		mav.addObject("userPurchaseList", userPurchaseList);
+		return mav;
 	}
 
 	private String getUuid() {

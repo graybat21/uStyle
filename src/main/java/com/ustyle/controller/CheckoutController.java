@@ -119,7 +119,7 @@ public class CheckoutController {
 		
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("shippingPrice", shippingPrice);
-		mav.addObject("finalPrice", totalPrice);
+		mav.addObject("finalPrice", finalPrice);
 		mav.addObject("point", point);
 		
 		logger.info("TOTAL PRICE: " + totalPrice);

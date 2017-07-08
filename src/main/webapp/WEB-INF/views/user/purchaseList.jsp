@@ -25,7 +25,7 @@
                                     <ul>
                                         <li class="home"> <a href="/" title="Go to Home Page"><span >Home</span></a> <span class="separator">/ </span>
                                         </li>
-                                        <li class="cms_page"> <strong>Shopping Cart</strong>
+                                        <li class="cms_page"> <strong>Purchase List</strong>
                                         </li>
                                     </ul>
                                 </div>
@@ -43,18 +43,8 @@
                                     <div class="em-col-main col-sm-24">
                                         <div class="cart">
                                             <div class="page-title title-buttons">
-                                                <h1>Shopping Cart</h1>
-                                                <ul class="checkout-types">
-                                                    <li>
-                                                        <button type="button" title="Proceed to Checkout" class="button btn-proceed-checkout btn-checkout"><span><span>Proceed to Checkout</span></span>
-                                                        </button>
-                                                    </li>
-                                                </ul>
+                                                <h1>Purchase List</h1>
                                             </div><!-- /.page-title -->
-                                            <form action="/checkout/checkout.do" method="post">
-                                           		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                                <input type="hidden" id="cartCount" name="cartCount" value="${cartCount}" />
-                                                <input type="hidden" id="userCartInfoList" name="userCartInfoList" value="${userCartInfoList}" />
                                                 <fieldset>
                                                     <table id="shopping-cart-table" class="data-table cart-table">
                                                         <thead>
@@ -62,13 +52,13 @@
                                                                 <th><span class="nobr"></span>
                                                                 </th>
                                                                 <th class="a-center">Product Name</th>
-                                                                <th class="a-center">Category</th>
-                                                                <th class="a-center"><span class="nobr">Move to Wishlist</span>
-                                                                </th>
                                                                 <th class="a-center" colspan="1"><span class="nobr">Unit Price</span>
                                                                 </th>
                                                                 <th class="a-center">Qty</th>
-                                                                <th class="a-center last" colspan="1">Subtotal</th>
+                                                                <th class="a-center" colspan="1">Subtotal</th>
+                                                                <th class="a-center">Purchase Date</th>
+                                                                <th class="a-center last"><span class="nobr">Move to Wishlist</span>
+                                                                </th>
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
@@ -84,105 +74,48 @@
                                                             </tr>
                                                         </tfoot>
                                                         <tbody>
-                                                       		<c:if test="${!empty userCartInfoList}">
-	                                                       		<c:forEach var="userCartInfo" items="${userCartInfoList}" varStatus="status">
+                                                       		<c:if test="${!empty userPurchaseList}">
+	                                                       		<c:forEach var="userPurchase" items="${userPurchaseList}" varStatus="status">
 		                                                            <tr class="last even">
 		                                                                <td>
-		                                                                    <div class="cart-product"><span style="cursor:pointer;" title="Remove item" class="btn-remove btn-remove2" onclick="removeCart(${userCartInfo.cartno})">Remove item</span>
-		                                                                        <a title="${userCartInfo.productname}" class="product-image"><img src="/displayFile?fileName=${userCartInfo.mainpictureurl}" width="100" alt="${userCartInfo.productname }" />
+		                                                                    <div class="cart-product">
+		                                                                        <a title="${userPurchase.productname}" class="product-image"><img src="/displayFile?fileName=${userPurchase.mainpictureurl}" width="100" alt="${userPurchase.productname }" />
 		                                                                        </a>
 		                                                                    </div>
-		                                                                    <input type="hidden" class="cartno" value="${userCartInfo.cartno}" />
 		                                                                </td>
 		                                                                <td>
-		                                                                    <h2 class="product-name"> <a href="/product/productDetail.do?productid=${userCartInfo.productid}">${userCartInfo.productname }</a></h2>
-		                                                                    <p class="sku">Brand : ${userCartInfo.brand} / Color : ${userCartInfo.color} / Size: ${userCartInfo.size}</p>
+		                                                                    <h2 class="product-name"> <a href="/product/productDetail.do?productid=${userPurchase.productid}">${userPurchase.productname }</a></h2>
+		                                                                    <p class="sku">Brand : ${userPurchase.brand} / Color : ${userPurchase.color} / Size: ${userPurchase.size}</p>
 		                                                                </td>
-		                                                                <td class="a-center"> <a href="/product/productList.do?subcategory=${userCartInfo.subcategory}" title="Edit item parameters">${userCartInfo.subcategory}</a>
-		                                                                </td>
-		                                                                <td class="a-center"> <a href="#" class="link-wishlist use-ajax" title="Move">Move</a>
-		                                                                </td>
-		                                                                <td class="a-center"> <span class="cart-price"> <span class="price"><fmt:formatNumber value="${userCartInfo.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
+		                                                                <td class="a-center"> <span class="cart-price"> <span class="price"><fmt:formatNumber value="${userPurchase.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
 		                                                                </td>
 		                                                                <td class="a-center">
 		                                                                    <div class="qty_cart">
-		                                                                        <div class="qty-ctl">
-		                                                                            <button title="Decrease Qty" onclick="qtyDown(${status.index}); return false;" class="decrease">decrease</button>
-		                                                                        </div>
-		                                                                        <input id="cart[${status.index}][qty]" name="cart[${status.index}][qty]" value="${userCartInfo.count}" size="4" title="Qty" class="input-text qty" maxlength="12" readonly/>
-		                                                                        <div class="qty-ctl">
-		                                                                            <button title="Increase Qty" onclick="qtyUp(${status.index}); return false;" class="increase">increase</button>
-		                                                                        </div>
+	                                                                        	<span class="price">${userPurchase.count}</span>
 		                                                                    </div>
 		                                                                </td>
-		                                                                <td class="a-center last"> <span class="cart-price"> <span class="price"><fmt:formatNumber value="${userCartInfo.saleprice * userCartInfo.count}" type="currency" currencySymbol="￦"/></span> </span>
+		                                                                <td class="a-center"> <span class="cart-price"> <span class="price"><fmt:formatNumber value="${userPurchase.saleprice * userPurchase.count}" type="currency" currencySymbol="￦"/></span> </span>
+		                                                                </td>
+		                                                                <td class="a-center">
+		                                                                	<div class="qty_cart">
+		                                                                		<span class="price"><fmt:formatDate value="${userPurchase.purchasedate}" pattern="yyyy-MM-dd" /></span>
+	                                                                		</div>
+		                                                                </td>
+		                                                                <td class="a-center last"> <a href="#" class="link-wishlist use-ajax" title="Move">Move</a>
 		                                                                </td>
 		                                                            </tr>
 		                                                    	</c:forEach>
 	                                                    	</c:if>
-	                                                    	<c:if test="${empty userCartInfoList}">
+	                                                    	<c:if test="${empty userPurchaseList}">
 	                                                    		<tr class="last even">
 	                                                                <td colspan="7" class="a-center last">
-	                                                                	장바구니에 담겨있는 상품이 없습니다.
+	                                                                	최근 1년간 구매한 상품이 없습니다.
 	                                                                </td>
 	                                                            </tr>
 	                                                    	</c:if>
                                                         </tbody>
                                                     </table>
                                                 </fieldset>
-                                                <div class="cart-collaterals row">
-                                                <div class="first col-md-16 col-sm-24">
-                                                    
-                                                </div><!-- /first -->
-                                                <div class="last totals col-md-8 col-sm-24">
-                                                    <div class="em-box-cart">
-                                                        <h2>Order Total(3만원 이상 무료배송)</h2>
-                                                        <div class="em-box">
-                                                            <table id="shopping-cart-totals-table">
-                                                                <col />
-                                                                <col style="width: 1%;" />
-                                                                <tfoot>
-                                                                    <tr>
-                                                                        <td style="" class="a-right" colspan="1"> <strong>Grand Total</strong>
-                                                                        </td>
-                                                                        <td style="" class="a-right"> <strong><span class="price" id="totalPrice"><fmt:formatNumber value="${ totalPrice < 30000 ? totalPrice + 3000 : totalPrice }" type="currency" currencySymbol="￦"/></span></strong>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tfoot>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style="" class="a-right" colspan="1"> Subtotal</td>
-                                                                        <td style="" class="a-right"> <span class="price"><fmt:formatNumber value="${totalPrice}" type="currency" currencySymbol="￦"/></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="" class="a-right" colspan="1"> Delivery Fee</td>
-                                                                        <td style="" class="a-right"> 
-                                                                        	<span class="price"><fmt:formatNumber value="${ totalPrice < 30000 ? 3000 : 0 }" type="currency" currencySymbol="￦"/></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <ul class="checkout-types">
-                                                                <li>
-                                                                    <button type="submit" title="Proceed to Checkout" class="button btn-proceed-checkout btn-checkout"><span><span>Proceed to Checkout</span></span>
-                                                                    </button>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- /.em-box-cart -->
-                                                </div><!-- /.last -->
-                                            </div><!-- /.cart-collaterals -->
-                                            </form><!-- /form -->
-                                            
-                                            <div class="block block-sample em-line-01">
-                                                <div class="em-block-title">
-                                                    <h2><span>This is sample static block replacing crosssel products</span></h2>
-                                                </div>
-                                                <div class="block-content box">
-                                                    <p>This is sample static block replacing crosssel products. Put your own content here: filter widget,text, html, images - whatever you want.</p>
-                                                </div>
-                                            </div><!-- /.block -->
                                         </div>
                                     </div>
                                 </div>

@@ -17,4 +17,5 @@ public interface UserDAO {
 	public int selectListCnt(HashMap<String, Object> map);
 	public List<User> userList(HashMap<String, Object> map);
 	public User selectOneUser(String user);
+	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map);
 }
