@@ -12,4 +12,5 @@ public interface GradeService {
 	public void update(Grade grade) throws Exception;
 
 	public void delete(int idx) throws Exception;
+
 }

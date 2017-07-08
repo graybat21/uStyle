@@ -3,6 +3,7 @@ package com.ustyle.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.ustyle.domain.Grade;
 import com.ustyle.domain.User;
 
 public interface UserService {
@@ -17,4 +18,7 @@ public interface UserService {
 	public int selectListCnt(HashMap<String, Object> map) throws Exception;
 	public List<User> userList(HashMap<String, Object> map) throws Exception;
 	public User selectOneUser(String username) throws Exception;
+	
+	public void modifyAllUsersGradeInitialize();
+	public void modifyAllUsersGrade(Grade grade);
 }

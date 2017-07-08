@@ -16,6 +16,8 @@
 					<div class="box">
 						<div class="box-header">
 							<h3 class="box-title">Grade 리스트</h3>
+							<a href="modifyAllUsersGrade.do">
+							<input type="button" value="유저 등급 업데이트"></a>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
