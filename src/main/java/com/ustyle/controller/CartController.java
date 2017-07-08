@@ -65,8 +65,8 @@ public class CartController {
 		
 		for ( HashMap<String, Object> map : userCartInfoList )
 		{
-			int eachPrice = (int) map.get("saleprice");
-			int eachCount = (int) map.get("count");
+			int eachPrice = (Integer) map.get("saleprice");
+			int eachCount = (Integer) map.get("count");
 			
 			totalPrice += eachPrice * eachCount;
 			
@@ -80,7 +80,7 @@ public class CartController {
 		
 		logger.info("totalPrice = " + totalPrice);
 		
-		ModelAndView mav = new ModelAndView("cart/viewCart/장바구니");
+		ModelAndView mav = new ModelAndView("cart/viewCart/�옣諛붽뎄�땲");
 		mav.addObject("userCartInfoList", userCartInfoList);
 		mav.addObject("cartCount", userCartInfoList.size());
 		mav.addObject("totalPrice", totalPrice);
