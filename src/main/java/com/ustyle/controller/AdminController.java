@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Grade;
+import com.ustyle.domain.PinBoard;
 import com.ustyle.domain.User;
 import com.ustyle.service.GradeService;
+import com.ustyle.service.PinService;
 import com.ustyle.service.UserService;
 import com.ustyle.utils.PageMaker;
 
@@ -31,6 +33,8 @@ public class AdminController {
 	private UserService userService;
 	@Inject
 	private GradeService gradeService;
+	@Inject
+	private PinService pinService;
 
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
 	public String mainForm() {
@@ -57,7 +61,7 @@ public class AdminController {
 		pagemaker.setPage(page);
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);
-		int totalCnt = userService.selectListCnt(map); // DB연동_ 총 갯수 구해오기
+		int totalCnt = userService.selectListCnt(map); // DB�뿰�룞_ 珥� 媛��닔 援ы빐�삤湲�
 		int countPerPage = 3;
 		int countPerPaging = 3;
 
@@ -116,5 +120,42 @@ public class AdminController {
 	public String gradeDelete(@RequestParam int idx)throws Exception{
 		gradeService.delete(idx);
 		return "redirect:/admin/grade.do";
+	}
+	
+	// =============================== pin =============================== //
+	
+	@RequestMapping("pinBoardList.do")
+	public ModelAndView pinBoardList(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
+			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// map.put("searchKeyword", searchKeyword);
+		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
+		pagemaker.setPage(page);
+		map.put("searchOption", searchOption);
+		map.put("searchKeyword", searchKeyword);
+		int totalCnt = pinService.selectListCnt(map); 
+		int countPerPage = 10;
+		int countPerPaging = 10;
+
+		int first = ((pagemaker.getPage() - 1) * countPerPage) + 1;
+		int last = first + countPerPage - 1;
+		map.put("first", first);
+		map.put("last", last);
+		List<PinBoard> list = pinService.pinBoardList(map);
+		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
+		mav.addObject("pinBoardList", list);
+		mav.addObject("pageMaker", pagemaker);
+		mav.setViewName("pin/pinBoardList");
+		mav.addObject("searchOption", searchOption);
+		mav.addObject("searchKeyword", searchKeyword);
+		logger.info(list.toString());
+		return mav;
+	}
+	@RequestMapping("deletePinBoard.do")
+	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
+		pinService.deleteAllPin(pinboardno);
+		pinService.deletePinBoard(pinboardno);
+		return "redirect:/admin/pinBoardList.do";
 	}
 }

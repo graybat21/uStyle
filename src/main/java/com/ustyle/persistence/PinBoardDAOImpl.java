@@ -18,13 +18,18 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	private SqlSession session;
 
 	@Override
-	public void createPinBoard(HashMap<String, Object> map) {
-		session.insert(namespace + ".createPinBoard", map);
+	public void createPinBoard(PinBoard pinBoard) {
+		session.insert(namespace + ".createPinBoard", pinBoard);
 	}
 
 	@Override
 	public List<PinBoard> getPinBoardList(String username) {
 		return session.selectList(namespace + ".getPinBoardList", username);
+	}
+
+	@Override
+	public List<PinBoard> getPinBoardMainImage(String username) {
+		return session.selectList(namespace + ".getPinBoardMainImage", username);
 	}
 
 	@Override
@@ -35,6 +40,16 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	@Override
 	public void deletePinBoard(int pinboardno) {
 		session.delete(namespace + ".deletePinBoard", pinboardno);
+	}
+
+	@Override
+	public int selectListCnt(HashMap<String, Object> map) {
+		return session.selectOne(namespace + ".selectListCnt", map);
+	}
+
+	@Override
+	public List<PinBoard> pinBoardList(HashMap<String, Object> map) {
+		return session.selectList(namespace + ".pinBoardList", map);
 	}
 
 }
