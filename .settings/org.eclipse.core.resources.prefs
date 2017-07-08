@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/ustyle/controller/AdminController.java=UTF-8
+encoding//src/main/java/com/ustyle/controller/CartController.java=UTF-8
+encoding//src/main/java/com/ustyle/controller/CheckoutController.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/user/deleteForm.jsp=UTF-8

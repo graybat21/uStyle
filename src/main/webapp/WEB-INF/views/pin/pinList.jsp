@@ -10,7 +10,6 @@
 <style>
 	#columns {
 		column-width:350px;
-		
 		column-gap:10px;
 		padding:30px;
 	}
@@ -38,16 +37,7 @@
 	<div class="wrapper">
 		<div class="page one-column">
 		
-		
-		<h1>pinBoard list</h1>
-		
-			<%-- <c:url name="modify" value="modifyPinBoardName.do">
-				<c:param name="pinboardno" value="${pinBoard.pinboardno }"></c:param>
-			</c:url>
-			<a href="${modify}"> --%>${pinBoard.username } / ${pinBoard.pinboardname }</a>
-			<br>
-	
-		
+		<h1>Pin list</h1>
 		
 		</div>
 		<!-- /.page -->
@@ -56,33 +46,23 @@
 	
 <div class="container" style="width:300px; height:auto; margin:0px;">
     <div class="row">
-    	<c:forEach var="pinBoard" items="${pinBoardList }">
+    	<c:forEach var="pin" items="${pinList }">
 		
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0px;">
             <img src="" class="img-responsive">
+            <div><a href="insertPin.do">
+            ${pin.pinno} / ${pin.pinboardno} / ${pin.productid}
+            </a>
+            
+            </div>
         </div>
         
-       	</c:forEach>	
+       	</c:forEach>
+       	<a href="insertPin.do?pinboardno=${pinboardno }">새로 핀 입력</a>
+       		
     </div>
 </div>
 
-<!-- <div class="container" style="width:300px; height:auto; margin:0px;">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0px;">
-            <img src=https://i.scdn.co/image/2fd8fa0f7ef2f83691a0fb9628ee369b8e3b688e class="img-responsive">
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0px;">
-            <img src=https://i.scdn.co/image/2fd8fa0f7ef2f83691a0fb9628ee369b8e3b688e class="img-responsive">
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0px;">
-            <img src=https://i.scdn.co/image/2fd8fa0f7ef2f83691a0fb9628ee369b8e3b688e class="img-responsive">
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin:0px;">
-            <img src=https://i.scdn.co/image/2fd8fa0f7ef2f83691a0fb9628ee369b8e3b688e class="img-responsive">
-        </div>
-    </div>
-</div> -->
-	
 	
 	
 	

@@ -52,7 +52,7 @@ public class CheckoutController {
 	@ResponseBody
 	@RequestMapping(value = "checkout.do", method = RequestMethod.POST)
 	public ModelAndView checkout(HttpSession session) throws Exception {
-		ModelAndView mav = new ModelAndView("checkout/checkout/결제 정보");
+		ModelAndView mav = new ModelAndView("checkout/checkout/寃곗젣 �젙蹂�");
 		
 		User user = (User) session.getAttribute("session_user");
 		String username = user.getUsername();
@@ -60,10 +60,10 @@ public class CheckoutController {
 		
 		List<HashMap<String, Object>> userSelectedItemidList = cartService.selectUserItemidList(username);
 		
-		int totalPrice = 0;		// 배송비를 제외한 가격
-		int shippingPrice = 0;	// 배송비
-		int finalPrice = 0;		// 배송비를 포함한 가격
-		int point = user.getPoint();	// 사용자 포인트
+		int totalPrice = 0;		// 諛곗넚鍮꾨�� �젣�쇅�븳 媛�寃�
+		int shippingPrice = 0;	// 諛곗넚鍮�
+		int finalPrice = 0;		// 諛곗넚鍮꾨�� �룷�븿�븳 媛�寃�
+		int point = user.getPoint();	// �궗�슜�옄 �룷�씤�듃
 		
 		for ( HashMap<String, Object> map : userSelectedItemidList )
 		{
@@ -76,7 +76,7 @@ public class CheckoutController {
 		    
 			int eachItemid = (Integer) map.get("itemid");
 			int eachTotalCount = Integer.parseInt(String.valueOf(map.get("totalcount")));		
-			// HashMap<String, Object>으로 받을 때, MySQL sum 함수를 이용한 값을 int형으로 받지 못하므로, 위와 같이 String으로 받은 후 int로 다시 변환하였다.
+			// HashMap<String, Object>�쑝濡� 諛쏆쓣 �븣, MySQL sum �븿�닔瑜� �씠�슜�븳 媛믪쓣 int�삎�쑝濡� 諛쏆� 紐삵븯誘�濡�, �쐞�� 媛숈씠 String�쑝濡� 諛쏆� �썑 int濡� �떎�떆 蹂��솚�븯���떎.
 			
 			Item eachItem = itemService.read(eachItemid);
 			int eachStock = eachItem.getStock();
@@ -95,7 +95,7 @@ public class CheckoutController {
 				mav.addObject("outofStockSize", outofStockSize);
 				mav.addObject("maxStock", eachStock);
 				
-				mav.setViewName("checkout/checkoutFail/결제 오류");
+				mav.setViewName("checkout/checkoutFail/寃곗젣 �삤瑜�");
 				return mav;
 			}
 			
@@ -131,7 +131,7 @@ public class CheckoutController {
 	public ModelAndView checkoutSuccess(HttpSession session, 
 			@ModelAttribute Purchase purchase) throws Exception {
 		
-		ModelAndView mav = new ModelAndView("checkout/checkoutSuccess/결제 성공");
+		ModelAndView mav = new ModelAndView("checkout/checkoutSuccess/寃곗젣 �꽦怨�");
 		
 		User user = (User) session.getAttribute("session_user");
 		String username = user.getUsername();
@@ -159,7 +159,7 @@ public class CheckoutController {
 			logger.info("SALES = " + sales.toString());
 		}
 		
-		cartService.deleteAll(username);		// 장바구니 비우기
+		cartService.deleteAll(username);		// �옣諛붽뎄�땲 鍮꾩슦湲�
 		
 		return mav;
 		
