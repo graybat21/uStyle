@@ -72,10 +72,20 @@ public class UserDAOImpl implements UserDAO {
 	public User selectOneUser(String username) {
 		return session.selectOne(namespace + ".selectUserOne", username);
 	}
+	
+	@Override
+	public int selectUserPurchaseCount(String username) {
+		return session.selectOne(namespace + ".selectUserPurchaseCount", username);
+	}
 
 	@Override
 	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map) {
 		return session.selectList(namespace + ".selectUserPurchaseList", map);
+	}
+
+	@Override
+	public double selectUserPointRatio(String username) {
+		return session.selectOne(namespace + ".selectUserPointRatio", username);
 	}
 
 }

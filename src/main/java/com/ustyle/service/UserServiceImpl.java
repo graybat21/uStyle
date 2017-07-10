@@ -78,9 +78,19 @@ public class UserServiceImpl implements UserService {
 	public User selectOneUser(String username) throws Exception {
 		return dao.selectOneUser(username);
 	}
+	
+	@Override
+	public int selectUserPurchaseCount(String username) throws Exception {
+		return dao.selectUserPurchaseCount(username);
+	}
 
 	@Override
 	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map) throws Exception {
 		return dao.selectUserPurchaseList(map);
+	}
+
+	@Override
+	public double selectUserPointRatio(String username) throws Exception {
+		return dao.selectUserPointRatio(username);
 	}
 }

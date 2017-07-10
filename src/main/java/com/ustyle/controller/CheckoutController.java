@@ -52,7 +52,7 @@ public class CheckoutController {
 	@ResponseBody
 	@RequestMapping(value = "checkout.do", method = RequestMethod.POST)
 	public ModelAndView checkout(HttpSession session) throws Exception {
-		ModelAndView mav = new ModelAndView("checkout/checkout/寃곗젣 �젙蹂�");
+		ModelAndView mav = new ModelAndView("checkout/checkout/상품 결제");
 		
 		User user = (User) session.getAttribute("session_user");
 		String username = user.getUsername();
@@ -95,7 +95,7 @@ public class CheckoutController {
 				mav.addObject("outofStockSize", outofStockSize);
 				mav.addObject("maxStock", eachStock);
 				
-				mav.setViewName("checkout/checkoutFail/寃곗젣 �삤瑜�");
+				mav.setViewName("checkout/checkoutFail/결제 오류");
 				return mav;
 			}
 			
@@ -129,17 +129,27 @@ public class CheckoutController {
 	
 	@RequestMapping(value = "checkoutSuccess.do", method = RequestMethod.POST)
 	public ModelAndView checkoutSuccess(HttpSession session, 
-			@ModelAttribute Purchase purchase) throws Exception {
+			@ModelAttribute Purchase purchase, Integer totalprice) throws Exception {
 		
-		ModelAndView mav = new ModelAndView("checkout/checkoutSuccess/寃곗젣 �꽦怨�");
+		ModelAndView mav = new ModelAndView("checkout/checkoutSuccess/결제 성공");
 		
 		User user = (User) session.getAttribute("session_user");
 		String username = user.getUsername();
 		
 		purchase.setUsername(username);
 		
+		logger.info("FINAL PRICE = " + totalprice);
 		logger.info("BEFORE PURCHASE = " + purchase.toString());
 		
+		double point_ratio = userService.selectUserPointRatio(username);
+		int addpoint = (int) (totalprice * point_ratio);
+		logger.info("ADD POINT = " + addpoint);
+		
+		HashMap<String, Object> addPointMap = new HashMap<String, Object>();
+		addPointMap.put("username", username);
+		addPointMap.put("addpoint", addpoint);
+
+		salesService.updateAddPoint(addPointMap);
 		salesService.insertPurchase(purchase);
 		
 		logger.info("AFTER PURCHASE = " + purchase.toString());

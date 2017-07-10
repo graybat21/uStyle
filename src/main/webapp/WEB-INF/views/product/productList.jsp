@@ -139,7 +139,7 @@
                                             <div class="toolbar-bottom em-box-03">
                                                 <div class="toolbar">
                                                     <div class="pager">
-                                                        <p class="amount"> Items ${first} to ${last} of ${totalCnt} total</p>
+                                                        <p class="amount"> Products ${first} to ${last} of ${totalCnt} total</p>
                                                         <div class="pages">
                                                             <ol>
                                                             	<c:if test="${pageMaker.prev }">

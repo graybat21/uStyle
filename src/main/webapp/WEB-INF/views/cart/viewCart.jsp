@@ -71,20 +71,20 @@
                                                                 <th class="a-center last" colspan="1">Subtotal</th>
                                                             </tr>
                                                         </thead>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <td colspan="7" class="a-right">
-                                                                    <button type="button" title="Continue Shopping" class="button btn-continue" onclick="location.href='/index.do'"><span><span>Continue Shopping</span></span>
-                                                                    </button>
-                                                                    <button type="button" name="update_cart_action" id="update_cart_action" title="Update Shopping Cart" class="button btn-update" onclick="updateCart()"><span><span>Update Shopping Cart</span></span>
-                                                                    </button>
-                                                                    <button type="button" name="empty_cart_action" id="empty_cart_action" title="Clear Shopping Cart" class="button btn-empty" onclick="removeAllCart()"><span><span>Clear Shopping Cart</span></span>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tfoot>
+                                                        <c:if test="${!empty userCartInfoList}">
+	                                                        <tfoot>
+	                                                            <tr>
+	                                                                <td colspan="7" class="a-right">
+	                                                                    <button type="button" title="Continue Shopping" class="button btn-continue" onclick="location.href='/index.do'"><span><span>Continue Shopping</span></span>
+	                                                                    </button>
+	                                                                    <button type="button" name="update_cart_action" id="update_cart_action" title="Update Shopping Cart" class="button btn-update" onclick="updateCart()"><span><span>Update Shopping Cart</span></span>
+	                                                                    </button>
+	                                                                    <button type="button" name="empty_cart_action" id="empty_cart_action" title="Clear Shopping Cart" class="button btn-empty" onclick="removeAllCart()"><span><span>Clear Shopping Cart</span></span>
+	                                                                    </button>
+	                                                                </td>
+	                                                            </tr>
+	                                                        </tfoot>
                                                         <tbody>
-                                                       		<c:if test="${!empty userCartInfoList}">
 	                                                       		<c:forEach var="userCartInfo" items="${userCartInfoList}" varStatus="status">
 		                                                            <tr class="last even">
 		                                                                <td>
@@ -134,55 +134,48 @@
                                                 <div class="first col-md-16 col-sm-24">
                                                     
                                                 </div><!-- /first -->
-                                                <div class="last totals col-md-8 col-sm-24">
-                                                    <div class="em-box-cart">
-                                                        <h2>Order Total(3만원 이상 무료배송)</h2>
-                                                        <div class="em-box">
-                                                            <table id="shopping-cart-totals-table">
-                                                                <col />
-                                                                <col style="width: 1%;" />
-                                                                <tfoot>
-                                                                    <tr>
-                                                                        <td style="" class="a-right" colspan="1"> <strong>Grand Total</strong>
-                                                                        </td>
-                                                                        <td style="" class="a-right"> <strong><span class="price" id="totalPrice"><fmt:formatNumber value="${ totalPrice < 30000 ? totalPrice + 3000 : totalPrice }" type="currency" currencySymbol="￦"/></span></strong>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tfoot>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style="" class="a-right" colspan="1"> Subtotal</td>
-                                                                        <td style="" class="a-right"> <span class="price"><fmt:formatNumber value="${totalPrice}" type="currency" currencySymbol="￦"/></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="" class="a-right" colspan="1"> Delivery Fee</td>
-                                                                        <td style="" class="a-right"> 
-                                                                        	<span class="price"><fmt:formatNumber value="${ totalPrice < 30000 ? 3000 : 0 }" type="currency" currencySymbol="￦"/></span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <ul class="checkout-types">
-                                                                <li>
-                                                                    <button type="submit" title="Proceed to Checkout" class="button btn-proceed-checkout btn-checkout"><span><span>Proceed to Checkout</span></span>
-                                                                    </button>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- /.em-box-cart -->
-                                                </div><!-- /.last -->
-                                            </div><!-- /.cart-collaterals -->
+                                                <c:if test="${!empty userCartInfoList}">
+	                                                <div class="last totals col-md-8 col-sm-24">
+	                                                    <div class="em-box-cart">
+	                                                        <h2>Order Total(3만원 이상 무료배송)</h2>
+	                                                        <div class="em-box">
+	                                                            <table id="shopping-cart-totals-table">
+	                                                                <col />
+	                                                                <col style="width: 1%;" />
+	                                                                <tfoot>
+	                                                                    <tr>
+	                                                                        <td style="" class="a-right" colspan="1"> <strong>Grand Total</strong>
+	                                                                        </td>
+	                                                                        <td style="" class="a-right"> <strong><span class="price" id="totalPrice"><fmt:formatNumber value="${ totalPrice < 30000 ? totalPrice + 3000 : totalPrice }" type="currency" currencySymbol="￦"/></span></strong>
+	                                                                        </td>
+	                                                                    </tr>
+	                                                                </tfoot>
+	                                                                <tbody>
+	                                                                    <tr>
+	                                                                        <td style="" class="a-right" colspan="1"> Subtotal</td>
+	                                                                        <td style="" class="a-right"> <span class="price"><fmt:formatNumber value="${totalPrice}" type="currency" currencySymbol="￦"/></span>
+	                                                                        </td>
+	                                                                    </tr>
+	                                                                    <tr>
+	                                                                        <td style="" class="a-right" colspan="1"> Delivery Fee</td>
+	                                                                        <td style="" class="a-right"> 
+	                                                                        	<span class="price"><fmt:formatNumber value="${ totalPrice < 30000 ? 3000 : 0 }" type="currency" currencySymbol="￦"/></span>
+	                                                                        </td>
+	                                                                    </tr>
+	                                                                </tbody>
+	                                                            </table>
+	                                                            <ul class="checkout-types">
+	                                                                <li>
+	                                                                    <button type="submit" title="Proceed to Checkout" class="button btn-proceed-checkout btn-checkout"><span><span>Proceed to Checkout</span></span>
+	                                                                    </button>
+	                                                                </li>
+	                                                            </ul>
+	                                                        </div>
+	                                                    </div><!-- /.em-box-cart -->
+	                                                </div><!-- /.last -->
+	                                            </c:if>
+	                                            </div><!-- /.cart-collaterals -->
                                             </form><!-- /form -->
-                                            
-                                            <div class="block block-sample em-line-01">
-                                                <div class="em-block-title">
-                                                    <h2><span>This is sample static block replacing crosssel products</span></h2>
-                                                </div>
-                                                <div class="block-content box">
-                                                    <p>This is sample static block replacing crosssel products. Put your own content here: filter widget,text, html, images - whatever you want.</p>
-                                                </div>
-                                            </div><!-- /.block -->
                                         </div>
                                     </div>
                                 </div>

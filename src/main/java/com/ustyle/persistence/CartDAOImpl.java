@@ -52,4 +52,9 @@ public class CartDAOImpl implements CartDAO {
 	public Cart selectUserCartOne(int cartno) {
 		return session.selectOne(namespace + ".selectUserCartOne", cartno);
 	}
+
+	@Override
+	public int selectCartItemsCountForUsername(String username) {
+		return session.selectOne(namespace + ".selectCartItemsCountForUsername", username);
+	}
 }

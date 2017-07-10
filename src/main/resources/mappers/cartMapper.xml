@@ -51,6 +51,15 @@
 		where 
 			cartno = #{cartno}
  	</select>
+ 	
+ 	<select id="selectCartItemsCountForUsername" resultType="int" parameterType="String">
+		select
+			count(*)
+		from 
+			tbl_cart
+		where 
+			username = #{username}
+ 	</select>
  
 </mapper>
 

@@ -1,5 +1,6 @@
 package com.ustyle.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +30,11 @@ public class SalesServiceImpl implements SalesService {
 	public void insert(Sales sales) throws Exception {
 		itemDao.updateForSales(sales);
 		salesDao.insert(sales);
+	}
+	
+	@Override
+	public void updateAddPoint(HashMap<String, Object> addPointMap) throws Exception {
+		salesDao.updateAddPoint(addPointMap);
 	}
 
 	@Override

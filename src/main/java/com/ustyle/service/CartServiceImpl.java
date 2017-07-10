@@ -50,4 +50,9 @@ public class CartServiceImpl implements CartService {
 	public Cart selectUserCartOne(int cartno) throws Exception {
 		return dao.selectUserCartOne(cartno);
 	}
+
+	@Override
+	public int selectCartItemsCountForUsername(String username) throws Exception {
+		return dao.selectCartItemsCountForUsername(username);
+	}
 }

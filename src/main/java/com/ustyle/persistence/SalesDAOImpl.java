@@ -1,5 +1,6 @@
 package com.ustyle.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,6 +32,11 @@ public class SalesDAOImpl implements SalesDAO {
 	@Override
 	public void insertPurchase(Purchase purchase) {
 		session.insert(namespace + ".insertPurchase", purchase);
+	}
+	
+	@Override
+	public void updateAddPoint(HashMap<String, Object> addPointMap) {
+		session.update(namespace + ".updateAddPoint", addPointMap);
 	}
 
 	@Override

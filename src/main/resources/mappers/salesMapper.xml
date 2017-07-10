@@ -12,6 +12,12 @@
    		values(#{recipientname}, #{shippingaddr1}, #{shippingaddr2}, #{shippingpostcode}, #{recipientphone}, #{username}, now(), #{usedpoint})
     </insert>
     
+    <update id="updateAddPoint" parameterType="hashmap">
+    	update tbl_user
+    	set point = point + #{addpoint}
+    	where username = #{username}
+    </update>
+    
     <update id="updateUsedPoint" parameterType="purchase">
     	update tbl_user
     	set point = point - #{usedpoint}

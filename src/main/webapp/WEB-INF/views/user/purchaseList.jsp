@@ -61,18 +61,6 @@
                                                                 </th>
                                                             </tr>
                                                         </thead>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <td colspan="7" class="a-right">
-                                                                    <button type="button" title="Continue Shopping" class="button btn-continue" onclick="location.href='/index.do'"><span><span>Continue Shopping</span></span>
-                                                                    </button>
-                                                                    <button type="button" name="update_cart_action" id="update_cart_action" title="Update Shopping Cart" class="button btn-update" onclick="updateCart()"><span><span>Update Shopping Cart</span></span>
-                                                                    </button>
-                                                                    <button type="button" name="empty_cart_action" id="empty_cart_action" title="Clear Shopping Cart" class="button btn-empty" onclick="removeAllCart()"><span><span>Clear Shopping Cart</span></span>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tfoot>
                                                         <tbody>
                                                        		<c:if test="${!empty userPurchaseList}">
 	                                                       		<c:forEach var="userPurchase" items="${userPurchaseList}" varStatus="status">
@@ -116,6 +104,43 @@
                                                         </tbody>
                                                     </table>
                                                 </fieldset>
+                                                
+                                                <div class="toolbar-bottom em-box-03">
+                                                <div class="toolbar">
+                                                    <div class="pager">
+                                                        <p class="amount"> Items ${first} to ${last} of ${purchaseCount} total</p>
+                                                        <div class="pages">
+                                                            <ol>
+                                                            	<c:if test="${pageMaker.prev }">
+																    <c:url var="purchaseListP" value="purchaseList.do">
+																        <c:param name="pageCount" value="${pageMaker.start - 1}" />
+																    </c:url>
+                                                            		<li><a class="fa fa-angle-left" href="${purchaseListP }" title="Prev"> </a></li>
+                                                            	</c:if>
+                                                            	
+                                                            	<c:forEach begin="${pageMaker.start }" end="${pageMaker.end}" var="idx">
+																    <c:url var="purchaseListP" value="purchaseList.do">
+																        <c:param name="pageCount" value="${idx}" />
+																    </c:url>
+																    <li>
+																        <a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${purchaseListP }'>${idx}</a>
+																    </li>    
+																</c:forEach>
+																
+																<c:if test="${pageMaker.next }">
+																    <c:url var="purchaseList" value="purchaseList.do">
+																        <c:param name="pageCount" value="${pageMaker.end + 1}" />
+																        <c:param name="countPerPage" value="10" />
+																    </c:url>
+																    <li><a class="fa fa-angle-right" href="${purchaseList }" title="Next"></a></li>
+																</c:if>
+                                                            	
+                                                            </ol>
+                                                            
+                                                        </div>
+                                                    </div><!-- /.pager -->
+                                                </div>
+                                            </div><!-- /.toolbar-bottom -->
                                         </div>
                                     </div>
                                 </div>

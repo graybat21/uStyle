@@ -13,4 +13,5 @@ public interface CartDAO {
 	public List<HashMap<String, Object>> selectUserCartList(String username);
 	public List<HashMap<String, Object>> selectUserItemidList(String username);
 	public Cart selectUserCartOne(int cartno);
+	public int selectCartItemsCountForUsername(String username);
 }

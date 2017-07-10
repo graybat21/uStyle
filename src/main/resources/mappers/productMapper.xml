@@ -51,7 +51,7 @@
   			</if>
           	ORDER BY productid DESC
 			) X 
-		WHERE X.row_number BETWEEN #{first} and #{last}
+		WHERE X.row_number BETWEEN #{first} AND #{last}
 	</select>
 	
 	<select id="selectListCntForSubcategory" resultType="int" parameterType="hashmap">

@@ -17,5 +17,7 @@ public interface UserService {
 	public int selectListCnt(HashMap<String, Object> map) throws Exception;
 	public List<User> userList(HashMap<String, Object> map) throws Exception;
 	public User selectOneUser(String username) throws Exception;
+	public int selectUserPurchaseCount(String username) throws Exception;
 	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map) throws Exception;
+	public double selectUserPointRatio(String username) throws Exception;
 }

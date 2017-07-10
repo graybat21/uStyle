@@ -41,14 +41,16 @@ public class CartController {
 		User user = (User) session.getAttribute("session_user");
 		String username = user.getUsername();
 		
+		if ( cartService.selectCartItemsCountForUsername(username) == 10 )		
+		{	// 장바구니에 담긴 상품이 10개인 경우, 장바구니에 담긴 상품을 빼도록 유도함
+			mav.setViewName("cart/addtoCartFail/상품 추가 오류");
+			return mav;
+		}
+		
 		cart.setUsername(username);
-		
 		logger.info(cart.toString());
-		
 		cartService.insert(cart);
-		
 		mav.setViewName("redirect:/cart/viewCart.do");
-			
 		return mav;
 	}
 	
@@ -80,7 +82,7 @@ public class CartController {
 		
 		logger.info("totalPrice = " + totalPrice);
 		
-		ModelAndView mav = new ModelAndView("cart/viewCart/�옣諛붽뎄�땲");
+		ModelAndView mav = new ModelAndView("cart/viewCart/장바구니");
 		mav.addObject("userCartInfoList", userCartInfoList);
 		mav.addObject("cartCount", userCartInfoList.size());
 		mav.addObject("totalPrice", totalPrice);
