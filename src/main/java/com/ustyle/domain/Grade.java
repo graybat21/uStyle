@@ -55,7 +55,7 @@ public class Grade {
 
 	@Override
 	public String toString() {
-		return "Grade [idx=" + idx + ", grade=" + grade + ", point_ratio=" + point_ratio + ", buy_term=" + buy_term
+		return "\nGrade [idx=" + idx + ", grade=" + grade + ", point_ratio=" + point_ratio + ", buy_term=" + buy_term
 				+ ", min=" + min + ", max=" + max + "]";
 	}
 }

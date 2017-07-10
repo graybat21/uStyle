@@ -28,7 +28,7 @@ import com.ustyle.utils.PageMaker;
 @RequestMapping("/admin/*")
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	
+
 	@Inject
 	private UserService userService;
 	@Inject
@@ -61,7 +61,8 @@ public class AdminController {
 		pagemaker.setPage(page);
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);
-		int totalCnt = userService.selectListCnt(map); // DB�뿰�룞_ 珥� 媛��닔 援ы빐�삤湲�
+		int totalCnt = userService.selectListCnt(map); // DB�뿰�룞_ 珥� 媛��닔
+														// 援ы빐�삤湲�
 		int countPerPage = 3;
 		int countPerPaging = 3;
 
@@ -94,38 +95,55 @@ public class AdminController {
 		userService.delete(username);
 		return "redirect:/admin/userList.do";
 	}
-	
-	
-	@RequestMapping(value="grade.do", method=RequestMethod.GET)
-	public String gradeList(Model model)throws Exception{
+
+	@RequestMapping(value = "grade.do", method = RequestMethod.GET)
+	public String gradeList(Model model) throws Exception {
 		List<Grade> gradeList = gradeService.selectList();
 		model.addAttribute(gradeList);
 		return "grade/gradeList";
 	}
-	@RequestMapping(value="grade.do", method=RequestMethod.POST)
-	public String gradeInsert(@ModelAttribute @Valid Grade grade)throws Exception{
+
+	@RequestMapping(value = "grade.do", method = RequestMethod.POST)
+	public String gradeInsert(@ModelAttribute @Valid Grade grade) throws Exception {
 		gradeService.insert(grade);
 		return "redirect:/admin/grade.do";
 	}
-	@RequestMapping(value="gradeUpdate.do", method=RequestMethod.POST)
-	public String gradeUpdate(@ModelAttribute @Valid Grade grade)throws Exception{
+
+	@RequestMapping(value = "gradeUpdate.do", method = RequestMethod.POST)
+	public String gradeUpdate(@ModelAttribute @Valid Grade grade) throws Exception {
 		gradeService.update(grade);
 		logger.info("grade has been successfully updated!! - " + grade.toString());
 		return "redirect:/admin/grade.do";
 	}
-	
-//	@RequestMapping(value="grade.do", method=RequestMethod.DELETE)
-//	@RequestMapping(value="deleteGrade.do", method=RequestMethod.POST)
+
+	@RequestMapping(value = "modifyAllUsersGrade.do")
+	public String modifyAllUsersGrade() throws Exception {
+		userService.modifyAllUsersGradeInitialize();
+		Grade grade = new Grade();
+		List<Grade> gradeList = gradeService.selectList();
+		for (int i = 0; i < gradeList.size(); i++) {
+			grade = gradeList.get(i);
+			userService.modifyAllUsersGrade(grade);
+			logger.info("\n***Grade idx" + grade.getIdx() + ", " + grade.getGrade()
+					+ " users \nwho bought whole purchase price between " + grade.getMin() + " and " + grade.getMax()
+					+ " last " + grade.getBuy_term() + " months \nhave been successfully updated!");
+		}
+		return "redirect:/admin/grade.do";
+	}
+
+	// @RequestMapping(value="grade.do", method=RequestMethod.DELETE)
+	// @RequestMapping(value="deleteGrade.do", method=RequestMethod.POST)
 	@RequestMapping("deleteGrade.do")
-	public String gradeDelete(@RequestParam int idx)throws Exception{
+	public String gradeDelete(@RequestParam int idx) throws Exception {
 		gradeService.delete(idx);
 		return "redirect:/admin/grade.do";
 	}
-	
+
 	// =============================== pin =============================== //
-	
+
 	@RequestMapping("pinBoardList.do")
-	public ModelAndView pinBoardList(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
+	public ModelAndView pinBoardList(PageMaker pagemaker,
+			@RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -134,7 +152,7 @@ public class AdminController {
 		pagemaker.setPage(page);
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);
-		int totalCnt = pinService.selectListCnt(map); 
+		int totalCnt = pinService.selectListCnt(map);
 		int countPerPage = 10;
 		int countPerPaging = 10;
 
@@ -152,6 +170,7 @@ public class AdminController {
 		logger.info(list.toString());
 		return mav;
 	}
+
 	@RequestMapping("deletePinBoard.do")
 	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
 		pinService.deleteAllPin(pinboardno);
