@@ -87,6 +87,29 @@
 			username = #{username}
 	</select>
 	
+	<update id="modifyAllUsersGradeInitialize">
+		update tbl_user set grade_idx = 1
+	</update>
+	
+	<update id="modifyAllUsersGrade" parameterType="grade">
+		update tbl_user set grade_idx = #{idx}
+		where username in (
+			select username from (
+				select 
+					p.username, sum(i.saleprice*s.count) sum 
+				from 
+					tbl_item i, tbl_sales s, tbl_purchase p
+				where i.itemid = s.itemid
+					and p.purchaseid=s.purchaseid
+					and purchasedate <![CDATA[<]]> now()
+					and purchasedate <![CDATA[>]]> DATE_ADD(NOW(), INTERVAL - #{buy_term} MONTH)
+				group by username
+			) X 
+		where X.sum <![CDATA[>=]]> #{min} 
+			and X.sum <![CDATA[<]]> #{max}
+		)
+	</update>
+	
 	<select id="selectUserPurchaseCount" resultType="int" parameterType="String">
 		select
 			count(*)

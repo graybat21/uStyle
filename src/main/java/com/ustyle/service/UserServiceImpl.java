@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ustyle.domain.Grade;
 import com.ustyle.domain.User;
 import com.ustyle.persistence.UserDAO;
 
@@ -77,6 +78,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User selectOneUser(String username) throws Exception {
 		return dao.selectOneUser(username);
+	}
+	
+	@Override
+	public void modifyAllUsersGradeInitialize() {
+		dao.modifyAllUsersGradeInitialize();
+	}
+
+	@Override
+	public void modifyAllUsersGrade(Grade grade) {
+		dao.modifyAllUsersGrade(grade);
 	}
 	
 	@Override

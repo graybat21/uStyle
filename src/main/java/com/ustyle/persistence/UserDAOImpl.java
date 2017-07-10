@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.ustyle.domain.Grade;
 import com.ustyle.domain.User;
 
 @Repository
@@ -71,6 +72,16 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User selectOneUser(String username) {
 		return session.selectOne(namespace + ".selectUserOne", username);
+	}
+	
+	@Override
+	public void modifyAllUsersGradeInitialize() {
+		session.update(namespace+".modifyAllUsersGradeInitialize");
+	}
+
+	@Override
+	public void modifyAllUsersGrade(Grade grade) {
+		session.update(namespace+".modifyAllUsersGrade", grade);
 	}
 	
 	@Override
