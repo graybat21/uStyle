@@ -7373,7 +7373,7 @@ div.desc {
     text-align: left;
 }
 .product-view .box {
-    margin-bottom: 50px;
+   /* margin-bottom: 50px;*/
 }
 .product-view .data-table tr td,
 .product-view .data-table th {

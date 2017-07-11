@@ -297,17 +297,16 @@ public class UserController {
 		pagemaker.setPage(page);
 		pagemaker.setCount(purchaseCount, pageCnt, 10);		// 구매한 상품들을 10개씩 보여줌
 		
-		int first = ((pagemaker.getPage() - 1) * pageCnt) + 1;
-		int last = ( first + pageCnt - 1 > purchaseCount ) ? purchaseCount : first + pageCnt - 1;
+		int start = ((pagemaker.getPage() - 1) * pageCnt);
 		
 		logger.info("PURCHASECOUNT = " + purchaseCount);
-		logger.info("FIRST = " + first);
-		logger.info("LAST = " + last);
+		logger.info("START = " + start);
+		logger.info("PAGECNT = " + pageCnt);
 
 		HashMap<String, Object> searchQueryMap = new HashMap<String, Object>();
 		searchQueryMap.put("username", loginUsername);
-		searchQueryMap.put("first", first);
-		searchQueryMap.put("last", last);
+		searchQueryMap.put("start", start);
+		searchQueryMap.put("pagecnt", pageCnt);
 		
 		List<HashMap<String, Object>> userPurchaseList = userService.selectUserPurchaseList(searchQueryMap);
 		
@@ -320,6 +319,9 @@ public class UserController {
 		        logger.info(" value = " + map.get(key));
 		    }
 		}
+		
+		int first = start + 1;
+		int last = ( first + pageCnt - 1 > purchaseCount ) ? purchaseCount : first + pageCnt - 1;
 		
 		mav.addObject("userPurchaseList", userPurchaseList);
 		mav.addObject("purchaseCount", purchaseCount);

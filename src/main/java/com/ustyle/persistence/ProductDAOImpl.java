@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.ustyle.domain.Product;
+import com.ustyle.domain.Review;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -21,6 +22,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void insert(Product product) throws Exception {
 		session.insert(namespace + ".insert", product);
+	}
+	
+	@Override
+	public void writeReview(Review review) throws Exception {
+		session.insert(namespace + ".writeReview", review);
 	}
 
 	@Override
@@ -51,6 +57,16 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception {
 		return session.selectList(namespace + ".productListForSubcategory", map);
+	}
+	
+	@Override
+	public int selectReviewCnt(Integer productid) throws Exception {
+		return session.selectOne(namespace + ".selectReviewCnt", productid);
+	}
+	
+	@Override
+	public List<Review> selectReviewList(HashMap<String, Object> reviewMap) throws Exception {
+		return session.selectList(namespace + ".selectReviewList", reviewMap);
 	}
 
 	@Override

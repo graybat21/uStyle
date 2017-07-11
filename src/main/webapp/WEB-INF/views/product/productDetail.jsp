@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 	<body class="contacts-index-index ">
     	
         <div class="wrapper">
@@ -47,7 +47,7 @@
                                         <div class="product-view">
                                             <div class="product-essential">
                                                 <form action="/cart/addCart.do" method="post" id="product_addtocart_form" name="product_addtocart_form">
-                                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                                   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                                     <input type="hidden" id="selectedItemColor" name="color" value="" />
                                                     <input type="hidden" id="selectedItemSize" name="size" value="" />
                                                     <input type="hidden" id="productid" name="productid" value="${product.productid}" />
@@ -232,7 +232,7 @@
                                                                             <p class="note">Use spaces to separate tags. Use single quotes (') for phrases.</p>
                                                                         </div><!-- /.box-collateral-content -->
                                                                     </div><!-- /.box-collateral -->
-                                                                    <div class="box-collateral em-line-01">
+                                                                    <%--div class="box-collateral em-line-01">
                                                                         <div class="em-block-title">
                                                                             <h2>Custom Tab N</h2>
                                                                         </div>
@@ -249,7 +249,7 @@
                                                                             <p>Sample Block Here ...</p>
                                                                             <p>A sample of additional collateral tabs that you can insert in static the backend.</p>
                                                                         </div>
-                                                                    </div><!-- /.box-collateral -->
+                                                                    </div--%><!-- /.box-collateral -->
                                                                 </div><!-- /.em-details-tabs-content -->
                                                             </div><!-- /.em-details-tabs -->
                                                             <div class="box-collateral box-reviews em-line-01" id="customer-reviews">
@@ -258,119 +258,59 @@
                                                                         <div class="em-block-title">
                                                                             <h2>Write Your Own Review</h2>
                                                                         </div>
-                                                                        <form method="post" id="review-form">
+                                                                        <form action="/product/productReview.do" method="post" id="review-form" onsubmit="return verifyReview()">
+																			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+																			<input type="hidden" name="productid" value="${product.productid}" />
                                                                             <fieldset>
                                                                                 <h3>You're reviewing: <span>Configurable Product</span></h3>
                                                                                 <ul class="form-list">
                                                                                     <li>
-                                                                                        <label for="nickname_field" class="required"><em>*</em>Nickname</label>
+                                                                                        <label for="username_field" class="required"><em>*</em>Username</label>
                                                                                         <div class="input-box">
-                                                                                            <input type="text" name="nickname" id="nickname_field" class="input-text required-entry" value="" />
+                                                                                            <input type="text" name="username" id="username" class="input-text required-entry" value="${session_user['username']}" readonly/>
                                                                                         </div>
                                                                                     </li>
-                                                                                    <li>
+                                                                                    <%--li>
                                                                                         <label for="summary_field" class="required"><em>*</em>Summary of Your Review</label>
                                                                                         <div class="input-box">
                                                                                             <input type="text" name="title" id="summary_field" class="input-text required-entry" value="" />
                                                                                         </div>
-                                                                                    </li>
+                                                                                    </li--%>
                                                                                     <li>
                                                                                         <label for="review_field" class="required"><em>*</em>Review</label>
                                                                                         <div class="input-box">
-                                                                                            <textarea name="detail" id="review_field" cols="5" rows="3" class="required-entry"></textarea>
+                                                                                            <textarea name="contents" id="contents" cols="5" rows="3" class="required-entry"></textarea>
                                                                                         </div>
                                                                                     </li>
                                                                                 </ul>
                                                                             </fieldset>
-                                                                            <h4>How do you rate this product? <em class="required">*</em></h4> <span id="input-message-box"></span>
-                                                                            <table class="data-table" id="product-review-table">
-                                                                                <col style="width:1%;" />
-                                                                                <col style="width:1%;" />
-                                                                                <col style="width:1%;" />
-                                                                                <col style="width:1%;" />
-                                                                                <col style="width:1%;" />
-                                                                                <col style="width:1%;" />
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th>&nbsp;</th>
-                                                                                        <th><span class="nobr">1 star</span>
-                                                                                        </th>
-                                                                                        <th><span class="nobr">2 stars</span>
-                                                                                        </th>
-                                                                                        <th><span class="nobr">3 stars</span>
-                                                                                        </th>
-                                                                                        <th><span class="nobr">4 stars</span>
-                                                                                        </th>
-                                                                                        <th><span class="nobr">5 stars</span>
-                                                                                        </th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr>
-                                                                                        <th>Price</th>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[3]" id="Price_1" value="11" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[3]" id="Price_2" value="12" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[3]" id="Price_3" value="13" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[3]" id="Price_4" value="14" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[3]" id="Price_5" value="15" class="radio" />
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th>Value</th>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[2]" id="Value_1" value="6" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[2]" id="Value_2" value="7" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[2]" id="Value_3" value="8" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[2]" id="Value_4" value="9" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[2]" id="Value_5" value="10" class="radio" />
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th>Quality</th>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[1]" id="Quality_1" value="1" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[1]" id="Quality_2" value="2" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[1]" id="Quality_3" value="3" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[1]" id="Quality_4" value="4" class="radio" />
-                                                                                        </td>
-                                                                                        <td class="value">
-                                                                                            <input type="radio" name="ratings[1]" id="Quality_5" value="5" class="radio" />
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                            <input type="hidden" name="validate_rating" class="validate-rating" value="" />
                                                                             <div class="buttons-set">
-                                                                                <button type="submit" title="Submit Review" class="button"><span><span>Submit Review</span></span>
+                                                                                <button type="button" id="submit_Review" name="submit_Review" title="Submit Review" class="button"><span><span>Submit Review</span></span>
                                                                                 </button>
                                                                             </div>
                                                                         </form>
                                                                     </div>
                                                                 </div><!-- /.form_review -->
                                                             </div><!-- /.box-collateral -->
+                                                            <div class="block block-sample">
+                                                                <div class="em-line-01">
+                                                                    <div class="em-block-title">
+                                                                        <h2><span>Product Reviews</span></h2>
+                                                                    </div>
+                                                                    <div id="block-reviewlist">
+                                                                	</div>
+                                                                </div>
+                                                            </div><!-- /.block -->
+                                                            <div class="toolbar-bottom em-box-03">
+				                                                <div class="toolbar">
+				                                                    <div class="pager">
+				                                                        <p class="amount"> Total ${totalReviewCnt} reviews</p>
+				                                                        <div class="pages pagination">
+
+				                                                        </div>
+				                                                    </div><!-- /.pager -->
+				                                                </div>
+				                                            </div><!-- /.toolbar-bottom -->
                                                             <div class="box-collateral box-up-sell em-line-01" id="em-wrapper-upsell">
                                                                 <div>
                                                                     <div class="em-block-title">
@@ -398,7 +338,7 @@
                                                                                                 <a href="#" class="minimal-price-link"> <span class="label">As low as:</span> <span class="price" id="product-minimal-price-120-upsell"> $18.00 </span> </a>
                                                                                             </div>
                                                                                             <div class="em-btn-addto">
-                                                                                                <button type="button" title="Add to Cart" class="button btn-cart"><span><span>Add to Cart</span></span>
+                                                                                                <button type="submit" title="Add to Cart" class="button btn-cart"><span><span>Add to Cart</span></span>
                                                                                                 </button>
                                                                                                 <ul class="add-to-links">
                                                                                                     <li><a href="#" class="link-wishlist" title="Add to Wishlist">Add to Wishlist</a>
@@ -453,7 +393,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
-                                                                <div class="em-block-title" data-collapse-target="#collapse02">
+                                                                <%--div class="em-block-title" data-collapse-target="#collapse02">
                                                                     <p class="h4 em-text-upercase"><span>Newsletter</span>
                                                                     </p>
                                                                 </div>
@@ -475,7 +415,7 @@
                                                                             </form>
                                                                         </div>
                                                                     </div>
-                                                                </div><!-- /#collapse02 -->
+                                                                </div--%><!-- /#collapse02 -->
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <div class="em-block-title" data-collapse-target="#collapse03">
@@ -576,10 +516,128 @@
             </div><!-- /.page -->
             
         </div><!-- /.wrapper -->
-
+        
+        <script id="template" type="text/x-handlebars-template">
+		{{#each this}}
+		<div class="block-content box">
+			<p style="text-align:left">{{this.contents}}</p>
+			<p style="text-align:right">작성자 : {{this.username}}</p>
+			<p style="text-align:right">작성일 : {{prettifyDate this.regdate}}</p>
+		</div>
+		{{else}}
+		<div class="block-content box">
+			<p style="text-align:center">작성된 리뷰가 없습니다.</p>
+		</div>
+		{{/each}}
+		</script>
+		
         <!-- Page Configuration -->
         <script type="text/javascript">
             layout = '1column';
+            var header = $("meta[name='_csrf_header']").attr("content");
+        	var token  = $("meta[name='_csrf']").attr("content");
+        	var productid =  $("#productid").val();
+        	
+        	function getPage(pageInfo) {
+        		$.getJSON(pageInfo, function(data) {
+        			printData(data.reviewList, $("#block-reviewlist"), $("#template"));
+        			
+        			if ( data.reviewList != '' )
+        				printPaging(data.pageMaker, $(".pagination"));
+        		});
+        	}
+        	
+        	Handlebars.registerHelper("prettifyDate", function(timeValue) {
+        		var dateObj = new Date(timeValue);
+        		var year = dateObj.getFullYear();
+      			var month = dateObj.getMonth() + 1;
+      			var date = dateObj.getDate();
+      			
+      			return year + "-" + month + "-" + date;
+        	});
+        	
+        	var printData = function (reviewArr, target, templateObject) {
+        		var template = Handlebars.compile(templateObject.html());
+        		
+        		var html = template(reviewArr);
+        		$(".block-content").remove();
+        		
+        		target.after(html);
+        	};
+        	
+        	var printPaging = function(pageMaker, target) {
+        		var str = "<ol>";
+        		//<li><a class="fa fa-angle-left" href="${purchaseListP }" title="Prev"> </a></li>
+        		//<a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${purchaseListP }'>${idx}</a>
+        		if ( pageMaker.prev )
+        			str += "<li><a class='fa fa-angle-left' href='" + (pageMaker.start - 1) + "' title='Prev'></a></li>";
+        		
+        		for ( var i = pageMaker.start, len = pageMaker.end; i <= len; i++ ) {
+        			var strClass = ( pageMaker.page == i ) ? "current" : "";
+        			str += "<li><a class='" + strClass +"' href='" + i + "'>" + i + "</a></li>";
+        		}
+        			
+        		if ( pageMaker.next )
+        			str += "<li><a class='fa fa-angle-right' href='" + (pageMaker.end + 1) + "' title='Next'></a></li>";
+        		
+        		str += "</ol>";
+        		
+        		target.html(str);
+        	};
+        	
+            $(document).ready(function() { 
+            	getPage("/reviews/" + productid + "/1"); 
+            });
+            
+            $(".pagination").on("click", "li a", function(event) {
+            	event.preventDefault();
+            	
+            	replyPage = $(this).attr("href");
+            	
+            	getPage("/reviews/" + productid + "/" + replyPage);
+            });
+            
+            $("#submit_Review").on("click", function() {
+            	var username =  $("#username").val();
+            	var contents = $("#contents").val().trim();
+            	
+            	if ( username == '' )
+            	{
+            		alert("로그인 후 작성하실 수 있습니다.");
+            		return false;
+            	}
+            	else if ( contents == '' )
+            	{
+            		alert("내용을 입력해주세요.");
+            		return false;
+            	}
+            	else if ( contents.length > 150 )
+            	{
+            		alert("리뷰 내용은 띄어쓰기를 포함하여 최대 150자로 제한됩니다.");
+            		return false;
+            	}
+            	
+            	$.ajax({
+            		type: 'post',
+            		url: '/reviews/',
+            		beforeSend: function(xhr){
+        				xhr.setRequestHeader(header, token);
+        		    },
+            		headers: {
+            			"Content-Type" : "application/json",
+            			"X-HTTP-Method-Override" : "POST"
+            		},
+            		dataType: "text",
+            		data: JSON.stringify({username: username, contents: contents, productid: productid}),
+            		success: function(result) {
+            			console.log("result: " + result);
+            			if ( result == 'SUCCESS' ) {
+            				alert("상품에 대한 리뷰가 추가되었습니다.");
+            				location.href = "/product/productDetail.do?productid=" + productid;
+            			}
+            		}
+            	});
+            });
         </script>
         <!-- Product View Js -->
         <script type="text/javascript" src="/resources/js/em_product_view.js"></script>

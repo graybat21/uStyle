@@ -15,6 +15,11 @@
     	</choose>
     </insert>
     
+    <insert id="writeReview" parameterType="review">
+   		insert into tbl_review(contents, regdate, username, productid)
+   		values(#{contents}, now(), #{username}, #{productid})
+    </insert>
+    
     <select id="read" resultType="product">
  		select * from tbl_product where productid=#{productid}
  	</select>
@@ -116,6 +121,26 @@
 		WHERE 
 			subcategory = #{subcategory} 
 		GROUP BY originalprice
+	</select>
+	
+	<select id="selectReviewCnt" parameterType="int" resultType="int">
+		select
+			count(*)
+		from
+			tbl_review
+		where
+			productid = #{productid}
+	</select>
+	
+	<select id="selectReviewList" parameterType="hashmap" resultType="hashmap">
+		select
+			*
+		from
+			tbl_review
+		where
+			productid = #{productid}
+		order by reviewid desc
+		limit #{start}, #{pagecnt}
 	</select>
 	
 	<update id="update" parameterType="product">
