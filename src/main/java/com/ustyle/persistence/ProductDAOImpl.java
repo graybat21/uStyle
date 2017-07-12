@@ -60,16 +60,6 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public int selectReviewCnt(Integer productid) throws Exception {
-		return session.selectOne(namespace + ".selectReviewCnt", productid);
-	}
-	
-	@Override
-	public List<Review> selectReviewList(HashMap<String, Object> reviewMap) throws Exception {
-		return session.selectList(namespace + ".selectReviewList", reviewMap);
-	}
-
-	@Override
 	public void update(Product product) throws Exception {
 		session.update(namespace + ".update", product);
 	}

@@ -48,9 +48,21 @@ public class UserController {
 
 	@Inject
 	BCryptPasswordEncoder passwordEncoder;
+	
+	/**
+	 * 홈페이지 호출
+	 * 
+	 * @return 홈 페이지
+	 */
+	
+	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	public String Index() {
+		return "user/index/uStyleHome";
+	}
 
 	/**
-	 * 로그인 페이지를 띄워주는 메소드
+	 * 로그인 페이지를 호출함
+	 * 
 	 * @param request
 	 * @return 각각의 페이지(로그인이 이미 되어있는 경우, 메인 페이지로 리다이렉션됨)
 	 */
@@ -61,7 +73,8 @@ public class UserController {
 	}
 	
 	/**
-	 * 로그인 페이지에서 로그인 버튼을 눌렀을 때 수행되는 메소드
+	 * 로그인 페이지에서 로그인 버튼을 눌러서 회원의 로그인을 진햄함
+	 * 
 	 * @param request, user
 	 * @return 로그인 이전 페이지, 만약 없거나 로그인 페이지일 경우 메인 페이지
 	 */
@@ -104,7 +117,8 @@ public class UserController {
 	}
 	
 	/**
-	 * 로그아웃을 수행하는 메소드
+	 * 회원의 로그아웃 수행
+	 * 
 	 * @param request
 	 * @return 로그인 페이지
 	 */
@@ -123,16 +137,27 @@ public class UserController {
 
 		return mav;
 	}
+	
+	/**
+	 * 회원가입 페이지를 호출함
+	 * 
+	 * @return 회원가입 페이지
+	 */
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.GET)
 	public String registerForm() {
 		return "user/register/Register";
 	}
 	
-	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
-	public String Index() {
-		return "user/index/uStyleHome";
-	}
+	/**
+	 * 회원가입 진행 
+	 * 
+	 * @param user
+	 * @param bindingResult
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, HttpSession session)
@@ -161,12 +186,29 @@ public class UserController {
 
 		return mav;
 	}
+	
+	/**
+	 * 회원정보 수정 페이지를 불러옴
+	 * 
+	 * @param session
+	 * @return 회원정보 수정 페이지
+	 */
 		
 	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
 	public String updateForm(HttpSession session) {
 		return "user/update/Update";
 		
 	}
+	
+	/**
+	 * 회원정보 수정 작업 진행
+	 * 
+	 * @param updateUser
+	 * @param bindingResult
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
 	
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute @Valid User updateUser, BindingResult bindingResult, HttpSession session)
@@ -218,6 +260,15 @@ public class UserController {
 		return "redirect:/logout.do";
 	}
 	
+	/**
+	 * 가입인증 메일을 보내는 작업
+	 * 
+	 * @param username
+	 * @param email
+	 * @param joinCode
+	 * @throws Exception
+	 */
+	
 	private void sendMail(String username, String email, String joinCode) throws Exception {
 
 		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
@@ -243,6 +294,15 @@ public class UserController {
 
 		javaMailSenderImpl.send(mimeMessage);
 	}
+	
+	/**
+	 * 가입인증 메일에 있는 링크를 통한 인증 작업 진행
+	 * 
+	 * @param username
+	 * @param auth
+	 * @return mav
+	 * @throws Exception
+	 */
 
 	@RequestMapping(value = "/auth/{username}/{auth}")
 	public ModelAndView authOk(@PathVariable String username, @PathVariable String auth) throws Exception {
@@ -263,16 +323,36 @@ public class UserController {
 
 		return mav;
 	}
+	
+	/**
+	 * 인증에 성공했을 때 호출됨.
+	 * 
+	 * @return 인증 성공 페이지
+	 */
 
 	@RequestMapping("/authSuccess.do")
 	public String authSuccess() {
 		return "user/authSuccess/인증 성공";
 	}
+	
+	/**
+	 * 인증에 실패했을 때 호출됨.
+	 * 
+	 * @return 인증 실패 페이지
+	 */
 
 	@RequestMapping("/authError.do")
 	public String authError() {
 		return "user/authError/인증 실패";
 	}
+	
+	/**
+	 * 이미 가입된 회원이 있는지 확인하기 위해 호출되는 메소드
+	 * 
+	 * @param username
+	 * @return
+	 * @throws Exception
+	 */
 
 	@RequestMapping(value = "/duplicationCheck.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -282,6 +362,15 @@ public class UserController {
 		int isUserExist = userService.userExist(username);
 		return isUserExist;
 	}
+	
+	/**
+	 * 회원의 구매내역을 불러옴
+	 * 
+	 * @param session
+	 * @param pageCount
+	 * @return mav
+	 * @throws Exception
+	 */
 	
 	@RequestMapping("/purchaseList.do")
 	public ModelAndView purchaseList(HttpSession session, Integer pageCount) throws Exception {
@@ -331,6 +420,12 @@ public class UserController {
 		
 		return mav;
 	}
+	
+	/**
+	 * 고유성 보장을 위해 '-'가 빠진 범용 고유 식별자(UUID, 소프트웨어 구축에 쓰이는 식별자 표준)를 가져옴.
+	 * 
+	 * @return '-'가 빠진 범용 고유 식별자
+	 */
 
 	private String getUuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "");

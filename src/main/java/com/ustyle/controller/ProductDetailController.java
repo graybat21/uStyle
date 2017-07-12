@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Item;
 import com.ustyle.domain.Product;
-import com.ustyle.domain.Review;
 import com.ustyle.service.ItemService;
 import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
@@ -35,6 +34,18 @@ public class ProductDetailController {
 	
 	@Inject
 	private ItemService itemService;
+	
+	/**
+	 * 특정 카테고리에 대한 상품 리스트를 불러옴(옵션에 따른 정렬 가능)
+	 * 
+	 * @param pageCount
+	 * @param countPerPage
+	 * @param subcategory
+	 * @param brand
+	 * @param sortby
+	 * @return mav
+	 * @throws Exception
+	 */
 	
 	@RequestMapping(value = "productList.do", method = RequestMethod.GET)
 	public ModelAndView productList(@RequestParam(value = "pageCount", required = false) Integer pageCount, 
@@ -93,7 +104,7 @@ public class ProductDetailController {
 	}
 	
 	/**
-	 * 상품 상세정보를 상세페이지에 불러오는 메소드
+	 * 상품 상세정보를 상세페이지에 불러옴
 	 * 
 	 * @param productid
 	 * @return mav
@@ -128,7 +139,7 @@ public class ProductDetailController {
 	}
 	
 	/**
-	 * 선택된 색상에 해당하는 Item 객체 리스트를 가져오는 메소드
+	 * 선택된 색상에 해당하는 Item 객체 리스트를 가져옴
 	 * 
 	 * @param selectedColorItem
 	 * @return selectedColorItemList
@@ -148,7 +159,7 @@ public class ProductDetailController {
 	}
 	
 	/**
-	 * 선택된 색상, 사이즈에 해당하는 Item 객체 한 개를 가져오는 메소드
+	 * 선택된 색상, 사이즈에 해당하는 Item 객체 한 개를 가져옴
 	 * 
 	 * @param selectedSizeItem
 	 * @return selectedColorSizeItem

@@ -33,6 +33,15 @@ public class CartController {
 	@Inject
 	private CartService cartService;
 	
+	/**
+	 * 상품의 상세페이지에서 옵션을 선택한 후 장바구니 추가 버튼을 눌렀을 때 호출되며, 호출 후 장바구니 페이지로 리다이렉션됨.
+	 * 
+	 * @param cart
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
+	
 	@RequestMapping(value = "addCart.do", method = RequestMethod.POST)
 	public ModelAndView productToCart(@ModelAttribute Cart cart, HttpSession session) throws Exception {
 		
@@ -53,6 +62,14 @@ public class CartController {
 		mav.setViewName("redirect:/cart/viewCart.do");
 		return mav;
 	}
+	
+	/**
+	 * 로그인한 회원의 장바구니 페이지를 조회함
+	 * 
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
 	
 	@RequestMapping(value = "viewCart.do", method = RequestMethod.GET)
 	public ModelAndView viewCart(HttpSession session) throws Exception {
@@ -91,6 +108,14 @@ public class CartController {
 		
 	}
 	
+	/**
+	 * 장바구니에 있는 Item의 수량을 바꾼 후, 수정 버튼을 눌렀을 때 호출됨
+	 * 
+	 * @param cart
+	 * @return updatedItemCart
+	 * @throws Exception
+	 */
+	
 	@ResponseBody
 	@RequestMapping(value = "updateCart.do", method = RequestMethod.POST)
 	public Cart updateCart(@RequestBody Cart cart) throws Exception {
@@ -102,6 +127,14 @@ public class CartController {
 		
 		return updatedItemCart;
 	}
+	
+	/**
+	 * 장바구니에 있는 특정 Item을 삭제했을 때 호출됨
+	 * 
+	 * @param cart
+	 * @return deletedItemCart
+	 * @throws Exception
+	 */
 	
 	@ResponseBody
 	@RequestMapping(value = "deleteCart.do", method = RequestMethod.POST)
@@ -115,6 +148,14 @@ public class CartController {
 		
 		return deletedItemCart;
 	}
+	
+	/**
+	 * 장바구니에 있는 모든 Item을 삭제할 때 호출됨
+	 * 
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
 	
 	@RequestMapping(value = "deleteAllCart.do", method = RequestMethod.POST)
 	public ModelAndView deleteAllCart(HttpSession session) throws Exception {

@@ -83,10 +83,21 @@
 			<if test="brand != null || brand == ''">
 			AND brand = #{brand}
 			</if>
-          	ORDER BY ${sortby} DESC
+			<choose>
+				<when test="sortby == 'saleprice_asc'">
+	          	ORDER BY saleprice ASC
+	          	</when>
+	          	<when test="sortby == 'saleprice_desc'">
+	          	ORDER BY saleprice DESC
+	          	</when>
+	          	<otherwise>
+	          	ORDER BY #{sortby} DESC
+	          	</otherwise>
+          	</choose>
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
+	
 	<select id="brandListForSubcategory" parameterType="String" resultType="hashmap">
 		SELECT 
 			count(brand) count, brand 
@@ -96,6 +107,7 @@
 			subcategory = #{subcategory} 
 		GROUP BY brand
 	</select>
+	
 	<select id="subcategoryListForSubcategory" parameterType="String" resultType="hashmap">
 		SELECT 
 			count(subcategory) count, subcategory 
@@ -113,6 +125,7 @@
 			) 
 		GROUP BY subcategory
 	</select>
+	
 	<select id="priceRangeForSubcategory" parameterType="String" resultType="int">
 		SELECT 
 			count(originalprice) count, originalprice 
@@ -121,26 +134,6 @@
 		WHERE 
 			subcategory = #{subcategory} 
 		GROUP BY originalprice
-	</select>
-	
-	<select id="selectReviewCnt" parameterType="int" resultType="int">
-		select
-			count(*)
-		from
-			tbl_review
-		where
-			productid = #{productid}
-	</select>
-	
-	<select id="selectReviewList" parameterType="hashmap" resultType="hashmap">
-		select
-			*
-		from
-			tbl_review
-		where
-			productid = #{productid}
-		order by reviewid desc
-		limit #{start}, #{pagecnt}
 	</select>
 	
 	<update id="update" parameterType="product">

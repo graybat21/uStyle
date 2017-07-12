@@ -23,15 +23,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insert(Product product) throws Exception {
 		dao.insert(product);
-
-		// String[] files = product.getFiles();
-		//
-		// String filesStr = Arrays.toString(files);
-		//
-		// System.out.println(filesStr);
-		//
-		// if ( files == null )
-		// return;
 	}
 	
 	@Override
@@ -71,16 +62,6 @@ public class ProductServiceImpl implements ProductService {
 		return dao.productListForSubcategory(map);
 	}
 	
-	@Override
-	public int selectReviewCnt(Integer productid) throws Exception {
-		return dao.selectReviewCnt(productid);
-	}
-	
-	@Override
-	public List<Review> selectReviewList(HashMap<String, Object> reviewMap) throws Exception {
-		return dao.selectReviewList(reviewMap);
-	}
-
 	@Override
 	public void update(Product product) throws Exception {
 		dao.update(product);

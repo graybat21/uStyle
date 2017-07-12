@@ -49,6 +49,14 @@ public class CheckoutController {
 	@Inject
 	private SalesService salesService;
 	
+	/**
+	 * 장바구니 페이지에서 결제 버튼을 눌렀을 때 호출됨
+	 * 
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
+	
 	@ResponseBody
 	@RequestMapping(value = "checkout.do", method = RequestMethod.POST)
 	public ModelAndView checkout(HttpSession session) throws Exception {
@@ -126,6 +134,16 @@ public class CheckoutController {
 		
 		return mav;
 	}
+	
+	/**
+	 * 결제 페이지에서 배송지와 사용할 포인트를 입력한 후, 최종적으로 결제 버튼을 눌렀을 때 호출됨
+	 * 
+	 * @param session
+	 * @param purchase
+	 * @param totalprice
+	 * @return mav
+	 * @throws Exception
+	 */
 	
 	@RequestMapping(value = "checkoutSuccess.do", method = RequestMethod.POST)
 	public ModelAndView checkoutSuccess(HttpSession session, 

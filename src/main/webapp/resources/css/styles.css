@@ -956,7 +956,7 @@ p.required {
 }
 .pager select,
 .sorter select {
-    width: 100px;
+    width: 120px;
     padding: 5px 10px;
     height: 31px;
     line-height: 30px;

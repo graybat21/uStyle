@@ -29,6 +29,12 @@ public class ReviewController
 	@Inject
 	private ReviewService service;
 	
+	/**
+	 * 상품 리뷰를 추가할 때 호출되는 메소드
+	 * @param review
+	 * @return entity
+	 */
+	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody Review review)
 	{
@@ -48,64 +54,12 @@ public class ReviewController
 		return entity;
 	}
 	
-	@RequestMapping(value = "/all/{bno}", method = RequestMethod.GET)
-	public ResponseEntity<List<Review>> list(@PathVariable("bno") Integer bno)
-	{
-		ResponseEntity<List<Review>> entity = null;
-		
-		try
-		{
-			entity = new ResponseEntity<>(service.listReply(bno), HttpStatus.OK);
-		}
-		catch ( Exception e )
-		{
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
-	
-	@RequestMapping(value = "/{rno}", method = { RequestMethod.PUT, RequestMethod.PATCH })
-	public ResponseEntity<String> update(@PathVariable("rno") Integer rno, @RequestBody Review vo)
-	{
-		ResponseEntity<String> entity = null;
-		
-		try
-		{
-//			vo.setRno(rno);
-			service.modifyReply(vo);
-			
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		}
-		catch ( Exception e )
-		{
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
-	
-	@RequestMapping(value = "/{rno}", method = { RequestMethod.DELETE })
-	public ResponseEntity<String> remove(@PathVariable("rno") Integer rno)
-	{
-		ResponseEntity<String> entity = null;
-		
-		try
-		{
-			service.removeReply(rno);
-			
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		}
-		catch ( Exception e )
-		{
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
+	/**
+	 * 한 페이지당 상품 리뷰를 다섯개씩 보여주는 메소드
+	 * @param productid
+	 * @param page
+	 * @return entity
+	 */
 	
 	@RequestMapping(value = "/{productid}/{page}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> listPage(
@@ -115,9 +69,6 @@ public class ReviewController
 		
 		try
 		{
-//			Criteria cri = new Criteria();
-//			cri.setPage(page);
-//			
 			PageMaker pagemaker = new PageMaker();
 			
 			int pagecnt = 5;		// 상세페이지를 로드할 때, 가장 최근에 작성한 다섯개의 리뷰만 보여지도록 함.
@@ -125,7 +76,6 @@ public class ReviewController
 			int start = (page - 1) * pagecnt;
 			
 			pagemaker.setPage(page);
-//			pageMaker.setCri(cri);
 			
 			int totalReviewCnt = service.selectReviewCnt(productid); // DB연동_ 총 갯수 구해오기
 			logger.info("totalReviewCnt = " + totalReviewCnt);
@@ -140,6 +90,7 @@ public class ReviewController
 			List<Review> reviewList = service.selectReviewList(reviewMap);
 			
 			reviewMap.put("reviewList", reviewList);
+			reviewMap.put("totalReviewCnt", totalReviewCnt);
 			reviewMap.put("pageMaker", pagemaker);
 			
 			entity = new ResponseEntity<Map<String, Object>>(reviewMap, HttpStatus.OK);

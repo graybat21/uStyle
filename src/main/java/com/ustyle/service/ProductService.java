@@ -15,8 +15,6 @@ public interface ProductService {
 	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception;
 	public Product read(Integer productid) throws Exception;
 	public String selectPictureurl(Integer productid) throws Exception;
-	public int selectReviewCnt(Integer productid) throws Exception;
-	public List<Review> selectReviewList(HashMap<String, Object> reviewMap) throws Exception;
 	public void update(Product product) throws Exception;
 	public void delete(int productid) throws Exception;
 	public int getNewProductId() throws Exception;

@@ -10,8 +10,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,34 +34,57 @@ public class ItemController {
 	@Inject
 	private ItemService itemService;
 	
+	/**
+	 * 관리자 페이지에서 특정 상품에 해당하는 Item을 추가하기 위한 페이지를 불러옴
+	 * 
+	 * @param productid
+	 * @return mav
+	 * @throws Exception
+	 */
 
 	@RequestMapping(value = "addItem.do", method = RequestMethod.GET)
-	public String addItemForm(@RequestParam(value = "productid", required = false) Integer productid, Model model)
+	public ModelAndView addItemForm(@RequestParam(value = "productid", required = false) Integer productid)
 			throws Exception {
+		
+		ModelAndView mav = new ModelAndView("item/addItem");
+		
 		Product product = productService.read(productid);
 		
 		int originalprice = product.getOriginalprice();
 		int saleprice = product.getSaleprice();
-		
 			
-		model.addAttribute("productid", productid);
-		model.addAttribute("originalprice", originalprice);
-		model.addAttribute("saleprice", saleprice);
-		return "item/addItem";
-	}
-	
-	@RequestMapping(value = "addItem.do", method = RequestMethod.POST)
-	public ModelAndView addItem(@ModelAttribute @Valid Item item)
-			throws Exception {
-		
-		logger.info(item.toString());
-
-		ModelAndView mav = new ModelAndView("main/base");
-
-		itemService.insert(item);
-		mav.addObject(item);
+		mav.addObject("productid", productid);
+		mav.addObject("originalprice", originalprice);
+		mav.addObject("saleprice", saleprice);
 		return mav;
 	}
+	
+	/**
+	 * Item을 추가하는 페이지의 form을 이용하여 Item을 추가함
+	 * 
+	 * @param item
+	 * @return productList
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value = "addItem.do", method = RequestMethod.POST)
+	public String addItem(@ModelAttribute @Valid Item item) throws Exception {
+		
+		logger.info(item.toString());
+		itemService.insert(item);
+		
+		return "redirect:/admin/product/productList.do";
+	}
+	
+	/**
+	 * 관리자 페이지에서 특정 옵션에 따른 검색을 통하여 그 조건에 맞는 Item을 호출함
+	 * 
+	 * @param pagemaker
+	 * @param searchOption
+	 * @param searchKeyword
+	 * @return mav
+	 * @throws Exception
+	 */
 	
 	@RequestMapping("itemList.do")
 	public ModelAndView itemList(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
@@ -101,32 +122,48 @@ public class ItemController {
 		return mav;
 	}
 	
+	/**
+	 * Item 정보를 수정하기 위해 불러올 페이지를 호출함
+	 * @param itemid
+	 * @return mav
+	 * @throws Exception
+	 */
+	
 	@RequestMapping(value = "modifyItem.do", method = RequestMethod.GET)
-	public String modifyItemForm(@RequestParam("itemid") Integer itemid, 
-			Model model) throws Exception {
+	public ModelAndView modifyItemForm(@RequestParam("itemid") Integer itemid) throws Exception {
+		ModelAndView mav = new ModelAndView("item/modifyItem");
 		
 		Item modifyItem = itemService.read(itemid);
 		
 		logger.info(modifyItem.toString());
 		
-		model.addAttribute("item", modifyItem);
-//		model.addAttribute("page", page);				// 목록으로 돌아갈 때, 페이지 번호를 유지시킴
-
-		return "item/modifyItem";
-	}
-	
-	@RequestMapping(value = "modifyItem.do", method = RequestMethod.POST)
-	public ModelAndView modifyItem(@ModelAttribute @Valid Item item)
-			throws Exception {
-
-		logger.info(item.toString());
-
-		ModelAndView mav = new ModelAndView("item/itemList");
-
-		itemService.update(item);
-		mav.addObject(item);
+		mav.addObject("item", modifyItem);
 		return mav;
 	}
+	
+	/**
+	 * Item 수정 페이지의 form을 이용하여 Item 수정 작업을 진행함 
+	 * 
+	 * @param item
+	 * @return productList
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value = "modifyItem.do", method = RequestMethod.POST)
+	public String modifyItem(@ModelAttribute @Valid Item item) throws Exception {
+		logger.info(item.toString());
+		itemService.update(item);
+		int productid = item.getProductid();
+		return "redirect:/admin/item/itemList.do?o=productid&k=" + productid;
+	}
+	
+	/**
+	 * 특정 Item을 삭제함
+	 * 
+	 * @param itemid
+	 * @return itemList 페이지
+	 * @throws Exception
+	 */
 	
 	@RequestMapping("deleteItem.do")
 	public String itemDelete(@RequestParam int itemid) throws Exception {
