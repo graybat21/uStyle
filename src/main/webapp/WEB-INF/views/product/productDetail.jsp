@@ -236,12 +236,18 @@
                                                                         <h2><span>Product Reviews</span></h2>
                                                                     </div>
                                                                     <div id="block-reviewlist">
+	                                                                    <div class="pagetotalcnt">
+	
+				                                                        </div>
                                                                 	</div>
                                                                 </div>
                                                             </div><!-- /.block -->
                                                             <div class="toolbar-bottom em-box-03">
 				                                                <div class="toolbar">
 				                                                    <div class="pager">
+					                                                    <div class="pages pagination">
+	
+				                                                        </div>
 				                                                    </div><!-- /.pager -->
 				                                                </div>
 				                                            </div><!-- /.toolbar-bottom -->
@@ -323,15 +329,17 @@
         <script type="text/javascript">
             layout = '1column';
             var header = $("meta[name='_csrf_header']").attr("content");
-        	var token  = $("meta[name='_csrf']").attr("content");
+            var token  = $("meta[name='_csrf']").attr("content");
         	var productid =  $("#productid").val();
         	
         	function getPage(pageInfo) {
         		$.getJSON(pageInfo, function(data) {
         			printData(data.reviewList, $("#block-reviewlist"), $("#template"));
         			
-        			if ( data.reviewList != '' )
-        				printPaging(data.pageMaker, data.totalReviewCnt, $(".pager"));
+        			if ( data.reviewList != '' ) {
+        				printReviewCnt(data.totalReviewCnt, $(".pagetotalcnt"));
+        				printPaging(data.pageMaker, $(".pagination"));
+        			}
         		});
         	}
         	
@@ -353,15 +361,15 @@
         		target.after(html);
         	};
         	
-        	var printPaging = function(pageMaker, totalReviewCnt, target) {
-        		if ( totalReviewCnt > 1 )
-        			var str = "<p class='amount'> Total " + totalReviewCnt + " reviews</p>";
-       			else
-        			var str = "<p class='amount'> Total " + totalReviewCnt + " review</p>";
-        			
-        		str += "<div class='pages pagination'>";
-        		str += "<ol>";
-
+        	var printReviewCnt = function(totalReviewCnt, target) {
+        		var str = "<p class='amount'>총 " + totalReviewCnt + "개의 리뷰가 작성되었습니다.</p>";
+        		
+        		target.html(str);
+        	};
+        	
+        	var printPaging = function(pageMaker, target) {
+        		var str = "<ol>";
+        		
         		if ( pageMaker.prev )
         			str += "<li><a class='fa fa-angle-left' href='" + (pageMaker.start - 1) + "' title='Prev'></a></li>";
         		
@@ -374,7 +382,6 @@
         			str += "<li><a class='fa fa-angle-right' href='" + (pageMaker.end + 1) + "' title='Next'></a></li>";
         		
         		str += "</ol>";
-        		str += "</div>";
         		
         		target.html(str);
         	};
@@ -385,7 +392,9 @@
             
             $(".pagination").on("click", "li a", function(event) {
             	event.preventDefault();
+            	
             	replyPage = $(this).attr("href");
+            	
             	getPage("/reviews/" + productid + "/" + replyPage);
             });
             
