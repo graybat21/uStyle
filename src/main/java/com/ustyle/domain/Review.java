@@ -3,11 +3,12 @@ package com.ustyle.domain;
 import java.util.Date;
 
 public class Review {
-	int reviewid;
-	String contents;
-	Date regdate;
-	String username;
-	int productid;
+	
+	private int reviewid;
+	private String contents;
+	private Date regdate;
+	private String username;
+	private int productid;
 	
 	public int getReviewid() {
 		return reviewid;

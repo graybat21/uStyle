@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Cart {
 
-	int cartno;
-	int count;
-	Date updateDate;
-	String username;
-	int itemid;
+	private int cartno;
+	private int count;
+	private Date updateDate;
+	private String username;
+	private int itemid;
 	
 	public int getCartno() {
 		return cartno;

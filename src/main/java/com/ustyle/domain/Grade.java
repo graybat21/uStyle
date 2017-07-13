@@ -2,13 +2,6 @@ package com.ustyle.domain;
 
 public class Grade {
 
-//	private Integer idx;
-//	private String grade;
-//	private String point_ratio;
-//	private Integer buy_term;
-//	private Integer min;
-//	private Integer max;
-	
 	private int idx;
 	private String grade;
 	private double point_ratio;
