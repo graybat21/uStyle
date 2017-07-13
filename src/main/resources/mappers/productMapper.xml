@@ -14,12 +14,7 @@
     	</otherwise>
     	</choose>
     </insert>
-    
-    <insert id="writeReview" parameterType="review">
-   		insert into tbl_review(contents, regdate, username, productid)
-   		values(#{contents}, now(), #{username}, #{productid})
-    </insert>
-    
+
     <select id="read" resultType="product">
  		select * from tbl_product where productid=#{productid}
  	</select>
@@ -84,15 +79,18 @@
 			AND brand = #{brand}
 			</if>
 			<choose>
+				<when test="sortby == 'productname'">
+	          	ORDER BY productname ASC
+	          	</when>
+	          	<when test="sortby == 'create_time'">
+	          	ORDER BY create_time DESC
+	          	</when>
 				<when test="sortby == 'saleprice_asc'">
 	          	ORDER BY saleprice ASC
 	          	</when>
 	          	<when test="sortby == 'saleprice_desc'">
 	          	ORDER BY saleprice DESC
 	          	</when>
-	          	<otherwise>
-	          	ORDER BY #{sortby} DESC
-	          	</otherwise>
           	</choose>
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}

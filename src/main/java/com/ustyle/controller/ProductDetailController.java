@@ -73,6 +73,8 @@ public class ProductDetailController {
 		int pageCnt = ( countPerPage != null ) ? countPerPage.intValue() : 12;
 		
 		pagemaker.setCount(totalCnt, pageCnt, countPerPaging);
+		
+		logger.info("SORTBY = " + sortby);
 
 		int first = ((pagemaker.getPage() - 1) * pageCnt) + 1;
 		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
