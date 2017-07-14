@@ -31,8 +31,8 @@
 		<property name="jdbcUrl"
 			value="jdbc:log4jdbc:mysql://118.176.218.46:10002/ustyle?useUnicode=yes&amp;characterEncoding=utf8"></property>
 
-		<property name="user" value="root"></property>
-		<property name="password" value="oracle11"></property>
+		<property name="user" value="ustyle"></property>
+		<property name="password" value="ustyle"></property>
 
 	</bean>
 
