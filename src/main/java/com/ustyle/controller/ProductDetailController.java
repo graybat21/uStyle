@@ -6,13 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,12 +35,24 @@ public class ProductDetailController {
 	@Inject
 	private ItemService itemService;
 	
+	/**
+	 * 특정 카테고리에 대한 상품 리스트를 불러옴(옵션에 따른 정렬 가능)
+	 * 
+	 * @param pageCount
+	 * @param countPerPage
+	 * @param subcategory
+	 * @param brand
+	 * @param sortby
+	 * @return mav
+	 * @throws Exception
+	 */
+	
 	@RequestMapping(value = "productList.do", method = RequestMethod.GET)
 	public ModelAndView productList(@RequestParam(value = "pageCount", required = false) Integer pageCount, 
 		@RequestParam(value = "countPerPage", required = false) Integer countPerPage, 
 		@RequestParam(value = "subcategory", required = false) String subcategory, 
 		@RequestParam(value = "brand", required = false) String brand, 
-		@RequestParam(value="sortby",  defaultValue="productid") String sortby) throws Exception {
+		@RequestParam(value = "sortby",  defaultValue = "productid") String sortby) throws Exception {
 		// http://localhost:8080/product/productList.do?subcategory=Blouses&page=2&countPerPage=12
 		// &sortby=productid
 		PageMaker pagemaker = new PageMaker();
@@ -56,6 +65,7 @@ public class ProductDetailController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("subcategory", subcategory);
 		map.put("brand", brand);
+		
 		int totalCnt = productService.selectListCntForSubcategory(map); // DB연동_ 총 갯수 구해오기
 		
 		int countPerPaging = 10;
@@ -63,6 +73,8 @@ public class ProductDetailController {
 		int pageCnt = ( countPerPage != null ) ? countPerPage.intValue() : 12;
 		
 		pagemaker.setCount(totalCnt, pageCnt, countPerPaging);
+		
+		logger.info("SORTBY = " + sortby);
 
 		int first = ((pagemaker.getPage() - 1) * pageCnt) + 1;
 		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
@@ -77,9 +89,9 @@ public class ProductDetailController {
 //			logger.info(p.toString());
 		logger.info(brandList.toString());
 		mav.addObject("productList", productList);
-		mav.addObject("brandList",brandList);
-		mav.addObject("subcategoryList",subcategoryList);
-		mav.addObject("priceList",priceList);
+		mav.addObject("brandList", brandList);
+		mav.addObject("subcategoryList", subcategoryList);
+		mav.addObject("priceList", priceList);
 		
 		mav.addObject("subcategory", subcategory);
 		mav.addObject("brand", brand);
@@ -94,7 +106,7 @@ public class ProductDetailController {
 	}
 	
 	/**
-	 * 상품 상세정보를 상세페이지에 불러오는 메소드
+	 * 상품 상세정보를 상세페이지에 불러옴
 	 * 
 	 * @param productid
 	 * @return mav
@@ -129,7 +141,7 @@ public class ProductDetailController {
 	}
 	
 	/**
-	 * 선택된 색상에 해당하는 Item 객체 리스트를 가져오는 메소드
+	 * 선택된 색상에 해당하는 Item 객체 리스트를 가져옴
 	 * 
 	 * @param selectedColorItem
 	 * @return selectedColorItemList
@@ -149,7 +161,7 @@ public class ProductDetailController {
 	}
 	
 	/**
-	 * 선택된 색상, 사이즈에 해당하는 Item 객체 한 개를 가져오는 메소드
+	 * 선택된 색상, 사이즈에 해당하는 Item 객체 한 개를 가져옴
 	 * 
 	 * @param selectedSizeItem
 	 * @return selectedColorSizeItem

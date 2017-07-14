@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.ustyle.domain.Product;
+import com.ustyle.domain.Review;
 
 public interface ProductDAO {
 	public void insert(Product product) throws Exception;
+	public void writeReview(Review review) throws Exception;
 	public int selectListCnt(HashMap<String, Object> map) throws Exception;
 	public List<Product> productList(HashMap<String, Object> map) throws Exception;
 	public int selectListCntForSubcategory(HashMap<String, Object> map) throws Exception;

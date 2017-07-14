@@ -88,8 +88,4 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
-
-
-
-
 </body>

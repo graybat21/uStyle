@@ -18,8 +18,9 @@ public interface UserDAO {
 	public int selectListCnt(HashMap<String, Object> map);
 	public List<User> userList(HashMap<String, Object> map);
 	public User selectOneUser(String user);
-
+	public int selectUserPurchaseCount(String username);
 	public void modifyAllUsersGradeInitialize();
 	public void modifyAllUsersGrade(Grade grade);
-
+	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map);
+	public double selectUserPointRatio(String username);
 }

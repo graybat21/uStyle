@@ -51,7 +51,6 @@
                                         <div class="page-title category-title">
                                             <h1>${subcategory}</h1>
                                         </div>
-                                        
                                         <div class="category-products">
                                             <div class="toolbar-top">
                                                 <div class="toolbar">
@@ -70,7 +69,6 @@
                                                         </div>
                                                     </div><!-- /.pager -->
                                                     
-                                                    
                                                     <div class="sorter">
                                                         <div class="sort-by toolbar-switch">
                                                             <div class="toolbar-title">
@@ -80,9 +78,10 @@
                                                                 <input type="hidden" name="countPerPage" value="${countPerPage }">
                                                                 <input type="hidden" name="subcategory" value="${subcategory}">
                                                                 <select class="sortby" name="sortby" id="sortby" onchange="javascript:sortForm.submit()">
-                                                                    <option value="create_time" selected="selected"> 등록순</option>
-                                                                    <option value="productname"> 이름순</option>
-                                                                    <option value="originalprice"> 가격순</option>
+                                                                    <option value="create_time" <c:out value="${sortby == 'create_time' ? 'selected' : ''}" />>등록순</option>
+                                                                    <option value="productname" <c:out value="${sortby == 'productname' ? 'selected' : ''}" />>이름순</option>
+                                                                    <option value="saleprice_asc" <c:out value="${sortby == 'saleprice_asc' ? 'selected' : ''}" />>낮은가격순</option>
+                                                                    <option value="saleprice_desc" <c:out value="${sortby == 'saleprice_desc' ? 'selected' : ''}" />>높은가격순</option>
                                                                 </select>
                                                                 </form>
                                                             </div>
@@ -98,8 +97,6 @@
                                                             </div>
                                                         </div> -->
                                                     </div><!-- /.sorter -->
-                                                    
-                                                    
                                                 </div>
                                             </div><!-- /.toolbar-top -->
                                             <div id="em-grid-mode">
@@ -139,7 +136,7 @@
                                             <div class="toolbar-bottom em-box-03">
                                                 <div class="toolbar">
                                                     <div class="pager">
-                                                        <p class="amount"> Items ${first} to ${last} of ${totalCnt} total</p>
+                                                        <p class="amount"> Products ${first} to ${last} of ${totalCnt} total</p>
                                                         <div class="pages">
                                                             <ol>
                                                             	<c:if test="${pageMaker.prev }">
@@ -154,7 +151,6 @@
 																    </c:url>
                                                             		<li><a class="fa fa-angle-left" href="${productListP }" title="Prev"> </a></li>
                                                             	</c:if>
-                                                            	
                                                             	<c:forEach begin="${pageMaker.start }" end="${pageMaker.end}" var="idx">
 																    <c:url var="productListP" value="productList.do">
 																        <c:param name="pageCount" value="${idx}" />
@@ -169,7 +165,6 @@
 																        <a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${productListP }'>${idx}</a>
 																    </li>    
 																</c:forEach>
-																
 																<c:if test="${pageMaker.next }">
 																    <c:url var="productListP" value="productList.do">
 																        <c:param name="pageCount" value="${pageMaker.end + 1}" />
@@ -182,9 +177,7 @@
 																    </c:url>
 																    <li><a class="fa fa-angle-right" href="${productListP }" title="Next"></a></li>
 																</c:if>
-                                                            	
                                                             </ol>
-                                                            
                                                         </div>
                                                     </div><!-- /.pager -->
                                                     <div class="sorter">
@@ -213,7 +206,6 @@
                                             </div><!-- /.toolbar-bottom -->
                                         </div><!-- /.category-products -->
                                     </div><!-- /.em-col-main -->
-                                    
                                     
 									<!-- left sidemenu -->
                                     <div class="col-sm-6 col-sm-pull-18 em-col-left em-sidebar">
@@ -292,14 +284,10 @@
                         </div>
                     </div>
                 </div><!-- /.em-wrapper-main -->
-
                 <p id="back-top" style="display: none;"><a title="Top" href="#top">Top</a></p>
-
             </div><!-- /.page -->
-            
         </div><!-- /.wrapper -->
-
-
+        
         <script type="text/javascript">
             (function($) {
                 if (typeof EM == 'undefined') EM = {};
@@ -316,15 +304,15 @@
                         if (wWin > 1200) {
                             sGrid.removeClass().addClass(sDesktop + '4');
                         } else {
-                        	 if (wWin <= 1200 && wWin > 768) {
-                                 sGrid.removeClass().addClass(sDesktopSmall + '3');
-                             } else {
-                                 if (wWin <= 768 && wWin > 480) {
-                                    sGrid.removeClass().addClass(sTablet + '3');
-                                } else {
-                                    sGrid.removeClass().addClass(sMobile + '2');
-                                }
-                            }
+                        	if (wWin <= 1200 && wWin > 768) {
+                                sGrid.removeClass().addClass(sDesktopSmall + '3');
+                            } else {
+                                if (wWin <= 768 && wWin > 480) {
+                                   sGrid.removeClass().addClass(sTablet + '3');
+                               } else {
+                                   sGrid.removeClass().addClass(sMobile + '2');
+                               }
+                           }
                         }
                     } else {
                         var sDesktop = 'emcatalog-desktop-';

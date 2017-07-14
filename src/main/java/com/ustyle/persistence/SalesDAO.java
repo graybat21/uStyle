@@ -1,5 +1,6 @@
 package com.ustyle.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.ustyle.domain.Purchase;
@@ -9,5 +10,6 @@ public interface SalesDAO {
 	public List<Sales> selectUserCartListForPurchase(String username);
 	public void insert(Sales sales);
 	public void insertPurchase(Purchase purchase);
+	public void updateAddPoint(HashMap<String, Object> addPointMap);
 	public void updateUsedPoint(Purchase purchase);
 }

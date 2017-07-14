@@ -13,4 +13,5 @@ public interface CartService {
 	public List<HashMap<String, Object>> selectUserCartList(String username) throws Exception;
 	public List<HashMap<String, Object>> selectUserItemidList(String username) throws Exception;
 	public Cart selectUserCartOne(int cartno) throws Exception;
+	public int selectCartItemsCountForUsername(String username) throws Exception;
 }

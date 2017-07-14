@@ -2,14 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ustyle.mappers.userMapper">
  
-    <!--resultMap id="userInfoMap" type="userVo">
-        <result column="USERID" property="userId" jdbcType="VARCHAR" javaType="string"/>
-        <result column="USERNAME" property="userName" jdbcType="VARCHAR" javaType="string"/>
-    </resultMap>
-    
-    <resultMap id="commonResultMap" type="hashMap">
-    </resultMap-->
-     
     <insert id="insert" parameterType="user">
     	insert into tbl_user(username, email, password, create_time, postcode, phone, realname, addr1, addr2, point, auth)
     	values(#{username}, #{email}, #{password}, now(), #{postcode}, #{phone}, #{realname}, #{addr1}, #{addr2}, #{point}, #{auth} )
@@ -110,6 +102,39 @@
 		)
 	</update>
 	
+	<select id="selectUserPurchaseCount" resultType="int" parameterType="String">
+		select
+			count(*)
+		from
+			tbl_purchase C, tbl_sales S, tbl_product P, tbl_item I
+		where 
+			S.itemid = I.itemid and P.productid = I.productid and C.purchaseid = S.purchaseid
+		and C.username = #{username} 
+	</select>
+	
+	<select id="selectUserPurchaseList" resultType="hashmap" parameterType="hashmap">
+		select 
+			(@row_number:=@row_number+1) as row_number, X.productid, X.mainpictureurl, X.productname, X.brand, X.color, X.size, X.saleprice, X.count, X.purchasedate
+		from (
+				select  
+					P.productid, P.mainpictureurl, P.productname, P.brand, I.color, I.size, I.saleprice, S.count, C.purchasedate
+				from
+					tbl_purchase C, tbl_sales S, tbl_product P, tbl_item I, (SELECT @row_number:=0) as t
+				where 
+					S.itemid = I.itemid and P.productid = I.productid and C.purchaseid = S.purchaseid
+					and C.username = #{username} 
+				order by C.purchasedate DESC ) X 
+		LIMIT #{start}, #{pagecnt}
+	</select>
+	
+	<select id="selectUserPointRatio" resultType="double" parameterType="String">
+		select
+			point_ratio
+		from
+			tbl_user U, tbl_grade G
+		where
+			U.username = #{username} and U.grade_idx = G.idx
+	</select>
 </mapper>
 
 

@@ -2,14 +2,14 @@ package com.ustyle.domain;
 
 public class Item {
 
-	int itemid;
-	String color;
-	String size;
-	int stock;
-	int originalprice;
-	int saleprice;
-	int productid;
-	String productname;
+	private int itemid;
+	private String color;
+	private String size;
+	private int stock;
+	private int originalprice;
+	private int saleprice;
+	private int productid;
+	private String productname;
 
 	public int getItemid() {
 		return itemid;

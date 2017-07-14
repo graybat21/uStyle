@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Product;
+import com.ustyle.domain.Review;
 import com.ustyle.persistence.ProductDAO;
 
 @Service
@@ -22,15 +23,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insert(Product product) throws Exception {
 		dao.insert(product);
-
-		// String[] files = product.getFiles();
-		//
-		// String filesStr = Arrays.toString(files);
-		//
-		// System.out.println(filesStr);
-		//
-		// if ( files == null )
-		// return;
+	}
+	
+	@Override
+	public void writeReview(Review review) throws Exception {
+		dao.writeReview(review);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -64,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception {
 		return dao.productListForSubcategory(map);
 	}
-
+	
 	@Override
 	public void update(Product product) throws Exception {
 		dao.update(product);

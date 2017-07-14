@@ -14,7 +14,7 @@
     	</otherwise>
     	</choose>
     </insert>
-    
+
     <select id="read" resultType="product">
  		select * from tbl_product where productid=#{productid}
  	</select>
@@ -51,7 +51,7 @@
   			</if>
           	ORDER BY productid DESC
 			) X 
-		WHERE X.row_number BETWEEN #{first} and #{last}
+		WHERE X.row_number BETWEEN #{first} AND #{last}
 	</select>
 	
 	<select id="selectListCntForSubcategory" resultType="int" parameterType="hashmap">
@@ -78,10 +78,24 @@
 			<if test="brand != null || brand == ''">
 			AND brand = #{brand}
 			</if>
-          	ORDER BY ${sortby} DESC
+			<choose>
+				<when test="sortby == 'productname'">
+	          	ORDER BY productname ASC
+	          	</when>
+	          	<when test="sortby == 'create_time'">
+	          	ORDER BY create_time DESC
+	          	</when>
+				<when test="sortby == 'saleprice_asc'">
+	          	ORDER BY saleprice ASC
+	          	</when>
+	          	<when test="sortby == 'saleprice_desc'">
+	          	ORDER BY saleprice DESC
+	          	</when>
+          	</choose>
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
+	
 	<select id="brandListForSubcategory" parameterType="String" resultType="hashmap">
 		SELECT 
 			count(brand) count, brand 
@@ -91,6 +105,7 @@
 			subcategory = #{subcategory} 
 		GROUP BY brand
 	</select>
+	
 	<select id="subcategoryListForSubcategory" parameterType="String" resultType="hashmap">
 		SELECT 
 			count(subcategory) count, subcategory 
@@ -108,6 +123,7 @@
 			) 
 		GROUP BY subcategory
 	</select>
+	
 	<select id="priceRangeForSubcategory" parameterType="String" resultType="int">
 		SELECT 
 			count(originalprice) count, originalprice 

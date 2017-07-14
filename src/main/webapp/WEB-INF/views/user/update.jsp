@@ -24,7 +24,7 @@
                                 	<div class="col-sm-18 col-sm-push-6 em-col-main">
                                         <div class="account-create">
                                             <div class="page-title">
-                                                <h1>Create an Account</h1>
+                                                <h1>Update an Account</h1>
                                             </div>
                                             <form:form commandName="user" method="post" id="form_validate" name="form_validate" onsubmit="return verifyOK()">
                                              <div class="fieldset">

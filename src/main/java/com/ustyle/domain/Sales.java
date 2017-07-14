@@ -1,10 +1,11 @@
 package com.ustyle.domain;
 
 public class Sales {
-	int salesno;
-	int count;
-	int purchaseid;
-	int itemid;
+	
+	private int salesno;
+	private int count;
+	private int purchaseid;
+	private int itemid;
 	
 	public int getSalesno() {
 		return salesno;

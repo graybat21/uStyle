@@ -3,15 +3,16 @@ package com.ustyle.domain;
 import java.util.Date;
 
 public class Purchase {
-	int purchaseid;
-	String recipientname;
-	String shippingaddr1;
-	String shippingaddr2;
-	String shippingpostcode;
-	String recipientphone;
-	String username;
-	Date purchasedate;
-	int usedpoint;
+	
+	private int purchaseid;
+	private String recipientname;
+	private String shippingaddr1;
+	private String shippingaddr2;
+	private String shippingpostcode;
+	private String recipientphone;
+	private String username;
+	private Date purchasedate;
+	private int usedpoint;
 	
 	public int getPurchaseid() {
 		return purchaseid;
