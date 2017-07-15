@@ -23,10 +23,21 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	}
 
 	@Override
-	public List<PinBoard> getPinBoardList(String username) {
-		return session.selectList(namespace + ".getPinBoardList", username);
+	public List<PinBoard> getPinBoardMyList(String username) {
+		return session.selectList(namespace + ".getPinBoardMyList", username);
 	}
 
+	@Override
+	public List<PinBoard> getPinBoardList() {
+		return session.selectList(namespace + ".getPinBoardList");
+	}
+
+	@Override
+	public PinBoard pinBoardByNo(int pinboardno) {
+		return session.selectOne(namespace + ".getPinBoardByNo", pinboardno);
+	}
+
+	// ======================================================
 	@Override
 	public List<PinBoard> getPinBoardMainImage(String username) {
 		return session.selectList(namespace + ".getPinBoardMainImage", username);
@@ -35,6 +46,11 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	@Override
 	public void modifyPinBoardName(PinBoard pinBoard) {
 		session.update(namespace + ".modifyPinBoardName", pinBoard);
+	}
+
+	@Override
+	public void modifyPinBoardContent(PinBoard pinBoard) {
+		session.update(namespace + ".modifyPinBoardContent", pinBoard);
 	}
 
 	@Override
@@ -50,6 +66,11 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	@Override
 	public List<PinBoard> pinBoardList(HashMap<String, Object> map) {
 		return session.selectList(namespace + ".pinBoardList", map);
+	}
+
+	@Override
+	public void plusLike(int pinboardno) {
+		session.update(namespace+".plusLike",pinboardno);
 	}
 
 }

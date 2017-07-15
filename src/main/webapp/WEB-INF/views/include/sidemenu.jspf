@@ -35,7 +35,7 @@
 						</li>
 					</ol>
 				</dd>
-				<a class="tree-item" href="pin.do">
+				<a class="tree-item" href="viewPinBoard.do">
 				<dt>PinBoard</dt></a>
 				<dd>
 					<div class="rslider">
