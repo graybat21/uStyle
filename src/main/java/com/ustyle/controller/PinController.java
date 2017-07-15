@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Pin;
 import com.ustyle.domain.PinBoard;
+import com.ustyle.domain.PinBoardReply;
 import com.ustyle.domain.User;
 import com.ustyle.service.PinService;
 import com.ustyle.service.ProductService;
@@ -30,7 +31,7 @@ public class PinController {
 	@Inject
 	private ProductService productService;
 
-	@RequestMapping("pin.do")
+	@RequestMapping("viewPinBoard.do")
 	public ModelAndView myPinList(HttpSession session){
 		ModelAndView mav = new ModelAndView("pin/myPinBoard/My Pin Board");
 		User user = (User) session.getAttribute("session_user");
@@ -56,37 +57,48 @@ public class PinController {
 //		pinBoard.setPinboardname(pinboardname);
 		logger.info(pinBoard.toString());
 		pinService.createPinBoard(pinBoard);
-		return "redirect:/pin.do";
+		return "redirect:/viewPinBoard.do";
 	}
 
 	@RequestMapping(value = "modifyPinBoardName.do", method = RequestMethod.POST)
 	public String modifyPinBoardName(@RequestParam PinBoard pinBoard) throws Exception {
 		pinService.modifyPinBoardName(pinBoard);
-		return "redirect:/pin.do";
+		return "redirect:/viewPinBoard.do";
 	}
 	
 	@RequestMapping(value = "modifyPinBoardContent.do", method = RequestMethod.POST)
 	public String modifyPinBoardContent(@RequestParam PinBoard pinBoard) throws Exception {
 		pinService.modifyPinBoardContent(pinBoard);
-		return "redirect:/pin.do";
+		return "redirect:/viewPinBoard.do";
 	}
 	
 	@RequestMapping(value = "deletePinBoard.do", method = RequestMethod.POST)
 	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
 		pinService.deleteAllPin(pinboardno);
 		pinService.deletePinBoard(pinboardno);
-		return "redirect:/pin.do";
+		return "redirect:/viewPinBoard.do";
+	}
+	
+	@RequestMapping(value="plusLike.do", method = RequestMethod.PUT)
+	public String plusLike(@RequestParam int pinboardno){
+		pinService.plusLike(pinboardno);
+		return "redirect:/viewPin.do";
 	}
 	
 //	=======================================================================
 	
 	@RequestMapping(value="viewPin.do", method=RequestMethod.GET)
 	public ModelAndView viewPin(@RequestParam int pinboardno)throws Exception{
-		ModelAndView mav=new ModelAndView("pin/pinList/Pin List");
+		ModelAndView mav=new ModelAndView("pinList");
 		List<Pin> pinList = pinService.getPins(pinboardno);
-		
+		PinBoard pinBoard = pinService.getPinBoardByNo(pinboardno);
+		List<PinBoardReply> pinBoardReplyList = pinService.getPinBoardReplyByPinBoardNo(pinboardno);
+		logger.info("============="+pinList.toString());
+		logger.info("============="+pinBoard.toString());
+		logger.info("============="+pinBoardReplyList.toString());
 		mav.addObject(pinList);
-		mav.addObject("pinboardno",pinboardno);
+		mav.addObject(pinBoard);
+		mav.addObject(pinBoardReplyList);
 		return mav;
 	}
 	
@@ -101,7 +113,7 @@ public class PinController {
 //		pin.setProductid(productid);
 		pinService.insertPin(pin);
 		
-		return "redirect:/pin.do";
+		return "redirect:/viewPinBoard.do";
 	}
 	
 //	@RequestMapping(value="deletePin.do", method=RequestMethod.POST)
@@ -109,4 +121,19 @@ public class PinController {
 //		pinService.deletePin(pinno);
 //		return "redirect:/pin.do";
 //	}
+	
+	
+//	=======================================================================
+	
+	@RequestMapping(value="pinBoardReply.do", method=RequestMethod.POST)
+	public String insertPinBoardReply(PinBoardReply pinBoardReply){
+		pinService.insertPinBoardReply(pinBoardReply);
+		return "redirect:/viewPinBoard.do";
+	}
+	
+	@RequestMapping(value="pinBoardReply.do", method=RequestMethod.DELETE)
+	public String deletePinBoardReply(int pinboardreplyno){
+		pinService.deletePinBoardReply(pinboardreplyno);
+		return "redirect:/viewPinBoard.do";
+	}
 }

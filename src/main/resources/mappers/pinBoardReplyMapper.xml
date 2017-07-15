@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.pinBoardReplyMapper">
+
+	<select id="getPinBoardReplyByPinBoardNo" parameterType="int" resultType="PinBoardReply">
+		select * from tbl_pinboardreply where pinboardno = #{pinboardno}
+		order by ref desc, restep asc 
+	</select>
+	
+	<insert id="insertPinBoardReply" parameterType="PinBoardReply">
+		insert into tbl_pinboardreply(pinboardno, comment, ref, restep, relevel)
+		values(#{pinboardno}, #{comment}, #{ref}, #{restep}, #{relevel})
+	</insert>
+	
+	<delete id="deletePinBoardReply" parameterType="int">
+		delete from tbl_pinboardreply where pinboardreplyno = #{pinboardreplyno} 
+	</delete>
+</mapper>
+
+

@@ -8,8 +8,10 @@
 	</insert>
 	
 	<select id="getPins" parameterType="int" resultType="Pin">
-		select * from tbl_pin
-		where pinboardno = #{pinboardno}
+		select p.*, pd.mainpictureurl productimage 
+		from tbl_pin p, tbl_product pd
+		where p.productid = pd.productid
+		and p.pinboardno = #{pinboardno}
 	</select>
 	
 	<delete id="deletePin" parameterType="int">

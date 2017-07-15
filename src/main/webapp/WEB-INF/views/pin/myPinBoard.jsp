@@ -7,9 +7,9 @@
 <script>
 $(function(){
     $("#popbutton").click(function(){
-        $('div.modal').modal(/* {
-            remote : '/login.do'
-        } */);
+        $('div.modal').modal({
+            remote : '/viewPin.do?pinboardno=12'
+        });
     })
 })
 </script>
@@ -22,6 +22,32 @@ img {
 	width: 150px;
 	height: 150px;
 }
+.modal.modal-center{
+text-align: center;
+}
+@media screen and (min-width: 768px) { 
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+.modal-dialog.modal-fullsize-center {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+.modal-content.modal-fullsize-center {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0; 
+}
+
 </style>
 </head>
 <body class="cms-index-index">
@@ -32,14 +58,20 @@ img {
 			<a href="createPinBoard.do">
 				<div class="well col-md-6" style="height: 350px;">+</div>
 			</a>
+			
+			
+			
 <!-- Button trigger modal --> 
 <button type="button" class="btn btn-primary btn-lg" id="popbutton">
   Launch demo modal
 </button>
+
+
+
  			<c:forEach var="pinBoard" items="${pinBoardList }" varStatus="status">
-				<%-- <a href="viewPin.do?pinboardno=${pinBoard.pinboardno }" data-toggle="modal" data-target="#myModal"> --%>
+				<a href="#popbutton" data-toggle="modal"> <%-- ${pinBoard.pinboardno } --%>
 					<div class="well col-md-6" style="height: 350px;">
-						${status }/ ${pinBoard.pinboardno }
+						${pinBoard.pinboardno } / ${pinBoard.like }
 						<c:forEach var="image" items="${imageList }">
 							<c:if test="${image.pinboardno eq pinBoard.pinboardno }">
 								<img src="${image.mainpictureurl }" />
@@ -51,35 +83,10 @@ img {
 			
 			
 			<!-- Modal -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog modal-lg">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-			      </div>
-			      <div class="modal-body">
-			      	<!-- 사진부분 -->
-			      	<div class="row">
-			        <div class="col-md-24">
-			        	<p align="center">제목</p>
-			        </div>
-			        </div>
-			        <div class="row">
-				        <div class="col-md-16">
-				        	<p align="center">이미지</p>
-				        </div>
-			        	<div class="col-md-8">
-			        		<p align="center">글내용</p>
-			        	</div>
-			        </div>
-			        <div class="row">
-			        </div>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">수정</button>
-			      </div>
+			<div class="modal modal-center fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-fullsize-center">
+			    <div class="modal-content modal-fullsize-center">
+			      
 			    </div>
 			  </div>
 			</div>

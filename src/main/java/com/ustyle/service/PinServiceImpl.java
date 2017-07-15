@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.ustyle.domain.Pin;
 import com.ustyle.domain.PinBoard;
+import com.ustyle.domain.PinBoardReply;
 import com.ustyle.persistence.PinBoardDAO;
+import com.ustyle.persistence.PinBoardReplyDAO;
 import com.ustyle.persistence.PinDAO;
 
 @Service
@@ -19,6 +21,8 @@ public class PinServiceImpl implements PinService {
 	private PinBoardDAO pinBoardDao;
 	@Inject
 	private PinDAO pinDao;
+	@Inject
+	private PinBoardReplyDAO pinBoardReplyDao;
 
 	@Override
 	public void createPinBoard(PinBoard pinBoard) throws Exception {
@@ -66,6 +70,19 @@ public class PinServiceImpl implements PinService {
 	}
 
 	@Override
+	public PinBoard getPinBoardByNo(int pinboardno) {
+		return pinBoardDao.pinBoardByNo(pinboardno);
+	}
+	
+	@Override
+	public void plusLike(int pinboardno) {
+		pinBoardDao.plusLike(pinboardno);
+	}
+
+	//	=============================================
+
+
+	@Override
 	public List<Pin> getPins(int pinboardno) {
 		 return pinDao.getPins(pinboardno);
 	}
@@ -84,4 +101,22 @@ public class PinServiceImpl implements PinService {
 		pinDao.deleteAllPin(pinboardno);
 	}
 
+
+//	=============================================
+	
+	@Override
+	public List<PinBoardReply> getPinBoardReplyByPinBoardNo(int pinboardno) {
+		return pinBoardReplyDao.getPinBoardReplyByPinBoardNo(pinboardno);
+	}
+
+	@Override
+	public void insertPinBoardReply(PinBoardReply pinBoardReply) {
+		pinBoardReplyDao.insertPinBoardReply(pinBoardReply);
+	}
+
+	@Override
+	public void deletePinBoardReply(int pinboardreplyno) {
+		pinBoardReplyDao.deletePinBoardReply(pinboardreplyno);
+	}
+	
 }

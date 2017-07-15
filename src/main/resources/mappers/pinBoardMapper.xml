@@ -12,8 +12,12 @@
 		select * from tbl_pinboard where username = #{username}
 	</select>
 	
-	<select id="getPinBoardList" parameterType="String" resultType="pinBoard">
+	<select id="getPinBoardList" resultType="pinBoard">
 		select * from tbl_pinboard order by create_time limit 0, 9
+		where username = #{username}
+	</select>
+	<select id="getPinBoardByNo" parameterType="int" resultType="PinBoard">
+		select * from tbl_pinboard where pinboardno = #{pinboardno}
 	</select>
 	
 	<select id="getPinBoardMainImage" parameterType="String" resultType="pinBoard">
@@ -66,6 +70,11 @@
 			) X 
 		where X.row_number between #{first} and #{last}
 	</select>
+	
+	<update id="plusLike" parameterType="int">
+		update tbl_pinboard set like = like + 1
+		where pinboardno = #{pinboardno}
+	</update>
 </mapper>
 
 

@@ -11,6 +11,7 @@ public interface PinBoardDAO {
 
 	public List<PinBoard> getPinBoardMyList(String username);
 	public List<PinBoard> getPinBoardList();
+	public PinBoard pinBoardByNo(int pinboardno);
 
 	public List<PinBoard> getPinBoardMainImage(String username);
 
@@ -23,4 +24,6 @@ public interface PinBoardDAO {
 
 	public List<PinBoard> pinBoardList(HashMap<String, Object> map);
 
+	public void plusLike(int pinboardno);
+	
 }
