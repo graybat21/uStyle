@@ -26,8 +26,13 @@ public class PinServiceImpl implements PinService {
 	}
 
 	@Override
-	public List<PinBoard> getPinBoardList(String username) throws Exception {
-		return pinBoardDao.getPinBoardList(username);
+	public List<PinBoard> getPinBoardMyList(String username){
+		return pinBoardDao.getPinBoardMyList(username);
+	}
+	
+	@Override
+	public List<PinBoard> getPinBoardList(){
+		return pinBoardDao.getPinBoardList();
 	}
 
 	@Override
@@ -38,6 +43,11 @@ public class PinServiceImpl implements PinService {
 	@Override
 	public void modifyPinBoardName(PinBoard pinBoard) throws Exception {
 		pinBoardDao.modifyPinBoardName(pinBoard);
+	}
+
+	@Override
+	public void modifyPinBoardContent(PinBoard pinBoard) {
+		pinBoardDao.modifyPinBoardContent(pinBoard);
 	}
 
 	@Override

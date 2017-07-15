@@ -9,11 +9,13 @@ import com.ustyle.domain.PinBoard;
 public interface PinService {
 	public void createPinBoard(PinBoard pinBoard) throws Exception;
 
-	public List<PinBoard> getPinBoardList(String username) throws Exception;
+	public List<PinBoard> getPinBoardMyList(String username);
+	public List<PinBoard> getPinBoardList();
 
 	public List<PinBoard> getPinBoardMainImage(String username);
 	
 	public void modifyPinBoardName(PinBoard pinBoard) throws Exception;
+	public void modifyPinBoardContent(PinBoard pinBoard);
 
 	public void deletePinBoard(int pinboardno) throws Exception;
 	
@@ -30,5 +32,6 @@ public interface PinService {
 	public void deletePin(int pinno) throws Exception;
 	
 	public void deleteAllPin(int pinboardno) throws Exception;
+
 	
 }

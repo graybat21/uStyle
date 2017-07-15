@@ -8,10 +8,14 @@
 		values (#{username}, #{pinboardname}, now(), #{content},0)
 	</insert>
 
-	<select id="getPinBoardList" parameterType="String" resultType="pinBoard">
+	<select id="getPinBoardMyList" parameterType="String" resultType="pinBoard">
 		select * from tbl_pinboard where username = #{username}
-
 	</select>
+	
+	<select id="getPinBoardList" parameterType="String" resultType="pinBoard">
+		select * from tbl_pinboard order by create_time limit 0, 9
+	</select>
+	
 	<select id="getPinBoardMainImage" parameterType="String" resultType="pinBoard">
 		select 
 			p.pinboardno pinboardno, pro.mainpictureurl mainpictureurl 
@@ -26,6 +30,12 @@
 	<update id="modifyPinBoardName" parameterType="PinBoard">
 		update
 		tbl_pinboard set pinboardname = #{pinboardname}
+		where pinboardno =
+		#{pinboardno}
+	</update>
+	<update id="modifyPinBoardContent" parameterType="PinBoard">
+		update
+		tbl_pinboard set content = #{content}
 		where pinboardno =
 		#{pinboardno}
 	</update>

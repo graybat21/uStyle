@@ -23,8 +23,12 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	}
 
 	@Override
-	public List<PinBoard> getPinBoardList(String username) {
-		return session.selectList(namespace + ".getPinBoardList", username);
+	public List<PinBoard> getPinBoardMyList(String username) {
+		return session.selectList(namespace + ".getPinBoardMyList", username);
+	}
+	@Override
+	public List<PinBoard> getPinBoardList() {
+		return session.selectList(namespace + ".getPinBoardList");
 	}
 
 	@Override
@@ -37,6 +41,10 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 		session.update(namespace + ".modifyPinBoardName", pinBoard);
 	}
 
+	@Override
+	public void modifyPinBoardContent(PinBoard pinBoard) {
+		session.update(namespace + ".modifyPinBoardContent", pinBoard);
+	}
 	@Override
 	public void deletePinBoard(int pinboardno) {
 		session.delete(namespace + ".deletePinBoard", pinboardno);

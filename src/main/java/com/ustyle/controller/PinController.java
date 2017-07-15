@@ -31,10 +31,10 @@ public class PinController {
 	private ProductService productService;
 
 	@RequestMapping("pin.do")
-	public ModelAndView myPinList(HttpSession session) throws Exception {
+	public ModelAndView myPinList(HttpSession session){
 		ModelAndView mav = new ModelAndView("pin/myPinBoard/My Pin Board");
 		User user = (User) session.getAttribute("session_user");
-		List<PinBoard> pinBoardList = pinService.getPinBoardList(user.getUsername());
+		List<PinBoard> pinBoardList = pinService.getPinBoardMyList(user.getUsername());
 		logger.info(pinBoardList.toString());
 		List<PinBoard> pinBoardMainImageList = pinService.getPinBoardMainImage(user.getUsername());
 		logger.info(pinBoardMainImageList.toString());
@@ -64,6 +64,13 @@ public class PinController {
 		pinService.modifyPinBoardName(pinBoard);
 		return "redirect:/pin.do";
 	}
+	
+	@RequestMapping(value = "modifyPinBoardContent.do", method = RequestMethod.POST)
+	public String modifyPinBoardContent(@RequestParam PinBoard pinBoard) throws Exception {
+		pinService.modifyPinBoardContent(pinBoard);
+		return "redirect:/pin.do";
+	}
+	
 	@RequestMapping(value = "deletePinBoard.do", method = RequestMethod.POST)
 	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
 		pinService.deleteAllPin(pinboardno);
@@ -77,6 +84,7 @@ public class PinController {
 	public ModelAndView viewPin(@RequestParam int pinboardno)throws Exception{
 		ModelAndView mav=new ModelAndView("pin/pinList/Pin List");
 		List<Pin> pinList = pinService.getPins(pinboardno);
+		
 		mav.addObject(pinList);
 		mav.addObject("pinboardno",pinboardno);
 		return mav;
