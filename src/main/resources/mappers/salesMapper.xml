@@ -32,6 +32,11 @@
 		where 
 			username = #{username}
  	</select>
+ 	
+ 	<select id="selectForDaterange" resultType="int" parameterType="hashmap">
+ 		select
+ 			count(*)
+ 	</select>
  
 </mapper>
 

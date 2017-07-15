@@ -1,5 +1,7 @@
 package com.ustyle.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -131,12 +134,27 @@ public class AdminController {
 		return "redirect:/admin/grade.do";
 	}
 
-	// @RequestMapping(value="grade.do", method=RequestMethod.DELETE)
-	// @RequestMapping(value="deleteGrade.do", method=RequestMethod.POST)
 	@RequestMapping("deleteGrade.do")
 	public String gradeDelete(@RequestParam int idx) throws Exception {
 		gradeService.delete(idx);
 		return "redirect:/admin/grade.do";
+	}
+	
+	@RequestMapping(value = "salesList.do", method = RequestMethod.GET)
+	public ModelAndView salesList(@RequestParam(value = "startDate", required = false) String startDate,
+			@RequestParam(value = "endDate", required = false) String endDate) throws Exception {
+		ModelAndView mav = new ModelAndView("sales/salesList");
+		
+		mav.addObject("startDate", startDate);
+		mav.addObject("endDate", endDate);
+		
+//		Timestamp startTimestamp = new Timestamp(startDate.getTime());
+//		Timestamp endTimestamp = new Timestamp(endDate.getTime());
+		
+		logger.info("START DATE = " + startDate);
+		logger.info("END DATE = " + endDate);
+		
+		return mav;
 	}
 
 	// =============================== pin =============================== //

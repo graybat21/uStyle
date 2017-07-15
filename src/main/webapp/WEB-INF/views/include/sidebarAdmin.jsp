@@ -47,6 +47,18 @@
         </li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-dashboard"></i>
+            <span>매출관리</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/salesList.do"><i class="fa fa-circle-o"></i>매출조회</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-users"></i>
             <span>게시판관리</span>
             <span class="pull-right-container">
