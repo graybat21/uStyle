@@ -53,7 +53,7 @@
 							<input type="text" name="originalprice" value="${originalprice}" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 						<div class="col-sm-6 form-group">
-							<label for="exampleInputEmail1">할인가격</label>
+							<label for="exampleInputEmail1">판매가격</label>
 							<input type="text" name="saleprice" value="${saleprice}" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 					</div>

@@ -10,7 +10,9 @@ public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor 
 	
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		BeanDefinition bd = beanFactory.getBeanDefinition("tilesConfigurer");
-		bd.setScope(WebApplicationContext.SCOPE_REQUEST);
+		BeanDefinition tilesBd = beanFactory.getBeanDefinition("tilesConfigurer");
+		BeanDefinition swagger2ConfigBd = beanFactory.getBeanDefinition("swagger2Config");
+		tilesBd.setScope(WebApplicationContext.SCOPE_REQUEST);
+		swagger2ConfigBd.setScope(WebApplicationContext.SCOPE_REQUEST);
 	}
 }

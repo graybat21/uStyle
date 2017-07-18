@@ -33,9 +33,48 @@
 			username = #{username}
  	</select>
  	
- 	<select id="selectForDaterange" resultType="int" parameterType="hashmap">
+ 	<select id="selectSalesForDaterange" resultType="hashmap" parameterType="hashmap">
+ 		select 
+ 			sum(T.totalprice) as totalsalesprice, sum(T.point) as totalusedpoint, count(*) as totalcnt
+ 		from
+			(select sum(I.saleprice * S.count) as totalprice, P.usedpoint as point
+			from tbl_purchase P, tbl_sales S, tbl_item I 
+			where P.purchasedate between #{start} and #{end} 
+			and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid) as T
+ 	</select>
+ 	
+ 	<select id="selectSalesForDaterangeAndPagination" resultType="hashmap" parameterType="hashmap">
+		select 
+			P.username, P.purchasedate, sum(I.saleprice * S.count) as totalprice, P.usedpoint
+		from 
+			tbl_purchase P, tbl_sales S, tbl_item I 
+		where 
+			purchasedate between #{start} and #{end}
+			and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid
+		order by P.purchasedate asc
+		limit #{firstrow}, #{pagecnt}
+	</select>
+	
+	<select id="selectSalesForDate" resultType="hashmap" parameterType="hashmap">
+ 		select 
+ 			sum(T.totalprice) as totalsalesprice, sum(T.point) as totalusedpoint, T.recipientname, T.addr1, T.addr2, T.purchaseid
+ 		from
+			(select 
+				sum(I.saleprice * S.count) as totalprice, P.usedpoint as point, P.recipientname as recipientname,
+				P.shippingaddr1 as addr1, P.shippingaddr2 as addr2, P.purchaseid as purchaseid
+			from 
+				tbl_purchase P, tbl_sales S, tbl_item I 
+			where 
+				P.purchasedate = #{purchasedate} and P.username = #{username} and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid) as T
+ 	</select>
+ 	
+ 	<select id="selectSalesDetail" resultType="hashmap" parameterType="int">
  		select
- 			count(*)
+			P.productname, I.color, I.size, I.originalprice, I.saleprice, S.count
+		from        
+			tbl_sales S, tbl_item I, tbl_product P
+		where
+			S.purchaseid = #{purchaseid} and S.itemid = I.itemid and P.productid = I.productid;
  	</select>
  
 </mapper>
