@@ -42,4 +42,24 @@ public class SalesServiceImpl implements SalesService {
 		salesDao.updateUsedPoint(purchase);
 		salesDao.insertPurchase(purchase);
 	}
+
+	@Override
+	public HashMap<String, Object> selectSalesForDaterange(HashMap<String, Object> dateMap) throws Exception {
+		return salesDao.selectSalesForDaterange(dateMap);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectSalesForDaterangeAndPagination(HashMap<String, Object> dateMap) throws Exception {
+		return salesDao.selectSalesForDaterangeAndPagination(dateMap);
+	}
+	
+	@Override
+	public HashMap<String, Object> selectSalesForDate(HashMap<String, Object> userMap) throws Exception {
+		return salesDao.selectSalesForDate(userMap);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectSalesDetail(int purchaseid) throws Exception {
+		return salesDao.selectSalesDetail(purchaseid);
+	}
 }

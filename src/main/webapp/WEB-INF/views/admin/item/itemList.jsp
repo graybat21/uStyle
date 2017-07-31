@@ -114,7 +114,7 @@
 											<c:param name="page" value="${idx}" />
 										</c:url>
 									</c:if>
-									<li class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>'>
+									<li class='<c:out value="${idx == pageMaker.page ? 'active' : ''}"/>'>
 										<a href='${itemListP }'>${idx}</a>
 									</li>
 									
