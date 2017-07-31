@@ -251,7 +251,7 @@ public class AdminController {
 		HashMap<String, Object> userDetailMap = salesService.selectSalesForDate(userMap);
 		// userDetailMap이 null일 때, 400 Error 예외페이지 처리
 		
-		Integer purchaseid = Integer.valueOf((String) userDetailMap.get("purchaseid"));
+		Integer purchaseid = Integer.valueOf(String.valueOf(userDetailMap.get("purchaseid")));
 		
 		List<HashMap<String, Object>> salesDetailList = salesService.selectSalesDetail(purchaseid);
 		
