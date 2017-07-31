@@ -21,7 +21,7 @@ public interface QnaDAO {
 	public int getFamilyNo(int parent);
 
 	public void qnaModify(Qna qna);
-	//
+	
 	public void qnaDelete(int bno);
 
 	public int selectMyListCnt(HashMap<String, Object> map);

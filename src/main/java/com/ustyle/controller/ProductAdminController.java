@@ -49,7 +49,7 @@ public class ProductAdminController {
 		
 		String[] files = product.getFiles();
 		
-		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
+		if ( files != null ) // 업로드할 상품의 이미지가 존재하는 경우
 		{
 			product.setMainpictureurl(files[0]); 		// 대표 이미지 추가
 			
@@ -124,7 +124,7 @@ public class ProductAdminController {
 
 		String[] files = product.getFiles();
 		
-		if (files != null) // 업로드할 상품의 이미지가 존재하는 경우
+		if ( files != null ) // 업로드할 상품의 이미지가 존재하는 경우
 		{
 			product.setMainpictureurl(files[0]); 		// 대표 이미지 수정
 			
@@ -146,11 +146,12 @@ public class ProductAdminController {
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		// map.put("searchKeyword", searchKeyword);
+
 		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
 		pagemaker.setPage(page);
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);
+		
 		int totalCnt = service.selectListCnt(map); // DB연동_ 총 갯수 구해오기
 		int countPerPage = 10;
 		int countPerPaging = 5;
@@ -159,20 +160,24 @@ public class ProductAdminController {
 		int last = first + countPerPage - 1;
 		map.put("first", first);
 		map.put("last", last);
+		
 		List<Product> list = service.productList(map);
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		logger.info(list.toString());
+		
 		String temp = null;
+		
 		for (int i = 0; i < list.size(); i++) {
 			temp = list.get(i).getPictureurl();
-			if (temp.length() < 50) {
+			
+			if (temp.length() < 50)
 				temp = "/ustylenone.jpg";
-			} else {
+			else
 				temp = temp.substring(1, 55);
-			}
-			System.out.println(temp);
+
 			list.get(i).setPictureurl(temp);
 		}
+		
 		mav.addObject("productList", list);
 		mav.addObject("pageMaker", pagemaker);
 		mav.setViewName("product/productList");

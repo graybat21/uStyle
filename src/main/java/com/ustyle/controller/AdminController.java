@@ -64,7 +64,6 @@ public class AdminController {
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		// map.put("searchKeyword", searchKeyword);
 		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
 		pagemaker.setPage(page);
 		map.put("searchOption", searchOption);
@@ -271,7 +270,7 @@ public class AdminController {
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		// map.put("searchKeyword", searchKeyword);
+
 		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
 		pagemaker.setPage(page);
 		map.put("searchOption", searchOption);

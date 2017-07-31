@@ -53,8 +53,7 @@ public class ProductDetailController {
 		@RequestParam(value = "subcategory", required = false) String subcategory, 
 		@RequestParam(value = "brand", required = false) String brand, 
 		@RequestParam(value = "sortby",  defaultValue = "productid") String sortby) throws Exception {
-		// http://localhost:8080/product/productList.do?subcategory=Blouses&page=2&countPerPage=12
-		// &sortby=productid
+
 		PageMaker pagemaker = new PageMaker();
 		
 		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
@@ -85,8 +84,7 @@ public class ProductDetailController {
 		List<HashMap<String,Object>> brandList = productService.brandListForSubcategory(subcategory);
 		List<HashMap<String,Object>> subcategoryList = productService.subcategoryListForSubcategory(subcategory);
 		List<HashMap<String,Object>> priceList = productService.priceRangeForSubcategory(subcategory);
-//		for ( Product p : productList )
-//			logger.info(p.toString());
+
 		logger.info(brandList.toString());
 		mav.addObject("productList", productList);
 		mav.addObject("brandList", brandList);
