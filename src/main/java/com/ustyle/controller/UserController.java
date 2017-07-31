@@ -403,7 +403,7 @@ public class UserController {
 		{
 			Iterator<String> iterator = map.keySet().iterator();
 		    while (iterator.hasNext()) {
-		        String key = (String) iterator.next();
+		        String key = String.valueOf(iterator.next());
 		        logger.info("key = " + key);
 		        logger.info(" value = " + map.get(key));
 		    }
