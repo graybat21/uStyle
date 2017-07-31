@@ -15,7 +15,7 @@ public class CommonExceptionAdvice
 	public ModelAndView errorModelAndView(Exception e)
 	{
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/errorCommon");
+		mav.setViewName("error/errorCommon/Error");
 //		mav.addObject("exception", e);
 		
 		return mav;

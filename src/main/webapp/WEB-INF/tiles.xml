@@ -37,6 +37,6 @@
 	<definition name="pinList" template="/WEB-INF/views/pin/pinList.jsp">
         <put-attribute name="content" value=""/>  
     </definition>
-
+    
 </tiles-definitions>
 
