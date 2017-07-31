@@ -5,10 +5,10 @@
 <head>
 <script type="text/javascript">
 	function deleteCheck() {
-		if (confirm("삭제 하시겠습니까?")) {
+		if (confirm("탈퇴하시겠습니까? 탈퇴하면 이 사이트에 있는 모든 내용이 삭제됩니다.")) {
 			document.getElementById('delete_form').submit();
 		} else {
-			alert("삭제 취소 되었습니다.");
+			alert("탈퇴 취소되었습니다.");
 			return false;
 		}
 	}
@@ -34,13 +34,12 @@
                                         
                                         <div class="category-products">
                                             <form method="post" id="delete_form" name="delete_form">
+                                            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												<h2>비밀번호를 입력하세요.</h2>
-												<input type="password" id="password" name="password"> <input
-													type="button" value="탈퇴" onclick="deleteCheck()">
+												<input type="hidden" id="username" name="username" value="${session_user.username}"> 
+												<input type="password" id="password" name="password"> 
+												<input type="button" value="탈퇴" onclick="deleteCheck()">
 											</form>
-                                            
-                                            
-                                            
                                         </div><!-- /.category-products -->
                                     </div><!-- /.em-col-main -->
                                     

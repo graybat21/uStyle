@@ -157,17 +157,13 @@ public class AdminController {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		
-		Date date = new Date();
-		String nowDate = sdf.format(date);
-		
 		Timestamp firstTimestamp = new Timestamp(0);
 		String firstDate = sdf.format(firstTimestamp);		// 19700101
 		
 		if ( startDate == null || endDate == null )
 			return mav;
 		else if ( Integer.parseInt(startDate) > Integer.parseInt(endDate) 
-				 || Integer.parseInt(startDate) < Integer.parseInt(firstDate)
-				 || Integer.parseInt(endDate) > Integer.parseInt(nowDate) ) {
+				 || Integer.parseInt(startDate) < Integer.parseInt(firstDate) ) {
 			mav.setViewName("sales/salesListFail");
 			return mav;
 		}
@@ -182,6 +178,9 @@ public class AdminController {
 		HashMap<String, Object> dateMap = new HashMap<String, Object>();
 		dateMap.put("start", startTimestamp);
 		dateMap.put("end", endTimestamp);
+		
+		logger.info(startTimestamp.toString());
+		logger.info(endTimestamp.toString());
 		
 		HashMap<String, Object> totalMapForDaterange = salesService.selectSalesForDaterange(dateMap);
 		

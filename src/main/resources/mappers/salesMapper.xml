@@ -35,7 +35,7 @@
  	
  	<select id="selectSalesForDaterange" resultType="hashmap" parameterType="hashmap">
  		select 
- 			sum(T.totalprice) as totalsalesprice, sum(T.point) as totalusedpoint, count(*) as totalcnt
+ 			COALESCE(sum(T.totalprice), 0) as totalsalesprice, COALESCE(sum(T.point), 0) as totalusedpoint, count(*) as totalcnt
  		from
 			(select sum(I.saleprice * S.count) as totalprice, P.usedpoint as point
 			from tbl_purchase P, tbl_sales S, tbl_item I 
@@ -57,15 +57,24 @@
 	
 	<select id="selectSalesForDate" resultType="hashmap" parameterType="hashmap">
  		select 
- 			sum(T.totalprice) as totalsalesprice, sum(T.point) as totalusedpoint, T.recipientname, T.addr1, T.addr2, T.purchaseid
+ 			*
  		from
 			(select 
-				sum(I.saleprice * S.count) as totalprice, P.usedpoint as point, P.recipientname as recipientname,
+				sum(I.saleprice * S.count) as totalsalesprice, P.usedpoint as totalusedpoint, P.recipientname as recipientname,
 				P.shippingaddr1 as addr1, P.shippingaddr2 as addr2, P.purchaseid as purchaseid
 			from 
 				tbl_purchase P, tbl_sales S, tbl_item I 
 			where 
-				P.purchasedate = #{purchasedate} and P.username = #{username} and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid) as T
+				P.purchasedate = #{purchasedate} and
+			<choose>
+				<when test="username != ''">
+					 P.username = #{username} 
+				</when>
+				<otherwise>
+					 P.username is null
+				</otherwise>
+			</choose>
+				and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid) as T
  	</select>
  	
  	<select id="selectSalesDetail" resultType="hashmap" parameterType="int">
