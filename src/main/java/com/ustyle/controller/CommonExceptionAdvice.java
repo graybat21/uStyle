@@ -12,12 +12,11 @@ public class CommonExceptionAdvice
 	private static final Logger logger = LoggerFactory.getLogger(CommonExceptionAdvice.class);
 	
 	@ExceptionHandler(Exception.class)
-	public ModelAndView errorModelAndView(Exception e)
-	{
+	public ModelAndView errorModelAndView(Exception e) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("error/errorCommon/Error");
-//		mav.addObject("exception", e);
 		
+		logger.error("ERROR!!!", e);		// 콘솔창에 예외 메시지, 예외 발생경로를 띄움.
 		return mav;
 	}
 	
