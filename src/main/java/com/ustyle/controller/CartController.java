@@ -3,7 +3,6 @@ package com.ustyle.controller;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -21,8 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ustyle.domain.Cart;
 import com.ustyle.domain.User;
 import com.ustyle.service.CartService;
-import com.ustyle.service.ItemService;
-import com.ustyle.service.ProductService;
 
 @Controller
 @RequestMapping("/cart/*")
