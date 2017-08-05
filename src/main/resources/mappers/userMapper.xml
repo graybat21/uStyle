@@ -18,7 +18,7 @@
     </select>
     
     <select id="userExist" parameterType="String" resultType="int">
-    	select count(*) as cnt from tbl_user
+    	select count(*) from tbl_user
     	where username = #{username}
     </select>
     

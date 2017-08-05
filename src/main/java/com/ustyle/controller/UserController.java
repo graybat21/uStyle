@@ -356,10 +356,12 @@ public class UserController {
 
 	@RequestMapping(value = "/duplicationCheck.do", method = RequestMethod.POST)
 	@ResponseBody
-	public int userExist(@RequestBody String username) throws Exception {
-
-		logger.info(username);
-		int isUserExist = userService.userExist(username);
+	public int userExist(@RequestBody User user) throws Exception {
+		logger.info(user.getUsername());
+		System.out.println("FDFDFDFDFDF");
+		int isUserExist = userService.userExist(user.getUsername());
+		
+		System.out.println(isUserExist);
 		return isUserExist;
 	}
 	

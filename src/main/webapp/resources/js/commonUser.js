@@ -188,20 +188,19 @@ function verifyOK()
 function isExistUser()		// use keyup event -> To check id
 {
 	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;	
-	
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var token = $("meta[name='_csrf']").attr("content");
 	
-	$("#username").keyup(function() {
+	$("#username").blur(function() {
 		if ( $("#username").val().length >= 6 )
 		{	
 			$.ajax({
 			  url : "/duplicationCheck.do",
 			  type : "post",
 			  contentType : 'application/json; charset=utf-8',
-			  //data : JSON.stringify({ username : $("#username").val() }),
-			  data : $("#username").val(),
-			  //dataType: "json",
+			  data : JSON.stringify({ username : $("#username").val() }),
+			  //data : $("#username").val(),
+			  dataType: "json",
 			  beforeSend: function(xhr){
 			        xhr.setRequestHeader(header, token);
 			    },

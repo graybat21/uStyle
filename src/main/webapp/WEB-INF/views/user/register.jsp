@@ -72,7 +72,7 @@
                                                                 <div class="field name-username">
                                                                     <label for="username" class="required"><em>*</em>User Name</label>
                                                                     <div class="input-box">
-                                                                        <input type="text" id="username" name="username" value="${user.username}" title="UserName" maxlength="20" class="input-text required-entry" onkeyup="isExistUser()"/>
+                                                                        <input type="text" id="username" name="username" value="${user.username}" title="UserName" maxlength="20" class="input-text required-entry" onblur="isExistUser()"/>
                                                                         <font color="red">
                                                                         	<span id="duplicateResult"></span><br>
                                                                         	<form:errors path="username"/>

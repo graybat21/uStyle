@@ -22,6 +22,7 @@ import com.ustyle.service.PinService;
 import com.ustyle.service.ProductService;
 
 @Controller
+@RequestMapping("/pin/*")
 public class PinController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PinController.class);
@@ -31,8 +32,8 @@ public class PinController {
 	@Inject
 	private ProductService productService;
 
-	@RequestMapping("viewPinBoard.do")
-	public ModelAndView myPinList(HttpSession session){
+	@RequestMapping("viewPinBoardList.do")
+	public ModelAndView myPinBoardList(HttpSession session){
 		ModelAndView mav = new ModelAndView("pin/myPinBoard/My Pin Board");
 		User user = (User) session.getAttribute("session_user");
 		List<PinBoard> pinBoardList = pinService.getPinBoardMyList(user.getUsername());

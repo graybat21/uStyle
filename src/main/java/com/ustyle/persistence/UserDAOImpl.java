@@ -41,6 +41,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int userExist(String username) {
+		System.out.println("username = " + username);
 		return session.selectOne(namespace + ".userExist", username);
 	}
 
