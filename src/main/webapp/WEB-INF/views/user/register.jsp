@@ -70,9 +70,10 @@
                                                         <li class="fields">
                                                             <div class="customer-name-middlename">
                                                                 <div class="field name-username">
-                                                                    <label for="username" class="required"><em>*</em>User Name</label>
+                                                                    <label for="username" class="required"><em>*</em>User Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    <input type="button" onclick="isExistUser()" value="중복 체크" class="button">
                                                                     <div class="input-box">
-                                                                        <input type="text" id="username" name="username" value="${user.username}" title="UserName" maxlength="20" class="input-text required-entry" onblur="isExistUser()"/>
+                                                                        <input type="text" id="username" name="username" value="${user.username}" title="UserName" maxlength="20" class="input-text required-entry" />
                                                                         <font color="red">
                                                                         	<span id="duplicateResult"></span><br>
                                                                         	<form:errors path="username"/>

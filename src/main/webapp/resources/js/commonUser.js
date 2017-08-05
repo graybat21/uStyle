@@ -155,20 +155,15 @@ function verifyOK()
 	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;		
 	var pwReg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/g;
 	var mailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/g;
-
+	
 	if ( document.form_validate.password.value != document.form_validate.confirmation.value )
 	{
 		alert("비밀번호와 비밀번호 확인이 서로 일치하지 않습니다. 다시 확인해주세요.");
 		return false;	
 	}
-	else if ( !idReg.test(document.form_validate.username.value) ) 
+	else if ( $("#duplicateResult").text() != '사용 가능한 아이디입니다.' && location.pathname == '/register.do' ) 
 	{
-		alert("아이디는 영문 소문자로 시작하는 6~20자의 영문자 또는 숫자이어야 합니다.");
-		return false;
-	}
-	else if ( $("#duplicateResult").text() != '사용 가능한 아이디입니다.' && $("#duplicateResult").text() != '') 
-	{
-		alert("이미 해당 아이디로 가입된 회원이 있습니다. 다른 아이디를 입력해주세요.");
+		alert("아이디 체크를 다시 진행해주세요.");
 		return false;
 	}
 	else if ( !pwReg.test(document.form_validate.password.value) ) 
@@ -191,36 +186,33 @@ function isExistUser()		// use keyup event -> To check id
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var token = $("meta[name='_csrf']").attr("content");
 	
-	$("#username").blur(function() {
-		if ( $("#username").val().length >= 6 )
-		{	
-			$.ajax({
-			  url : "/duplicationCheck.do",
-			  type : "post",
-			  contentType : 'application/json; charset=utf-8',
-			  data : JSON.stringify({ username : $("#username").val() }),
-			  //data : $("#username").val(),
-			  dataType: "json",
-			  beforeSend: function(xhr){
-			        xhr.setRequestHeader(header, token);
-			    },
-			  success : function(data) {
-			    if (data) {
-			    	$("#duplicateResult").text("이미 해당 아이디로 가입된 회원이 있습니다. 다른 아이디를 입력해주세요."); 
-			    } 
-			    else {
-			    	$("#duplicateResult").text(""); 
-			    } 
-			  },
-			  error : function(error) {
-			    alert(error.statusText);  
-			  }
-			});
-		}
-		else {
-	    	$("#duplicateResult").text("아이디를 6자 이상 입력해주세요."); 
-		}
-	  	return false;
-	});
+	if ( idReg.test($("#username").val()) )
+	{	
+		$.ajax({
+		  url : "/duplicationCheck.do",
+		  type : "post",
+		  contentType : 'application/json; charset=utf-8',
+		  data : JSON.stringify({ username : $("#username").val() }),
+		  //data : $("#username").val(),
+		  dataType: "json",
+		  beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
+		  success : function(data) {
+		    if (data) {
+		    	$("#duplicateResult").text("이미 해당 아이디로 가입된 회원이 있습니다. 다른 아이디를 입력해주세요."); 
+		    } 
+		    else {
+		    	$("#duplicateResult").text("사용 가능한 아이디입니다."); 
+		    }
+		  },
+		  error : function(error) {
+		    alert(error.statusText);  
+		  }
+		});
+	}
+	else {
+    	$("#duplicateResult").text("아이디는 영문 소문자로 시작하는 6~20자의 영문자 또는 숫자이어야 합니다."); 
+	}
 }
 	
