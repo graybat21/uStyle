@@ -59,7 +59,7 @@ public class ProductDetailController {
 		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
 		pagemaker.setPage(page);
 		
-		ModelAndView mav = new ModelAndView("product/productList/상품 리스트");
+		ModelAndView mav = new ModelAndView("product/productList/" + subcategory);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("subcategory", subcategory);
@@ -114,8 +114,10 @@ public class ProductDetailController {
 	@RequestMapping(value = "productDetail.do", method = RequestMethod.GET)
 	public ModelAndView productDetail(@RequestParam(value = "productid", required = false) 
 						Integer productid) throws Exception {
-		ModelAndView mav = new ModelAndView("product/productDetail/상품 상세");
+		
 		Product product = productService.read(productid);
+		
+		ModelAndView mav = new ModelAndView("product/productDetail/" + product.getProductname());
 		
 		String mainPictureUrl = product.getMainpictureurl();
 		product.setMainpictureurl(mainPictureUrl.replace("/s_", "/"));

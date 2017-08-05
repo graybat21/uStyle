@@ -93,8 +93,6 @@
                                                                             </p>
                                                                         </div>
                                                                         <div class="short-description">
-                                                                            <h2>Quick Overview</h2>
-                                                                            <div class="std">${product.description}</div>
                                                                             <div class="std">가격은 색상 혹은 사이즈에 따라 다를 수 있습니다.</div>
                                                                         </div>
                                                                         <div>
@@ -177,7 +175,7 @@
                                                                             <h2>Details</h2>
                                                                         </div>
                                                                         <div class="box-collateral-content">
-                                                                            <div class="std"> Morbi at ex at arcu posuere luctus. Maecenas eu nulla libero. Duis vulputate blandit hendrerit. Vestibulum mollis mattis justo nec auctor. Morbi non libero felis. Praesent porttitor blandit dui, nec mollis risus tempus ut. Fusce tincidunt</div>
+                                                                            <div class="std">${product.description}</div>
                                                                         </div>
                                                                     </div><!-- /.box-collateral -->
                                                                     <div class="box-collateral box-tags em-line-01">
