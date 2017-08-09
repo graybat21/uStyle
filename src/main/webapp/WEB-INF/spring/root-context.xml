@@ -72,7 +72,7 @@
 	<!-- email -->
 	<bean id="javaMailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
-		<property name="username" value="ustyle1111@gmail.com" />
+		<property name="username" value="ustyle11111@gmail.com" />
 		<property name="password" value="oracle11" />
 		<property name="javaMailProperties">
 			<props>

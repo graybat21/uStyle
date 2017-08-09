@@ -92,8 +92,8 @@ div img {
 	</div>
 	<div class="modal-footer">
 		<%--button type="button" class="btn btn-default" data-dismiss="modal">Close</button--%>
-		<button type="button" class="btn btn-default">수정</button>
-		<button type="button" class="btn btn-default">삭제</button>
+		<button type="button" class="btn btn-default" id="btn-modifypinboard">수정</button>
+		<button type="button" class="btn btn-default" id="btn-removepinboard">삭제</button>
 		<c:if test="${ not empty productid }">
 			<button type="button" class="btn btn-default" id="btn-addpin">Pin 추가</button>
 		</c:if>
@@ -119,7 +119,7 @@ div img {
 	</div> --%>
 	
 <script type="text/javascript">
-$(document).ready(function (){
+$(document).ready(function() {
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var token  = $("meta[name='_csrf']").attr("content");
 	
@@ -127,7 +127,7 @@ $(document).ready(function (){
 	var pinboardno = '${pinBoard.pinboardno}';
 	var productid = '${productid}';
 	
-	$("#like-info-wrapper").on("click", "#btn-addlike", function(e) {
+	$("#like-info-wrapper").on("click", "#btn-addlike", function() {
 		$.ajax({
 			type: 'post',
 			url: 'addLike.do',
@@ -157,7 +157,7 @@ $(document).ready(function (){
 		});
 	});
 	
-	$("#like-info-wrapper").on("click", "#btn-removelike", function(e) {
+	$("#like-info-wrapper").on("click", "#btn-removelike", function() {
 		$.ajax({
 			type: 'post',
 			url: 'removeLike.do',
@@ -221,7 +221,40 @@ $(document).ready(function (){
 			    window.location.href = "myPinBoardList.do";
 		    }
 		});
-		
+	});
+	
+	$(".modal-footer").on("click", "#btn-modifypinboard", function(e) {
+		window.location.href = "modifyPinBoard.do?pinboardno=" + pinboardno;
+	});
+	
+	$(".modal-footer").on("click", "#btn-removepinboard", function(e) {
+		if ( confirm("이 PinBoard를 삭제하시겠습니까?") == true )
+		{
+			$.ajax({
+				type: 'post',
+				url: 'deletePinBoard.do',
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(header, token);
+			    },
+				headers: {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType: "text",
+				data: JSON.stringify({pinboardno: pinboardno}),
+				success: function(result) {
+					console.log("result: " + result);
+					
+					if ( result == 'SUCCESS' ) {
+						window.location.href = "myPinBoardList.do";
+					}
+				},
+				error: function(request, status, error) {
+				    alert("올바르지 않은 PinBoard 삭제입니다.");
+				    window.location.href = "myPinBoardList.do";
+			    }
+			});
+		}
 	});
 });
 </script>

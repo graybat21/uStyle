@@ -86,7 +86,7 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
-	public List<PinBoard> getPinBoardList(){
+	public List<PinBoard> getPinBoardList() {
 		return pinBoardDao.getPinBoardList();
 	}
 
@@ -96,18 +96,15 @@ public class PinServiceImpl implements PinService {
 	}
 
 	@Override
-	public void modifyPinBoardName(PinBoard pinBoard) throws Exception {
-		pinBoardDao.modifyPinBoardName(pinBoard);
-	}
-
-	@Override
-	public void modifyPinBoardContent(PinBoard pinBoard) {
-		pinBoardDao.modifyPinBoardContent(pinBoard);
+	public void modifyPinBoard(PinBoard pinBoard) throws Exception {
+		pinBoardDao.modifyPinBoard(pinBoard);
 	}
 
 	@Override
 	public void deletePinBoard(int pinboardno) throws Exception {
-		 pinBoardDao.deletePinBoard(pinboardno);
+		pinDao.deleteAllPin(pinboardno);
+		pinBoardDao.deleteAllPinBoardLike(pinboardno);
+		pinBoardDao.deletePinBoard(pinboardno);
 	}
 
 	@Override
@@ -134,15 +131,10 @@ public class PinServiceImpl implements PinService {
 	}
 
 	@Override
-	public void deletePin(int pinno) throws Exception {
-		 pinDao.deletePin(pinno);
+	public void deletePin(Pin pin) throws Exception {
+		 pinDao.deletePin(pin);
 	}
-	@Override
-	public void deleteAllPin(int pinboardno) throws Exception {
-		pinDao.deleteAllPin(pinboardno);
-	}
-
-
+	
 //	=============================================
 	
 	@Override

@@ -100,24 +100,87 @@ public class PinController {
 		pinService.createPinBoard(pinBoard);
 		return "redirect:/pin/myPinBoardList.do";
 	}
-
-	@RequestMapping(value = "modifyPinBoardName.do", method = RequestMethod.POST)
-	public String modifyPinBoardName(@RequestParam PinBoard pinBoard) throws Exception {
-		pinService.modifyPinBoardName(pinBoard);
-		return "redirect:/viewPinBoard.do";
+	
+	@RequestMapping(value = "modifyPinBoard.do", method = RequestMethod.GET)
+	public ModelAndView modifyPinBoardForm(HttpSession session, @RequestParam int pinboardno) throws Exception {
+		
+		PinBoard pinBoard = pinService.getPinBoardByNo(pinboardno);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		User user = (User) session.getAttribute("session_user");
+		String username = user.getUsername();
+		String pinBoardUsername = pinBoard.getUsername();
+		
+		if ( !(pinBoardUsername.equals(username)) ) {
+			mav.setViewName("pin/updatePinBoardError/Update PinBoard Error");
+			return mav;
+		}
+		
+		List<HashMap<String, Object>> pinBoardProductList = pinService.selectPinBoardProductList(pinBoard.getPinboardno());
+		
+		
+		mav.setViewName("pin/updatePinBoardForm/Update PinBoard");
+		mav.addObject("pinBoard", pinBoard);
+		mav.addObject("pinBoardProductList", pinBoardProductList);
+		
+		//pinService.modifyPinBoardName(pinBoard);
+		return mav;
 	}
 	
-	@RequestMapping(value = "modifyPinBoardContent.do", method = RequestMethod.POST)
-	public String modifyPinBoardContent(@RequestParam PinBoard pinBoard) throws Exception {
-		pinService.modifyPinBoardContent(pinBoard);
-		return "redirect:/viewPinBoard.do";
+	@RequestMapping(value = "modifyPinBoard.do", method = RequestMethod.POST)
+	public String modifyPinBoard(PinBoard pinBoard) throws Exception {
+		
+		logger.info(pinBoard.toString());
+		pinService.modifyPinBoard(pinBoard);
+		return "redirect:/pin/myPinBoardList.do";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "deletePin.do", method = RequestMethod.POST)
+	public ResponseEntity<String> deletePin(@RequestBody Pin pin) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			logger.info("PIN TO DELETE = " + pin.toString());
+			
+			pinService.deletePin(pin);
+			
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "deletePinBoard.do", method = RequestMethod.POST)
-	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
-		pinService.deleteAllPin(pinboardno);
-		pinService.deletePinBoard(pinboardno);
-		return "redirect:/viewPinBoard.do";
+	public ResponseEntity<String> deletePinBoard(@RequestBody PinBoard pinBoard) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		int pinboardno = pinBoard.getPinboardno();
+		
+		try 
+		{
+			logger.info("PINBOARDNUM TO DELETE = " + pinboardno);
+			
+			pinService.deletePinBoard(pinboardno);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 	
 	@ResponseBody
@@ -242,14 +305,7 @@ public class PinController {
 //		mav.addObject("pinboardno",pinboardno);
 //		return mav;
 //	}
-//	
-	
-//	@RequestMapping(value="deletePin.do", method=RequestMethod.POST)
-//	public String deletePin(@RequestParam int pinno)throws Exception{
-//		pinService.deletePin(pinno);
-//		return "redirect:/pin.do";
-//	}
-	
+//		
 	
 //	=======================================================================
 	

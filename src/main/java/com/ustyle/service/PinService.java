@@ -21,19 +21,18 @@ public interface PinService {
 	public boolean existPin(Pin pin) throws Exception;
 	public int selectPinCnt(int pinboardno) throws Exception;
 	public List<HashMap<String, Object>> selectPinBoardProductList(int pinboardno) throws Exception;
+	public void modifyPinBoard(PinBoard pinBoard) throws Exception;
 	
 	public List<PinBoard> getPinBoardList();
 	public List<PinBoard> getPinBoardMainImage(String username);
-	public void modifyPinBoardName(PinBoard pinBoard) throws Exception;
-	public void modifyPinBoardContent(PinBoard pinBoard);
+	
 	public void deletePinBoard(int pinboardno) throws Exception;
 	public int selectListCnt(HashMap<String, Object> map);
 	public PinBoard getPinBoardByNo(int pinboardno);
 	// ===================================================================== //
 	public List<Pin> getPins(int pinboardno);
 	public void insertPin(Pin pin) throws Exception;
-	public void deletePin(int pinno) throws Exception;
-	public void deleteAllPin(int pinboardno) throws Exception;
+	public void deletePin(Pin pin) throws Exception;
 	// ===================================================================== //
 	public List<PinBoardReply> getPinBoardReplyByPinBoardNo(int pinboardno);
 	public void insertPinBoardReply(PinBoardReply pinBoardReply);

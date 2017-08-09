@@ -297,7 +297,6 @@ public class AdminController {
 
 	@RequestMapping("deletePinBoard.do")
 	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
-		pinService.deleteAllPin(pinboardno);
 		pinService.deletePinBoard(pinboardno);
 		return "redirect:/admin/pinBoardList.do";
 	}

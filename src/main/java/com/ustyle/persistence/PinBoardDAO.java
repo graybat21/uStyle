@@ -20,12 +20,13 @@ public interface PinBoardDAO {
 	public boolean existPin(Pin pin);
 	public int selectPinCnt(int pinboardno);
 	public List<HashMap<String, Object>> selectPinBoardProductList(int pinboardno);
+	public void modifyPinBoard(PinBoard pinBoard);
+	public void deleteAllPinBoardLike(int pinboardno);
 	
 	public List<PinBoard> getPinBoardList();
 	public PinBoard pinBoardByNo(int pinboardno);
 	public List<PinBoard> getPinBoardMainImage(String username);
-	public void modifyPinBoardName(PinBoard pinBoard);
-	public void modifyPinBoardContent(PinBoard pinBoard);
+	
 	public void deletePinBoard(int pinboardno);
 	public int selectListCnt(HashMap<String, Object> map);
 }

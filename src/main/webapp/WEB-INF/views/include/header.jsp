@@ -335,8 +335,8 @@
 								<div class="f-right"></div>
 								<div class="f-right">
 									<ul class="em-links-wishlist">
-										<li class="first last"><a href="wishlist.do"
-											title="Wishlist">Wishlist</a></li>
+										<li class="first last"><a href="/pin/myPinBoardList.do"
+											title="Wishlist">My PinBoard List</a></li>
 									</ul>
 								</div>
 								

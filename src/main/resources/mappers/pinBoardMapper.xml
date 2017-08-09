@@ -76,12 +76,24 @@
 	
 	<select id="selectPinBoardProductList" parameterType="int" resultType="hashmap">
 		select 
-			PD.productid, PD.mainpictureurl
+			PD.productid, PD.productname, PD.mainpictureurl
 		from 
 			tbl_pin P, tbl_product PD
 		where 
 			P.productid = PD.productid and P.pinboardno = #{pinboardno}
 	</select>
+	
+	<update id="modifyPinBoard" parameterType="pinBoard">
+		update
+		tbl_pinboard set pinboardname = #{pinboardname}, content = #{content}
+		where pinboardno = #{pinboardno}
+	</update>
+	
+	<delete id="deleteAllPinBoardLike" parameterType="int">
+		delete from
+		tbl_pinboardlike 
+		where pinboardno = #{pinboardno}
+	</delete>
 
 	<select id="getPinBoardMyList" parameterType="String" resultType="pinBoard">
 		select * from tbl_pinboard where username = #{username}
@@ -106,19 +118,6 @@
 		and p.productid = pro.productid
 		and username = #{username}
 	</select>
-
-	<update id="modifyPinBoardName" parameterType="PinBoard">
-		update
-		tbl_pinboard set pinboardname = #{pinboardname}
-		where pinboardno =
-		#{pinboardno}
-	</update>
-	<update id="modifyPinBoardContent" parameterType="PinBoard">
-		update
-		tbl_pinboard set content = #{content}
-		where pinboardno =
-		#{pinboardno}
-	</update>
 
 	<delete id="deletePinBoard" parameterType="int">
 		delete from tbl_pinboard

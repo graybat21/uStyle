@@ -7,6 +7,11 @@
 		values(#{pinboardno}, #{productid})
 	</insert>
 	
+	<delete id="deletePin" parameterType="pin">
+		delete from tbl_pin
+		where pinboardno = #{pinboardno} and productid = #{productid}
+	</delete>
+	
 	<select id="getPins" parameterType="int" resultType="Pin">
 		select p.*, pd.mainpictureurl productimage 
 		from tbl_pin p, tbl_product pd
@@ -14,10 +19,6 @@
 		and p.pinboardno = #{pinboardno}
 	</select>
 	
-	<delete id="deletePin" parameterType="int">
-		delete from tbl_pin
-		where pinno = #{pinno}
-	</delete>
 	<delete id="deleteAllPin" parameterType="int">
 		delete from tbl_pin
 		where pinboardno = #{pinboardno}

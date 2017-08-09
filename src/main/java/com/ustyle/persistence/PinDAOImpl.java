@@ -23,13 +23,13 @@ public class PinDAOImpl implements PinDAO {
 	}
 	
 	@Override
+	public void deletePin(Pin pin) {
+		session.delete(namespace+".deletePin", pin);
+	}
+	
+	@Override
 	public List<Pin> getPins(int pinboardno) {
 		return session.selectList(namespace + ".getPins", pinboardno);
-	}
-
-	@Override
-	public void deletePin(int pinno) {
-		session.delete(namespace+".deletePin", pinno);
 	}
 
 	@Override
