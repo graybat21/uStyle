@@ -4,26 +4,18 @@
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
-<script>
-$(function(){
-    $("#popbutton").click(function(){
-        $('div.modal').modal({
-            remote : '/viewPin.do?pinboardno=12'
-        });
-    })
-})
-</script>
+
 <style>
-.col-md-6 {
+.col-md-5 {
 	text-align: center;
 }
 
-img {
+img .pinBoardImage {
 	width: 150px;
 	height: 150px;
 }
 .modal.modal-center{
-text-align: center;
+	text-align: center;
 }
 @media screen and (min-width: 768px) { 
   .modal.modal-center:before {
@@ -47,54 +39,126 @@ text-align: center;
   min-height: 100%;
   border-radius: 0; 
 }
-
+.glyphicon-plus {
+    font-size: 100px;
+}
+.pinboard-list {
+	padding: 20px;
+}
+.pinboard-element {
+	height: 350px; 
+	margin: 20px;
+}
+.pinboard-pagination {
+	padding: 0 50px 50px 50px;
+}
 </style>
+
+<script type="text/javascript">
+/** 
+ * 	열려있는 하나의 modal을 닫은 후 다른 modal을 열었을 때, 이에 해당하는 modal을 열 수 있도록 함.
+ *	아래의 코드가 없을 경우, 처음에 열었던 modal만 계속해서 나오게 됨.
+ */
+$('body').on('hidden.bs.modal', '.modal', function (e) {
+	  $(this).removeData('bs.modal');
+});
+</script>
+
 </head>
-<body class="cms-index-index">
 
-	<div class="page-header">
-		<div class="container col-md-24" style="padding: 100px;">
-			<h1>PinBoard list</h1>
-			<a href="createPinBoard.do">
-				<div class="well col-md-6" style="height: 350px;">+</div>
-			</a>
-			
-			
-			
-<!-- Button trigger modal --> 
-<button type="button" class="btn btn-primary btn-lg" id="popbutton">
-  Launch demo modal
-</button>
-
-
-
- 			<c:forEach var="pinBoard" items="${pinBoardList }" varStatus="status">
-				<a href="#popbutton" data-toggle="modal"> <%-- ${pinBoard.pinboardno } --%>
-					<div class="well col-md-6" style="height: 350px;">
-						${pinBoard.pinboardno } / ${pinBoard.like }
-						<c:forEach var="image" items="${imageList }">
-							<c:if test="${image.pinboardno eq pinBoard.pinboardno }">
-								<img src="${image.mainpictureurl }" />
-							</c:if>
+<body class="contacts-index-index ">
+	<div class="wrapper">
+		<div class="page one-column">
+			<div class="em-wrapper-main">
+				<div class="container-fluid container-main">
+					<div class="container col-md-24 pinboard-list">
+						<h1>PinBoard list</h1>
+						<div class="well col-md-5 pinboard-element">
+							<a href="createPinBoard.do">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</a>
+						</div>
+						
+			 			<c:forEach var="pinBoard" items="${pinBoardList}" varStatus="status">
+							<c:url value="/pin/viewPinBoard.do" var="pinUrl">
+					            <c:param name="pinboardno" value="${pinBoard.pinboardno}" />
+				            	<c:param name="productid" value="${productid}" />
+					        </c:url>
+							<a href="${pinUrl}" data-toggle="modal" data-target="#myModal"> <%-- ${pinBoard.pinboardno } --%>
+								<div class="well col-md-5 pinboard-element">
+									<div>${pinBoard.pinboardname}</div>
+									<div>${pinBoard.likecnt} LIKE</div>
+									<c:forEach var="image" items="${imageList}">
+										<c:if test="${ image.pinboardno eq pinBoard.pinboardno }">
+											<img class="pinBoardImage" src="${image.mainpictureurl}" />
+										</c:if>
+									</c:forEach>
+								</div>
+							</a>
 						</c:forEach>
+						
+						
+						
+						<!-- Modal -->
+						<div class="modal modal-center fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-fullsize-center">
+								<div class="modal-content modal-fullsize-center">
+								  <div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+									<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+								  </div>
+								  <div class="modal-body">
+								    ...
+								  </div>
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary">Save changes</button>
+								  </div>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 					
-			</c:forEach>
-			
-			
-			<!-- Modal -->
-			<div class="modal modal-center fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog modal-fullsize-center">
-			    <div class="modal-content modal-fullsize-center">
-			      
-			    </div>
-			  </div>
+					<div class="container col-md-24 pinboard-pagination">
+					<div class="toolbar-bottom em-box-03">
+						<div class="toolbar">
+						<div class="pager">
+							<p class="amount"> Pins ${first} to ${last} of ${totalCnt} total</p>
+							<div class="pages">
+							    <ol>
+							    	<c:if test="${pageMaker.prev }">
+										<c:url var="myPinBoardListP" value="myPinBoardList.do">
+											<c:param name="pageCount" value="${pageMaker.start - 1}" />
+											<c:param name="productid" value="${productid}" />
+										</c:url>
+                                       		<li><a class="fa fa-angle-left" href="${myPinBoardListP }" title="Prev"> </a></li>
+									</c:if>
+                                       	
+                                    <c:forEach begin="${pageMaker.start }" end="${pageMaker.end}" var="idx">
+										<c:url var="myPinBoardListP" value="myPinBoardList.do">
+										    <c:param name="pageCount" value="${idx}" />
+										    <c:param name="productid" value="${productid}" />
+										</c:url>
+										<li><a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${myPinBoardListP }'>${idx}</a></li>
+									</c:forEach>
+									<c:if test="${pageMaker.next }">
+									<c:url var="myPinBoardListP" value="myPinBoardList.do">
+									    <c:param name="pageCount" value="${pageMaker.end + 1}" />
+										<c:param name="productid" value="${productid}" />
+									</c:url>
+										<li><a class="fa fa-angle-right" href="${myPinBoardListP }" title="Next"></a></li>
+									</c:if>
+						        </ol>
+						    </div>
+						</div><!-- /.pager -->
+						</div>
+						</div>
+						</div>
+				</div>
 			</div>
-			
-			
 		</div>
 	</div>
-
 </body>
 </html>
 

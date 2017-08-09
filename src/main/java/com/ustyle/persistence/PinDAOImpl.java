@@ -13,6 +13,7 @@ import com.ustyle.domain.Pin;
 public class PinDAOImpl implements PinDAO {
 
 	private static String namespace = "com.ustyle.mappers.pinMapper";
+	
 	@Inject
 	private SqlSession session;
 
@@ -20,7 +21,7 @@ public class PinDAOImpl implements PinDAO {
 	public void insertPin(Pin pin) {
 		session.insert(namespace + ".insertPin", pin);
 	}
-
+	
 	@Override
 	public List<Pin> getPins(int pinboardno) {
 		return session.selectList(namespace + ".getPins", pinboardno);

@@ -8,12 +8,15 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.ustyle.domain.Pin;
 import com.ustyle.domain.PinBoard;
+import com.ustyle.domain.PinBoardLike;
 
 @Repository
 public class PinBoardDAOImpl implements PinBoardDAO {
 
 	private static String namespace = "com.ustyle.mappers.pinBoardMapper";
+	
 	@Inject
 	private SqlSession session;
 
@@ -21,10 +24,60 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	public void createPinBoard(PinBoard pinBoard) {
 		session.insert(namespace + ".createPinBoard", pinBoard);
 	}
+	
+	@Override
+	public int selectListCntForUsername(String username) {
+		return session.selectOne(namespace + ".selectListCntForUsername", username);
+	}
 
 	@Override
-	public List<PinBoard> getPinBoardMyList(String username) {
-		return session.selectList(namespace + ".getPinBoardMyList", username);
+	public List<PinBoard> selectPinBoardList(HashMap<String, Object> map) {
+		return session.selectList(namespace + ".selectPinBoardList", map);
+	}
+	
+	@Override
+	public boolean checkLike(HashMap<String, Object> map) {
+		return session.selectOne(namespace + ".checkLike", map);
+	}
+	
+	@Override
+	public void plusLike(int pinboardno) {
+		session.update(namespace + ".plusLike", pinboardno);
+	}
+	
+	@Override
+	public void addLikeList(PinBoardLike pinBoardLike) {
+		session.insert(namespace + ".addLikeList", pinBoardLike);
+	}
+	
+	@Override
+	public void minusLike(int pinboardno) {
+		session.update(namespace + ".minusLike", pinboardno);
+	}
+	
+	@Override
+	public void removeLikeList(PinBoardLike pinBoardLike) {
+		session.insert(namespace + ".removeLikeList", pinBoardLike);
+	}
+	
+	@Override
+	public int selectLikeCnt(int pinboardno) {
+		return session.selectOne(namespace + ".selectLikeCnt", pinboardno);
+	}
+	
+	@Override
+	public boolean existPin(Pin pin) {
+		return session.selectOne(namespace + ".existPin", pin);
+	}
+	
+	@Override
+	public int selectPinCnt(int pinboardno) {
+		return session.selectOne(namespace + ".selectPinCnt", pinboardno);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> selectPinBoardProductList(int pinboardno) {
+		return session.selectList(namespace + ".selectPinBoardProductList", pinboardno);
 	}
 
 	@Override
@@ -62,15 +115,4 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	public int selectListCnt(HashMap<String, Object> map) {
 		return session.selectOne(namespace + ".selectListCnt", map);
 	}
-
-	@Override
-	public List<PinBoard> pinBoardList(HashMap<String, Object> map) {
-		return session.selectList(namespace + ".pinBoardList", map);
-	}
-
-	@Override
-	public void plusLike(int pinboardno) {
-		session.update(namespace+".plusLike",pinboardno);
-	}
-
 }

@@ -72,7 +72,8 @@
 			<mapping path="/purchaseList.do" />
 			<mapping path="/cart/addCart.do" />
 			<mapping path="/cart/viewCart.do" />
-			<mapping path="/pin/viewPinBoardList.do" />
+			<mapping path="/pin/myPinBoardList.do" />
+			<mapping path="/pin/createPinBoard.do" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>

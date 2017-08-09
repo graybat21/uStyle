@@ -11,27 +11,6 @@ $( ".em-moreviews-slider li a" ).click(function() {
     return false;
 });
 
-function verifyReview()
-{
-	/*if ( $("#username").val() == '' )
-	{
-		alert("로그인 후 작성하실 수 있습니다.");
-		return false;
-	}
-	else if ( $("#contents").val().trim() == '' )
-	{
-		alert("내용을 입력해주세요.");
-		return false;
-	}
-	else if ( $("#contents").val().length > 150 )
-	{
-		alert("리뷰 내용은 띄어쓰기를 포함하여 최대 150자로 제한됩니다.");
-		return false;
-	}
-	else*/
-		return true;
-}
-
 /**
 	색상을 선택했을 때 수행되는 작업
 */

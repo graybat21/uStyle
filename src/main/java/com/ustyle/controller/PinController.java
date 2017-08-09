@@ -1,5 +1,7 @@
 package com.ustyle.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,19 +9,25 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Pin;
 import com.ustyle.domain.PinBoard;
+import com.ustyle.domain.PinBoardLike;
 import com.ustyle.domain.PinBoardReply;
+import com.ustyle.domain.Review;
 import com.ustyle.domain.User;
 import com.ustyle.service.PinService;
 import com.ustyle.service.ProductService;
+import com.ustyle.utils.PageMaker;
 
 @Controller
 @RequestMapping("/pin/*")
@@ -32,17 +40,50 @@ public class PinController {
 	@Inject
 	private ProductService productService;
 
-	@RequestMapping("viewPinBoardList.do")
-	public ModelAndView myPinBoardList(HttpSession session){
+	@RequestMapping("myPinBoardList.do")
+	public ModelAndView myPinBoardList(@RequestParam(value = "pageCount", required = false) Integer pageCount,
+			@RequestParam(value = "productid", required = false) Integer productid, HttpSession session) throws Exception {
+		
+		PageMaker pageMaker = new PageMaker();
+		
+		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
+		pageMaker.setPage(page);
+		
 		ModelAndView mav = new ModelAndView("pin/myPinBoard/My Pin Board");
 		User user = (User) session.getAttribute("session_user");
-		List<PinBoard> pinBoardList = pinService.getPinBoardMyList(user.getUsername());
+		
+		String username = user.getUsername();
+		
+		int totalCnt = pinService.selectListCntForUsername(username); // DB연동_ 총 갯수 구해오기
+		int countPerPaging = 10;
+		int pageCnt = 11;			// 4 X 3 행렬에서 맨 위쪽에 있는 추가 버튼을 하나 제외하여 한 페이지당 11개씩 보이게 함. 
+		
+		pageMaker.setCount(totalCnt, pageCnt, countPerPaging);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("username", username);
+
+		int first = ((pageMaker.getPage() - 1) * pageCnt) + 1;
+		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
+		
+		map.put("first", first);
+		map.put("last", last);
+		
+		List<PinBoard> pinBoardList = pinService.selectPinBoardList(map);
 		logger.info(pinBoardList.toString());
+		
 		List<PinBoard> pinBoardMainImageList = pinService.getPinBoardMainImage(user.getUsername());
 		logger.info(pinBoardMainImageList.toString());
 //		pinService.getProductImage(pinboardno);
+		
 		mav.addObject("pinBoardList", pinBoardList);
-		mav.addObject("imageList",pinBoardMainImageList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("totalCnt", totalCnt);
+		mav.addObject("first", first);
+		mav.addObject("last", last);
+		mav.addObject("imageList", pinBoardMainImageList);
+		mav.addObject("productid", productid);
 		return mav;
 	}
 
@@ -50,15 +91,14 @@ public class PinController {
 	public String createPinBoard() throws Exception {
 		return "pin/createPinBoardForm/New Create Form";
 	}
+	
 	@RequestMapping(value = "createPinBoard.do", method = RequestMethod.POST)
 	public String createPinBoard(HttpSession session, PinBoard pinBoard) throws Exception {
-//		PinBoard pinBoard=new PinBoard();
 		User user = (User) session.getAttribute("session_user");
 		pinBoard.setUsername(user.getUsername());
-//		pinBoard.setPinboardname(pinboardname);
 		logger.info(pinBoard.toString());
 		pinService.createPinBoard(pinBoard);
-		return "redirect:/viewPinBoard.do";
+		return "redirect:/pin/myPinBoardList.do";
 	}
 
 	@RequestMapping(value = "modifyPinBoardName.do", method = RequestMethod.POST)
@@ -80,42 +120,129 @@ public class PinController {
 		return "redirect:/viewPinBoard.do";
 	}
 	
-	@RequestMapping(value="plusLike.do", method = RequestMethod.PUT)
-	public String plusLike(@RequestParam int pinboardno){
+	@ResponseBody
+	@RequestMapping(value = "addLike.do", method = RequestMethod.POST)
+	public int addLike(@RequestBody PinBoardLike pinBoardLike) throws Exception {
+		
+		logger.info("PINBOARDLIKE TO ADD = " + pinBoardLike.toString());
+		
+		int pinboardno = pinBoardLike.getPinboardno();
+		
 		pinService.plusLike(pinboardno);
-		return "redirect:/viewPin.do";
+		pinService.addLikeList(pinBoardLike);
+		
+		int selectLikeCnt = pinService.selectLikeCnt(pinboardno);
+		
+		return selectLikeCnt;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "removeLike.do", method = RequestMethod.POST)
+	public int removeLike(@RequestBody PinBoardLike pinBoardLike) throws Exception {
+		
+		logger.info("PINBOARDLIKE TO REMOVE = " + pinBoardLike.toString());
+		
+		int pinboardno = pinBoardLike.getPinboardno();
+		
+		pinService.minusLike(pinboardno);
+		pinService.removeLikeList(pinBoardLike);
+		
+		int selectLikeCnt = pinService.selectLikeCnt(pinboardno);
+		
+		return selectLikeCnt;
 	}
 	
 //	=======================================================================
 	
-	@RequestMapping(value="viewPin.do", method=RequestMethod.GET)
-	public ModelAndView viewPin(@RequestParam int pinboardno)throws Exception{
-		ModelAndView mav=new ModelAndView("pinList");
+	@RequestMapping(value="viewPinBoard.do", method=RequestMethod.GET)
+	public ModelAndView viewPinBoard(@RequestParam(value = "productid", required = false) Integer productid,
+			@RequestParam int pinboardno, HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("pinList");
 		List<Pin> pinList = pinService.getPins(pinboardno);
 		PinBoard pinBoard = pinService.getPinBoardByNo(pinboardno);
-		List<PinBoardReply> pinBoardReplyList = pinService.getPinBoardReplyByPinBoardNo(pinboardno);
-		logger.info("============="+pinList.toString());
-		logger.info("============="+pinBoard.toString());
-		logger.info("============="+pinBoardReplyList.toString());
+		List<HashMap<String, Object>> pinBoardProductList = pinService.selectPinBoardProductList(pinboardno);
+//		List<PinBoardReply> pinBoardReplyList = pinService.getPinBoardReplyByPinBoardNo(pinboardno);
+		logger.info("=============" + pinList.toString());
+		logger.info("=============" + pinBoard.toString());
+//		logger.info("=============" + pinBoardReplyList.toString());
+		
+		for ( HashMap<String, Object> map : pinBoardProductList ) 
+		{
+			Iterator<String> iterator = map.keySet().iterator();
+		    while (iterator.hasNext()) {
+		        String key = String.valueOf(iterator.next());
+		        logger.info("key = " + key);
+		        logger.info(" value = " + map.get(key));
+		    }
+		}
+		
+		User user = (User) session.getAttribute("session_user");
+		String username = user.getUsername();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pinboardno", pinboardno);
+		map.put("username", username);
+		
+		boolean isCheckLike = pinService.checkLike(map);		// 특정 PinBoard에 대한 좋아요를 체크했는지 확인하는 변수
+		
 		mav.addObject(pinList);
+		mav.addObject("pinBoardProductList", pinBoardProductList);
 		mav.addObject(pinBoard);
-		mav.addObject(pinBoardReplyList);
+		mav.addObject("isCheckLike", isCheckLike);
+		
+		if ( productid != null )
+			mav.addObject("productid", productid);
+
+//		mav.addObject(pinBoardReplyList);
 		return mav;
 	}
 	
-	@RequestMapping(value="insertPin.do", method=RequestMethod.GET)
-	public ModelAndView insertPinView(@RequestParam int pinboardno) throws Exception{
-		ModelAndView mav=new ModelAndView("pin/insertPinForm/insert pin");
-		mav.addObject("pinboardno",pinboardno);
-		return mav;
-	}
-	@RequestMapping(value="insertPin.do", method=RequestMethod.POST)
-	public String insertPin(Pin pin) throws Exception{
-//		pin.setProductid(productid);
-		pinService.insertPin(pin);
+	@ResponseBody
+	@RequestMapping(value = "insertPin.do", method = RequestMethod.POST)
+	public ResponseEntity<String> insertPin(@RequestBody Pin pin) {
 		
-		return "redirect:/viewPinBoard.do";
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			logger.info("PIN TO INSERT = " + pin.toString());
+			
+			boolean isExistPin = pinService.existPin(pin);		// 선택한 상품이 Pin으로 이미 추가되어있는지 체크함. 
+			
+			if ( isExistPin == true ) {
+				entity = new ResponseEntity<String>("EXIST OF PIN", HttpStatus.OK);
+			}
+			else {
+				int totalPinCnt = pinService.selectPinCnt(pin.getPinboardno());
+				// 하나의 PinBoard에 Pin을 최대 4개까지만 넣을 수 있도록 함. 
+				
+				if ( totalPinCnt >= 4 ) {
+					entity = new ResponseEntity<String>("EXCEED OF PIN", HttpStatus.OK);
+				}
+				else {
+					pinService.insertPin(pin);
+					entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+				}
+			}
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
+	
+	
+//	@RequestMapping(value="insertPin.do", method=RequestMethod.GET)
+//	public ModelAndView insertPinView(@RequestParam int pinboardno) throws Exception{
+//		ModelAndView mav=new ModelAndView("pin/insertPinForm/insert pin");
+//		mav.addObject("pinboardno",pinboardno);
+//		return mav;
+//	}
+//	
 	
 //	@RequestMapping(value="deletePin.do", method=RequestMethod.POST)
 //	public String deletePin(@RequestParam int pinno)throws Exception{

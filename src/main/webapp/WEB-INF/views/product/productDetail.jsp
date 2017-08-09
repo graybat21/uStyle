@@ -141,14 +141,10 @@
                                                                                 	</c:forEach>
                                                                                 </select>
                                                                             </div>
-                                                                            <ul class="add-to-links">
-                                                                                <li><a title="Add to Wishlist" href="#" class="link-wishlist">Add to Wishlist</a>
-                                                                                </li>
-                                                                                <li><span class="separator">|</span> <a href="#" title="Add to Compare" class="link-compare">Add to Compare</a>
-                                                                                </li>
-                                                                            </ul>
                                                                             <div class="button_addto">
-                                                                                <button type="submit" title="Add to Cart" id="product-addtocart-button" class="button btn-cart btn-cart-detail"><span><span>Add to Cart</span></span>
+                                                                                <button type="submit" title="Add to Cart" id="product-addtocart-button" class="button btn-cart btn-cart-detail"><span>Add to Cart</span>
+                                                                                </button>
+                                                                                <button type="button" title="Add to Pin" id="product-addtopin-button" class="button"><span>Add to Pin</span>
                                                                                 </button>
                                                                             </div>
                                                                         </div><!-- /.add-to-cart -->
@@ -434,9 +430,17 @@
             				alert("상품에 대한 리뷰가 추가되었습니다.");
             				location.href = "/product/productDetail.do?productid=" + productid;
             			}
-            		}
+            		},
+            		error: function(request, status, error) {
+            		    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+            	    }
             	});
             });
+            
+            $("#product-addtopin-button").on("click", function() {
+           		location.href = "/pin/myPinBoardList.do?productid=" + productid;
+            });
+
         </script>
         <!-- Product View Js -->
         <script type="text/javascript" src="/resources/js/em_product_view.js"></script>

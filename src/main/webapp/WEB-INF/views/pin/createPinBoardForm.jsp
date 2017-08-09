@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
-<link rel="stylesheet"
+<%--link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script--%>
 <style>
 #columns {
 	column-width: 350px;
@@ -38,29 +38,66 @@ div img {
 </head>
 <body class="cms-index-index">
 	<div class="wrapper">
-		<div class="page one-column">
-
-			<h1>Insert PinBoard Form</h1>
-
+		
+		<div class="page one-column" id="columns">
+			<h1>Insert PinBoard</h1>
 		</div>
 		<!-- /.page -->
+	
+		<div class="container" style="height: auto; margin: 30px;">
+			<div class="box-collateral box-reviews em-line-01" id="customer-reviews">
+				<div class="form_review no_reviews">
+				    <div class="form-add" id="customer_review_form">
+				    	<form method="post" onsubmit="return verifyOK()">
+				    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					        <div class="em-block-title">
+					            <h2>Insert PinBoard Form</h2>
+					        </div>
+				            <fieldset>
+				                <h3>PinBoard의 제목과 내용을 입력해주세요.</h3>
+				                <ul class="form-list">
+				                    <li>
+				                        <label for="username_field" class="required"><em>*</em>Title</label>
+				                        <div class="input-box">
+				                            <input type="text" name="pinboardname" id="pinboard-name" class="input-text required-entry" value=""/>
+				                        </div>
+				                    </li>
+				                    <li>
+				                        <label for="contents_field" class="required"><em>*</em>Contents</label>
+				                        <div class="input-box">
+				                            <textarea name="content" id="pinboard-content" cols="5" rows="3" class="required-entry"></textarea>
+				                        </div>
+				                    </li>
+				                </ul>
+				            </fieldset>
+						    <div class="buttons-set">
+						        <button type="submit" title="Submit Pinboard" class="button"><span>Submit Pinboard</span>
+						        </button>
+						    </div>
+				    	</form>
+				    </div>
+				</div><!-- /.form_review -->
+			</div><!-- /.box-collateral -->
+		</div>
+		<!-- /.container -->
 	</div>
 	<!-- /.wrapper -->
-
-	<div class="container" style="width: 300px; height: auto; margin: 0px;">
-		<div class="row">
-			<form method="post">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" /> <input type="text" name="pinboardname">
-				<input type="text" name="content">
-				<input type="submit">
-			</form>
-		</div>
-	</div>
-
-
-
-
+	
+<script type="text/javascript">
+function verifyOK()
+{
+	if ( $("#pinboard-name").val() == '' ) {
+		alert("제목을 입력하세요.");
+		return false;
+	}
+	else if ( $("#pinboard-content").val() == '' ) {
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	else	
+		return true;
+}
+</script>
 </body>
 </html>
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ustyle.domain.Pin;
 import com.ustyle.domain.PinBoard;
+import com.ustyle.domain.PinBoardLike;
 import com.ustyle.domain.PinBoardReply;
 import com.ustyle.persistence.PinBoardDAO;
 import com.ustyle.persistence.PinBoardReplyDAO;
@@ -28,10 +29,60 @@ public class PinServiceImpl implements PinService {
 	public void createPinBoard(PinBoard pinBoard) throws Exception {
 		pinBoardDao.createPinBoard(pinBoard);
 	}
-
+	
 	@Override
-	public List<PinBoard> getPinBoardMyList(String username){
-		return pinBoardDao.getPinBoardMyList(username);
+	public int selectListCntForUsername(String username) throws Exception {
+		return pinBoardDao.selectListCntForUsername(username);
+	}
+	
+	@Override
+	public List<PinBoard> selectPinBoardList(HashMap<String, Object> map) throws Exception {
+		return pinBoardDao.selectPinBoardList(map);
+	}
+	
+	@Override
+	public boolean checkLike(HashMap<String, Object> map) throws Exception {
+		return pinBoardDao.checkLike(map);
+	}
+	
+	@Override
+	public void plusLike(int pinboardno) throws Exception {
+		pinBoardDao.plusLike(pinboardno);
+	}
+	
+	@Override
+	public void addLikeList(PinBoardLike pinBoardLike) throws Exception {
+		pinBoardDao.addLikeList(pinBoardLike);
+	}
+	
+	@Override
+	public void minusLike(int pinboardno) throws Exception {
+		pinBoardDao.minusLike(pinboardno);
+	}
+	
+	@Override
+	public void removeLikeList(PinBoardLike pinBoardLike) throws Exception {
+		pinBoardDao.removeLikeList(pinBoardLike);
+	}
+	
+	@Override
+	public int selectLikeCnt(int pinboardno) throws Exception {
+		return pinBoardDao.selectLikeCnt(pinboardno);
+	}
+	
+	@Override
+	public boolean existPin(Pin pin) throws Exception {
+		return pinBoardDao.existPin(pin);
+	}
+	
+	@Override
+	public int selectPinCnt(int pinboardno) throws Exception {
+		return pinBoardDao.selectPinCnt(pinboardno);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> selectPinBoardProductList(int pinboardno) throws Exception {
+		return pinBoardDao.selectPinBoardProductList(pinboardno);
 	}
 	
 	@Override
@@ -65,18 +116,8 @@ public class PinServiceImpl implements PinService {
 	}
 
 	@Override
-	public List<PinBoard> pinBoardList(HashMap<String, Object> map) {
-		return pinBoardDao.pinBoardList(map);
-	}
-
-	@Override
 	public PinBoard getPinBoardByNo(int pinboardno) {
 		return pinBoardDao.pinBoardByNo(pinboardno);
-	}
-	
-	@Override
-	public void plusLike(int pinboardno) {
-		pinBoardDao.plusLike(pinboardno);
 	}
 
 	//	=============================================

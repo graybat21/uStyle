@@ -283,7 +283,8 @@ public class AdminController {
 		int last = first + countPerPage - 1;
 		map.put("first", first);
 		map.put("last", last);
-		List<PinBoard> list = pinService.pinBoardList(map);
+		
+		List<PinBoard> list = pinService.selectPinBoardList(map);
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		mav.addObject("pinBoardList", list);
 		mav.addObject("pageMaker", pagemaker);
