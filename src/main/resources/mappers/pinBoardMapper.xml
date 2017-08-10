@@ -94,6 +94,10 @@
 		tbl_pinboardlike 
 		where pinboardno = #{pinboardno}
 	</delete>
+	
+	<select id="selectPinBoardNoList" parameterType="String" resultType="Integer">
+		select pinboardno from tbl_pinboard where username = #{username}
+	</select>
 
 	<select id="getPinBoardMyList" parameterType="String" resultType="pinBoard">
 		select * from tbl_pinboard where username = #{username}

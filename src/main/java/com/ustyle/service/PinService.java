@@ -27,6 +27,8 @@ public interface PinService {
 	public List<PinBoard> getPinBoardMainImage(String username);
 	
 	public void deletePinBoard(int pinboardno) throws Exception;
+	public void deletePinBoardByUsername(String username) throws Exception;
+	
 	public int selectListCnt(HashMap<String, Object> map);
 	public PinBoard getPinBoardByNo(int pinboardno);
 	// ===================================================================== //

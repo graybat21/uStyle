@@ -51,14 +51,12 @@
                                                             <tr class="em-block-title">
                                                                 <th><span class="nobr"></span>
                                                                 </th>
-                                                                <th class="a-center">Product Name</th>
+                                                                <th class="a-center">Purchase Information</th>
                                                                 <th class="a-center" colspan="1"><span class="nobr">Unit Price</span>
                                                                 </th>
                                                                 <th class="a-center">Qty</th>
                                                                 <th class="a-center" colspan="1">Subtotal</th>
-                                                                <th class="a-center">Purchase Date</th>
-                                                                <th class="a-center last"><span class="nobr">Move to Wishlist</span>
-                                                                </th>
+                                                                <th class="a-center last">Purchase Date</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -74,6 +72,9 @@
 		                                                                <td>
 		                                                                    <h2 class="product-name"> <a href="/product/productDetail.do?productid=${userPurchase.productid}">${userPurchase.productname }</a></h2>
 		                                                                    <p class="sku">Brand : ${userPurchase.brand} / Color : ${userPurchase.color} / Size: ${userPurchase.size}</p>
+		                                                                    <p class="sku">Recipientname : ${userPurchase.recipientname}</p>
+		                                                                    <p class="sku">Address : (${userPurchase.shippingpostcode}) ${userPurchase.shippingaddr1} ${userPurchase.shippingaddr2}</p>
+		                                                                    <p class="sku">Recipientphone : ${userPurchase.recipientphone}</p>
 		                                                                </td>
 		                                                                <td class="a-center"> <span class="cart-price"> <span class="price"><fmt:formatNumber value="${userPurchase.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
 		                                                                </td>
@@ -84,12 +85,10 @@
 		                                                                </td>
 		                                                                <td class="a-center"> <span class="cart-price"> <span class="price"><fmt:formatNumber value="${userPurchase.saleprice * userPurchase.count}" type="currency" currencySymbol="￦"/></span> </span>
 		                                                                </td>
-		                                                                <td class="a-center">
+		                                                                <td class="a-center last">
 		                                                                	<div class="qty_cart">
 		                                                                		<span class="price"><fmt:formatDate value="${userPurchase.purchasedate}" pattern="yyyy-MM-dd" /></span>
 	                                                                		</div>
-		                                                                </td>
-		                                                                <td class="a-center last"> <a href="#" class="link-wishlist use-ajax" title="Move">Move</a>
 		                                                                </td>
 		                                                            </tr>
 		                                                    	</c:forEach>

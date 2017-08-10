@@ -106,6 +106,14 @@ public class PinServiceImpl implements PinService {
 		pinBoardDao.deleteAllPinBoardLike(pinboardno);
 		pinBoardDao.deletePinBoard(pinboardno);
 	}
+	
+	@Override
+	public void deletePinBoardByUsername(String username) throws Exception {
+		List<Integer> pinBoardNoList = pinBoardDao.selectPinBoardNoList(username);
+
+		for ( Integer pinboardno : pinBoardNoList ) 
+			deletePinBoard(pinboardno);
+	}
 
 	@Override
 	public int selectListCnt(HashMap<String, Object> map) {

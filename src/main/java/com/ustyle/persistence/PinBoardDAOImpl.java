@@ -89,7 +89,11 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	public void deleteAllPinBoardLike(int pinboardno) {
 		session.update(namespace + ".deleteAllPinBoardLike", pinboardno);
 	}
-
+	
+	@Override
+	public List<Integer> selectPinBoardNoList(String username) {
+		return session.selectList(namespace + ".selectPinBoardNoList", username);
+	}
 
 	@Override
 	public List<PinBoard> getPinBoardList() {

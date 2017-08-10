@@ -114,10 +114,13 @@
 	
 	<select id="selectUserPurchaseList" resultType="hashmap" parameterType="hashmap">
 		select 
-			(@row_number:=@row_number+1) as row_number, X.productid, X.mainpictureurl, X.productname, X.brand, X.color, X.size, X.saleprice, X.count, X.purchasedate
+			(@row_number:=@row_number+1) as row_number, X.productid, X.mainpictureurl, 
+			X.productname, X.brand, X.color, X.size, X.saleprice, X.count, X.purchasedate, 
+			X.recipientname, X.shippingaddr1, X.shippingaddr2, X.shippingpostcode, X.recipientphone
 		from (
 				select  
-					P.productid, P.mainpictureurl, P.productname, P.brand, I.color, I.size, I.saleprice, S.count, C.purchasedate
+					P.productid, P.mainpictureurl, P.productname, P.brand, I.color, I.size, I.saleprice, 
+					S.count, C.purchasedate, C.recipientname, C.shippingaddr1, C.shippingaddr2, C.shippingpostcode, C.recipientphone
 				from
 					tbl_purchase C, tbl_sales S, tbl_product P, tbl_item I, (SELECT @row_number:=0) as t
 				where 

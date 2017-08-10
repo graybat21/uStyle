@@ -22,6 +22,7 @@ public interface PinBoardDAO {
 	public List<HashMap<String, Object>> selectPinBoardProductList(int pinboardno);
 	public void modifyPinBoard(PinBoard pinBoard);
 	public void deleteAllPinBoardLike(int pinboardno);
+	public List<Integer> selectPinBoardNoList(String username);
 	
 	public List<PinBoard> getPinBoardList();
 	public PinBoard pinBoardByNo(int pinboardno);

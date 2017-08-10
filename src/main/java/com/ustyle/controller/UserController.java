@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.User;
+import com.ustyle.service.PinService;
 import com.ustyle.service.UserService;
 import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.UserEntryValidator;
@@ -42,6 +43,9 @@ public class UserController {
 
 	@Inject
 	private UserService userService;
+	
+	@Inject
+	private PinService pinService;
 
 	@Inject
 	private UserEntryValidator userEntryValidator;
@@ -251,11 +255,15 @@ public class UserController {
 		logger.info(resultUser.toString());
 		String encodedPassword = resultUser.getPassword();
 		String encryptPassword = user.getPassword();
+		
+		String username = user.getUsername();
 
 		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
 			return "user/deleteError/No Match PW";
 		}
-		userService.delete(user.getUsername());
+		
+		pinService.deletePinBoardByUsername(username);
+		userService.delete(username);
 
 		return "redirect:/logout.do";
 	}
