@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.pinBoardMapper">
+
+	<insert id="createPinBoard" parameterType="PinBoard">
+		insert into
+		tbl_pinboard (username, pinboardname, create_time, content, likecnt)
+		values (#{username}, #{pinboardname}, now(), #{content},0)
+	</insert>
+
+	<select id="getPinBoardMyList" parameterType="String" resultType="pinBoard">
+		select * from tbl_pinboard where username = #{username}
+	</select>
+	
+	<select id="getPinBoardList" resultType="pinBoard">
+		select * from tbl_pinboard order by create_time limit 0, 9
+		where username = #{username}
+	</select>
+	<select id="getPinBoardByNo" parameterType="int" resultType="PinBoard">
+		select * from tbl_pinboard where pinboardno = #{pinboardno}
+	</select>
+	
+	<select id="getPinBoardMainImage" parameterType="String" resultType="pinBoard">
+		select 
+			p.pinboardno pinboardno, pro.mainpictureurl mainpictureurl 
+		from 
+			tbl_pinboard pb, tbl_pin p, tbl_product pro
+		where 
+			pb.pinboardno = p.pinboardno
+		and p.productid = pro.productid
+		and username = #{username}
+	</select>
+
+	<update id="modifyPinBoardName" parameterType="PinBoard">
+		update
+		tbl_pinboard set pinboardname = #{pinboardname}
+		where pinboardno =
+		#{pinboardno}
+	</update>
+	<update id="modifyPinBoardContent" parameterType="PinBoard">
+		update
+		tbl_pinboard set content = #{content}
+		where pinboardno =
+		#{pinboardno}
+	</update>
+
+	<delete id="deletePinBoard" parameterType="int">
+		delete from tbl_pinboard
+		where pinboardno = #{pinboardno}
+	</delete>
+
+	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_pinboard
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if>
+ 	</select>
+ 	
+ 	<select id="pinBoardList" resultType="pinBoard" parameterType="hashmap">
+		select 
+			pinboardno, username, pinboardname, create_time, content, likecnt
+		from
+			(SELECT (@row_number:=@row_number+1) as row_number,
+				pinboardno, username, pinboardname, create_time, content, likecnt 
+			from tbl_pinboard, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		where ${searchOption} like '%${searchKeyword}%'
+  			</if>
+          	ORDER BY create_time DESC
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
+	<update id="plusLike" parameterType="int">
+		update tbl_pinboard set like = like + 1
+		where pinboardno = #{pinboardno}
+	</update>
+</mapper>
+
+

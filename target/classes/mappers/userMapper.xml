@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.userMapper">
+ 
+    <insert id="insert" parameterType="user">
+    	insert into tbl_user(username, email, password, create_time, postcode, phone, realname, addr1, addr2, point, auth)
+    	values(#{username}, #{email}, #{password}, now(), #{postcode}, #{phone}, #{realname}, #{addr1}, #{addr2}, #{point}, #{auth} )
+    </insert>
+    
+    <select id="userLogin" parameterType="user" resultType="user">
+    	select * from tbl_user
+    	where username = #{username}
+    </select>
+     
+    <select id="userAuthOk" parameterType="user" resultType="boolean">
+    	select (auth = #{auth}) from tbl_user
+    	where username = #{username}
+    </select>
+    
+    <select id="userExist" parameterType="String" resultType="int">
+    	select count(*) as cnt from tbl_user
+    	where username = #{username}
+    </select>
+    
+    <update id="userAuthInitialize" parameterType="String">
+    	update tbl_user set auth = 'y' 
+    	where username = #{username}
+    </update>
+    
+    <update id="update" parameterType="user">
+		update tbl_user set password = #{password}, postcode = #{postcode}, phone = #{phone}, realname = #{realname},
+		addr1 = #{addr1}, addr2 = #{addr2}
+		where username = #{username}
+	</update>
+	<update id="updatePoint" parameterType="user">
+		update tbl_user set point = #{point}
+		where username = #{username}
+	</update>
+ 
+ 	<delete id="delete" parameterType="String">
+ 		delete from tbl_user 
+ 		where username = #{username}
+ 	</delete>
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_user
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if>
+ 	</select>
+ 	
+ 	<select id="userList" resultType="user" parameterType="hashmap">
+		select 
+			username, email, realname, create_time, 
+			addr1, addr2, postcode, 
+			phone, point, auth 
+		from
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					username, email, realname, create_time, 
+					addr1, addr2, postcode, 
+					phone, point, auth 
+			from tbl_user, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		where ${searchOption} like '%${searchKeyword}%'
+  			</if>
+          	ORDER BY create_time DESC
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
+	<select id="selectUserOne" resultType="user" parameterType="String">
+		select 
+			username, email, realname, create_time, 
+			addr1, addr2, postcode, 
+			phone, point, auth 
+		from
+			tbl_user
+		where
+			username = #{username}
+	</select>
+	
+	<update id="modifyAllUsersGradeInitialize">
+		update tbl_user set grade_idx = 1
+	</update>
+	
+	<update id="modifyAllUsersGrade" parameterType="grade">
+		update tbl_user set grade_idx = #{idx}
+		where username in (
+			select username from (
+				select 
+					p.username, sum(i.saleprice*s.count) sum 
+				from 
+					tbl_item i, tbl_sales s, tbl_purchase p
+				where i.itemid = s.itemid
+					and p.purchaseid=s.purchaseid
+					and purchasedate <![CDATA[<]]> now()
+					and purchasedate <![CDATA[>]]> DATE_ADD(NOW(), INTERVAL - #{buy_term} MONTH)
+				group by username
+			) X 
+		where X.sum <![CDATA[>=]]> #{min} 
+			and X.sum <![CDATA[<]]> #{max}
+		)
+	</update>
+	
+	<select id="selectUserPurchaseCount" resultType="int" parameterType="String">
+		select
+			count(*)
+		from
+			tbl_purchase C, tbl_sales S, tbl_product P, tbl_item I
+		where 
+			S.itemid = I.itemid and P.productid = I.productid and C.purchaseid = S.purchaseid
+		and C.username = #{username} 
+	</select>
+	
+	<select id="selectUserPurchaseList" resultType="hashmap" parameterType="hashmap">
+		select 
+			(@row_number:=@row_number+1) as row_number, X.productid, X.mainpictureurl, X.productname, X.brand, X.color, X.size, X.saleprice, X.count, X.purchasedate
+		from (
+				select  
+					P.productid, P.mainpictureurl, P.productname, P.brand, I.color, I.size, I.saleprice, S.count, C.purchasedate
+				from
+					tbl_purchase C, tbl_sales S, tbl_product P, tbl_item I, (SELECT @row_number:=0) as t
+				where 
+					S.itemid = I.itemid and P.productid = I.productid and C.purchaseid = S.purchaseid
+					and C.username = #{username} 
+				order by C.purchasedate DESC ) X 
+		LIMIT #{start}, #{pagecnt}
+	</select>
+	
+	<select id="selectUserPointRatio" resultType="double" parameterType="String">
+		select
+			point_ratio
+		from
+			tbl_user U, tbl_grade G
+		where
+			U.username = #{username} and U.grade_idx = G.idx
+	</select>
+</mapper>
+
+
