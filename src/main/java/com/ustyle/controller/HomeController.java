@@ -13,7 +13,7 @@ import io.swagger.annotations.Api;
  */
 
 @Controller
-@Api(value="test", description="swagger-test")
+@Api(value="swagger", description="swagger-test")
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -23,7 +23,7 @@ public class HomeController {
 		return "redirect:/index.do";
 	}
 	
-	@RequestMapping(value="/", method = RequestMethod.POST)
+	@RequestMapping(value="/swagger", method = RequestMethod.GET)
 	public String homePost(){
 		return "redirect:/swagger-ui.html";
 	}
