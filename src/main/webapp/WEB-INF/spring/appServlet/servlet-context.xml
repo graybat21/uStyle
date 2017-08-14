@@ -60,7 +60,7 @@
 	<!-- Interceptor -->
 	<beans:bean id="loginInterceptor" class="com.ustyle.interceptor.LoginInterceptor"></beans:bean>
 	<beans:bean id="authInterceptor" class="com.ustyle.interceptor.AuthInterceptor"></beans:bean>
-
+	
 	<interceptors>
 		<interceptor>
 			<mapping path="/loginPost.do" />
@@ -69,6 +69,7 @@
 
 		<interceptor>
 			<mapping path="/update.do" />
+			<mapping path="/delete.do" />
 			<mapping path="/purchaseList.do" />
 			<mapping path="/cart/addCart.do" />
 			<mapping path="/cart/viewCart.do" />

@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.User;
 import com.ustyle.service.PinService;
+import com.ustyle.service.ReviewService;
 import com.ustyle.service.UserService;
 import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.UserEntryValidator;
@@ -46,6 +47,9 @@ public class UserController {
 	
 	@Inject
 	private PinService pinService;
+	
+	@Inject
+	private ReviewService reviewService;
 
 	@Inject
 	private UserEntryValidator userEntryValidator;
@@ -248,8 +252,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
-	public String delete(User user, HttpSession session)
-			throws Exception {
+	public String delete(User user, HttpSession session) throws Exception {
 		logger.info(user.toString());
 		User resultUser = userService.userLogin(user);
 		logger.info(resultUser.toString());
@@ -262,6 +265,7 @@ public class UserController {
 			return "user/deleteError/No Match PW";
 		}
 		
+		reviewService.deleteReviewByUsername(username);
 		pinService.deletePinBoardByUsername(username);
 		userService.delete(username);
 
@@ -366,7 +370,6 @@ public class UserController {
 	@ResponseBody
 	public int userExist(@RequestBody User user) throws Exception {
 		logger.info(user.getUsername());
-		System.out.println("FDFDFDFDFDF");
 		int isUserExist = userService.userExist(user.getUsername());
 		
 		System.out.println(isUserExist);

@@ -309,7 +309,7 @@
 		{{#each this}}
 		<div class="block-content box">
 			<p style="text-align:left">{{this.contents}}</p>
-			<p style="text-align:right">작성자 : {{this.username}}</p>
+			<p style="text-align:right">작성자 : {{trimString this.username}}****</p>
 			<p style="text-align:right">작성일 : {{prettifyDate this.regdate}}</p>
 		</div>
 		{{else}}
@@ -336,6 +336,11 @@
         			}
         		});
         	}
+        	
+        	Handlebars.registerHelper('trimString', function(passedString) {
+      		   	var theString = passedString.substring(0, 4);
+      		   	return new Handlebars.SafeString(theString);
+      		});
         	
         	Handlebars.registerHelper("prettifyDate", function(timeValue) {
         		var dateObj = new Date(timeValue);
@@ -429,6 +434,9 @@
             			if ( result == 'SUCCESS' ) {
             				alert("상품에 대한 리뷰가 추가되었습니다.");
             				location.href = "/product/productDetail.do?productid=" + productid;
+            			}
+            			else {
+            				alert('해당 상품에 대한 리뷰가 이미 작성되어 있습니다.');
             			}
             		},
             		error: function(request, status, error) {

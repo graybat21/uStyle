@@ -265,29 +265,29 @@ public class AdminController {
 	// =============================== pin =============================== //
 
 	@RequestMapping("pinBoardList.do")
-	public ModelAndView pinBoardList(PageMaker pagemaker,
+	public ModelAndView pinBoardList(PageMaker pageMaker,
 			@RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
-		pagemaker.setPage(page);
+		int page = pageMaker.getPage() != null ? pageMaker.getPage() : 1;
+		pageMaker.setPage(page);
 		map.put("searchOption", searchOption);
 		map.put("searchKeyword", searchKeyword);
 		int totalCnt = pinService.selectListCnt(map);
 		int countPerPage = 10;
 		int countPerPaging = 10;
 
-		int first = ((pagemaker.getPage() - 1) * countPerPage) + 1;
+		int first = ((pageMaker.getPage() - 1) * countPerPage) + 1;
 		int last = first + countPerPage - 1;
 		map.put("first", first);
 		map.put("last", last);
 		
 		List<PinBoard> list = pinService.selectPinBoardList(map);
-		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
+		pageMaker.setCount(totalCnt, countPerPage, countPerPaging);
 		mav.addObject("pinBoardList", list);
-		mav.addObject("pageMaker", pagemaker);
+		mav.addObject("pageMaker", pageMaker);
 		mav.setViewName("pin/pinBoardList");
 		mav.addObject("searchOption", searchOption);
 		mav.addObject("searchKeyword", searchKeyword);

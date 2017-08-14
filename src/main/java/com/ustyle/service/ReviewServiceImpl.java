@@ -19,28 +19,23 @@ public class ReviewServiceImpl implements ReviewService
 	
 	@Transactional
 	@Override
-	public void writeReview(Review review) throws Exception 
-	{
+	public void writeReview(Review review) throws Exception {
 		dao.insert(review);
 	}
 
 	@Override
-	public List<Review> listReply(Integer bno) throws Exception 
-	{
+	public List<Review> listReply(Integer bno) throws Exception {
 		return dao.list(bno);
 	}
 
 	@Override
-	public void modifyReply(Review vo) throws Exception 
-	{
+	public void modifyReply(Review vo) throws Exception {
 		dao.update(vo);
 	}
 	
 	@Transactional
 	@Override
-	public void removeReply(Integer rno) throws Exception 
-	{
-		int bno = dao.getBno(rno);
+	public void removeReply(Integer rno) throws Exception {
 		dao.delete(rno);
 	}
 	
@@ -55,17 +50,20 @@ public class ReviewServiceImpl implements ReviewService
 	public List<Review> selectReviewList(HashMap<String, Object> reviewMap) throws Exception {
 		return dao.selectReviewList(reviewMap);
 	}
-
-//	@Override
-//	public List<Review> listReplyPage(Integer bno, Criteria cri) throws Exception 
-//	{
-//		return dao.listPage(bno, cri);
-//	}
+	
+	@Override
+	public boolean existReview(HashMap<String, Object> reviewMap) throws Exception {
+		return dao.existReview(reviewMap);
+	}
+	
+	@Override
+	public void deleteReviewByUsername(String username) throws Exception {
+		dao.deleteReviewByUsername(username);
+	}
 
 	@Override
 	public int count(Integer bno) throws Exception 
 	{
 		return dao.count(bno);
 	}
-	
 }

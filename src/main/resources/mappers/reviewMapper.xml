@@ -26,6 +26,22 @@
 		order by reviewid desc
 		limit #{start}, #{pagecnt}
 	</select>
+	
+	<select id="existReview" parameterType="hashmap" resultType="boolean">
+	<![CDATA[
+		select
+			count(*) > 0 as isExistReview
+		from
+			tbl_review
+		where
+			productid = #{productid} and username = #{username}
+	]]>
+	</select>
+	
+	<delete id="deleteReviewByUsername" parameterType="String">
+		delete from tbl_review
+		where username = #{username}
+	</delete>
  
 </mapper>
 
