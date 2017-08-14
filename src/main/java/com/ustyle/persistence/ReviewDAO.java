@@ -13,7 +13,7 @@ public interface ReviewDAO
 	public void delete(Integer rno) throws Exception;
 	public int selectReviewCnt(int productid) throws Exception;
 	public List<Review> selectReviewList(HashMap<String, Object> reviewMap) throws Exception;
-//	public List<Review> listPage(Integer bno, Criteria cri) throws Exception;
+	public boolean existReview(HashMap<String, Object> reviewMap) throws Exception;
+	public void deleteReviewByUsername(String username) throws Exception;
 	public int count(Integer bno) throws Exception;
-	public int getBno(Integer rno) throws Exception;
 }

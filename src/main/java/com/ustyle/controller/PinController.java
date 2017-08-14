@@ -23,10 +23,8 @@ import com.ustyle.domain.Pin;
 import com.ustyle.domain.PinBoard;
 import com.ustyle.domain.PinBoardLike;
 import com.ustyle.domain.PinBoardReply;
-import com.ustyle.domain.Review;
 import com.ustyle.domain.User;
 import com.ustyle.service.PinService;
-import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
@@ -37,8 +35,6 @@ public class PinController {
 
 	@Inject
 	private PinService pinService;
-	@Inject
-	private ProductService productService;
 
 	@RequestMapping("myPinBoardList.do")
 	public ModelAndView myPinBoardList(@RequestParam(value = "pageCount", required = false) Integer pageCount,
@@ -75,7 +71,6 @@ public class PinController {
 		
 		List<PinBoard> pinBoardMainImageList = pinService.getPinBoardMainImage(user.getUsername());
 		logger.info(pinBoardMainImageList.toString());
-//		pinService.getProductImage(pinboardno);
 		
 		mav.addObject("pinBoardList", pinBoardList);
 		mav.addObject("pageMaker", pageMaker);
@@ -88,7 +83,7 @@ public class PinController {
 	}
 
 	@RequestMapping(value = "createPinBoard.do", method = RequestMethod.GET)
-	public String createPinBoard() throws Exception {
+	public String createPinBoardForm() throws Exception {
 		return "pin/createPinBoardForm/New Create Form";
 	}
 	
@@ -124,7 +119,6 @@ public class PinController {
 		mav.addObject("pinBoard", pinBoard);
 		mav.addObject("pinBoardProductList", pinBoardProductList);
 		
-		//pinService.modifyPinBoardName(pinBoard);
 		return mav;
 	}
 	
@@ -134,29 +128,6 @@ public class PinController {
 		logger.info(pinBoard.toString());
 		pinService.modifyPinBoard(pinBoard);
 		return "redirect:/pin/myPinBoardList.do";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "deletePin.do", method = RequestMethod.POST)
-	public ResponseEntity<String> deletePin(@RequestBody Pin pin) throws Exception {
-		
-		ResponseEntity<String> entity = null;
-		
-		try 
-		{
-			logger.info("PIN TO DELETE = " + pin.toString());
-			
-			pinService.deletePin(pin);
-			
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		}
-		catch ( Exception e ) 
-		{
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
 	}
 	
 	@ResponseBody
@@ -217,7 +188,7 @@ public class PinController {
 	
 //	=======================================================================
 	
-	@RequestMapping(value="viewPinBoard.do", method=RequestMethod.GET)
+	@RequestMapping(value = "viewPinBoard.do", method = RequestMethod.GET)
 	public ModelAndView viewPinBoard(@RequestParam(value = "productid", required = false) Integer productid,
 			@RequestParam int pinboardno, HttpSession session) throws Exception {
 		
@@ -298,14 +269,28 @@ public class PinController {
 		return entity;
 	}
 	
-	
-//	@RequestMapping(value="insertPin.do", method=RequestMethod.GET)
-//	public ModelAndView insertPinView(@RequestParam int pinboardno) throws Exception{
-//		ModelAndView mav=new ModelAndView("pin/insertPinForm/insert pin");
-//		mav.addObject("pinboardno",pinboardno);
-//		return mav;
-//	}
-//		
+	@ResponseBody
+	@RequestMapping(value = "deletePin.do", method = RequestMethod.POST)
+	public ResponseEntity<String> deletePin(@RequestBody Pin pin) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			logger.info("PIN TO DELETE = " + pin.toString());
+			
+			pinService.deletePin(pin);
+			
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
 //	=======================================================================
 	

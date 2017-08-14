@@ -54,10 +54,10 @@ public class ProductDetailController {
 		@RequestParam(value = "brand", required = false) String brand, 
 		@RequestParam(value = "sortby",  defaultValue = "productid") String sortby) throws Exception {
 
-		PageMaker pagemaker = new PageMaker();
+		PageMaker pageMaker = new PageMaker();
 		
 		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
-		pagemaker.setPage(page);
+		pageMaker.setPage(page);
 		
 		ModelAndView mav = new ModelAndView("product/productList/" + subcategory);
 		
@@ -71,15 +71,17 @@ public class ProductDetailController {
 		
 		int pageCnt = ( countPerPage != null ) ? countPerPage.intValue() : 12;
 		
-		pagemaker.setCount(totalCnt, pageCnt, countPerPaging);
+		pageMaker.setCount(totalCnt, pageCnt, countPerPaging);
 		
 		logger.info("SORTBY = " + sortby);
 
-		int first = ((pagemaker.getPage() - 1) * pageCnt) + 1;
+		int first = ((pageMaker.getPage() - 1) * pageCnt) + 1;
 		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
+		
 		map.put("first", first);
 		map.put("last", last);
 		map.put("sortby", sortby);
+		
 		List<Product> productList = productService.productListForSubcategory(map);
 		List<HashMap<String,Object>> brandList = productService.brandListForSubcategory(subcategory);
 		List<HashMap<String,Object>> subcategoryList = productService.subcategoryListForSubcategory(subcategory);
@@ -97,7 +99,7 @@ public class ProductDetailController {
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("first", first);
 		mav.addObject("last", last);
-		mav.addObject("pageMaker", pagemaker);
+		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
 		

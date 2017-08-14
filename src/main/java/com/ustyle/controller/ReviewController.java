@@ -42,8 +42,22 @@ public class ReviewController
 		
 		try
 		{
-			service.writeReview(review);
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			String username = review.getUsername();
+			int productid = review.getProductid();
+			
+			HashMap<String, Object> reviewMap = new HashMap<String, Object>();
+			reviewMap.put("username", username);
+			reviewMap.put("productid", productid);
+			
+			boolean isExistReview = service.existReview(reviewMap);
+			
+			if ( isExistReview == true ) {
+				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			}
+			else {
+				service.writeReview(review);
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}
 		}
 		catch ( Exception e )
 		{
