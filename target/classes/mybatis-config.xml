@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<!-- <typeAlias alias="user" type="com.ustyle.domain.User" />
+		<typeAlias alias="product" type="com.ustyle.domain.Product" />
+		<typeAlias alias="item" type="com.ustyle.domain.Item" />
+		<typeAlias alias="cart" type="com.ustyle.domain.Cart" />
+		<typeAlias alias="sales" type="com.ustyle.domain.Sales" />
+		<typeAlias alias="purchase" type="com.ustyle.domain.Purchase" />
+		<typeAlias alias="notice" type="com.ustyle.domain.Notice" />
+		<typeAlias alias="faq" type="com.ustyle.domain.Faq" />
+		<typeAlias alias="qna" type="com.ustyle.domain.Qna" />
+		<typeAlias alias="pinBoard" type="com.ustyle.domain.PinBoard"/>
+		<typeAlias alias="grade" type="com.ustyle.domain.Grade"/> -->
+		
+		<package name="com.ustyle.domain" />
+	</typeAliases>
+
+</configuration>
+
