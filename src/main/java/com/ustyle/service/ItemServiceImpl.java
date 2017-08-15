@@ -70,6 +70,11 @@ public class ItemServiceImpl implements ItemService {
 	public void update(Item item) throws Exception {
 		dao.update(item);
 	}
+	
+	@Override
+	public boolean existSalesTable(int itemid) throws Exception {
+		return dao.existSalesTable(itemid);
+	}
 
 	@Transactional
 	@Override

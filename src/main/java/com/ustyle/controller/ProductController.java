@@ -25,9 +25,9 @@ import com.ustyle.utils.PageMaker;
 
 @Controller
 @RequestMapping("/product/*")
-public class ProductDetailController {
+public class ProductController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ProductDetailController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 	@Inject
 	private ProductService productService;

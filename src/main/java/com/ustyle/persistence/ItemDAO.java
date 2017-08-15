@@ -17,6 +17,7 @@ public interface ItemDAO {
 	public int totalItem(Integer productid);
 	public void update(Item item);
 	public void updateForSales(Sales sales);
+	public boolean existSalesTable(int itemid);
 	public void deleteItem(int itemid);
 	
 }

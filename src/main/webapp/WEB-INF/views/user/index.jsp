@@ -10,13 +10,13 @@
 		<div class="page one-column">
 		
 <div class="em-wrapper-main">
-                   <div class="container-main">
+	<div class="container-main">
 
               <div class="em-wrapper-area01">
                   <div class="container">
                       <div class="row">
                           <div class="col-sm-24">
-                              <div class="em-slideshow">
+                              <%--div class="em-slideshow">
                                   <div class="em-owlcarousel-slideshow">
                                       <div id="em_owlcarousel_17_17316_sync1" class="owl-carousel">
                                           <div class="item">
@@ -53,7 +53,7 @@
                                          </div><!-- /.item -->
                                      </div>
                                  </div><!-- /.em-owlcarousel-slideshow -->
-                             </div><!-- /.em-slideshow -->
+                             </div--%><!-- /.em-slideshow -->
                          </div>
                      </div>
                  </div>

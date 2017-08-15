@@ -66,18 +66,12 @@
 											<td>${list.color }</td>
 											<td>${list.size }</td>
 											<td>${list.stock }</td>
-											<td><a href="${modifyItem }"><input type="button"
-													value="수정"></a>
-												<a href="${deleteItem }"><input type="button"
-													value="삭제" onclick="return deleteItem()"></a></td>
+											<td><a href="${modifyItem }"><input type="button" value="수정"></a>
+												<input type="button" value="삭제" onclick="isDeleteItem(${list.itemid})"></td>
 										</tr>
 									</c:forEach>
 									</c:if>
-									<script>
-										function deleteItem() {
-											return confirm("선택한 아이템을 삭제하겠습니까?");
-										}
-									</script>
+									
 								</tbody>
 							</table>
 						</div>
@@ -142,13 +136,77 @@
 				<!-- /.col -->
 			</div>
 			<!-- /.row -->
-
 		</section>
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
-
-
-
+<script type="text/javascript">
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var token  = $("meta[name='_csrf']").attr("content");
+	
+	function isDeleteItem(itemid) {
+		if ( confirm("선택한 Item을 삭제하시겠습니까?") ) {
+			$.ajax({
+				type: 'post',
+				url: 'isDeleteItem.do',
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(header, token);
+			    },
+				headers: {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType: "text",
+				data: JSON.stringify({itemid: itemid}),
+				success: function(result) {
+					console.log("result: " + result);
+					
+					if ( result == 'FAIL' ) {
+						alert("사용자의 Pin에 들어가있는 Item은 삭제가 불가능합니다.");
+						return false;
+					}
+					else {
+						deleteItem(itemid);
+					}
+				},
+				error: function(request, status, error) {
+				    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+			    }
+			});
+			return false;
+		}
+		else {
+			return false;
+		}
+		//return confirm("선택한 아이템을 삭제하시겠습니까?");
+	}
+	
+	function deleteItem(itemid) {
+		$.ajax({
+			type: 'post',
+			url: 'deleteItem.do',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+		    },
+			headers: {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType: "text",
+			data: JSON.stringify({itemid: itemid}),
+			success: function(result) {
+				console.log("result: " + result);
+				
+				if ( result == 'SUCCESS' ) {
+					alert("선택한 Item이 삭제되었습니다.");
+					location.href = "/admin/item/itemList.do";
+				}
+			},
+			error: function(request, status, error) {
+			    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+		    }
+		});
+	}
+</script>
 
 </body>

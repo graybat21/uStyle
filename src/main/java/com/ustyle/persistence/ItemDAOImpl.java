@@ -70,6 +70,11 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 	
 	@Override
+	public boolean existSalesTable(int itemid) {
+		return session.selectOne(namespace + ".existSalesTable", itemid);
+	}
+	
+	@Override
 	public void deleteItem(int itemid) {
 		session.delete(namespace + ".deleteItem", itemid);
 	}

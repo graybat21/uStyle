@@ -98,6 +98,13 @@
    		set stock = stock - #{count}
    		where itemid = #{itemid}
    	</update>
+   	
+   	<select id="existSalesTable" parameterType="int" resultType="boolean">
+   	<![CDATA[
+		select count(*) > 0 as existsales from tbl_sales
+		where itemid = #{itemid}
+	]]>
+   	</select>
 	
 	<delete id="deleteItem" parameterType="int">
  		delete from tbl_item
