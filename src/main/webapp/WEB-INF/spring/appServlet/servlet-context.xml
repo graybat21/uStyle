@@ -83,6 +83,8 @@
 
 	<beans:bean id="swagger2Config"
 		class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"></beans:bean>
+	<beans:bean id="documentationPluginsBootstrapper"
+		class="springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper"></beans:bean>
 
 	<default-servlet-handler />
 	<resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></resources>

@@ -3,3 +3,4 @@ pom.properties
 *.class
 
 MANIFEST
+/target/

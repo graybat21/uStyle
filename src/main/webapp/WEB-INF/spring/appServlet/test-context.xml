@@ -8,7 +8,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- 기존 applicationConext 설정파일 -->
-	<beans:import resource="servlet-context.xml" />
+	<beans:import resource="../security-context.xml" />
+	<beans:import resource="./servlet-context.xml" />
+	<beans:import resource="../root-context.xml" />
+	
 	
 	<!--  CustomBeanFactoryPostProcessor -->	
 	<beans:bean class="com.ustyle.utils.CustomBeanFactoryPostProcessor"/>
