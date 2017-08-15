@@ -9,14 +9,20 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Item;
+import com.ustyle.domain.PinBoard;
 import com.ustyle.domain.Product;
 import com.ustyle.service.ItemService;
 import com.ustyle.service.ProductService;
@@ -24,9 +30,9 @@ import com.ustyle.utils.PageMaker;
 
 @Controller
 @RequestMapping("/admin/item/*")
-public class ItemController {
+public class ItemAdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ItemAdminController.class);
 
 	@Inject
 	private ProductService productService;
@@ -157,6 +163,37 @@ public class ItemController {
 		return "redirect:/admin/item/itemList.do?o=productid&k=" + productid;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "isDeleteItem.do", method = RequestMethod.POST)
+	public ResponseEntity<String> isDeleteItem(@RequestBody Item item) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		int itemid = item.getItemid();
+		boolean isExistSalesTable = true;
+		
+		try 
+		{
+			logger.info("ITEM TO DELETE = " + item);
+			
+			isExistSalesTable = itemService.existSalesTable(itemid);
+				
+			if ( isExistSalesTable == true ) {
+				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			}
+			else {
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}	
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
 	/**
 	 * 특정 Item을 삭제함
 	 * 
@@ -165,9 +202,23 @@ public class ItemController {
 	 * @throws Exception
 	 */
 	
+	@ResponseBody
 	@RequestMapping("deleteItem.do")
-	public String itemDelete(@RequestParam int itemid) throws Exception {
-		itemService.deleteItem(itemid);
-		return "redirect:/admin/item/itemList.do";
+	public ResponseEntity<String> itemDelete(@RequestBody Item item) throws Exception {	
+		int itemid = item.getItemid();
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			itemService.deleteItem(itemid);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 }
