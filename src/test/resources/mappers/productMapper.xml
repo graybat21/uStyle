@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.productMapper">
+
+	<insert id="insert" parameterType="product">
+		<choose>
+		<when test="pictureurl != null">
+    		insert into tbl_product(productname, description, brand, category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice)
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{pictureurl}, #{mainpictureurl}, #{originalprice}, #{saleprice} )
+    	</when>
+    	<otherwise>
+    		insert into tbl_product(productname, description, brand, category, subcategory, originalprice, saleprice)
+    		values(#{productname}, #{description}, #{brand}, #{category}, #{subcategory}, #{originalprice}, #{saleprice})
+    	</otherwise>
+    	</choose>
+    </insert>
+
+    <select id="read" resultType="product">
+ 		select * from tbl_product where productid=#{productid}
+ 	</select>
+ 	
+ 	<select id="selectPictureUrl" resultType="java.lang.String">
+ 		select pictureurl from tbl_product where productid=#{productid}
+ 	</select>
+    
+ 	<select id="getNewProductId" resultType="int">
+ 		SELECT AUTO_INCREMENT
+		FROM information_schema.TABLES
+		WHERE TABLE_SCHEMA = 'ustyle'
+		AND TABLE_NAME = 'tbl_product'
+ 	</select>
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_product
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+   		where ${searchOption} like '%${searchKeyword}%'
+		</if>
+ 	</select>
+ 	
+ 	<select id="productList" resultType="product" parameterType="hashmap">
+		SELECT 
+			productid, productname, description, brand, 
+			category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
+		FROM
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					productid, productname, description, brand, 
+					category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
+			FROM tbl_product, (SELECT @row_number:=0) as t
+          	<if test="searchKeyword != null || searchKeyword == ''">
+    		WHERE ${searchOption} LIKE '%${searchKeyword}%'
+  			</if>
+          	ORDER BY productid DESC
+			) X 
+		WHERE X.row_number BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="selectListCntForSubcategory" resultType="int" parameterType="hashmap">
+ 		SELECT count(*) 
+ 		FROM 
+ 			tbl_product
+ 		WHERE
+			subcategory = #{subcategory}
+		<if test="brand != null || brand == ''">
+		AND brand = #{brand}
+		</if>
+ 	</select>
+	
+	<select id="productListForSubcategory" resultType="product" parameterType="hashmap">
+		SELECT 
+			productid, productname, description, brand, 
+			category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
+		FROM
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					productid, productname, description, brand, 
+					category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
+			FROM tbl_product, (SELECT @row_number:=0) as t
+			WHERE subcategory = #{subcategory}
+			<if test="brand != null || brand == ''">
+			AND brand = #{brand}
+			</if>
+			<choose>
+				<when test="sortby == 'productname'">
+	          	ORDER BY productname ASC
+	          	</when>
+	          	<when test="sortby == 'create_time'">
+	          	ORDER BY create_time DESC
+	          	</when>
+				<when test="sortby == 'saleprice_asc'">
+	          	ORDER BY saleprice ASC
+	          	</when>
+	          	<when test="sortby == 'saleprice_desc'">
+	          	ORDER BY saleprice DESC
+	          	</when>
+          	</choose>
+			) X 
+		WHERE X.row_number BETWEEN #{first} and #{last}
+	</select>
+	
+	<select id="brandListForSubcategory" parameterType="String" resultType="hashmap">
+		SELECT 
+			count(brand) count, brand 
+		FROM 
+			tbl_product 
+		WHERE 
+			subcategory = #{subcategory} 
+		GROUP BY brand
+	</select>
+	
+	<select id="subcategoryListForSubcategory" parameterType="String" resultType="hashmap">
+		SELECT 
+			count(subcategory) count, subcategory 
+		FROM 
+			tbl_product 
+		WHERE 
+			category in (
+				SELECT 
+					category 
+				FROM 
+					tbl_product 
+				WHERE 
+					subcategory = #{subcategory}
+				GROUP BY category
+			) 
+		GROUP BY subcategory
+	</select>
+	
+	<select id="priceRangeForSubcategory" parameterType="String" resultType="int">
+		SELECT 
+			count(originalprice) count, originalprice 
+		FROM 
+			tbl_product 
+		WHERE 
+			subcategory = #{subcategory} 
+		GROUP BY originalprice
+	</select>
+	
+	<update id="update" parameterType="product">
+		<choose>
+		<when test="pictureurl != null">
+    		update tbl_product
+    		set productname = #{productname}, description = #{description}, brand = #{brand}, 
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = #{pictureurl}, 
+    			mainpictureurl = #{mainpictureurl}, originalprice = #{originalprice}, saleprice = #{saleprice}
+    		where productid = #{productid}
+    	</when>
+    	<otherwise>
+    		update tbl_product
+    		set productname = #{productname}, description = #{description}, brand = #{brand}, 
+    			category = #{category}, subcategory = #{subcategory}, pictureurl = '[/ustylenone.jpg]',
+    			mainpictureurl = '/ustylenone.jpg', originalprice = #{originalprice}, saleprice = #{saleprice}
+    		where productid = #{productid}
+    	</otherwise>
+    	</choose>
+    </update>
+	
+	<delete id="delete" parameterType="int">
+ 		delete from tbl_product
+ 		where productid = #{productid}
+ 	</delete>
+ 	
+ 	<delete id="deleteItem" parameterType="int">
+ 		delete from tbl_item
+ 		where productid = #{productid}
+ 	</delete>
+</mapper>
+
+
