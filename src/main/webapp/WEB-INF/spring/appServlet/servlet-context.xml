@@ -8,7 +8,7 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
-
+	<context:property-placeholder location="/WEB-INF/*.properties" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -53,7 +53,7 @@
 
 	<!-- UploadPath -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="/mnt"></beans:constructor-arg>
+		<beans:constructor-arg value="${upload_path}"></beans:constructor-arg>
 		<!--beans:constructor-arg value="/upload"></beans:constructor-arg -->
 	</beans:bean>
 
