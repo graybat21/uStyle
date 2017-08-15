@@ -53,7 +53,7 @@
 
 	<!-- UploadPath -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="\mnt"></beans:constructor-arg>
+		<beans:constructor-arg value="\\mnt"></beans:constructor-arg>
 		<!--beans:constructor-arg value="/upload"></beans:constructor-arg -->
 	</beans:bean>
 
