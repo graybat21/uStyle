@@ -17,23 +17,21 @@
 	<!--bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" 
 		destroy-method="close"> <property name="driverClass" value="com.mysql.jdbc.Driver" 
 		/> <property name="jdbcUrl" value="jdbc:mysql://ustyle1.cgvm6pzsrrqf.ap-northeast-2.rds.amazonaws.com:3306/ustyle" 
-		/> <property name="user" value="ustyle" /> <property name="password" value="ustyle11" 
+		/> <property name="user" value="" /> <property name="password" value="" 
 		/> </bean -->
 	<!--bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
 		<property name="url" value="jdbc:log4jdbc:mysql://118.176.218.46:10002/ustyle"></property> 
-		<property name="username" value="root"></property> <property name="password" 
-		value="oracle11"></property> </bean -->
+		<property name="username" value=""></property> <property name="password" 
+		value=""></property> </bean -->
+
+	<context:property-placeholder location="/WEB-INF/*.properties" />
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-
-		<property name="driverClass" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-
-		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:mysql://13.124.207.243:3306/ustyle?useUnicode=yes&amp;characterEncoding=utf8"></property>
-
-		<property name="user" value="ustyle"></property>
-		<property name="password" value="ustyle"></property>
-
+		<property name="driverClass" value="${jdbc.driver}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -47,7 +45,7 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
-	
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -62,8 +60,8 @@
 	<bean id="loginValidator" class="com.ustyle.utils.LoginValidator" />
 	<bean id="userEntryValidator" class="com.ustyle.utils.UserEntryValidator" />
 	<bean id="productUploadValidator" class="com.ustyle.utils.ProductUploadValidator" />
-	
-	
+
+
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
