@@ -9,6 +9,7 @@ import com.ustyle.domain.Sales;
 public interface ItemDAO {
 	public void insert(Item item);
 	public int selectListCnt(HashMap<String, Object> map);
+	public boolean existItem(Item item);
 	public List<Item> itemList(HashMap<String, Object> map);
 	public List<String> selectColorList(Integer productid);
 	public List<Item> selectedColorItemList(Item selectedColorItem);

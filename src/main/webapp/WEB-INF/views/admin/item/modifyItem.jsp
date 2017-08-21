@@ -34,11 +34,11 @@
 					<div class="box-body">
 						<div class="col-sm-3 form-group">
 							<label for="exampleInputEmail1">상품 색상</label>
-							<input type="text" name="color" value="${item.color}" class="form-control" placeholder="상품의 색상을 입력하세요.">
+							<input type="text" name="color" value="${item.color}" class="form-control" placeholder="상품의 색상을 입력하세요." readonly>
 						</div>
 						<div class="col-sm-3 form-group">
 							<label for="exampleInputEmail1">사이즈</label>
-							<input type="text" name="size" value="${item.size}" class="form-control" placeholder="상품의 사이즈를 입력하세요.">
+							<input type="text" name="size" value="${item.size}" class="form-control" placeholder="상품의 사이즈를 입력하세요." readonly>
 						</div>
 						<div class="col-sm-4 form-group">
 							<label for="exampleInputEmail1">상품 고유번호</label>

@@ -11,17 +11,21 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ustyle.domain.Item;
 import com.ustyle.domain.Product;
 import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
@@ -59,7 +63,7 @@ public class ProductAdminController {
 
 		logger.info(product.toString());
 
-		ModelAndView mav = new ModelAndView("main/base");
+		ModelAndView mav = new ModelAndView("");
 
 		if (bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
@@ -68,7 +72,7 @@ public class ProductAdminController {
 		}
 
 		service.insert(product);
-		mav.addObject(product);
+		mav.setViewName("redirect:/admin/product/productList.do");
 		return mav;
 	}
 	
@@ -186,14 +190,59 @@ public class ProductAdminController {
 		mav.addObject("uploadPath", uploadPath);
 		return mav;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "isDeleteProduct.do", method = RequestMethod.POST)
+	public ResponseEntity<String> isDeleteItem(@RequestBody Product product) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		int productid = product.getProductid();
+		boolean isExistProduct = true;
+		
+		try 
+		{
+			isExistProduct = service.existSalesAndPinTable(productid);
+				
+			if ( isExistProduct == true ) {
+				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			}
+			else {
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}	
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 
-	@RequestMapping("deleteProduct.do")
-	public String productDelete(@RequestParam int productid) throws Exception {
+	@ResponseBody
+	@RequestMapping(value = "deleteProduct.do", method = RequestMethod.POST)
+	public ResponseEntity<String> productDelete(@RequestBody Product product) throws Exception {
 //		String[] picurl = service.selectPictureurl(productid).split(",");
 //		deleteFile(picurl);
+			
+		ResponseEntity<String> entity = null;
 		
-		service.delete(productid);
+		try 
+		{
+			logger.info("PRODUCT TO DELETE = " + product);
+			
+			int productid = product.getProductid();
+			service.delete(productid);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 		// => product가 지워질 때, no action 제약조건으로 DB가 설계되었으므로, Service 단에서 product에 해당하는 item을 지우는 방향으로 진행
-		return "redirect:/admin/product/productList.do";
 	}
 }

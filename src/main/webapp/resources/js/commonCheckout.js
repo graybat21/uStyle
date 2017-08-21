@@ -35,17 +35,17 @@ function execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('recipient_postcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('shipping_addr1').value = fullAddr;
+            document.getElementById('shippingpostcode').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('shippingaddr1').value = fullAddr;
 
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById('shipping_addr2').focus();
+            document.getElementById('shippingaddr2').focus();
         }
     }).open();
 }
 function pressKey() {
-	var _val = document.getElementById('recipient_phone').value.trim();
-	document.getElementById('recipient_phone').value = autoHypenPhone(_val);
+	var _val = document.getElementById('recipientphone').value.trim();
+	document.getElementById('recipientphone').value = autoHypenPhone(_val);
 }
 function autoHypenPhone(str){
     str = str.replace(/[^0-9]/g, '');

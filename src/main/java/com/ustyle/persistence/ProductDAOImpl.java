@@ -63,6 +63,16 @@ public class ProductDAOImpl implements ProductDAO {
 	public void update(Product product) throws Exception {
 		session.update(namespace + ".update", product);
 	}
+	
+	@Override
+	public boolean existSalesTable(int productid) throws Exception {
+		return session.selectOne(namespace + ".existSalesTable", productid);
+	}
+	
+	@Override
+	public boolean existPinTable(int productid) throws Exception {
+		return session.selectOne(namespace + ".existPinTable", productid);
+	}
 
 	@Override
 	public void delete(int productid) throws Exception {

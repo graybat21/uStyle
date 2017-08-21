@@ -16,6 +16,7 @@ public interface ProductService {
 	public Product read(Integer productid) throws Exception;
 	public String selectPictureurl(Integer productid) throws Exception;
 	public void update(Product product) throws Exception;
+	public boolean existSalesAndPinTable(int productid) throws Exception;
 	public void delete(int productid) throws Exception;
 	public int getNewProductId() throws Exception;
 	

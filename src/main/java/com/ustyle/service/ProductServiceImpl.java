@@ -66,6 +66,12 @@ public class ProductServiceImpl implements ProductService {
 	public void update(Product product) throws Exception {
 		dao.update(product);
 	}
+	
+	@Override
+	public boolean existSalesAndPinTable(int productid) throws Exception {
+		boolean isExistTable = ( dao.existSalesTable(productid) || dao.existPinTable(productid) );
+		return isExistTable;
+	}
 
 	@Override
 	public void delete(int productid) throws Exception {

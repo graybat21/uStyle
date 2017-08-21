@@ -29,6 +29,11 @@ public class ItemServiceImpl implements ItemService {
 	public int selectListCnt(HashMap<String, Object> map) throws Exception {
 		return dao.selectListCnt(map);
 	}
+	
+	@Override
+	public boolean existItem(Item item) throws Exception {
+		return dao.existItem(item);
+	}
 
 	@Transactional
 	@Override

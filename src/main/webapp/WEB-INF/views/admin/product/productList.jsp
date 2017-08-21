@@ -53,30 +53,23 @@
 											<c:param name="productid" value="${list.productid }" />
 										</c:url>
 										<c:url var="addItem" value="/admin/item/addItem.do">
-											<c:param name="productid" value="${list.productid }" />
+											<c:param name="productid" value="${list.productid}" />
 										</c:url>
 										<tr>
 											<td><strong>${list.productid }</strong></td>
 											<td>
-											<img src="/displayFile?fileName=${list.pictureurl }" width="100px"></td>
+											<img src="/displayFile?fileName=${list.pictureurl}" width="100px"></td>
 											<td><a href="readProduct.do?productid=${list.productid}&page=${pageMaker.page}">${list.productname }</a></td>
 											<td>${list.brand}</td>
-											<td>${list.category }</td>
-											<td>${list.subcategory }</td>
-											<td>${list.description }</td>
-											<td>${list.originalprice }</td>
-											<td>${list.saleprice }</td>
-											<td><a href="${addItem }"><input type="button"
-													value="item추가" onclick="return addItem()"></a>
-												<a href="${deleteProduct }"><input type="button"
-													value="삭제" onclick="return deleteProduct()"></a></td>
+											<td>${list.category}</td>
+											<td>${list.subcategory}</td>
+											<td>${list.description}</td>
+											<td>${list.originalprice}</td>
+											<td>${list.saleprice}</td>
+											<td><a href="${addItem}"><input type="button" value="item추가" onclick="return addItem()"></a>
+												<input type="button" value="삭제" onclick="isDeleteProduct(${list.productid})"></td>
 										</tr>
 									</c:forEach>
-									<script>
-										function deleteProduct() {
-											return confirm("선택한 물품을 삭제하겠습니까?");
-										}
-									</script>
 								</tbody>
 							</table>
 						</div>
@@ -146,5 +139,71 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
+<script type="text/javascript">
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var token  = $("meta[name='_csrf']").attr("content");
 
+	function isDeleteProduct(productid) {
+		if ( confirm("선택한 Product를 삭제하시겠습니까?") ) {
+			$.ajax({
+				type: 'post',
+				url: 'isDeleteProduct.do',
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(header, token);
+			    },
+				headers: {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType: "text",
+				data: JSON.stringify({productid: productid}),
+				success: function(result) {
+					console.log("result: " + result);
+					
+					if ( result == 'FAIL' ) {
+						alert("사용자의 Pin에 들어가있거나 구매 내역이 있는 Product는 삭제가 불가능합니다.");
+						return false;
+					}
+					else {
+						deleteProduct(productid);
+					}
+				},
+				error: function(request, status, error) {
+				    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+			    }
+			});
+			return false;
+		}
+		else {
+			return false;
+		}
+	}
+
+	function deleteProduct(productid) {
+		$.ajax({
+			type: 'post',
+			url: 'deleteProduct.do',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+		    },
+			headers: {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType: "text",
+			data: JSON.stringify({productid: productid}),
+			success: function(result) {
+				console.log("result: " + result);
+				
+				if ( result == 'SUCCESS' ) {
+					alert("선택한 Product가 삭제되었습니다.");
+					location.href = "/admin/product/productList.do";
+				}
+			},
+			error: function(request, status, error) {
+			    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+		    }
+		});
+	}
+</script>
 </body>

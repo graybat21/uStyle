@@ -10,6 +10,11 @@
     <select id="read" resultType="item">
  		select * from tbl_item where itemid=#{itemid}
  	</select>
+ 	
+ 	<select id="existItem" parameterType="item" resultType="boolean">
+		select count(*) > 0 as existitem from tbl_item
+		where productid = #{productid} and color = #{color} and size = #{size}
+   	</select>
   
  	<select id="selectListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_item as i, tbl_product as p

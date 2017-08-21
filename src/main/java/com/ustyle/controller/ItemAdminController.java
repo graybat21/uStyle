@@ -164,6 +164,35 @@ public class ItemAdminController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "alreadyExistItem.do", method = RequestMethod.POST)
+	public ResponseEntity<String> alreadyExistItem(@RequestBody Item item) throws Exception {
+		ResponseEntity<String> entity = null;
+		
+		boolean isExistItem = true;
+		System.out.println(item.toString());
+		try 
+		{
+			isExistItem = itemService.existItem(item);
+			
+			logger.info("IS EXIST ITEM = " + isExistItem);
+			
+			if ( isExistItem == true ) {
+				entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			}
+			else {
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}	
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "isDeleteItem.do", method = RequestMethod.POST)
 	public ResponseEntity<String> isDeleteItem(@RequestBody Item item) throws Exception {
 		
@@ -174,8 +203,6 @@ public class ItemAdminController {
 		
 		try 
 		{
-			logger.info("ITEM TO DELETE = " + item);
-			
 			isExistSalesTable = itemService.existSalesTable(itemid);
 				
 			if ( isExistSalesTable == true ) {
@@ -203,13 +230,14 @@ public class ItemAdminController {
 	 */
 	
 	@ResponseBody
-	@RequestMapping("deleteItem.do")
+	@RequestMapping(value = "deleteItem.do", method = RequestMethod.POST)
 	public ResponseEntity<String> itemDelete(@RequestBody Item item) throws Exception {	
 		int itemid = item.getItemid();
 		ResponseEntity<String> entity = null;
 		
 		try 
 		{
+			logger.info("ITEM TO DELETE = " + item);
 			itemService.deleteItem(itemid);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		}

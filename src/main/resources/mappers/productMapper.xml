@@ -152,6 +152,22 @@
     	</otherwise>
     	</choose>
     </update>
+    
+    <select id="existSalesTable" parameterType="int" resultType="boolean">
+    <![CDATA[
+    	select count(I.productid) > 0 as existsales
+		from tbl_item I, tbl_sales S
+		where I.itemid = S.itemid and productid = #{productid}
+	]]>
+    </select>
+    
+    <select id="existPinTable" parameterType="int" resultType="boolean">
+    <![CDATA[
+	    select count(productid) > 0 as existpin
+		from tbl_pin
+		where productid = #{productid}
+	]]>
+    </select>
 	
 	<delete id="delete" parameterType="int">
  		delete from tbl_product

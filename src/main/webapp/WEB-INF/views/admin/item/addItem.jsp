@@ -34,27 +34,27 @@
 					<div class="box-body">
 						<div class="col-sm-3 form-group">
 							<label for="exampleInputEmail1">상품 색상</label>
-							<input type="text" name="color" value="${item.color}" class="form-control" placeholder="상품의 색상을 입력하세요.">
+							<input type="text" name="color" id="color" value="${item.color}" class="form-control" placeholder="상품의 색상을 입력하세요.">
 						</div>
 						<div class="col-sm-3 form-group">
 							<label for="exampleInputEmail1">사이즈</label>
-							<input type="text" name="size" value="${item.size}" class="form-control" placeholder="상품의 사이즈를 입력하세요.">
+							<input type="text" name="size" id="size" value="${item.size}" class="form-control" placeholder="상품의 사이즈를 입력하세요.">
 						</div>
 						<div class="col-sm-4 form-group">
 							<label for="exampleInputEmail1">상품 고유번호</label>
-							<input type="text" name="productid" value="${productid}" class="form-control" placeholder="상품의 고유번호를 입력하세요." readonly>
+							<input type="text" name="productid" id="productid" value="${productid}" class="form-control" placeholder="상품의 고유번호를 입력하세요." readonly>
 						</div>
 						<div class="col-sm-2 form-group">
 							<label for="exampleInputEmail1">재고수량</label>
-							<input type="text" name="stock" value="${item.stock}" class="form-control" placeholder="숫자로 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="stock" id="stock" value="${item.stock}" class="form-control" placeholder="숫자로 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">정상가격</label>
-							<input type="text" name="originalprice" value="${originalprice}" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="originalprice" id="originalprice"value="${originalprice}" class="form-control" placeholder="상품의 할인전 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 						<div class="col-sm-6 form-group">
 							<label for="exampleInputEmail1">판매가격</label>
-							<input type="text" name="saleprice" value="${saleprice}" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+							<input type="text" name="saleprice" id="saleprice" value="${saleprice}" class="form-control" placeholder="상품의 할인후 가격을 입력하세요." onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' style='ime-mode:disabled;'>
 						</div>
 					</div>
 					<!-- /.box-body -->

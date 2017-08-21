@@ -60,7 +60,6 @@
 											<td><strong>${list.productid }</strong></td>
 											<td>${list.productname }</td>
 											<td>${list.itemid}</td>
-											<%-- <a href="readProduct.do?productid=${list.productid}&page=${pageMaker.page}"> --%>
 											<td>${list.originalprice}</td>
 											<td>${list.saleprice }</td>
 											<td>${list.color }</td>
@@ -143,7 +142,7 @@
 <script type="text/javascript">
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var token  = $("meta[name='_csrf']").attr("content");
-	
+
 	function isDeleteItem(itemid) {
 		if ( confirm("선택한 Item을 삭제하시겠습니까?") ) {
 			$.ajax({
@@ -162,7 +161,7 @@
 					console.log("result: " + result);
 					
 					if ( result == 'FAIL' ) {
-						alert("사용자의 Pin에 들어가있는 Item은 삭제가 불가능합니다.");
+						alert("구매 내역에 들어가있는 Item은 삭제가 불가능합니다.");
 						return false;
 					}
 					else {
@@ -178,7 +177,6 @@
 		else {
 			return false;
 		}
-		//return confirm("선택한 아이템을 삭제하시겠습니까?");
 	}
 	
 	function deleteItem(itemid) {

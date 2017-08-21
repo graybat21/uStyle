@@ -28,6 +28,11 @@ public class ItemDAOImpl implements ItemDAO {
 	public int selectListCnt(HashMap<String, Object> map) {
 		return session.selectOne(namespace + ".selectListCnt", map);
 	}
+	
+	@Override
+	public boolean existItem(Item item) {
+		return session.selectOne(namespace + ".existItem", item);
+	}
 
 	@Override
 	public List<Item> itemList(HashMap<String, Object> map) {
