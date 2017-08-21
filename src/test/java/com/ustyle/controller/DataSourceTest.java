@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 //package com.ustyle.controller;
-//
-=======
-package com.ustyle.controller;
-
->>>>>>> c0e29977c3d1543e4c2375f5938a8b95ea95adcb
 //import java.sql.Connection;
 //
 //import javax.inject.Inject;
