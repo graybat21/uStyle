@@ -31,6 +31,11 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
+	public int selectListCnt() throws Exception {
+		return pinBoardDao.selectListCnt();
+	}
+	
+	@Override
 	public int selectListCntForUsername(String username) throws Exception {
 		return pinBoardDao.selectListCntForUsername(username);
 	}
@@ -136,6 +141,11 @@ public class PinServiceImpl implements PinService {
 	@Override
 	public void insertPin(Pin pin) throws Exception {
 		 pinDao.insertPin(pin);
+	}
+	
+	@Override
+	public void updatePictureurl(PinBoard pinBoard) throws Exception {
+		pinBoardDao.updatePictureurl(pinBoard);
 	}
 
 	@Override

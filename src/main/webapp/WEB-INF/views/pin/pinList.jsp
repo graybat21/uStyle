@@ -52,18 +52,22 @@ div img {
 			<div class="col-md-24">
 				<div id="like-info-wrapper">
 				<p id="like-info">
-					<c:if test="${isCheckLike eq false}">
-					<button type="button" class="btn btn-xs btn-link" id="btn-addlike">
+					<c:if test="${not empty isCheckLike}">
+						<c:if test="${isCheckLike eq false}">
+						<button type="button" class="btn btn-xs btn-link" id="btn-addlike">
+							<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>&nbsp;
+						</button>
+						</c:if>
+						<c:if test="${isCheckLike eq true}">
+						<button type="button" class="btn btn-xs btn-link" id="btn-removelike">
+							<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;
+						</button>
+						</c:if>
+					</c:if>
+					<c:if test="${empty isCheckLike}">
 						<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>&nbsp;
-					</button>
 					</c:if>
-					<c:if test="${isCheckLike eq true}">
-					<button type="button" class="btn btn-xs btn-link" id="btn-removelike">
-						<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;
-					</button>
-					</c:if>
-					${pinBoard.likecnt }
-				<%--a href="plusLike.do">LIKE</a--%>
+					${pinBoard.likecnt}
 				</p>
 				</div>
 			</div>
@@ -84,39 +88,18 @@ div img {
 				<p align="center">${pinBoard.content}</p>
 				<%-- <c:forEach var="reply" items="${replyList }">
 					<p align="center">${reply.content}--%>
-					<p>글1</p>
-					<p>글2</p>
-						<p align="right">답변</p> 
 			</div>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<%--button type="button" class="btn btn-default" data-dismiss="modal">Close</button--%>
-		<button type="button" class="btn btn-default" id="btn-modifypinboard">수정</button>
-		<button type="button" class="btn btn-default" id="btn-removepinboard">삭제</button>
-		<c:if test="${ not empty productid }">
-			<button type="button" class="btn btn-default" id="btn-addpin">Pin 추가</button>
-		</c:if>
-	</div>
-
-
-	<%-- <div class="row">
-		<c:forEach var="pin" items="${pinList }">
-
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"
-				style="margin: 0px;">
-				<img src="" class="img-responsive">
-				<div>
-					<a href="insertPin.do"> ${pin.pinno} / ${pin.pinboardno} /
-						${pin.productid} </a>
-
-				</div>
-			</div>
-
-		</c:forEach>
-		<a href="insertPin.do?pinboardno=${pinboardno }">새로 핀 입력</a>
-
-	</div> --%>
+	<c:if test="${ username eq pinBoard.username }">
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" id="btn-modifypinboard">수정</button>
+			<button type="button" class="btn btn-default" id="btn-removepinboard">삭제</button>
+			<c:if test="${ not empty productid }">
+				<button type="button" class="btn btn-default" id="btn-addpin">Pin 추가</button>
+			</c:if>
+		</div>
+	</c:if>
 	
 <script type="text/javascript">
 $(document).ready(function() {

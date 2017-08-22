@@ -39,7 +39,13 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public String selectPictureurl(Integer productid) throws Exception {
-		return dao.selectPictureUrl(productid);
+		return dao.selectPictureurl(productid);
+	}
+	
+	@Transactional
+	@Override
+	public String selectMainpictureurl(Integer productid) throws Exception {
+		return dao.selectMainpictureurl(productid);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import com.ustyle.domain.PinBoardReply;
 
 public interface PinService {
 	public void createPinBoard(PinBoard pinBoard) throws Exception;
+	public int selectListCnt() throws Exception;
 	public int selectListCntForUsername(String username) throws Exception;
 	public List<PinBoard> selectPinBoardList(HashMap<String, Object> map) throws Exception;
 	public boolean checkLike(HashMap<String, Object> map) throws Exception;
@@ -34,6 +35,7 @@ public interface PinService {
 	// ===================================================================== //
 	public List<Pin> getPins(int pinboardno);
 	public void insertPin(Pin pin) throws Exception;
+	public void updatePictureurl(PinBoard pinBoard) throws Exception;
 	public void deletePin(Pin pin) throws Exception;
 	// ===================================================================== //
 	public List<PinBoardReply> getPinBoardReplyByPinBoardNo(int pinboardno);

@@ -15,6 +15,7 @@ public interface ProductService {
 	public List<Product> productListForSubcategory(HashMap<String, Object> map) throws Exception;
 	public Product read(Integer productid) throws Exception;
 	public String selectPictureurl(Integer productid) throws Exception;
+	public String selectMainpictureurl(Integer productid) throws Exception;
 	public void update(Product product) throws Exception;
 	public boolean existSalesAndPinTable(int productid) throws Exception;
 	public void delete(int productid) throws Exception;

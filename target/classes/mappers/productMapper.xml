@@ -15,12 +15,16 @@
     	</choose>
     </insert>
 
-    <select id="read" resultType="product">
+    <select id="read" resultType="product" parameterType="int">
  		select * from tbl_product where productid=#{productid}
  	</select>
  	
- 	<select id="selectPictureUrl" resultType="java.lang.String">
+ 	<select id="selectPictureurl" resultType="String" parameterType="int">
  		select pictureurl from tbl_product where productid=#{productid}
+ 	</select>
+ 	
+ 	<select id="selectMainpictureurl" resultType="String" parameterType="int">
+ 		select mainpictureurl from tbl_product where productid=#{productid}
  	</select>
     
  	<select id="getNewProductId" resultType="int">

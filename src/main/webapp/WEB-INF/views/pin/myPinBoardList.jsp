@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
@@ -10,9 +9,9 @@
 	text-align: center;
 }
 
-img .pinBoardImage {
-	width: 150px;
-	height: 150px;
+.pinBoardImage {
+	width: 200px;
+	height: 250px;
 }
 .modal.modal-center{
 	text-align: center;
@@ -72,7 +71,7 @@ $('body').on('hidden.bs.modal', '.modal', function (e) {
 			<div class="em-wrapper-main">
 				<div class="container-fluid container-main">
 					<div class="container col-md-24 pinboard-list">
-						<h1>PinBoard list</h1>
+						<h1>My PinBoard list</h1>
 						<div class="well col-md-5 pinboard-element">
 							<a href="createPinBoard.do">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -84,20 +83,14 @@ $('body').on('hidden.bs.modal', '.modal', function (e) {
 					            <c:param name="pinboardno" value="${pinBoard.pinboardno}" />
 				            	<c:param name="productid" value="${productid}" />
 					        </c:url>
-							<a href="${pinUrl}" data-toggle="modal" data-target="#myModal"> <%-- ${pinBoard.pinboardno } --%>
+							<a href="${pinUrl}" data-toggle="modal" data-target="#myModal">
 								<div class="well col-md-5 pinboard-element">
+									<img class="pinBoardImage" src="/displayFile?fileName=${pinBoard.pictureurl}" />
 									<div>${pinBoard.pinboardname}</div>
 									<div>${pinBoard.likecnt} LIKE</div>
-									<c:forEach var="image" items="${imageList}">
-										<c:if test="${ image.pinboardno eq pinBoard.pinboardno }">
-											<img class="pinBoardImage" src="${image.mainpictureurl}" />
-										</c:if>
-									</c:forEach>
 								</div>
 							</a>
 						</c:forEach>
-						
-						
 						
 						<!-- Modal -->
 						<div class="modal modal-center fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

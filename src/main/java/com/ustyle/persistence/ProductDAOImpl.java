@@ -35,8 +35,13 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public String selectPictureUrl(Integer productid) throws Exception {
-		return session.selectOne(namespace + ".selectPictureUrl", productid);
+	public String selectPictureurl(Integer productid) throws Exception {
+		return session.selectOne(namespace + ".selectPictureurl", productid);
+	}
+	
+	@Override
+	public String selectMainpictureurl(Integer productid) throws Exception {
+		return session.selectOne(namespace + ".selectMainpictureurl", productid);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.ustyle.domain.PinBoardLike;
 
 public interface PinBoardDAO {
 	public void createPinBoard(PinBoard pinBoard);
+	public int selectListCnt();
 	public int selectListCntForUsername(String username);
 	public List<PinBoard> selectPinBoardList(HashMap<String, Object> map);
 	public boolean checkLike(HashMap<String, Object> map);
@@ -21,6 +22,7 @@ public interface PinBoardDAO {
 	public int selectPinCnt(int pinboardno);
 	public List<HashMap<String, Object>> selectPinBoardProductList(int pinboardno);
 	public void modifyPinBoard(PinBoard pinBoard);
+	public void updatePictureurl(PinBoard pinBoard);
 	public void deleteAllPinBoardLike(int pinboardno);
 	public List<Integer> selectPinBoardNoList(String username);
 	

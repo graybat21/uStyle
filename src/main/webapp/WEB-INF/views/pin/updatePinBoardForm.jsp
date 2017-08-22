@@ -83,9 +83,9 @@ td img {
 				            <table class="data-table">
 				            	<thead>
 				            		<tr class="em-block-title">
-					            		<th class="col-md-5 col-sm-5 col-xs-5 a-center"></th>
+					            		<th class="col-md-5 col-sm-5 col-xs-5 a-center">Product Image</th>
 					            		<th class="col-md-15 col-sm-15 col-xs-15 a-center">Product Name</th>
-					            		<th class="col-md-4 col-sm-4 col-xs-4 a-center">Pin Remove</th>
+					            		<th class="col-md-4 col-sm-4 col-xs-4 a-center">Pin Remove / PinBoard Image Change</th>
 				            		</tr>
 				            	</thead>
 				            	<tbody>
@@ -93,13 +93,16 @@ td img {
 					            		<tr>
 						            		<td class="a-center"><img src="/displayFile?fileName=${pinBoardProduct.mainpictureurl}"></td>
 						            		<td class="productid" style="display: none;">${pinBoardProduct.productid}</td>
+						            		<td class="pictureurl" style="display: none;">${pinBoardProduct.mainpictureurl}</td>
 						            		<td class="a-center">${pinBoardProduct.productname}</td>
-						            		<td class="a-center"><button type="button" class="btn btn-default" id="btn-removepin" onClick="removePin(this)">삭제</button></td>
+						            		<td class="a-center">
+						            			<button type="button" class="btn btn-default" id="btn-removepin" onClick="removePin(this)">삭제</button>
+						            			<button type="button" class="btn btn-default" id="btn-changepinboardimage" onClick="changePinboardImage(this)">이미지 변경</button>
+						            		</td>
 					            		</tr>
 					            	</c:forEach>
 				            	</tbody>
 				            </table>
-						    
 				    	</form>
 				    </div>
 				</div><!-- /.form_review -->
@@ -159,6 +162,42 @@ function removePin(element) {
 			},
 			error: function(request, status, error) {
 			    alert("올바르지 않은 Pin 삭제입니다.");
+			    window.location.href = "modifyPinBoard.do?pinboardno=" + pinboardno;
+		    }
+		});
+	}
+}
+
+function changePinboardImage(element) {
+	var pinboardno = '${pinBoard.pinboardno}';
+	
+	var rownum = element.parentNode.parentNode.rowIndex - 1;
+	var pictureUrlArr = document.getElementsByClassName("pictureurl");
+	var pictureurl = pictureUrlArr[rownum].innerText;
+	
+	if ( confirm("PinBoard의 이미지를 변경하시겠습니까?") == true )
+	{
+		$.ajax({
+			type: 'post',
+			url: 'updatePinBoardPictureurl.do',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+		    },
+			headers: {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType: "text",
+			data: JSON.stringify({pinboardno: pinboardno, pictureurl: pictureurl}),
+			success: function(result) {
+				console.log("result: " + result);
+				
+				if ( result == 'SUCCESS' ) {
+					window.location.href = "modifyPinBoard.do?pinboardno=" + pinboardno;
+				}
+			},
+			error: function(request, status, error) {
+			    alert("올바르지 않은 PinBoard 이미지 변경입니다.");
 			    window.location.href = "modifyPinBoard.do?pinboardno=" + pinboardno;
 		    }
 		});

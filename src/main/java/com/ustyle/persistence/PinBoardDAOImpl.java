@@ -26,6 +26,11 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	}
 	
 	@Override
+	public int selectListCnt() {
+		return session.selectOne(namespace + ".selectListCnt");
+	}
+	
+	@Override
 	public int selectListCntForUsername(String username) {
 		return session.selectOne(namespace + ".selectListCntForUsername", username);
 	}
@@ -83,6 +88,11 @@ public class PinBoardDAOImpl implements PinBoardDAO {
 	@Override
 	public void modifyPinBoard(PinBoard pinBoard) {
 		session.update(namespace + ".modifyPinBoard", pinBoard);
+	}
+	
+	@Override
+	public void updatePictureurl(PinBoard pinBoard) {
+		session.update(namespace + ".updatePictureurl", pinBoard);
 	}
 	
 	@Override

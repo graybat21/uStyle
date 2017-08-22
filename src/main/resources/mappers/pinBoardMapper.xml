@@ -8,6 +8,11 @@
 		values (#{username}, #{pinboardname}, now(), #{content})
 	</insert>
 	
+	<select id="selectListCnt" resultType="int">
+ 		select count(*) from tbl_pinboard
+ 		where pictureurl not like '/ustylenone.jpg'
+ 	</select>
+	
 	<select id="selectListCntForUsername" parameterType="String" resultType="int">
 		select count(*) from tbl_pinboard 
 		where username = #{username}
@@ -15,13 +20,16 @@
 	
 	<select id="selectPinBoardList" parameterType="hashmap" resultType="pinBoard">
 		select 
-			pinboardno, username, pinboardname, create_time, content, likecnt
+			pinboardno, username, pinboardname, create_time, content, likecnt, pictureurl
 		from
 			(SELECT (@row_number:=@row_number+1) as row_number,
-				pinboardno, username, pinboardname, create_time, content, likecnt 
+				pinboardno, username, pinboardname, create_time, content, likecnt, pictureurl 
 			FROM tbl_pinboard, (SELECT @row_number:=0) as t
           	<if test="username != null">
    				WHERE username = #{username}
+  			</if>
+  			<if test="username == null">
+  				WHERE pictureurl not like '/ustylenone.jpg'
   			</if>
           	ORDER BY create_time DESC
 			) X 
@@ -89,6 +97,12 @@
 		where pinboardno = #{pinboardno}
 	</update>
 	
+	<update id="updatePictureurl" parameterType="pinBoard">
+		update
+		tbl_pinboard set pictureurl = #{pictureurl}
+		where pinboardno = #{pinboardno}
+	</update>
+	
 	<delete id="deleteAllPinBoardLike" parameterType="int">
 		delete from
 		tbl_pinboardlike 
@@ -127,13 +141,7 @@
 		delete from tbl_pinboard
 		where pinboardno = #{pinboardno}
 	</delete>
-
-	<select id="selectListCnt" resultType="int" parameterType="hashmap">
- 		select count(*) from tbl_pinboard
- 		<if test="searchKeyword != null || searchKeyword == ''">
-   		where ${searchOption} like '%${searchKeyword}%'
-		</if>
- 	</select>
+	
 </mapper>
 
 
