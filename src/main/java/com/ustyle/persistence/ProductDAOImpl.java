@@ -53,6 +53,16 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product> productList(HashMap<String, Object> map) throws Exception {
 		return session.selectList(namespace + ".productList", map);
 	}
+	
+	@Override
+	public List<Product> recentProductList() throws Exception {
+		return session.selectList(namespace + ".recentProductList");
+	}
+	
+	@Override
+	public List<Product> popularProductList() throws Exception {
+		return session.selectList(namespace + ".popularProductList");
+	}
 
 	@Override
 	public int selectListCntForSubcategory(HashMap<String, Object> map) throws Exception {

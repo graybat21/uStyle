@@ -57,6 +57,16 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> productList(HashMap<String, Object> map) throws Exception {
 		return dao.productList(map);
 	}
+	
+	@Override
+	public List<Product> recentProductList() throws Exception {
+		return dao.recentProductList();
+	}
+	
+	@Override
+	public List<Product> popularProductList() throws Exception {
+		return dao.popularProductList();
+	}
 
 	@Override
 	public int selectListCntForSubcategory(HashMap<String, Object> map) throws Exception {

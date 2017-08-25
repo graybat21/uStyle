@@ -58,6 +58,20 @@
 		WHERE X.row_number BETWEEN #{first} AND #{last}
 	</select>
 	
+	<select id="recentProductList" resultType="product">
+		select productid, productname, mainpictureurl, originalprice, saleprice
+		from tbl_product
+		order by create_time desc limit 0, 4
+	</select>
+	
+	<select id="popularProductList" resultType="product">
+		select pr.productid, pr.productname, pr.mainpictureurl, pr.originalprice, pr.saleprice
+		from tbl_sales s, tbl_purchase pu, tbl_item i, tbl_product pr
+		where pu.purchaseid = s.purchaseid and i.itemid = s.itemid and pr.productid = i.productid
+		group by i.productid
+		order by sum(count) desc limit 0, 4
+	</select>
+	
 	<select id="selectListCntForSubcategory" resultType="int" parameterType="hashmap">
  		SELECT count(*) 
  		FROM 

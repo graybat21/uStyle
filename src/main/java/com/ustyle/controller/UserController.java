@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ustyle.domain.Product;
 import com.ustyle.domain.User;
 import com.ustyle.service.PinService;
+import com.ustyle.service.ProductService;
 import com.ustyle.service.ReviewService;
 import com.ustyle.service.UserService;
 import com.ustyle.utils.PageMaker;
@@ -49,6 +51,9 @@ public class UserController {
 	private PinService pinService;
 	
 	@Inject
+	private ProductService productService;
+	
+	@Inject
 	private ReviewService reviewService;
 
 	@Inject
@@ -64,8 +69,25 @@ public class UserController {
 	 */
 	
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
-	public String Index() {
-		return "user/index/uStyleHome";
+	public ModelAndView index() throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		List<Product> newArrivalProductList = productService.recentProductList();		// 새로 추가된 상품을 가져옴(총 4개)
+		List<Product> bestProductList = productService.popularProductList();			// 인기 상품을 가져옴(총 4개)
+		
+		for ( Product newArrivalProduct : newArrivalProductList ) {
+			logger.info("NEW ARRIVAL PRODUCT - " + newArrivalProduct.toString());
+		}
+		
+		for ( Product bestProduct : bestProductList ) {
+			logger.info("BEST PRODUCT - " + bestProduct.toString());
+		}
+		
+		mav.addObject("newArrivalProductList", newArrivalProductList);
+		mav.addObject("bestProductList", bestProductList);
+		
+		mav.setViewName("user/index/uStyleHome");
+		return mav;
 	}
 
 	/**
