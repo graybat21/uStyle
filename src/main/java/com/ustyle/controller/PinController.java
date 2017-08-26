@@ -324,9 +324,8 @@ public class PinController {
 					if ( totalPinCnt == 0 ) {
 						PinBoard updatePinBoard = new PinBoard();
 						
-						String pictureurl = productService.selectMainpictureurl(pin.getProductid());
 						updatePinBoard.setPinboardno(pinboardno);
-						updatePinBoard.setMainpictureurl(pictureurl);
+						updatePinBoard.setMainpictureproductid(pin.getProductid());
 						
 						pinService.updatePictureurl(updatePinBoard);
 					}
@@ -358,15 +357,19 @@ public class PinController {
 			pinService.deletePin(pin);
 			
 			int pinboardno = pin.getPinboardno();
+			
+			int mainPictureProductid = pinService.getPinBoardByNo(pinboardno).getMainpictureproductid();
+			int pinBoardProductid = pin.getProductid();
+			
 			int totalPinCnt = pinService.selectPinCnt(pinboardno);
 			
-			// PinBoard에 있는 Pin이 하나도 없는 경우, PinBoard의 이미지를 다시 기본 이미지로 바꿈.
-			if ( totalPinCnt == 0 ) {		
+			/* PinBoard에 있는 Pin이 하나도 없거나 삭제하려는 Pin이 PinBoard의 메인 이미지로 설정된 경우, 
+			 PinBoard의 이미지를 다시 기본 이미지로 바꿈. */
+			if ( totalPinCnt == 0 || mainPictureProductid == pinBoardProductid ) {		
 				PinBoard updatePinBoard = new PinBoard();
 				
-				String pictureurl = "/ustylenone.jpg";
 				updatePinBoard.setPinboardno(pinboardno);
-				updatePinBoard.setMainpictureurl(pictureurl);
+				updatePinBoard.setMainpictureproductid(0);
 				
 				pinService.updatePictureurl(updatePinBoard);
 			}

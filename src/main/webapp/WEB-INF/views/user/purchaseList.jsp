@@ -65,7 +65,7 @@
 		                                                            <tr class="last even">
 		                                                                <td>
 		                                                                    <div class="cart-product">
-		                                                                        <a title="${userPurchase.productname}" class="product-image"><img src="/displayFile?fileName=${userPurchase.mainpictureurl}" width="100" alt="${userPurchase.productname }" />
+		                                                                        <a title="${userPurchase.productname}" class="product-image"><img src="/displayMainPictureurl?productid=${userPurchase.productid}" width="100" alt="${userPurchase.productname }" />
 		                                                                        </a>
 		                                                                    </div>
 		                                                                </td>

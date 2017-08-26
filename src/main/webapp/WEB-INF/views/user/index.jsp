@@ -42,8 +42,8 @@
 	                                                                                         <div class="product-shop-top">
 	                                                                                             <a href="/product/productDetail.do?productid=${newArrivalProduct.productid}" title="${newArrivalProduct.productname}" class="product-image" target="_blank">
 	                                                                                                 <!--show label product - label extension is required-->
-	                                                                                                 <img class="em-alt-hover img-responsive em-img-lazy" src="/displayFile?fileName=${newArrivalProduct.mainpictureurl}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
-	                                                                                                 <img class="img-responsive em-img-lazy em-alt-org" src="/displayFile?fileName=${newArrivalProduct.mainpictureurl}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
+	                                                                                                 <img class="em-alt-hover img-responsive em-img-lazy" src="/displayMainPictureurl?productid=${newArrivalProduct.productid}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
+	                                                                                                 <img class="img-responsive em-img-lazy em-alt-org" src="/displayMainPictureurl?productid=${newArrivalProduct.productid}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
 	                                                                                             </a>
 	                                                                                         </div><!-- /.product-shop-top -->
 	                                                                                         <div class="product-shop">
@@ -286,19 +286,12 @@
 				                 </div><!-- /.em-wrapper-area06 -->
 				
 				             </div><!-- /.container -->
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
          </div><!-- /.container-main -->
      </div><!-- /.em-wrapper-main -->		
-
-
-
-
-
-
-
 
 </div>
 <!-- /.page -->

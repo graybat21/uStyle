@@ -109,7 +109,7 @@
 	                                                            </div>
 	                                                            <div class="product-shop">
 	                                                                <div class="f-fix">
-	                                                                    <h2 class="product-name text-center  "><a href="product-detail.html" title="${product.productname}">${product.productname}</a></h2>
+	                                                                    <h2 class="product-name text-center  "><a href="/product/productDetail.do?productid=${product.productid}" title="${product.productname}">${product.productname}</a></h2>
 	                                                                    <div class=" text-center">
 	                                                                        <div class="ratings">
 	                                                                            <div class="rating-box">

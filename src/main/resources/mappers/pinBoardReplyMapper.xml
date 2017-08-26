@@ -16,5 +16,3 @@
 		delete from tbl_pinboardreply where pinboardreplyno = #{pinboardreplyno} 
 	</delete>
 </mapper>
-
-

@@ -10,8 +10,8 @@ public class PinBoard {
 	private Date create_time;
 	private String content;
 	private int likecnt;
-	private String pictureurl;
-
+	private int mainpictureproductid;
+	
 	public int getPinboardno() {
 		return pinboardno;
 	}
@@ -60,18 +60,18 @@ public class PinBoard {
 		this.likecnt = likecnt;
 	}
 
-	public String getPictureurl() {
-		return pictureurl;
+	public int getMainpictureproductid() {
+		return mainpictureproductid;
 	}
 
-	public void setMainpictureurl(String pictureurl) {
-		this.pictureurl = pictureurl;
+	public void setMainpictureproductid(int mainpictureproductid) {
+		this.mainpictureproductid = mainpictureproductid;
 	}
 
 	@Override
 	public String toString() {
 		return "PinBoard [pinboardno=" + pinboardno + ", username=" + username + ", pinboardname=" + pinboardname
-				+ ", create_time=" + create_time + ", content=" + content + ", likecnt=" + likecnt + ", pictureurl="
-				+ pictureurl + "]";
+				+ ", create_time=" + create_time + ", content=" + content + ", likecnt=" + likecnt
+				+ ", mainpictureproductid=" + mainpictureproductid + "]";
 	}
 }

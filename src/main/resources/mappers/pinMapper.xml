@@ -24,5 +24,3 @@
 		where pinboardno = #{pinboardno}
 	</delete>
 </mapper>
-
-
