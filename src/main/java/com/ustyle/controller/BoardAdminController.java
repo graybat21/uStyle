@@ -23,6 +23,7 @@ import com.ustyle.service.QnaService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
+@RequestMapping("/admin/board/*")
 public class BoardAdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardAdminController.class);
@@ -35,7 +36,7 @@ public class BoardAdminController {
 	private QnaService qnaService;
 
 //	============================== Notice =================================
-	@RequestMapping(value = "/admin/notice.do", method = RequestMethod.GET)
+	@RequestMapping(value = "notice.do", method = RequestMethod.GET)
 	public ModelAndView Board_notice_admin(PageMaker pagemaker,
 			@RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
@@ -64,19 +65,19 @@ public class BoardAdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/admin/noticeWrite.do", method = RequestMethod.GET)
+	@RequestMapping(value = "noticeWrite.do", method = RequestMethod.GET)
 	public String noticeWriteFormAdmin() {
 		return "board/noticeWrite";
 	}
 
-	@RequestMapping(value = "/admin/noticeWrite.do", method = RequestMethod.POST)
+	@RequestMapping(value = "noticeWrite.do", method = RequestMethod.POST)
 	public String noticeWriteAdmin(Notice notice) throws Exception {
 		noticeService.noticeWrite(notice);
-		logger.info(notice.toString());
-		return "redirect:/admin/notice.do";
+		logger.info("WRITTEN NOTICE CONTENTS = ", notice.toString());
+		return "redirect:/admin/board/notice.do";
 	}
 
-	@RequestMapping("/admin/noticeView.do")
+	@RequestMapping("noticeView.do")
 	public ModelAndView noticeView_admin(@RequestParam(value = "bno") int bno) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		Notice notice = noticeService.noticeView(bno);
@@ -85,21 +86,21 @@ public class BoardAdminController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/admin/noticeModify.do", method = RequestMethod.GET)
+	@RequestMapping(value = "noticeModify.do", method = RequestMethod.GET)
 	public String noticeModifyForm(@RequestParam(value = "bno") int bno,Model model) throws Exception {
 		Notice notice = noticeService.noticeView(bno);
 		model.addAttribute("notice",notice);
 		return "board/noticeWrite";
 	}
 
-	@RequestMapping(value = "/admin/noticeModify.do", method = RequestMethod.POST)
+	@RequestMapping(value = "noticeModify.do", method = RequestMethod.POST)
 	public String noticeModify(Notice notice) throws Exception {
 		noticeService.noticeModify(notice);
-		return "redirect:/admin/notice.do";
+		return "redirect:/admin/board/notice.do";
 	}
 
 //	============================== FAQ =================================
-	@RequestMapping(value = "/admin/faq.do", method = RequestMethod.GET)
+	@RequestMapping(value = "faq.do", method = RequestMethod.GET)
 	public ModelAndView Board_faq(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -126,39 +127,39 @@ public class BoardAdminController {
 		mav.addObject("searchKeyword", searchKeyword);
 		return mav;
 	}
-	@RequestMapping(value = "/admin/faqWrite.do", method = RequestMethod.GET)
+	@RequestMapping(value = "faqWrite.do", method = RequestMethod.GET)
 	public String faqWriteForm() {
 		return "board/faqWrite";
 	}
 
-	@RequestMapping(value = "/admin/faqWrite.do", method = RequestMethod.POST)
+	@RequestMapping(value = "faqWrite.do", method = RequestMethod.POST)
 	public String faqWrite(Faq faq) throws Exception {
 		faqService.faqWrite(faq);
 		logger.info(faq.toString());
-		return "redirect:/admin/faq.do";
+		return "redirect:/admin/board/faq.do";
 	}
-	@RequestMapping(value = "/admin/faqModify.do", method = RequestMethod.GET)
+	@RequestMapping(value = "faqModify.do", method = RequestMethod.GET)
 	public String faqModifyForm(@RequestParam(value = "bno") int bno,Model model) throws Exception {
 		Faq faq = faqService.faqView(bno);
 		model.addAttribute("faq",faq);
 		return "board/faqWrite";
 	}
 	
-	@RequestMapping(value = "/admin/faqModify.do", method = RequestMethod.POST)
+	@RequestMapping(value = "faqModify.do", method = RequestMethod.POST)
 	public String faqModify(Faq faq) throws Exception {
 		System.out.println(faq.getBno() + "번 글 수정");
 		faqService.faqModify(faq);
-		return "redirect:/admin/faq.do";
+		return "redirect:/admin/board/faq.do";
 	}
-	@RequestMapping("/admin/faqDelete.do")
+	@RequestMapping("faqDelete.do")
 	public String faqDelete(@RequestParam(value = "bno") int bno) throws Exception {
 		System.out.println(bno + "번 글 삭제");
 		faqService.faqDelete(bno);
-		return "redirect:/admin/faq.do";
+		return "redirect:/admin/board/faq.do";
 	}
 	
 //	============================== Q&A =================================
-	@RequestMapping(value="/admin/qna.do", method=RequestMethod.GET)
+	@RequestMapping(value="qna.do", method=RequestMethod.GET)
 	public ModelAndView Board_qna(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -185,7 +186,7 @@ public class BoardAdminController {
 		mav.addObject("searchKeyword", searchKeyword);
 		return mav;
 	}
-	@RequestMapping("/admin/qnaView.do")
+	@RequestMapping("qnaView.do")
 	public ModelAndView qnaView(@RequestParam(value = "bno") int bno) throws Exception {
 		ModelAndView mav = new ModelAndView();
 
@@ -194,18 +195,18 @@ public class BoardAdminController {
 		mav.setViewName("board/qnaDetail");
 		return mav;
 	}
-	@RequestMapping("/admin/qnaDelete.do")
+	@RequestMapping("qnaDelete.do")
 	public String qnaDelete(@RequestParam(value = "bno") int bno)throws Exception{
 		qnaService.qnaDelete(bno);
-		return "redirect:/admin/qna.do";
+		return "redirect:/admin/board/qna.do";
 	}
-	@RequestMapping(value = "/admin/qnaReply.do", method = RequestMethod.GET)
-	public String qnaReplyForm(@RequestParam(value = "parent") int parent,Model model) throws Exception {
+	@RequestMapping(value = "qnaReply.do", method = RequestMethod.GET)
+	public String qnaReplyForm(@RequestParam(value = "parent") int parent, Model model) throws Exception {
 		Qna qna = qnaService.qnaView(parent);
 		model.addAttribute("qna",qna);
 		return "board/qnaWrite";
 	}
-	@RequestMapping(value = "/admin/qnaReply.do", method = RequestMethod.POST)
+	@RequestMapping(value = "qnaReply.do", method = RequestMethod.POST)
 	public String qnaReply(Qna qna) throws Exception {
 		qna.setUsername("관리자");
 //		qna.setParent(qna.getBno());
@@ -213,7 +214,7 @@ public class BoardAdminController {
 		qna.setIndent(1);
 		qnaService.qnaWrite(qna);
 		logger.info(qna.toString());
-		return "redirect:/admin/qna.do";
+		return "redirect:/admin/board/qna.do";
 	}
 
 }

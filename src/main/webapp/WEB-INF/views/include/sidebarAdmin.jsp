@@ -66,9 +66,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/notice.do"><i class="fa fa-circle-o"></i>공지사항게시판</a></li>
-            <li><a href="/admin/faq.do"><i class="fa fa-circle-o"></i>FAQ게시판</a></li>
-            <li><a href="/admin/qna.do"><i class="fa fa-circle-o"></i>QNA게시판</a></li>
+            <li><a href="/admin/board/notice.do"><i class="fa fa-circle-o"></i>공지사항게시판</a></li>
+            <li><a href="/admin/board/faq.do"><i class="fa fa-circle-o"></i>FAQ게시판</a></li>
+            <li><a href="/admin/board/qna.do"><i class="fa fa-circle-o"></i>QNA게시판</a></li>
           </ul>
         </li>
         <li class="treeview">
