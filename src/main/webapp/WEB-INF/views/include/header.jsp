@@ -328,7 +328,7 @@
 								<!-- header login -->
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">
-									<a href="/loginPost.do" class="link-account" id="link-login"
+									<a href="/login.do" class="link-account" id="link-login"
 										title="Login">Login</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">
