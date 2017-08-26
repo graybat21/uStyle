@@ -858,7 +858,7 @@
 														<a class="em-menu-link" href="/pin/pinBoardList.do"><span>PinBoards</span></a>
 													</li>
 													<li class="menu-teim-link menu-item-depth-0 menu-item-parent">
-														<a class="em-menu-link" href="notice.do"><span>C/S</span></a>
+														<a class="em-menu-link" href="/board/notice.do"><span>C/S</span></a>
 													</li>
 													 
 												</ul>

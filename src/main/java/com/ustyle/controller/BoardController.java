@@ -24,6 +24,7 @@ import com.ustyle.service.QnaService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
+@RequestMapping("/board/*")
 public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
