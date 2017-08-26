@@ -32,21 +32,22 @@
 				                        </div>
 				                    </li>
 				                    <li>
-				                        <label for="username_field" class="required"><em>*</em>Title</label>
+				                        <label for="username_field" class="required"><em>*</em>UserName</label>
 				                        <div class="input-box">
 				                            <input type="text" name="qnausername" id="pinboard-name" class="input-text required-entry" value="${qna.username}" disabled="disabled"/>
 				                        </div>
 				                    </li>
 				                    <li>
-				                        <label for="category_field" class="required"><em>*</em>Title</label>
+				                        <label for="category_field" class="required"><em>*</em>Category</label>
 				                        <div class="input-box">
 				                            <input type="text" name="qnacategory" id="pinboard-name" class="input-text required-entry" value="${qna.category}" disabled="disabled"/>
 				                        </div>
 				                    </li>
 				                    <li>
 				                        <label for="contents_field" class="required"><em>*</em>Contents</label>
-				                        <div class="input-box">
-				                            <textarea name="qnacontent" id="pinboard-content" cols="5" rows="3" class="required-entry" disabled="disabled">${qna.content}</textarea>
+				                        <div class="input-box" style="min-height: 100px; background-color: #ECF6CE; padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px;">
+				                        	${qna.content}
+				                            <!-- <textarea name="qnacontent" id="pinboard-content" cols="5" rows="3" class="required-entry" disabled="disabled"></textarea> -->
 				                        </div>
 				                    </li>
 				                </ul>
