@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.ustyle.domain.Faq;
 import com.ustyle.domain.Qna;
 @Repository
-public class QnaDAOImple implements QnaDAO {
+public class QnaDAOImpl implements QnaDAO {
 	private static String namespace = "com.ustyle.mappers.qnaMapper";
 	@Inject
 	private SqlSession session;
