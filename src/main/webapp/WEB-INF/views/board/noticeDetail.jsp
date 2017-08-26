@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,36 +12,46 @@
 <div class="container">
 <table class="table table-bordered">
     <thead>
-        <caption> 글쓰기 </caption>
+        <!-- <caption> 글쓰기 </caption> -->
     </thead>
     
     <tbody>
-            <tr>
-                <th>제목: </th>
-                <td>${notice.title }</td>
-            </tr>
-            <tr>
-                <th>내용: </th>
-                <td>${notice.content }</td>
-            </tr>
-            <tr>
-                <th>첨부파일: </th>
-                <td>...</td>
-            </tr>
-            <!-- <tr>
-                <th>비밀번호: </th>
-                <td><input type="password" placeholder="비밀번호를 입력하세요" class="form-control"/></td>
-            </tr> -->
-            
-            <tr>
-                <td colspan="2">
-                    <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='notice.do'"/>
-                    <input type="button" value="글 수정 " class="pull-right" onclick="location.href='noticeModify.do'"/>
-                    <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
-                    <a class="btn btn-default" type="reset"> reset </a>
-                    <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
-                </td>
-            </tr>
+    	<div class="container" style="height: auto; margin: 30px;">
+			<div class="box-collateral box-reviews em-line-01" id="customer-reviews">
+				<div class="form_review no_reviews">
+				    <div class="form-add" id="customer_review_form">
+				    	<!-- <form method="post" onsubmit="return verifyOK()"> -->
+				    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					        <div class="em-block-title">
+					            <h2>Notice</h2>
+					        </div>
+				            <fieldset>
+				                <h3>공지사항</h3>
+				                <ul class="form-list">
+				                    <li>
+				                        <label for="username_field" class="required"><em>*</em>Title</label>
+				                        <div class="input-box">
+				                            <input type="text" name="noticetitle" id="pinboard-name" class="input-text required-entry" value="${notice.title}" disabled="disabled"/>
+				                        </div>
+				                    </li>
+				                    <li>
+				                        <label for="contents_field" class="required"><em>*</em>Contents</label>
+				                        <div class="input-box">
+				                            <textarea name="noticecontent" id="pinboard-content" cols="5" rows="3" class="required-entry" disabled="disabled">${notice.content}</textarea>
+				                        </div>
+				                    </li>
+				                </ul>
+				            </fieldset>
+				            <div class="board-button">
+								<button class="btn btn-default" onclick="location.href='/notice.do'">목록</button>
+						    </div>
+						    
+				    </div>
+				</div><!-- /.form_review -->
+			</div><!-- /.box-collateral -->
+		</div>
+		<!-- /.container -->
+    
     </tbody>
 </table>
 </div>

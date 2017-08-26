@@ -11,43 +11,62 @@
 <body>
 <div class="container">
 <table class="table table-bordered">
-    <thead>
-        <caption> 글쓰기 </caption>
-    </thead>
     
     <tbody>
-            <tr>
-                <th>제목: </th>
-                <td>${qna.title }</td>
-            </tr>
-            <tr>
-                <th>작성자: </th>
-                <td>${qna.username}</td>
-            </tr>
-            <tr>
-                <th>분류: </th>
-                <td>${qna.category}</td>
-            </tr>
-            <tr>
-                <th>내용: </th>
-                <td>${qna.content }</td>
-            </tr>
-            <!-- <tr>
-                <th>비밀번호: </th>
-                <td><input type="password" placeholder="비밀번호를 입력하세요" class="form-control"/></td>
-            </tr> -->
-            
-            <tr>
-                <td colspan="2">
-                    <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='qna.do'"/>
-                    <c:if test="${qna.username == sessionScope.session_username }">
-                    <input type="button" value="글 수정 " class="pull-right" onclick="location.href='qnaModify.do?bno=${qna.bno}'"/>
-                    <input type="button" value="글 삭제 " class="pull-right" onclick="location.href='qnaDelete.do?bno=${qna.bno}'"/>
-                    </c:if>
-                    <%-- <input type="button" value="글 답변 " class="pull-right" onclick="location.href='qnaReply.do?bno=${qna.bno}'"/> --%>
-                </td>
-            </tr>
+    	<div class="container" style="height: auto; margin: 30px;">
+			<div class="box-collateral box-reviews em-line-01" id="customer-reviews">
+				<div class="form_review no_reviews">
+				    <div class="form-add" id="customer_review_form">
+				    	<!-- <form method="post" onsubmit="return verifyOK()"> -->
+				    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					        <div class="em-block-title">
+					            <h2>QnA</h2>
+					        </div>
+				            <fieldset>
+				                <h3>질문과 답변</h3>
+				                <ul class="form-list">
+				                    <li>
+				                        <label for="title_field" class="required"><em>*</em>Title</label>
+				                        <div class="input-box">
+				                            <input type="text" name="qnatitle" id="pinboard-name" class="input-text required-entry" value="${qna.title}" disabled="disabled"/>
+				                        </div>
+				                    </li>
+				                    <li>
+				                        <label for="username_field" class="required"><em>*</em>Title</label>
+				                        <div class="input-box">
+				                            <input type="text" name="qnausername" id="pinboard-name" class="input-text required-entry" value="${qna.username}" disabled="disabled"/>
+				                        </div>
+				                    </li>
+				                    <li>
+				                        <label for="category_field" class="required"><em>*</em>Title</label>
+				                        <div class="input-box">
+				                            <input type="text" name="qnacategory" id="pinboard-name" class="input-text required-entry" value="${qna.category}" disabled="disabled"/>
+				                        </div>
+				                    </li>
+				                    <li>
+				                        <label for="contents_field" class="required"><em>*</em>Contents</label>
+				                        <div class="input-box">
+				                            <textarea name="qnacontent" id="pinboard-content" cols="5" rows="3" class="required-entry" disabled="disabled">${qna.content}</textarea>
+				                        </div>
+				                    </li>
+				                </ul>
+				            </fieldset>
+				            <div class="board-button">
+								<button class="btn btn-default" onclick="location.href='/qna.do'">목록</button>
+								<c:if test="${qna.username == session_user['username']}">
+									<button class="btn btn-default" onclick="location.href=location.href='qnaModify.do?bno=${qna.bno}'">글수정</button>
+									<button class="btn btn-default" onclick="location.href=location.href='qnaDelete.do?bno=${qna.bno}'">글삭제</button>
+			                    </c:if>
+						    </div>
+                    
+				    </div>
+				</div><!-- /.form_review -->
+			</div><!-- /.box-collateral -->
+		</div>
+		<!-- /.container -->
+    
     </tbody>
+    
 </table>
 </div>
 </body>
