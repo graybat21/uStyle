@@ -116,5 +116,3 @@
  		where itemid = #{itemid}
  	</delete>
 </mapper>
-
-

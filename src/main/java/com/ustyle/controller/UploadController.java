@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.ustyle.service.ProductService;
 import com.ustyle.utils.MediaUtils;
 import com.ustyle.utils.UploadFileUtils;
 
@@ -32,6 +35,9 @@ public class UploadController
 	
 	@Resource(name = "uploadPath")
 	private String uploadPath;
+	
+	@Inject
+	private ProductService productService;
 	
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
 	public void uploadForm()
@@ -89,6 +95,27 @@ public class UploadController
 						file.getBytes()), HttpStatus.CREATED);
 		else
 			return new ResponseEntity<String>("", HttpStatus.CREATED);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/displayMainPictureurl")
+	public ResponseEntity<byte[]> displayMainPictureurl(int productid) throws Exception
+	{
+		ResponseEntity<byte[]> entity = null;
+		
+		try 
+		{
+			String mainPictureurl = productService.selectMainpictureurl(productid);
+			entity = displayFile(mainPictureurl);
+			
+		}
+		catch ( Exception e )
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 	
 	@ResponseBody

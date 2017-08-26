@@ -138,6 +138,5 @@
 		where
 			U.username = #{username} and U.grade_idx = G.idx
 	</select>
+	
 </mapper>
-
-

@@ -9,8 +9,10 @@
 	</insert>
 	
 	<select id="selectListCnt" resultType="int">
+ 	<![CDATA[ 
  		select count(*) from tbl_pinboard
- 		where pictureurl not like '/ustylenone.jpg'
+ 		WHERE mainpictureproductid > 0
+ 	]]>
  	</select>
 	
 	<select id="selectListCntForUsername" parameterType="String" resultType="int">
@@ -20,16 +22,16 @@
 	
 	<select id="selectPinBoardList" parameterType="hashmap" resultType="pinBoard">
 		select 
-			pinboardno, username, pinboardname, create_time, content, likecnt, pictureurl
+			pinboardno, username, pinboardname, create_time, content, likecnt, mainpictureproductid
 		from
 			(SELECT (@row_number:=@row_number+1) as row_number,
-				pinboardno, username, pinboardname, create_time, content, likecnt, pictureurl 
+				pinboardno, username, pinboardname, create_time, content, likecnt, mainpictureproductid 
 			FROM tbl_pinboard, (SELECT @row_number:=0) as t
           	<if test="username != null">
    				WHERE username = #{username}
   			</if>
   			<if test="username == null">
-  				WHERE pictureurl not like '/ustylenone.jpg'
+  				<![CDATA[ WHERE mainpictureproductid > 0 ]]>
   			</if>
           	ORDER BY create_time DESC
 			) X 
@@ -84,7 +86,7 @@
 	
 	<select id="selectPinBoardProductList" parameterType="int" resultType="hashmap">
 		select 
-			PD.productid, PD.productname, PD.mainpictureurl
+			PD.productid, PD.productname
 		from 
 			tbl_pin P, tbl_product PD
 		where 
@@ -99,7 +101,7 @@
 	
 	<update id="updatePictureurl" parameterType="pinBoard">
 		update
-		tbl_pinboard set pictureurl = #{pictureurl}
+		tbl_pinboard set mainpictureproductid = #{mainpictureproductid}
 		where pinboardno = #{pinboardno}
 	</update>
 	
@@ -125,17 +127,6 @@
 	<select id="getPinBoardByNo" parameterType="int" resultType="PinBoard">
 		select * from tbl_pinboard where pinboardno = #{pinboardno}
 	</select>
-	
-	<select id="getPinBoardMainImage" parameterType="String" resultType="pinBoard">
-		select 
-			p.pinboardno pinboardno, pro.mainpictureurl mainpictureurl 
-		from 
-			tbl_pinboard pb, tbl_pin p, tbl_product pro
-		where 
-			pb.pinboardno = p.pinboardno
-		and p.productid = pro.productid
-		and username = #{username}
-	</select>
 
 	<delete id="deletePinBoard" parameterType="int">
 		delete from tbl_pinboard
@@ -143,5 +134,3 @@
 	</delete>
 	
 </mapper>
-
-

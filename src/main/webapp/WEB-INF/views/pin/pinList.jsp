@@ -3,12 +3,6 @@
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
-<%--link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script--%>
 <style>
 #columns {
 	column-width: 350px;
@@ -78,7 +72,7 @@ div img {
 			<c:forEach var="pinBoardProduct" items="${pinBoardProductList}">
 				<div class="imagebox">
 					<a href="/product/productDetail.do?productid=${pinBoardProduct.productid}" target="_blank">
-						<img class="col-md-5 col-sm-5 col-xs-5" src="/displayFile?fileName=${pinBoardProduct.mainpictureurl}">
+						<img class="col-md-5 col-sm-5 col-xs-5" src="/displayMainPictureurl?productid=${pinBoardProduct.productid}">
 					</a>
 				</div>
 			</c:forEach>

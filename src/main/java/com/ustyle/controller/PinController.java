@@ -25,6 +25,7 @@ import com.ustyle.domain.PinBoardLike;
 import com.ustyle.domain.PinBoardReply;
 import com.ustyle.domain.User;
 import com.ustyle.service.PinService;
+import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
@@ -35,6 +36,47 @@ public class PinController {
 
 	@Inject
 	private PinService pinService;
+	
+	@Inject
+	private ProductService productService;
+	
+	@RequestMapping("pinBoardList.do")
+	public ModelAndView pinBoardList(@RequestParam(value = "pageCount", required = false) Integer pageCount,
+			HttpSession session) throws Exception {
+		
+		PageMaker pageMaker = new PageMaker();
+		
+		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
+		pageMaker.setPage(page);
+		
+		ModelAndView mav = new ModelAndView("pin/pinBoardList/PinBoard");
+		
+		int totalCnt = pinService.selectListCnt(); // DB연동_ 총 갯수 구해오기
+		
+		int countPerPaging = 10;
+		int pageCnt = 12;			// 한 페이지당 12개씩 보이게 함. 
+		
+		pageMaker.setCount(totalCnt, pageCnt, countPerPaging);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		int first = ((pageMaker.getPage() - 1) * pageCnt) + 1;
+		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
+		
+		map.put("first", first);
+		map.put("last", last);
+		
+		List<PinBoard> pinBoardList = pinService.selectPinBoardList(map);
+		logger.info(pinBoardList.toString());
+		
+		mav.addObject("pinBoardList", pinBoardList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("totalCnt", totalCnt);
+		mav.addObject("first", first);
+		mav.addObject("last", last);
+		
+		return mav;
+	}
 
 	@RequestMapping("myPinBoardList.do")
 	public ModelAndView myPinBoardList(@RequestParam(value = "pageCount", required = false) Integer pageCount,
@@ -45,7 +87,7 @@ public class PinController {
 		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
 		pageMaker.setPage(page);
 		
-		ModelAndView mav = new ModelAndView("pin/myPinBoard/My Pin Board");
+		ModelAndView mav = new ModelAndView("pin/myPinBoardList/My PinBoard");
 		User user = (User) session.getAttribute("session_user");
 		
 		String username = user.getUsername();
@@ -69,19 +111,15 @@ public class PinController {
 		List<PinBoard> pinBoardList = pinService.selectPinBoardList(map);
 		logger.info(pinBoardList.toString());
 		
-		List<PinBoard> pinBoardMainImageList = pinService.getPinBoardMainImage(user.getUsername());
-		logger.info(pinBoardMainImageList.toString());
-		
 		mav.addObject("pinBoardList", pinBoardList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("first", first);
 		mav.addObject("last", last);
-		mav.addObject("imageList", pinBoardMainImageList);
 		mav.addObject("productid", productid);
 		return mav;
 	}
-
+		
 	@RequestMapping(value = "createPinBoard.do", method = RequestMethod.GET)
 	public String createPinBoardForm() throws Exception {
 		return "pin/createPinBoardForm/New Create Form";
@@ -114,7 +152,6 @@ public class PinController {
 		
 		List<HashMap<String, Object>> pinBoardProductList = pinService.selectPinBoardProductList(pinBoard.getPinboardno());
 		
-		
 		mav.setViewName("pin/updatePinBoardForm/Update PinBoard");
 		mav.addObject("pinBoard", pinBoard);
 		mav.addObject("pinBoardProductList", pinBoardProductList);
@@ -128,6 +165,27 @@ public class PinController {
 		logger.info(pinBoard.toString());
 		pinService.modifyPinBoard(pinBoard);
 		return "redirect:/pin/myPinBoardList.do";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "updatePinBoardPictureurl.do", method = RequestMethod.POST)
+	public ResponseEntity<String> updatePinBoardPictureurl(@RequestBody PinBoard pinBoard) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			logger.info("PINBOARD TO CHANGEMAINIMAGE = " + pinBoard.toString());
+			pinService.updatePictureurl(pinBoard);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 	
 	@ResponseBody
@@ -190,7 +248,7 @@ public class PinController {
 	
 	@RequestMapping(value = "viewPinBoard.do", method = RequestMethod.GET)
 	public ModelAndView viewPinBoard(@RequestParam(value = "productid", required = false) Integer productid,
-			@RequestParam int pinboardno, HttpSession session) throws Exception {
+			int pinboardno, HttpSession session) throws Exception {
 		
 		ModelAndView mav = new ModelAndView("pinList");
 		List<Pin> pinList = pinService.getPins(pinboardno);
@@ -212,18 +270,23 @@ public class PinController {
 		}
 		
 		User user = (User) session.getAttribute("session_user");
-		String username = user.getUsername();
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pinboardno", pinboardno);
-		map.put("username", username);
-		
-		boolean isCheckLike = pinService.checkLike(map);		// 특정 PinBoard에 대한 좋아요를 체크했는지 확인하는 변수
+		if ( user != null ) {
+			String username = user.getUsername();
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("pinboardno", pinboardno);
+			map.put("username", username);
+			
+			boolean isCheckLike = pinService.checkLike(map);		// 특정 PinBoard에 대한 좋아요를 체크했는지 확인하는 변수
+			
+			mav.addObject("isCheckLike", isCheckLike);
+			mav.addObject("username", username);
+		}
 		
 		mav.addObject(pinList);
 		mav.addObject("pinBoardProductList", pinBoardProductList);
 		mav.addObject(pinBoard);
-		mav.addObject("isCheckLike", isCheckLike);
 		
 		if ( productid != null )
 			mav.addObject("productid", productid);
@@ -248,13 +311,25 @@ public class PinController {
 				entity = new ResponseEntity<String>("EXIST OF PIN", HttpStatus.OK);
 			}
 			else {
-				int totalPinCnt = pinService.selectPinCnt(pin.getPinboardno());
+				int pinboardno = pin.getPinboardno();
+				
+				int totalPinCnt = pinService.selectPinCnt(pinboardno);
 				// 하나의 PinBoard에 Pin을 최대 4개까지만 넣을 수 있도록 함. 
 				
 				if ( totalPinCnt >= 4 ) {
 					entity = new ResponseEntity<String>("EXCEED OF PIN", HttpStatus.OK);
 				}
 				else {
+					// Pin이 없는 PinBoard에 Pin을 추가하는 경우, 추가하는 Pin의 대표 이미지를 PinBoard의 대표 이미지로 넣음.
+					if ( totalPinCnt == 0 ) {
+						PinBoard updatePinBoard = new PinBoard();
+						
+						updatePinBoard.setPinboardno(pinboardno);
+						updatePinBoard.setMainpictureproductid(pin.getProductid());
+						
+						pinService.updatePictureurl(updatePinBoard);
+					}
+					
 					pinService.insertPin(pin);
 					entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 				}
@@ -280,6 +355,24 @@ public class PinController {
 			logger.info("PIN TO DELETE = " + pin.toString());
 			
 			pinService.deletePin(pin);
+			
+			int pinboardno = pin.getPinboardno();
+			
+			int mainPictureProductid = pinService.getPinBoardByNo(pinboardno).getMainpictureproductid();
+			int pinBoardProductid = pin.getProductid();
+			
+			int totalPinCnt = pinService.selectPinCnt(pinboardno);
+			
+			/* PinBoard에 있는 Pin이 하나도 없거나 삭제하려는 Pin이 PinBoard의 메인 이미지로 설정된 경우, 
+			 PinBoard의 이미지를 다시 기본 이미지로 바꿈. */
+			if ( totalPinCnt == 0 || mainPictureProductid == pinBoardProductid ) {		
+				PinBoard updatePinBoard = new PinBoard();
+				
+				updatePinBoard.setPinboardno(pinboardno);
+				updatePinBoard.setMainpictureproductid(0);
+				
+				pinService.updatePictureurl(updatePinBoard);
+			}
 			
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		}

@@ -197,5 +197,3 @@
  		where productid = #{productid}
  	</delete>
 </mapper>
-
-

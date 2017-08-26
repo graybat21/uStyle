@@ -4,12 +4,6 @@
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
-<%--link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script--%>
 <style>
 #columns {
 	column-width: 350px;
@@ -31,6 +25,10 @@ div img {
 
 td img {
 	width: 50%;
+}
+
+.glyphicon-ok-circle {
+    font-size: 20px;
 }
 
 #columns figure figcaption {
@@ -79,7 +77,7 @@ td img {
 						        </button>
 						    </div>
 						    <div style="height: 50px"></div>
-						    <h3>Pin List</h3>
+						    <h3>Pin List (체크 표시된 상품이 PinBoard의 대표 이미지로 설정되어 있음)</h3>
 				            <table class="data-table">
 				            	<thead>
 				            		<tr class="em-block-title">
@@ -91,9 +89,13 @@ td img {
 				            	<tbody>
 				            		<c:forEach var="pinBoardProduct" items="${pinBoardProductList}">
 					            		<tr>
-						            		<td class="a-center"><img src="/displayFile?fileName=${pinBoardProduct.mainpictureurl}"></td>
+						            		<td class="a-center">
+						            		<c:if test="${pinBoardProduct.productid == pinBoard.mainpictureproductid}">
+						            			<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+						            		</c:if>
+						            			<img src="/displayMainPictureurl?productid=${pinBoardProduct.productid}">
+						            		</td>
 						            		<td class="productid" style="display: none;">${pinBoardProduct.productid}</td>
-						            		<td class="pictureurl" style="display: none;">${pinBoardProduct.mainpictureurl}</td>
 						            		<td class="a-center">${pinBoardProduct.productname}</td>
 						            		<td class="a-center">
 						            			<button type="button" class="btn btn-default" id="btn-removepin" onClick="removePin(this)">삭제</button>
@@ -172,8 +174,8 @@ function changePinboardImage(element) {
 	var pinboardno = '${pinBoard.pinboardno}';
 	
 	var rownum = element.parentNode.parentNode.rowIndex - 1;
-	var pictureUrlArr = document.getElementsByClassName("pictureurl");
-	var pictureurl = pictureUrlArr[rownum].innerText;
+	var productIdArr = document.getElementsByClassName("productid");
+	var productid = productIdArr[rownum].innerText;
 	
 	if ( confirm("PinBoard의 이미지를 변경하시겠습니까?") == true )
 	{
@@ -188,7 +190,7 @@ function changePinboardImage(element) {
 				"X-HTTP-Method-Override" : "POST"
 			},
 			dataType: "text",
-			data: JSON.stringify({pinboardno: pinboardno, pictureurl: pictureurl}),
+			data: JSON.stringify({pinboardno: pinboardno, mainpictureproductid: productid}),
 			success: function(result) {
 				console.log("result: " + result);
 				

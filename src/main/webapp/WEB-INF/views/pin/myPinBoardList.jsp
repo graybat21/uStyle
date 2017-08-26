@@ -85,7 +85,12 @@ $('body').on('hidden.bs.modal', '.modal', function (e) {
 					        </c:url>
 							<a href="${pinUrl}" data-toggle="modal" data-target="#myModal">
 								<div class="well col-md-5 pinboard-element">
-									<img class="pinBoardImage" src="/displayFile?fileName=${pinBoard.pictureurl}" />
+									<c:if test="${pinBoard.mainpictureproductid > 0}">
+										<img class="pinBoardImage" src="/displayMainPictureurl?productid=${pinBoard.mainpictureproductid}" />
+									</c:if>
+									<c:if test="${pinBoard.mainpictureproductid == 0}">
+										<img class="pinBoardImage" src="/displayFile?fileName=/ustylenone.jpg" />
+									</c:if>
 									<div>${pinBoard.pinboardname}</div>
 									<div>${pinBoard.likecnt} LIKE</div>
 								</div>
