@@ -43,7 +43,7 @@
 								</thead>
 								<tbody>
 									<c:forEach var="item" items="${qnaList }">
-										<c:url var="viewQna" value="/admin/qnaView.do">
+										<c:url var="viewQna" value="qnaView.do">
 											<c:param name="bno" value="${item.bno }" />
 										</c:url>
 										<tr>
