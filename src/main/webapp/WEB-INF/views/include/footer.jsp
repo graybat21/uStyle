@@ -28,10 +28,7 @@
 												</div>
 												<div id="collapse01" class="em-block-content block-info">
 													<p class="em-info">
-														Skort Maison Martin Margiela knot ponytail cami texture
-														as tucked t-shirt. <em>Black skirt razor pleats
-															plaited gold collar</em>. Crop 90s spearmint indigo seam
-														luxe washed out.
+														uStyle
 													</p>
 													<p class="em-social">
 														<a class="em-social-icon em-facebook f-left"
@@ -76,12 +73,8 @@
 														</div>
 														<div class="col-sm-12">
 															<ul class="em-links">
-																<li class="em-links-item"><a
-																	title="em-sample-title" href="#"><span>My
-																			Orders</span></a></li>
-																<li class="em-links-item"><a
-																	title="em-sample-title" href="#"><span>My
-																			Credit Slips</span></a></li>
+																<li class="em-links-item"><a title="em-sample-title" href="/purchaseList.do"><span>Purchase List</span></a></li>
+																<li class="em-links-item"><a title="em-sample-title" href="/pin/myPinBoardList.do"><span>My PinBoard List</span></a></li>
 																<li class="em-links-item"><a
 																	title="em-sample-title" href="#"><span>My
 																			Addresses</span></a></li>
@@ -100,7 +93,7 @@
 												</div>
 												<div id="collapse04" class="em-block-content">
 													<ul class="em-tags-list">
-														<li class="em-tags-item"><a
+														<%--li class="em-tags-item"><a
 															title="em-sample-title" href="#"><span>awesome</span></a>
 														</li>
 														<li class="em-tags-item"><a
@@ -117,7 +110,7 @@
 														</li>
 														<li class="em-tags-item"><a
 															title="em-sample-title" href="#"><span>emthemes</span></a>
-														</li>
+														</li--%>
 													</ul>
 												</div>
 												<!-- /#collapse04 -->
@@ -138,7 +131,7 @@
 					<div class="col-sm-24">
 						<div class="em-footer-address">
 							<address class="f-left">
-								&copy; 2015 EM0131 Everything Demo Store. All Rights
+								&copy; 2017 uStyle. All Rights
 								Reserved.<span>HTML Templates by <a
 									href="http://www.emthemes.com/responsive-magento-themes.html"
 									title="Responsive HTML Themes &amp; Responsive HTML Templates">htmlcooker.com</a></span>
