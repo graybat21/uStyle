@@ -331,12 +331,12 @@
 								<!-- header login -->
 								<div id="em-login-link"
 									class="account-link f-right em-non-login">
-									<a href="/login.do" class="link-account" id="link-login"
+									<a href="/loginPost.do" class="link-account" id="link-login"
 										title="Login">Login</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">
 										<form method="post" id="top-login-form">
-											<input name="form_key" type="hidden" value="iMzNKKno559ogiTe" />
+											<input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" />
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												
 											<div class="block-content">

@@ -36,8 +36,10 @@
 				                    </li>
 				                    <li>
 				                        <label for="contents_field" class="required"><em>*</em>Contents</label>
-				                        <div class="input-box">
-				                            <textarea name="noticecontent" id="pinboard-content" cols="5" rows="3" class="required-entry" disabled="disabled">${notice.content}</textarea>
+				                        <div class="input-box" style="min-height: 100px; background-color: #ECF6CE; padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px;">
+				                            <!-- <textarea name="noticecontent" id="pinboard-content" cols="5" rows="3" class="required-entry" disabled="disabled"> -->
+				                            ${notice.content}
+				                            <!-- </textarea> -->
 				                        </div>
 				                    </li>
 				                </ul>
