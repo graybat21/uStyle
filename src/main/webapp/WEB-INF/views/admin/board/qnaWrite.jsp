@@ -89,7 +89,7 @@
 			<caption>글쓰기</caption>
 			</thead>
 			<tbody>
-				<form id="qna_form" method="post" encType="multiplart/form-data">
+				<form id="qna_form" method="post" encType="multiplart/form-data" action="/admin/board/qnaReply.do">
 					
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
