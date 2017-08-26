@@ -257,27 +257,6 @@
                                                 </dl>
                                             </div>
                                         </div><!-- /.block-layered-nav -->
-                                        <div class="em-line-01 block block-list block-compare ">
-                                            <div class="em-block-title block-title"> <strong><span>Compare Products (0)</span></strong>
-                                            </div>
-                                            <div class="block-content">
-                                                <p class="empty">You have no items to compare.</p>
-                                            </div>
-                                        </div><!-- /.block-compare -->
-                                        <div class="em-wrapper-banners">
-                                            <div class="img-banner">
-                                                <div class="em-effect06">
-                                                    <a class="em-eff06-04" href="#"><img class="img-responsive retina-img" alt="em_ads_01.jpg" src="http://placehold.it/280x210" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="img-banner">
-                                                <div class="effect-hover-text2">
-                                                    <a class="banner-img" title="em-sample-title" href="#"> <img class="img-responsive retina-img" alt="em-sample-alt" src="images/wysiwyg/em_ads_05.jpg" /> </a>
-                                                    <a class="banner-text" title="em-sample-title" href="#"> <img class="img-responsive" alt="em-sample-alt" src="http://placehold.it/280x210" /> </a>
-                                                </div>
-                                            </div>
-                                        </div><!-- /.em-wrapper-banners -->
                                     </div><!-- /.em-sidebar -->
                                 </div>
                             </div><!-- /.em-main-container -->
