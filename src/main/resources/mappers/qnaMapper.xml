@@ -25,7 +25,7 @@
 		where X.row_number between #{first} and #{last}
 	</select>
 	<select id="getCurrentNo" resultType="int">
-		select max(Last_Insert_ID(bno)) from tbl_qna
+		select COALESCE(max(Last_Insert_ID(bno)), 0) from tbl_qna
 	</select>
 	<select id="getFamilyNo" parameterType="int" resultType="int">
 		select family from tbl_qna where bno = #{parent} 

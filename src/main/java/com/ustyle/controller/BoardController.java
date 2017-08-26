@@ -148,7 +148,7 @@ public class BoardController {
 		
 		logger.info(qna.toString());
 		qnaService.qnaWrite(qna);
-		return "redirect:/qna.do";
+		return "redirect:/board/qna.do";
 	}
 	@RequestMapping("qnaView.do")
 	public ModelAndView qnaView(@RequestParam(value = "bno") int bno) throws Exception {
@@ -162,7 +162,7 @@ public class BoardController {
 	@RequestMapping("qnaDelete.do")
 	public String qnaDelete(@RequestParam(value = "bno") int bno)throws Exception{
 		qnaService.qnaDelete(bno);
-		return "redirect:/qna.do";
+		return "redirect:/board/qna.do";
 	}
 	@RequestMapping(value="myQnaList.do", method=RequestMethod.GET)
 	public ModelAndView myQnaList(HttpSession session,PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
@@ -202,7 +202,7 @@ public class BoardController {
 		User user = (User) session.getAttribute("session_user");
 		Qna qna = qnaService.qnaView(bno);
 		if(!qna.getUsername().equals(user.getUsername())){
-			mav.setViewName("redirect:/qnaView.do?bno="+bno);
+			mav.setViewName("redirect:/board/qnaView.do?bno="+bno);
 			return mav;
 		}
 		mav.setViewName("board/qnaModify/Q&A 수정하기");
@@ -214,7 +214,7 @@ public class BoardController {
 		ModelAndView mav=new ModelAndView();
 		qnaService.qnaModify(qna);
 		mav.addObject(qna);
-		mav.setViewName("redirect:/qnaView.do?bno="+qna.getBno());
+		mav.setViewName("redirect:/board/qnaView.do?bno="+qna.getBno());
 		return mav;
 	}
 	
