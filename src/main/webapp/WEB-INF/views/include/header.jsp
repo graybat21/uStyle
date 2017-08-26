@@ -15,9 +15,10 @@
 			<!-- in mobile, left 4/24 - logo -->
 			<div id="em-mheader-logo" class="col-xs-4">
 				<div class="em-logo">
-
-					<a href="/index.do" title="uStyle" class="logo"><strong>Furniture
-							Commerce</strong><img src="${pageContext.request.contextPath}/resources/images/logo_small.png" alt="Furniture Commerce" /></a>
+					<a href="/index.do" title="uStyle" class="logo">
+						<strong>uStyle</strong>
+						<img src="${pageContext.request.contextPath}/resources/images/logo_small.png" alt="uStyle" />
+					</a>
 				</div>
 			</div>
 
@@ -65,7 +66,7 @@
 										<!-- ë¡ê·¸ì¸ ëììëì ìëììë ëì¤ëê² ë¤ë¦. -->
 										<!-- 로그인 전 -->
 										<c:if test="${session_user['username'] == null }">
-											<li class="first col-xs-8"><a title="Log In"
+											<li class="first col-xs-8"><a title="Login"
 												class="login-link fa fa-user" href="/login.do"><span>Login</span></a></li>
 											<li class="col-xs-8"><a title="Sign up"
 												class='signup-link fa fa-sign-out' href="/register.do"><span>Sign Up</span></a></li>
@@ -110,110 +111,105 @@
 											<div class="em_nav" id="toogle_menu_7_8258">
 												<ul class="hnav em_menu_mobile">
 													<!-- /.menu-item-link -->
-													<li
-														class="menu-item-link menu-item-depth-0 dd-menu-link fa fa-bars menu-item-parent">
-														<a class="em-menu-link" href="#"> <span>
-																Category </span>
-													</a>
+													<li class="menu-item-link menu-item-depth-0 dd-menu-link fa fa-bars menu-item-parent">
+														<a class="em-menu-link" href="#"> <span>Category</span></a>
 														<ul class="menu-container">
 															<li class="menu-item-text menu-item-depth-1  ">
 																<ul class="em-catalog-navigation vertical">
-																	<li class="level0 nav-1 first parent"><a href="#">
-																			<span>Tops</span>
-																	</a>
+																	<li class="level0 nav-1 first parent">
+																		<a href="#"><span>Tops</span></a>
 																		<ul class="level0">
-																			<li class="level1 nav-1-1 first"><a href="#">
-																					<span>Blouses</span>
-																			</a></li>
-																			<li class="level1 nav-1-2"><a href="#"> <span>Shirts</span>
-																			</a></li>
-																			<li class="level1 nav-1-3 last"><a href="#">
-																					<span>Jackets</span>
-																			</a></li>
+																			<li class="level1 nav-1-1 first">
+																				<a href="#"><span>Blouses</span></a>
+																			</li>
+																			<li class="level1 nav-1-2">
+																				<a href="#"><span>Shirts</span></a>
+																			</li>
+																			<li class="level1 nav-1-3 last">
+																				<a href="#"><span>Jackets</span></a>
+																			</li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
-																	<li class="level0 nav-2 parent"><a href="#"> <span>Women
-																				Bottoms</span>
-																	</a>
+																	<li class="level0 nav-2 parent">
+																		<a href="#"> <span>Bottoms</span></a>
 																		<ul class="level0">
-																			<li class="level1 nav-2-1 first"><a href="#">
-																					<span>Skirts</span>
-																			</a></li>
-																			<li class="level1 nav-2-2 parent"><a href="#">
-																					<span>Pants</span>
-																			</a>
-																				<ul class="level1">
-																					<li class="level2 nav-2-2-1 first"><a href="#">
-																							<span>Jeans</span>
-																					</a></li>
-																					<li class="level2 nav-2-2-2 last"><a href="#">
-																							<span>Cottons</span>
-																					</a></li>
-																				</ul></li>
-																			<li class="level1 nav-2-3 last"><a href="#">
+																			<li class="level1 nav-2-1 first">
+																				<a href="#"><span>Skirts</span></a>
+																			</li>
+																			<li class="level1 nav-2-2">
+																				<a href="#"><span>Pants</span></a>
+																			</li>
+																			<li class="level1 nav-2-3">
+																				<a href="#"><span>Jeans</span></a>
+																			</li>
+																			<li class="level1 nav-2-4 last"><a href="#">
 																					<span>Shorts</span>
 																			</a></li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
-																	<li class="level0 nav-3 parent"><a href="#"> <span>Women
-																				Bags</span>
-																	</a>
+																	<li class="level0 nav-3 parent">
+																		<a href="#"> <span>Bags</span></a>
 																		<ul class="level0">
-																			<li class="level1 nav-3-1 first"><a href="#">
-																					<span>Totes</span>
-																			</a></li>
-																			<li class="level1 nav-3-2"><a href="#"> <span>Backpacks</span>
-																			</a></li>
-																			<li class="level1 nav-3-3 last"><a href="#">
-																					<span>Satchels</span>
-																			</a></li>
+																			<li class="level1 nav-3-1 first">
+																				<a href="#"><span>Totes</span></a>
+																			</li>
+																			<li class="level1 nav-3-2">
+																				<a href="#"><span>Backpacks</span></a>
+																			</li>
+																			<li class="level1 nav-3-3 last">
+																				<a href="#"><span>Satchels</span></a>
+																			</li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
-																	<li class="level0 nav-4 parent"><a href="#"> <span>Underwear</span>
-																	</a>
+																	<li class="level0 nav-4 parent">
+																		<a href="#"><span>Underwear</span></a>
 																		<ul class="level0">
-																			<li class="level1 nav-4-1 first"><a href="#">
-																					<span>Bras</span>
-																			</a></li>
-																			<li class="level1 nav-4-2"><a href="#"> <span>Panties</span>
-																			</a></li>
-																			<li class="level1 nav-4-3 last"><a href="#">
-																					<span>Pajamas</span>
-																			</a></li>
+																			<li class="level1 nav-4-1 first">
+																				<a href="#"><span>Bras</span></a>
+																			</li>
+																			<li class="level1 nav-4-2">
+																				<a href="#"><span>Panties</span></a>
+																			</li>
+																			<li class="level1 nav-4-3 last">
+																				<a href="#"><span>Pajamas</span></a>
+																			</li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
-																	<li class="level0 nav-5 parent"><a href="#"> <span>Shoes</span>
-																	</a>
+																	<li class="level0 nav-5 parent">
+																		<a href="#"><span>Shoes</span></a>
 																		<ul class="level0">
-																			<li class="level1 nav-5-1 first"><a href="#">
-																					<span>Heels</span>
-																			</a></li>
-																			<li class="level1 nav-5-2"><a href="#"> <span>Sneakers</span>
-																			</a></li>
-																			<li class="level1 nav-5-3"><a href="#"> <span>Flats</span>
-																			</a></li>
-																			<li class="level1 nav-5-4"><a href="#"> <span>Loafers</span>
-																			</a></li>
-																			<li class="level1 nav-5-5 last"><a href="#">
-																					<span>Boots</span>
-																			</a></li>
-																		</ul></li>
+																			<li class="level1 nav-5-1 first">
+																				<a href="#"><span>Heels</span></a>
+																			</li>
+																			<li class="level1 nav-5-2">
+																				<a href="#"><span>Sneakers</span></a>
+																			</li>
+																			<li class="level1 nav-5-3">
+																				<a href="#"><span>Flats</span></a>
+																			</li>
+																			<li class="level1 nav-5-5 last">
+																				<a href="#"><span>Boots</span></a>
+																			</li>
+																		</ul>
+																	</li>
 																	<!-- /.menu-item-vbox -->
-																	<li class="level0 nav-6 parent last"><a href="#">
-																			<span>Accessories</span>
-																	</a>
+																	<li class="level0 nav-6 parent last">
+																		<a href="#"><span>Accessories</span></a>
 																		<ul class="level0">
-																			<li class="level1 nav-6-1 first"><a href="#">
-																					<span>Jewelry</span>
-																			</a></li>
-																			<li class="level1 nav-6-2"><a href="#"> <span>Watches</span>
-																			</a></li>
-																			<li class="level1 nav-6-3"><a href="#"> <span>Hats</span>
-																			</a></li>
-																			<li class="level1 nav-6-4 last"><a href="#">
-																					<span>Sunglasses</span>
-																			</a></li>
-																		</ul></li>
+																			<li class="level1 nav-6-1 first">
+																				<a href="#"><span>Jewelry</span></a>
+																			</li>
+																			<li class="level1 nav-6-2">
+																				<a href="#"><span>Watches</span></a>
+																			</li>
+																			<li class="level1 nav-6-3">
+																				<a href="#"><span>Hats</span></a>
+																			</li>
+																			<li class="level1 nav-6-4 last">
+																				<a href="#"><span>Sunglasses</span></a>
+																			</li>
+																		</ul>
+																	</li>
 																</ul>
 															</li>
 														</ul>
@@ -228,7 +224,7 @@
 															<li class="menu-item-text menu-item-depth-1  ">
 																<ul class="em-catalog-navigation vertical">
 																	<li class="level0 nav-1 first parent"><a href="#">
-																			<span>A ~ G</span>
+																		<span>A ~ G</span>
 																	</a>
 																		<ul class="level0">
 																			<li class="level1 nav-1-1 first"><a href="#">
@@ -318,8 +314,9 @@
 								<div class="f-right"></div>
 								<div class="f-right">
 									<ul class="em-links-wishlist">
-										<li class="first last"><a href="/pin/myPinBoardList.do"
-											title="Wishlist">My PinBoard List</a></li>
+										<li class="first last">
+											<a href="/pin/myPinBoardList.do" title="Wishlist">My PinBoard List</a>
+										</li>
 									</ul>
 								</div>
 								<!-- 로그인 전 -->
@@ -479,7 +476,7 @@
 											<div class="em_nav" id="toogle_menu_4_3366">
 												<ul class="hnav em_hoz_menu effect-menu">
 													<li class="menu-item-link menu-item-depth-0  menu-item-parent">
-														<a class="em-menu-link" href=""> <span> Tops </span></a>
+														<a class="em-menu-link" href=""> <span>Tops</span></a>
 														<ul class="menu-container">
 															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12	menu-item-parent">
 																<ul class="menu-container" style="padding: 0 10px">
@@ -537,6 +534,9 @@
 																							</li>
 																							<li class="menu-item-link menu-item-depth-1">
 																								<a class="em-menu-link" href="/product/productList.do?subcategory=Pants">Pants</a>
+																							</li>
+																							<li class="menu-item-link menu-item-depth-1">
+																								<a class="em-menu-link" href="/product/productList.do?subcategory=Jeans">Jeans</a>
 																							</li>
 																							<li class="menu-item-link menu-item-depth-1">
 																								<a class="em-menu-link" href="/product/productList.do?subcategory=Shorts">Shorts</a>
@@ -666,6 +666,9 @@
 																							</li>
 																							<li class="menu-item-link menu-item-depth-1">
 																								<a class="em-menu-link" href="/product/productList.do?subcategory=Flats">Flats</a>
+																							</li>
+																							<li class="menu-item-link menu-item-depth-1">
+																								<a class="em-menu-link" href="/product/productList.do?subcategory=Boots">Boots</a>
 																							</li>
 																						</ul>
 																					</div>

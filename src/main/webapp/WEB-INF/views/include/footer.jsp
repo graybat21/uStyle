@@ -19,7 +19,7 @@
 								<div class="col-sm-24">
 									<div class=" four-block-middle">
 										<div class="row">
-											<div class="col-sm-8">
+											<div class="col-sm-8 col-xs-24">
 												<div class="em-block-title"
 													data-collapse-target="#collapse01">
 													<p class="h4 em-text-upercase">
@@ -49,7 +49,7 @@
 													</p>
 												</div>
 											</div>
-											<div class="col-sm-8">
+											<div class="col-sm-8 col-xs-24">
 												<div class="em-block-title"
 													data-collapse-target="#collapse03">
 													<p class="h4 em-text-upercase">
@@ -84,7 +84,7 @@
 												</div>
 												<!-- /#collapse03 -->
 											</div>
-											<div class="col-sm-8">
+											<div class="col-sm-8 col-xs-24">
 												<div class="em-block-title"
 													data-collapse-target="#collapse04">
 													<p class="h4 em-text-upercase">
