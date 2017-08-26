@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.ustyle.domain.Faq;
 import com.ustyle.domain.Qna;
+
 @Repository
 public class QnaDAOImpl implements QnaDAO {
 	private static String namespace = "com.ustyle.mappers.qnaMapper";

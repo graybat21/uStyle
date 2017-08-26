@@ -25,7 +25,6 @@ import com.ustyle.domain.PinBoardLike;
 import com.ustyle.domain.PinBoardReply;
 import com.ustyle.domain.User;
 import com.ustyle.service.PinService;
-import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;
 
 @Controller
@@ -36,9 +35,6 @@ public class PinController {
 
 	@Inject
 	private PinService pinService;
-	
-	@Inject
-	private ProductService productService;
 	
 	@RequestMapping("pinBoardList.do")
 	public ModelAndView pinBoardList(@RequestParam(value = "pageCount", required = false) Integer pageCount,
