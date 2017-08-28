@@ -1,76 +1,106 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!-- Main content -->
 
-</head>
-<body>
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-			<h1>공지사항게시판</h1>
-		</section>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>Q&amp;A</h1>
+	</section>
 
-		<section class="content">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box">
-						<div class="box-header">
-							<h3 class="box-title">공지사항 리스트</h3>
-							
-							<%-- <form action="itemList.do">
-							<select name="o">
-								<option value="productname" ${param.o eq "productname" ? "selected" : "" }>productname</option>
-								<option value="productid" ${param.o eq "productid" ? "selected" : "" }>productid</option>
-								<option value="itemid" ${param.o eq "itemid" ? "selected" : "" }>itemid</option>
-							</select>
-							<input type="text" name="k" value="${searchKeyword }">
-							<input type="submit" value="검색">
-							</form> --%>
-							
+	<section class="content">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+			<!-- general form elements -->
+				<div class="box box-primary">
+					<div class="box-body">
+						<div class="form-group">
+							<label for="exampleInputEmail1">제목</label>
+							<input type="text" name="title" value="${qna.title}" class="form-control" readonly>
 						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-<table class="table table-bordered">
-    <thead>
-        <caption> 글쓰기 </caption>
-    </thead>
-    
-    <tbody>
-            <tr>
-                <th>제목: </th>
-                <td>${qna.title }</td>
-            </tr>
-            <tr>
-                <th>작성자: </th>
-                <td>${qna.username}</td>
-            </tr>
-            <tr>
-                <th>분류: </th>
-                <td>${qna.category}</td>
-            </tr>
-            <tr>
-                <th>내용: </th>
-                <td>${qna.content }</td>
-            </tr>
-            <!-- <tr>
-                <th>비밀번호: </th>
-                <td><input type="password" placeholder="비밀번호를 입력하세요" class="form-control"/></td>
-            </tr> -->
-            
-            <tr>
-                <td colspan="2">
-                    <input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='qna.do'"/>
-                    <input type="button" value="답변하기 " class="pull-right" onclick="location.href='qnaReply.do?parent=${qna.bno}'"/>
-                    <input type="button" value="삭제하기" class="pull-right" onclick="location.href='qnaDelete.do?bno=${qna.bno}'"/>
-                </td>
-            </tr>
-    </tbody>
-</table>
+						<div class="form-group">
+							<label for="exampleInputEmail1">작성일</label>
+							<input type="text" name="regdate" value='<fmt:formatDate value="${qna.regdate}" 
+								pattern="yyyy-MM-dd HH:mm" />' class="form-control" readonly>
+						</div>						
+						<div class="form-group">
+							<label for="exampleInputEmail1">작성자</label>
+							<input type="text" name="username" value="${qna.username}" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">분류</label>
+							<input type="text" name="category" value="${qna.category}" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">내용</label>
+							<div class="input-box" style="min-height: 100px; background-color: #ECF6CE; padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px;">
+								${qna.content}
+                        	</div>
+						</div>
+					</div>
+					<!--  /.box-body -->
+					
+					<div class="box-footer">
+						<button type="submit" class="btn btn-warning" id="answerBtn">답변하기</button>
+						<button type="submit" class="btn btn-danger" id="removeBtn">삭제</button>
+						<button type="submit" class="btn btn-primary" id="goListBtn">글 목록으로</button>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</section>
 </div>
-</div></div></div></section></div>
-</body>
-</html>
+
+<script type="text/javascript">
+var header = $("meta[name='_csrf_header']").attr("content");
+var token  = $("meta[name='_csrf']").attr("content");
+
+var bno = '${qna.bno}';
+var page = '${page}';
+
+$(document).ready(function() {
+	
+	$("#answerBtn").on("click", function() {
+		window.location.href = "qnaReply.do?parent=" + bno + "&page=" + page;
+	});
+	
+	$("#removeBtn").on("click", function() {
+		var result = confirm("이 글을 삭제하시겠습니까?");
+		
+		if ( result )
+		{
+			$.ajax({
+				type: 'post',
+				url: 'qnaDelete.do',
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(header, token);
+			    },
+				headers: {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType: "text",
+				data: JSON.stringify({bno: bno}),
+				success: function(result) {
+					console.log("result: " + result);
+					
+					if ( result == 'SUCCESS' ) {
+						window.location.href = "qna.do?page=" + page;
+					}
+				},
+				error: function(request, status, error) {
+				    alert("올바르지 않은 글 삭제입니다.");
+				    window.location.href = "qna.do?page=" + page;
+			    }
+			});
+		}
+	});
+	
+	$("#goListBtn").on("click", function() {
+		window.location.href = "qna.do?page=" + page;
+	});
+});
+</script>

@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ustyle.domain.Item;
 import com.ustyle.domain.Product;
 import com.ustyle.service.ProductService;
 import com.ustyle.utils.PageMaker;

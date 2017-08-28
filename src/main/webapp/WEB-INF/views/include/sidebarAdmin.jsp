@@ -68,7 +68,7 @@
           <ul class="treeview-menu">
             <li><a href="/admin/board/notice.do"><i class="fa fa-circle-o"></i>공지사항게시판</a></li>
             <li><a href="/admin/board/faq.do"><i class="fa fa-circle-o"></i>FAQ게시판</a></li>
-            <li><a href="/admin/board/qna.do"><i class="fa fa-circle-o"></i>QNA게시판</a></li>
+            <li><a href="/admin/board/qna.do"><i class="fa fa-circle-o"></i>Q&amp;A게시판</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -90,10 +90,6 @@
               <!-- <i class="fa fa-angle-left pull-right"></i> -->
             </span>
           </a>
-          <!-- <ul class="treeview-menu">
-            <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i>회원정보조회</a></li>
-            <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i>포인트관리</a></li>
-          </ul> -->
         </li>
         <!-- <li>
           <a href="../widgets.html">

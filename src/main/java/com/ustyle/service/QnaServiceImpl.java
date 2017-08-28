@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Qna;
 import com.ustyle.persistence.QnaDAO;
@@ -32,17 +33,17 @@ public class QnaServiceImpl implements QnaService {
 		System.out.println(qna.getFamily());
 		System.out.println(qna.getParent());
 		
-		if(qna.getParent()==0){
+		if ( qna.getParent() == 0 ) {
 			int bno = dao.getCurrentNo();
-			System.out.println("부모글이 없으면 새글 입력이므로 parent = 0, family 는 bno와 같음");
-			qna.setFamily(bno+1);
-			
-		}else{
+			System.out.println("부모글이 없으면 새글 입력이므로 parent = 0, family는 bno와 같음");
+			qna.setFamily(bno + 1);
+		}
+		else {
 			int parent = qna.getParent();
 			System.out.println(parent);
-			int family=dao.getFamilyNo(parent);
+			int family = dao.getFamilyNo(parent);
 			System.out.println(family);
-			System.out.println("부모글이 있으면 답변글 입력이므로 parent 는 부모글번호, family 는 부모글번호를 통해 얻은 원글의 family와 같음");
+			System.out.println("부모글이 있으면 답변글 입력이므로 parent는 부모글번호, family는 부모글번호를 통해 얻은 원글의 family와 같음");
 //			qna.setParent(qna.getBno());
 			qna.setFamily(family);
 		}
@@ -50,6 +51,7 @@ public class QnaServiceImpl implements QnaService {
 		dao.qnaWrite(qna);
 	}
 
+	@Transactional
 	@Override
 	public Qna qnaView(int bno) throws Exception {
 		dao.viewCntPlus(bno);
@@ -75,8 +77,4 @@ public class QnaServiceImpl implements QnaService {
 	public void qnaModify(Qna qna) throws Exception {
 		dao.qnaModify(qna);
 	}
-
-	
-	
-
 }

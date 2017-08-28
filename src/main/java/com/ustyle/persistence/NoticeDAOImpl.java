@@ -47,5 +47,9 @@ public class NoticeDAOImpl implements NoticeDAO {
 	public void noticeModify(Notice notice) {
 		session.update(namespace + ".noticeModify", notice);
 	}
-
+	
+	@Override
+	public void noticeDelete(int bno) {
+		session.delete(namespace + ".noticeDelete", bno);
+	}
 }

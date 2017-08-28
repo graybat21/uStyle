@@ -50,13 +50,10 @@
 						<div class="em-main-container em-col1-layout">
 							<div class="row">
 								<div class="em-col-main col-sm-24">
-
 									<div class="page-header">
-										<h1>
-											FAQ <small>자주 묻는 질문들을 답해드립니다.</small>
-										</h1>
+										<div><h1>FAQ</h1></div>
+										<div><h3>자주 묻는 질문들을 답해드립니다.</h3></div>
 									</div>
-
 									<div class="board">
 										<table class="table table-striped" id="board">
 

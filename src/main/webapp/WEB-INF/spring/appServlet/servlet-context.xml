@@ -75,6 +75,7 @@
 			<mapping path="/cart/viewCart.do" />
 			<mapping path="/pin/myPinBoardList.do" />
 			<mapping path="/pin/createPinBoard.do" />
+			<mapping path="/board/qnaWrite.do" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>

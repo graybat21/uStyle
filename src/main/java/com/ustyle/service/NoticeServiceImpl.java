@@ -36,12 +36,14 @@ public class NoticeServiceImpl implements NoticeService {
 		dao.viewCntPlus(bno);
 		return dao.noticeView(bno);
 	}
-
 	
 	@Override
 	public void noticeModify(Notice notice) throws Exception {
 		dao.noticeModify(notice);
 	}
 
-	
+	@Override
+	public void noticeDelete(int bno) throws Exception {
+		dao.noticeDelete(bno);
+	}
 }

@@ -1,13 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Write something else you want</title>
-<!-- Latest compiled and minified CSS -->
-
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <script>
 	$(function() {
@@ -58,7 +50,7 @@
 			<caption>글쓰기</caption>
 			</thead>
 			<tbody>
-				<form id="qna_form" method="post" encType="multiplart/form-data">
+				<form id="qna_form" method="post">
 					<%-- <input type="hidden" name="family" value="${bno }"> --%>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
@@ -86,13 +78,13 @@
 					</tr>
 
 					<tr>
-						<td colspan="2"><input type="button" value="등록"
-							onclick="sendData()" class="pull-right" /> <input type="reset"
-							value="리셋" onclick="resetCkEditor()" class="pull-left" /> <input type="button"
-							value="글 목록으로... " class="pull-right"
-							onclick="location.href='qna.do'" /> <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
-                    <a class="btn btn-default" type="reset"> reset </a>
-                    <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
+						<td colspan="2">
+							<input type="button" value="등록" onclick="sendData()" class="pull-right" /> 
+							<input type="reset" value="리셋" onclick="resetCkEditor()" class="pull-left" /> 
+							<input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='qna.do'" /> 
+							<!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
+	                    		<a class="btn btn-default" type="reset"> reset </a>
+	                    		<a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
 						</td>
 					</tr>
 				</form>
@@ -101,6 +93,3 @@
 	</div>
 	
 	</div></div></div></section></div>
-	
-</body>
-</html>

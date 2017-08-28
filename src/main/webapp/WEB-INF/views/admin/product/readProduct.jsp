@@ -5,18 +5,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!-- Main content -->
 
-<%--style type="text/css">
-	.popup { position: absolute; }
-	.back { background-color: gray; opacity: 0.5; width: 100%; height: 300%; overflow: hidden; z-index: 1101; }
-	.front { z-index: 1110; opacity: 1; border: 1px; margin: auto; }
-	.show {
-		position: relative;
-		max-width: 1200px;
-		max-height: 800px;
-		overflow: auto;
-	}
-</style--%>
-
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -25,13 +13,11 @@
     </section>
 
     <!-- Main content -->
-
 	<section class="content">
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-12">
 			<!-- general form elements -->
-			
 				<div class="box box-primary">
 					<div class="box-header">
 						<h3 class="box-title">상품 정보</h3>
@@ -79,87 +65,19 @@
 					<!--  /.box-body -->
 					
 					<ul class="mailbox-attachments clearfix uploadedList"></ul>
-						<div class="box-footer">
-							<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-							<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
-							<button type="submit" class="btn btn-primary" id="goListBtn">GO LIST</button>
-						</div>
+					<div class="box-footer">
+						<button type="submit" class="btn btn-warning" id="modifyBtn">수정</button>
+						<button type="submit" class="btn btn-danger" id="removeBtn">삭제</button>
+						<button type="submit" class="btn btn-primary" id="goListBtn">상품 목록</button>
+					</div>
 				</div>
 				<!--  /.box -->
 			</div>
 			<!-- /.col (left) -->
 		</div>
 		<!-- /.row -->
-		
-		<%--div class="row">
-			<div class="col-md-12">
-				<div class="box box success">
-					<div class="box-header">
-						<h3 class="box-title">ADD NEW REPLY</h3>
-					</div>
-					<c:if test="${ not empty login }">
-						<div class="box-body">
-							<label for="exampleInputEmail1">Writer</label>
-							<input class="form-control" type="text" id="newReplyWriter" value="${ login.uid }" readonly="readonly">
-							<label for="exampleInputEmail1">Reply Text</label>
-							<input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText">
-						</div>
-						<!-- /.box-body -->
-						<div class="box-footer">
-							<button type="button" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
-						</div>
-					</c:if>
-					
-					<c:if test="${ empty login }">
-						<!-- /.box-body -->
-						<div class="box-footer">
-							<div><a href="javascript:goLogin()" >Login Please</a></div>
-						</div>
-					</c:if>
-					
-				</div>
-				<!-- The time line -->
-				<ul class="timeline">
-					<!-- timeline time label -->
-					<li class="time-label" id="repliesDiv"><span class="bg-green">
-						Replies List <small id="replycntSmall"> [ ${boardVO.replycnt} ]</small>
-						</span>
-					</li>
-				</ul>
-				
-				<div class="text-center">
-					<ul id="pagination" class="pagination pagination-sm no-margin">
-					
-					</ul>
-				</div>
-			</div>
-			<!-- /.col -->
-		</div--%>
-		<!-- /.row -->
-		
-		<!-- Modal -->
-		<div id="modifyModal" class="modal modal-primary fade" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content -->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-diamiss="modal">&times;</button>
-						<h4 class="modal-title"></h4>
-					</div>
-					<div class="modal-body" data-rno>
-						<p><input type="text" id="replytext" class="form-control"></p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
-						<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	
 	</section>
-<!-- /.content -->
+	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
@@ -194,100 +112,98 @@
 </li>
 </script>
 
-<script>
-	
-	var productid = ${product.productid};
-	
-	var header = $("meta[name='_csrf_header']").attr("content");
-	var token  = $("meta[name='_csrf']").attr("content");
-	
-	
-	$(document).ready(function() {
-		
-		var formObj = $("form[role='form']");
-		
-		console.log(formObj);
-		
-		$("#modifyBtn").on("click", function() {
-			formObj.attr("action", "/admin/product/modifyProduct.do");
-			formObj.attr("method", "get");
-			formObj.submit();
-		});
-		
-		$("#removeBtn").on("click", function() {
-			var result = confirm("선택한 물품을 삭제하겠습니까?");
-			
-			if ( result )
-			{
-				var arr = [];
+<script type="text/javascript">
+var header = $("meta[name='_csrf_header']").attr("content");
+var token  = $("meta[name='_csrf']").attr("content");
 
-				$.ajaxSetup({
-				    beforeSend: function(xhr) {
-				    	xhr.setRequestHeader(header, token);
-				    }
-				});
-				
-				$(".uploadedList li").each(function(index) {
-					arr.push($(this).attr("data-src"));
-				});
-				
-				if ( arr.length > 0 )
-				{
-					$.post("/deleteAllFiles", {files: arr}, function() {
-						
-					});
-				}	
-				
-				formObj.attr("action", "/admin/product/deleteProduct.do");
-				formObj.attr("method", "get");
-				formObj.submit();
-			}
-			else
-			{
-				
-			}
-		});
+var productid = '${product.productid}';
+
+$(document).ready(function() {
+	
+	var formObj = $("form[role='form']");
+	
+	console.log(formObj);
+	
+	$("#modifyBtn").on("click", function() {
+		formObj.attr("action", "/admin/product/modifyProduct.do");
+		formObj.attr("method", "get");
+		formObj.submit();
+	});
+	
+	$("#removeBtn").on("click", function() {
+		var result = confirm("선택한 물품을 삭제하시겠습니까?");
 		
-		$("#goListBtn").on("click", function() {
-			formObj.attr("method", "get");
-			formObj.attr("action", "/admin/product/productList.do");
-			formObj.submit();
-		});
-		
-		var template = Handlebars.compile($("#templateAttach").html());
-		
-		$.getJSON("/admin/product/readProductImage/" + productid, function(list) {
-			$(list).each(function() {
-				if ( this != "/ustylenone.jpg" )		// 기본 이미지 삭제를 막기 위한 작업
-				{
-					var fileInfo = getFileInfo(this);
-					
-					var html = template(fileInfo);
-					
-					$(".uploadedList").append(html);
-				}
+		if ( result )
+		{
+			var arr = [];
+
+			$.ajaxSetup({
+			    beforeSend: function(xhr) {
+			    	xhr.setRequestHeader(header, token);
+			    }
 			});
-		});
-		
-		$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event) {
-			var fileLink = $(this).attr("href");
 			
-			if ( checkImageType(fileLink) )
+			$(".uploadedList li").each(function(index) {
+				arr.push($(this).attr("data-src"));
+			});
+			
+			if ( arr.length > 0 )
 			{
-				event.preventDefault();
+				$.post("/deleteAllFiles", {files: arr}, function() {
+					
+				});
+			}	
+			
+			formObj.attr("action", "/admin/product/deleteProduct.do");
+			formObj.attr("method", "get");
+			formObj.submit();
+		}
+		else
+		{
+			
+		}
+	});
+	
+	$("#goListBtn").on("click", function() {
+		formObj.attr("method", "get");
+		formObj.attr("action", "/admin/product/productList.do");
+		formObj.submit();
+	});
+	
+	var template = Handlebars.compile($("#templateAttach").html());
+	
+	$.getJSON("/admin/product/readProductImage/" + productid, function(list) {
+		$(list).each(function() {
+			if ( this != "/ustylenone.jpg" )		// 기본 이미지 삭제를 막기 위한 작업
+			{
+				var fileInfo = getFileInfo(this);
 				
-				var imgTag = $("#popup_img");
-				imgTag.attr("src", fileLink);
+				var html = template(fileInfo);
 				
-				console.log(imgTag.attr("src"));
-				
-				$(".popup").show("slow");
-				imgTag.addClass("show");
+				$(".uploadedList").append(html);
 			}
-		});
-		
-		$("#popup_img").on("click", function() {
-			$(".popup").hide("slow");
 		});
 	});
+	
+	$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event) {
+		var fileLink = $(this).attr("href");
+		
+		if ( checkImageType(fileLink) )
+		{
+			event.preventDefault();
+			
+			var imgTag = $("#popup_img");
+			imgTag.attr("src", fileLink);
+			
+			console.log(imgTag.attr("src"));
+			
+			$(".popup").show("slow");
+			imgTag.addClass("show");
+		}
+	});
+	
+	$("#popup_img").on("click", function() {
+		$(".popup").hide("slow");
+	});
+});
 </script>

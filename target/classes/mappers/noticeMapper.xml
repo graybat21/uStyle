@@ -32,11 +32,17 @@
 	<select id="noticeView" parameterType="int" resultType="notice">
 		select * from tbl_notice where bno = #{bno}
 	</select>
+	
 	<update id="viewCntPlus" parameterType="int">
 		update tbl_notice set viewcnt = viewcnt + 1 where bno = #{bno}
 	</update>
+	
 	<update id="noticeModify" parameterType="notice">
 		update tbl_notice set title = #{title}, content = #{content}
 		where bno = #{bno}
 	</update>
+	
+	<delete id="noticeDelete" parameterType="int">
+		delete from tbl_notice where bno = #{bno}
+	</delete>
 </mapper>

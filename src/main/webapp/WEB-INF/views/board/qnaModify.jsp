@@ -1,28 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Write something else you want</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
 
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <script>
@@ -33,10 +16,6 @@
 	function sendData() {
 		if (!document.getElementById("title").value) {
 			alert("제목을 입력하세요.");
-			return false;
-		}
-		if (!document.getElementById("category").value) {
-			alert("카테고리를 입력하세요.");
 			return false;
 		}
 		if (!CKEDITOR.instances.editor1.getData()) {
@@ -56,32 +35,29 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>Q&A게시판</h1>
+			<h1>Q&amp;A게시판</h1>
 		</section>
 
 		<section class="content">
 			<div class="row">
-				<div class="col-xs-12">
+				<div class="col-xs-24">
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Q&A 리스트</h3>
+							<h3 class="box-title">Q&amp;A 수정하기</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
 						
 		<table class="table table-bordered">
-			<thead>
-			<caption>수정하기</caption>
-			</thead>
 			<tbody>
 				<form id="qna_form" method="post" encType="multiplart/form-data">
-					<input type="hidden" name="bno" value="${bno }">
-					<input type="hidden" name="family" value="${bno }">
-					<input type="hidden" name="parent" value="${qna.parent }">
-					<input type="hidden" name="depth" value="${qna.depth }">
-					<input type="hidden" name="indent" value="${qna.indent }">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="hidden" name="bno" value="${qna.bno}">
+					<input type="hidden" name="family" value="${qna.family}">
+					<input type="hidden" name="parent" value="${qna.parent}">
+					<input type="hidden" name="depth" value="${qna.depth}">
+					<input type="hidden" name="indent" value="${qna.indent}">
+					
 					<tr>
 						<th>제목:</th>
 						<td><input type="text" placeholder="질문을 입력하세요. " id="title"
@@ -89,8 +65,7 @@
 					</tr>
 					<tr>
 						<th>분류:</th>
-						<td><!-- <input type="text" placeholder="분류를 입력하세요. " id="category"
-							name="category" class="form-control" /> -->
+						<td>
 							<select id="category" name="category">
 								<option value="회원정보관련">회원정보관련</option>
 								<option value="상품환불관련">상품환불관련</option>
@@ -104,13 +79,12 @@
 								name="content" rows="10" cols="80" class="form-control">${qna.content}</textarea>
 						</td>
 					</tr>
-
 					<tr>
-						<td colspan="2"><input type="button" value="등록"
-							onclick="sendData()" class="pull-right" /> <input type="reset"
-							value="리셋" onclick="resetCkEditor()" class="pull-left" /> <input type="button"
-							value="글 목록으로... " class="pull-right"
-							onclick="location.href='qna.do'" /> <!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
+						<td colspan="2">
+							<input type="button" value="등록" onclick="sendData()" class="pull-right" /> 
+							<input type="reset" value="리셋" onclick="resetCkEditor()" class="pull-left" /> 
+							<input type="button" value="글 목록으로... " class="pull-right" onclick="location.href='qna.do'" /> 
+							<!-- <a class="btn btn-default" onclick="sendData()"> 등록 </a>
                     <a class="btn btn-default" type="reset"> reset </a>
                     <a class="btn btn-default" onclick="javascript:location.href='list.jsp'">글 목록으로...</a> -->
 						</td>

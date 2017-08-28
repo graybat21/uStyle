@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ustyle.mappers.qnaMapper">
- 
  	
  	<select id="selectListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_qna
@@ -17,19 +16,22 @@
 			(select (@row_number:=@row_number+1) as row_number,
 				bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
 			from tbl_qna, (SELECT @row_number:=0) as t
-          	<if test="searchKeyword != null || searchKeyword == ''">
+		<if test="searchKeyword != null || searchKeyword == ''">
     		where ${searchOption} like '%${searchKeyword}%'
-  			</if>
+  		</if>
           	order by family desc
 			) X 
 		where X.row_number between #{first} and #{last}
 	</select>
+	
 	<select id="getCurrentNo" resultType="int">
-		select coalesce(max(Last_Insert_ID(bno)),0) from tbl_qna
+		select COALESCE(max(Last_Insert_ID(bno)), 0) from tbl_qna
 	</select>
+	
 	<select id="getFamilyNo" parameterType="int" resultType="int">
 		select family from tbl_qna where bno = #{parent} 
 	</select>
+	
 	<insert id="qnaWrite" parameterType="qna">
 		insert into tbl_qna(title, content, category, username, family, parent, depth, indent)
 		values(#{title}, #{content}, #{category}, #{username}, #{family}, #{parent},#{depth},#{indent})
@@ -43,6 +45,7 @@
 		update tbl_qna set title = #{title}, content = #{content}, category = #{category}
 		where bno = #{bno}
 	</update>
+	
 	<update id="viewCntPlus" parameterType="int">
 		update tbl_qna set viewcnt = viewcnt + 1 where bno = #{bno}
 	</update>
@@ -56,9 +59,10 @@
  		where 
  			family in (select bno from tbl_qna where username = #{username})
  		<if test="searchKeyword != null || searchKeyword == ''">
-   		and ${searchOption} like '%${searchKeyword}%'
+   			and ${searchOption} like '%${searchKeyword}%'
 		</if> 
  	</select>
+ 	
 	<select id="myQnaList" resultType="qna" parameterType="hashmap">
 		select 
 			*
@@ -74,10 +78,7 @@
 	  			</if>
 			order by family
 			) X 
-		where X.row_number between  #{first} and #{last}
+		where X.row_number between #{first} and #{last}
 	</select>
-	<!-- <update id="qnaModify" parameterType="qna">
-		update tbl_qna set title = #{title}, content = #{content}
-		where bno = #{bno}
-	</update> -->
+	
 </mapper>

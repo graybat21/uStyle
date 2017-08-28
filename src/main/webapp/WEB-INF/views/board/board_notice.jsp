@@ -50,13 +50,10 @@
 						<div class="em-main-container em-col1-layout">
 							<div class="row">
 								<div class="em-col-main col-sm-24">
-
 									<div class="page-header">
-										<h1>
-											공지사항 <small>최신 정보를 알려드립니다.</small>
-										</h1>
+										<div><h1>공지사항</h1></div>
+										<div><h3>최신 정보를 알려드립니다.</h3></div>
 									</div>
-
 									<div class="board">
 										<table class="table table-striped" id="board">
 
@@ -84,7 +81,7 @@
 															href="${viewNotice }">${item.title }</a></td>
 														<td style="text-align: center;">관리자</td>
 														<td style="text-align: center;"><fmt:formatDate
-																value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td>
+																value="${item.regdate }" pattern="yyyy-MM-dd a hh:mm" /></td>
 														<td style="text-align: center;">${item.viewcnt }</td>
 													</tr>
 												</c:forEach>
