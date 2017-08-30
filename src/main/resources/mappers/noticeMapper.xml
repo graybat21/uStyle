@@ -14,7 +14,7 @@
 			bno, title, content, regdate, viewcnt
 		from
 			(SELECT (@row_number:=@row_number+1) as row_number,
-					bno, title, content, regdate, viewcnt, pictureurl 
+					bno, title, content, regdate, viewcnt 
 			from tbl_notice, (SELECT @row_number:=0) as t
           	<if test="searchKeyword != null || searchKeyword == ''">
     		where ${searchOption} like '%${searchKeyword}%'
@@ -25,8 +25,8 @@
 	</select>
 	
 	<insert id="noticeWrite" parameterType="notice">
-		insert into tbl_notice(title, content, viewcnt, pictureurl)
-		values(#{title}, #{content}, 0, #{pictureurl})
+		insert into tbl_notice(title, content, viewcnt)
+		values(#{title}, #{content}, 0)
 	</insert>
 	
 	<select id="noticeView" parameterType="int" resultType="notice">

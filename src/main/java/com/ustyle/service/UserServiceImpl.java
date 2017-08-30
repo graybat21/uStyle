@@ -10,98 +10,101 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Grade;
 import com.ustyle.domain.User;
+import com.ustyle.persistence.ReviewDAO;
 import com.ustyle.persistence.UserDAO;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Inject
-	private UserDAO dao;
+	private UserDAO userDao;
+	
+	@Inject
+	private ReviewDAO reviewDao;
+	
+	@Inject
+	private PinService pinService;
 
-	@Transactional
 	@Override
 	public void insert(User user) throws Exception {
-		dao.insert(user);
+		userDao.insert(user);
 	}
 
-	@Transactional
 	@Override
 	public User userLogin(User user) throws Exception {
-		return dao.userLogin(user);
+		return userDao.userLogin(user);
 	}
 
-	@Transactional
 	@Override
 	public boolean userAuthOk(User user) throws Exception {
-		return dao.userAuthOk(user);
+		return userDao.userAuthOk(user);
 	}
 
 	@Override
 	public void userAuthInitialize(String username) throws Exception {
-		dao.userAuthInitialize(username);
+		userDao.userAuthInitialize(username);
 	}
 	
-	@Transactional
 	@Override
 	public int userExist(String username) throws Exception {
-		return dao.userExist(username);
+		return userDao.userExist(username);
 	}
 	
-	@Transactional
 	@Override
 	public void update(User user) throws Exception {
-		dao.update(user);
+		userDao.update(user);
 	}
 	
-	@Transactional
 	@Override
 	public void updatePoint(User user) throws Exception {
-		dao.updatePoint(user);
+		userDao.updatePoint(user);
 	}
 
 	@Transactional
 	@Override
 	public void delete(String username) throws Exception {
-		dao.delete(username);
+		reviewDao.deleteReviewByUsername(username);
+		pinService.deletePinBoardByUsername(username);
+		userDao.delete(username);
 	}
 
 	@Override
 	public int selectListCnt(HashMap<String, Object> map) throws Exception {
-		return dao.selectListCnt(map);
+		return userDao.selectListCnt(map);
 	}
 
 	@Override
 	public List<User> userList(HashMap<String, Object> map) throws Exception {
-		return dao.userList(map);
+		return userDao.userList(map);
 	}
 	
 	@Override
 	public User selectOneUser(String username) throws Exception {
-		return dao.selectOneUser(username);
+		return userDao.selectOneUser(username);
 	}
 	
 	@Override
 	public void modifyAllUsersGradeInitialize() {
-		dao.modifyAllUsersGradeInitialize();
+		userDao.modifyAllUsersGradeInitialize();
 	}
 
 	@Override
 	public void modifyAllUsersGrade(Grade grade) {
-		dao.modifyAllUsersGrade(grade);
+		userDao.modifyAllUsersGrade(grade);
 	}
 	
 	@Override
 	public int selectUserPurchaseCount(String username) throws Exception {
-		return dao.selectUserPurchaseCount(username);
+		return userDao.selectUserPurchaseCount(username);
 	}
 
 	@Override
 	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map) throws Exception {
-		return dao.selectUserPurchaseList(map);
+		return userDao.selectUserPurchaseList(map);
 	}
 
 	@Override
 	public double selectUserPointRatio(String username) throws Exception {
-		return dao.selectUserPointRatio(username);
+		return userDao.selectUserPointRatio(username);
 	}
 }

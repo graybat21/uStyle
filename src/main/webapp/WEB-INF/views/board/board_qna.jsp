@@ -39,7 +39,6 @@
 
 									<div class="board">
 										<table class="table table-striped" id="board">
-
 											<thead>
 												<tr>
 													<th style="width: 10%; text-align: center">번호</th>
@@ -69,7 +68,6 @@
 												</c:forEach>
 											</tbody>
 										</table>
-										
 									</div>
 
 									<div class="bottom">

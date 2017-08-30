@@ -2,26 +2,26 @@
 	pageEncoding="UTF-8"%>
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <script type="text/javascript">
-	$(function() {
-		CKEDITOR.replace('editor1');
-	});
+$(function() {
+	CKEDITOR.replace('editor1');
+});
 
-	function sendData() {
-		if (!document.getElementById("title").value) {
-			alert("제목을 입력하세요.");
-			return false;
-		}
-		if (!CKEDITOR.instances.editor1.getData()) {
-			alert("내용을 입력하세요.");
-			return false;
-		}
-		
-		$("#notice_form").submit();
+function sendData() {
+	if (!document.getElementById("title").value) {
+		alert("제목을 입력하세요.");
+		return false;
+	}
+	if (!CKEDITOR.instances.editor1.getData()) {
+		alert("내용을 입력하세요.");
+		return false;
 	}
 	
-	function resetCkEditor(){
-		CKEDITOR.instances.editor1.setData('');
-	}
+	$("#notice_form").submit();
+}
+
+function resetCkEditor(){
+	CKEDITOR.instances.editor1.setData('');
+}
 </script>
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -51,12 +51,6 @@
 											<th>내용:</th>
 											<td>
 												<textarea id="editor1" name="content" rows="10" cols="80" class="form-control">${notice.content}</textarea>
-											</td>
-										</tr>
-										<tr>
-											<th>첨부파일:</th>
-											<td>
-												<input type="text" placeholder="파일을 선택하세요." name="file" class="form-control" />
 											</td>
 										</tr>
 										<tr>

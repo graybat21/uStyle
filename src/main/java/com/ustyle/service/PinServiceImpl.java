@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Pin;
 import com.ustyle.domain.PinBoard;
@@ -20,8 +21,10 @@ public class PinServiceImpl implements PinService {
 
 	@Inject
 	private PinBoardDAO pinBoardDao;
+	
 	@Inject
 	private PinDAO pinDao;
+	
 	@Inject
 	private PinBoardReplyDAO pinBoardReplyDao;
 
@@ -104,7 +107,8 @@ public class PinServiceImpl implements PinService {
 	public void modifyPinBoard(PinBoard pinBoard) throws Exception {
 		pinBoardDao.modifyPinBoard(pinBoard);
 	}
-
+	
+	@Transactional
 	@Override
 	public void deletePinBoard(int pinboardno) throws Exception {
 		pinDao.deleteAllPin(pinboardno);
@@ -112,6 +116,7 @@ public class PinServiceImpl implements PinService {
 		pinBoardDao.deletePinBoard(pinboardno);
 	}
 	
+	@Transactional
 	@Override
 	public void deletePinBoardByUsername(String username) throws Exception {
 		List<Integer> pinBoardNoList = pinBoardDao.selectPinBoardNoList(username);
@@ -129,9 +134,6 @@ public class PinServiceImpl implements PinService {
 	public PinBoard getPinBoardByNo(int pinboardno) {
 		return pinBoardDao.pinBoardByNo(pinboardno);
 	}
-
-	//	=============================================
-
 
 	@Override
 	public List<Pin> getPins(int pinboardno) {
@@ -152,8 +154,6 @@ public class PinServiceImpl implements PinService {
 	public void deletePin(Pin pin) throws Exception {
 		 pinDao.deletePin(pin);
 	}
-	
-//	=============================================
 	
 	@Override
 	public List<PinBoardReply> getPinBoardReplyByPinBoardNo(int pinboardno) {

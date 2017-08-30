@@ -62,5 +62,4 @@ public class ReviewDAOImpl implements ReviewDAO
 	public int count(Integer bno) throws Exception {
 		return session.selectOne(namespace + ".count", bno);
 	}
-
 }

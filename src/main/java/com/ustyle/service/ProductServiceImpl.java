@@ -6,7 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Product;
@@ -19,7 +18,6 @@ public class ProductServiceImpl implements ProductService {
 	@Inject
 	private ProductDAO dao;
 
-	@Transactional
 	@Override
 	public void insert(Product product) throws Exception {
 		dao.insert(product);
@@ -30,19 +28,16 @@ public class ProductServiceImpl implements ProductService {
 		dao.writeReview(review);
 	}
 
-	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public Product read(Integer productid) throws Exception {
 		return dao.read(productid);
 	}
 
-	@Transactional
 	@Override
 	public String selectPictureurl(Integer productid) throws Exception {
 		return dao.selectPictureurl(productid);
 	}
 	
-	@Transactional
 	@Override
 	public String selectMainpictureurl(Integer productid) throws Exception {
 		return dao.selectMainpictureurl(productid);
@@ -88,7 +83,8 @@ public class ProductServiceImpl implements ProductService {
 		boolean isExistTable = ( dao.existSalesTable(productid) || dao.existPinTable(productid) );
 		return isExistTable;
 	}
-
+	
+	@Transactional
 	@Override
 	public void delete(int productid) throws Exception {
 		dao.deleteItem(productid);

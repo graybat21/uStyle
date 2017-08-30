@@ -6,7 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Review;
 import com.ustyle.persistence.ReviewDAO;
@@ -17,7 +16,6 @@ public class ReviewServiceImpl implements ReviewService
 	@Inject
 	private ReviewDAO dao;
 	
-	@Transactional
 	@Override
 	public void writeReview(Review review) throws Exception {
 		dao.insert(review);
@@ -33,19 +31,16 @@ public class ReviewServiceImpl implements ReviewService
 		dao.update(vo);
 	}
 	
-	@Transactional
 	@Override
 	public void removeReply(Integer rno) throws Exception {
 		dao.delete(rno);
 	}
 	
-	@Transactional
 	@Override
 	public int selectReviewCnt(int productid) throws Exception {
 		return dao.selectReviewCnt(productid);
 	}
 	
-	@Transactional
 	@Override
 	public List<Review> selectReviewList(HashMap<String, Object> reviewMap) throws Exception {
 		return dao.selectReviewList(reviewMap);
@@ -62,8 +57,7 @@ public class ReviewServiceImpl implements ReviewService
 	}
 
 	@Override
-	public int count(Integer bno) throws Exception 
-	{
+	public int count(Integer bno) throws Exception {
 		return dao.count(bno);
 	}
 }

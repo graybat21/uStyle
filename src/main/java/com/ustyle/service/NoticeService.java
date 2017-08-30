@@ -10,6 +10,7 @@ public interface NoticeService {
 	public List<Notice> noticeList(HashMap<String, Object> map) throws Exception;
 	public void noticeWrite(Notice notice) throws Exception;
 	public Notice noticeView(int bno) throws Exception;
+	public Notice noticeViewFromAdmin(int bno) throws Exception;
 	public void noticeModify(Notice notice) throws Exception;
 	public void noticeDelete(int bno) throws Exception;
 }

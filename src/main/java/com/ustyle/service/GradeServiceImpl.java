@@ -34,5 +34,4 @@ public class GradeServiceImpl implements GradeService {
 	public void delete(int idx) throws Exception {
 		dao.delete(idx);
 	}
-
 }

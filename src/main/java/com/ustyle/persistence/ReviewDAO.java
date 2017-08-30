@@ -5,8 +5,7 @@ import java.util.List;
 
 import com.ustyle.domain.Review;
 
-public interface ReviewDAO 
-{
+public interface ReviewDAO {
 	public List<Review> list(Integer bno) throws Exception;
 	public void insert(Review review) throws Exception;
 	public void update(Review vo) throws Exception;

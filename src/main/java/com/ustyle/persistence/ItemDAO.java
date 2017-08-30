@@ -20,5 +20,4 @@ public interface ItemDAO {
 	public void updateForSales(Sales sales);
 	public boolean existSalesTable(int itemid);
 	public void deleteItem(int itemid);
-	
 }

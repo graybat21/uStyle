@@ -26,7 +26,8 @@ public class QnaServiceImpl implements QnaService {
 	public List<Qna> qnaList(HashMap<String, Object> map) throws Exception {
 		return dao.qnaList(map);
 	}
-
+	
+	@Transactional
 	@Override
 	public void qnaWrite(Qna qna) throws Exception {
 		System.out.println(qna.getBno());
@@ -55,6 +56,11 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public Qna qnaView(int bno) throws Exception {
 		dao.viewCntPlus(bno);
+		return dao.qnaView(bno);
+	}
+	
+	@Override
+	public Qna qnaViewFromAdmin(int bno) throws Exception {
 		return dao.qnaView(bno);
 	}
 

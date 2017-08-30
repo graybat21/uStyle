@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Purchase;
 import com.ustyle.domain.Sales;
@@ -26,6 +27,7 @@ public class SalesServiceImpl implements SalesService {
 		return salesDao.selectUserCartListForPurchase(username);
 	}
 	
+	@Transactional
 	@Override
 	public void insert(Sales sales) throws Exception {
 		itemDao.updateForSales(sales);
@@ -36,7 +38,8 @@ public class SalesServiceImpl implements SalesService {
 	public void updateAddPoint(HashMap<String, Object> addPointMap) throws Exception {
 		salesDao.updateAddPoint(addPointMap);
 	}
-
+	
+	@Transactional
 	@Override
 	public void insertPurchase(Purchase purchase) throws Exception {
 		salesDao.updateUsedPoint(purchase);

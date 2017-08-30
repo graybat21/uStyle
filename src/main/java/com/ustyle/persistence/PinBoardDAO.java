@@ -25,11 +25,9 @@ public interface PinBoardDAO {
 	public void updatePictureurl(PinBoard pinBoard);
 	public void deleteAllPinBoardLike(int pinboardno);
 	public List<Integer> selectPinBoardNoList(String username);
-	
 	public List<PinBoard> getPinBoardList();
 	public PinBoard pinBoardByNo(int pinboardno);
 	public List<PinBoard> getPinBoardMainImage(String username);
-	
 	public void deletePinBoard(int pinboardno);
 	public int selectListCnt(HashMap<String, Object> map);
 }

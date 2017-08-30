@@ -48,14 +48,8 @@ public class UserController {
 	private UserService userService;
 	
 	@Inject
-	private PinService pinService;
-	
-	@Inject
 	private ProductService productService;
 	
-	@Inject
-	private ReviewService reviewService;
-
 	@Inject
 	private UserEntryValidator userEntryValidator;
 
@@ -287,8 +281,6 @@ public class UserController {
 			return "user/deleteError/No Match PW";
 		}
 		
-		reviewService.deleteReviewByUsername(username);
-		pinService.deletePinBoardByUsername(username);
 		userService.delete(username);
 
 		return "redirect:/logout.do";

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ustyle.domain.Notice;
 import com.ustyle.persistence.NoticeDAO;
@@ -30,10 +31,16 @@ public class NoticeServiceImpl implements NoticeService {
 	public void noticeWrite(Notice notice) throws Exception {
 		dao.noticeWrite(notice);
 	}
-
+	
+	@Transactional
 	@Override
 	public Notice noticeView(int bno) throws Exception {
 		dao.viewCntPlus(bno);
+		return dao.noticeView(bno);
+	}
+	
+	@Override
+	public Notice noticeViewFromAdmin(int bno) throws Exception {
 		return dao.noticeView(bno);
 	}
 	

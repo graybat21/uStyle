@@ -13,10 +13,10 @@ import com.ustyle.persistence.FaqDAO;
 
 @Service
 public class FaqServiceImpl implements FaqService {
+	
 	@Inject
 	private FaqDAO dao;
 
-	@Transactional
 	@Override
 	public int selectListCnt(HashMap<String, Object> map) throws Exception {
 		return dao.selectListCnt(map);
@@ -26,20 +26,24 @@ public class FaqServiceImpl implements FaqService {
 	public List<Faq> faqList(HashMap<String, Object> map) throws Exception {
 		return dao.faqList(map);
 	}
-
-	@Transactional
+	
 	@Override
 	public void faqWrite(Faq faq) throws Exception {
 		dao.faqWrite(faq);
 	}
 
+	@Transactional
 	@Override
 	public Faq faqView(int bno) throws Exception {
 		dao.viewCntPlus(bno);
 		return dao.faqView(bno);
 	}
+	
+	@Override
+	public Faq faqViewFromAdmin(int bno) throws Exception {
+		return dao.faqView(bno);
+	}
 
-	@Transactional
 	@Override
 	public void faqModify(Faq faq) throws Exception {
 		dao.faqModify(faq);
@@ -49,6 +53,4 @@ public class FaqServiceImpl implements FaqService {
 	public void faqDelete(int bno) throws Exception {
 		dao.faqDelete(bno);
 	}
-	
-
 }

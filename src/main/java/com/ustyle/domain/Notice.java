@@ -9,14 +9,6 @@ public class Notice {
 	private String content;
 	private Date regdate;
 	private int viewcnt;
-	private String pictureurl;
-
-
-	@Override
-	public String toString() {
-		return "\nNotice [bno=" + bno + ", title=" + title + ", content=" + content + ", regdate=" + regdate
-				+ ", viewcnt=" + viewcnt + ", pictureurl=" + pictureurl + "]";
-	}
 
 	public int getBno() {
 		return bno;
@@ -58,13 +50,9 @@ public class Notice {
 		this.viewcnt = viewcnt;
 	}
 
-
-	public String getPictureurl() {
-		return pictureurl;
+	@Override
+	public String toString() {
+		return "Notice [bno=" + bno + ", title=" + title + ", content=" + content + ", regdate=" + regdate
+				+ ", viewcnt=" + viewcnt + "]";
 	}
-
-	public void setPictureurl(String pictureurl) {
-		this.pictureurl = pictureurl;
-	}
-
 }

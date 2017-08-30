@@ -93,7 +93,7 @@ public class BoardAdminController {
 	public ModelAndView noticeView(@RequestParam(value = "bno") int bno, int page) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		Notice notice = noticeService.noticeView(bno);
+		Notice notice = noticeService.noticeViewFromAdmin(bno);
 		mav.addObject("notice", notice);
 		mav.addObject("page", page);
 		mav.setViewName("board/noticeDetail");
@@ -102,7 +102,7 @@ public class BoardAdminController {
 
 	@RequestMapping(value = "noticeModify.do", method = RequestMethod.GET)
 	public String noticeModifyForm(@RequestParam(value = "bno") int bno, Model model) throws Exception {
-		Notice notice = noticeService.noticeView(bno);
+		Notice notice = noticeService.noticeViewFromAdmin(bno);
 		model.addAttribute("notice", notice);
 		return "board/noticeWrite";
 	}
@@ -184,7 +184,7 @@ public class BoardAdminController {
 	
 	@RequestMapping(value = "faqModify.do", method = RequestMethod.GET)
 	public String faqModifyForm(@RequestParam(value = "bno") int bno,Model model) throws Exception {
-		Faq faq = faqService.faqView(bno);
+		Faq faq = faqService.faqViewFromAdmin(bno);
 		model.addAttribute("faq",faq);
 		return "board/faqWrite";
 	}
@@ -258,7 +258,7 @@ public class BoardAdminController {
 	public ModelAndView qnaView(@RequestParam(value = "bno") int bno, int page) throws Exception {
 		ModelAndView mav = new ModelAndView();
 
-		Qna qna = qnaService.qnaView(bno);
+		Qna qna = qnaService.qnaViewFromAdmin(bno);
 		mav.addObject("qna", qna);
 		mav.addObject("page", page);
 		mav.setViewName("board/qnaDetail");
@@ -289,7 +289,7 @@ public class BoardAdminController {
 	
 	@RequestMapping(value = "qnaReply.do", method = RequestMethod.GET)
 	public String qnaReplyForm(@RequestParam(value = "parent") int parent, Model model) throws Exception {
-		Qna qna = qnaService.qnaView(parent);
+		Qna qna = qnaService.qnaViewFromAdmin(parent);
 		model.addAttribute("qna",qna);
 		return "board/qnaWrite";
 	}
