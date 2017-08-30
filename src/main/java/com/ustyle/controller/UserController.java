@@ -29,9 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Product;
 import com.ustyle.domain.User;
-import com.ustyle.service.PinService;
 import com.ustyle.service.ProductService;
-import com.ustyle.service.ReviewService;
 import com.ustyle.service.UserService;
 import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.UserEntryValidator;
