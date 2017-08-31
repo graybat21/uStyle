@@ -150,28 +150,9 @@
 	                                                                    </tr>
 	                                                                </tbody>
 	                                                            </table>
-	                                                            <%--ul class="checkout-types">
-	                                                                <li>
-	                                                                    <button type="submit" title="Proceed to Checkout" class="button btn-proceed-checkout btn-checkout"><span><span>Proceed to Checkout</span></span>
-	                                                                    </button>
-	                                                                </li>
-	                                                            </ul--%>
                                                         	</div>
                                                 		</div>
                                                 	</div>
-                                                    <%--div class="tool-tip" id="payment-tool-tip" style="display:none;">
-                                                        <div class="btn-close"><a href="#" id="payment-tool-tip-close" title="Close">Close</a>
-                                                        </div>
-                                                        <div class="tool-tip-content"><img src="images/cvv.gif" alt="Card Verification Number Visual Reference" title="Card Verification Number Visual Reference" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="buttons-set" id="payment-buttons-container">
-                                                        <p class="required">* Required Fields</p>
-                                                        <p class="back-link"><a href="#"><small>&laquo; </small>Back</a>
-                                                        </p>
-                                                        <button type="button" class="button"><span><span>Continue</span></span>
-                                                        </button> <span class="please-wait" id="payment-please-wait" style="display:none;"> <img src="images/opc-ajax-loader.gif" alt="Loading next step..." title="Loading next step..." class="v-middle" /> Loading next step... </span>
-                                                    </div--%>
                                                 </div><!-- /#checkout-step-payment -->
                                             </li><!-- /#opc-payment -->
                                             <li id="opc-billing">
@@ -245,15 +226,7 @@
 	                                                            <input type="checkbox" name="billing[use_for_shipping]" id="use_for_shipping_yes" title="Ship to this address" class="checkbox" />
 	                                                            <label for="use_for_shipping_yes">Ship to this address</label>
 	                                                        </li>
-	                                                        <!-- <li class="control">
-	                                                            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0" title="Ship to different address" class="radio" />
-	                                                            <label for="billing:use_for_shipping_no">Ship to different address</label>
-	                                                        </li> -->
 	                                                    </ul>
-	                                                    <%--div class="buttons-set" id="billing-buttons-container">
-	                                                        <button type="button" title="Continue" class="button"><span><span>Continue</span></span>
-	                                                        </button> <span class="please-wait" id="billing-please-wait" style="display:none;"> <img src="images/opc-ajax-loader.gif" alt="Loading next step..." title="Loading next step..." class="v-middle" /> Loading next step... </span>
-	                                                    </div--%>
 	                                                </fieldset>
                                                 </div><!-- /#checkout-step-billing -->
                                             </li><!-- /#opc-billing -->
@@ -323,37 +296,6 @@
 	                                                </div>
                                                 </div><!-- /#checkout-step-shipping -->
                                             </li><!-- /#opc-shipping -->
-                                            <%--li id="opc-shipping_method" class="section">
-                                                <div class="em-box-02 step-title collapsed" data-toggle="collapse">
-                                                    <div class="title-box"> <span class="number">3</span>
-                                                        <h2>Shipping Method</h2> 
-                                                    </div>
-                                                </div>
-                                                <div id="checkout-step-shipping_method" class="step a-item collapse in">
-                                                    <form id="co-shipping-method-form">
-                                                        <div id="checkout-shipping-method-load"></div>
-                                                        <div id="onepage-checkout-shipping-method-additional-load">
-                                                        </div>
-                                                        <div class="buttons-set" id="shipping-method-buttons-container">
-                                                            <p class="back-link"><a href="#"><small>&laquo; </small>Back</a>
-                                                            </p>
-                                                            <button type="button" class="button"><span><span>Continue</span></span>
-                                                            </button> <span id="shipping-method-please-wait" class="please-wait" style="display:none;"> <img src="images/opc-ajax-loader.gif" alt="Loading next step..." title="Loading next step..." class="v-middle" /> Loading next step... </span>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </li><!-- /#opc-shipping_method -->
-                                            
-                                            <li id="opc-review" class="section">
-                                                <div class="em-box-02 step-title collapsed" data-toggle="collapse">
-                                                    <div class="title-box"> <span class="number">5</span>
-                                                        <h2>Order Review</h2> 
-                                                    </div>
-                                                </div>
-                                                <div id="checkout-step-review" class="step a-item collapse">
-                                                    <div class="order-review" id="checkout-review-load"></div>
-                                                </div>
-                                            </li--%><!-- /#opc-review -->
                                         </ol>
                                     </div>
                                     <div class="col-sm-6 col-sm-pull-18 em-col-left em-sidebar">

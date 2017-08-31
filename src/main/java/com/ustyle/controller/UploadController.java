@@ -106,7 +106,7 @@ public class UploadController
 		try 
 		{
 			String mainPictureurl = productService.selectMainpictureurl(productid);
-			entity = displayFile(mainPictureurl);
+			entity = displayFile(mainPictureurl.replace("/s_", "/"));
 			
 		}
 		catch ( Exception e )

@@ -121,11 +121,11 @@ public class ProductController {
 		
 		ModelAndView mav = new ModelAndView("product/productDetail/" + product.getProductname());
 		
-		String mainPictureUrl = product.getMainpictureurl();
-		product.setMainpictureurl(mainPictureUrl.replace("/s_", "/"));
+		String mainPictureurl = product.getMainpictureurl();
+		product.setMainpictureurl(mainPictureurl.replace("/s_", "/"));
 		
-		String readPictureUrl = product.getPictureurl().replaceAll("\\[|\\]", "");
-		String[] imageFiles = readPictureUrl.split(", ");
+		String readPictureurl = product.getPictureurl().replaceAll("\\[|\\]", "");
+		String[] imageFiles = readPictureurl.split(", ");
 		List<String> pictureList = new ArrayList<String>(Arrays.asList(imageFiles));
 		
 		logger.info(product.toString());

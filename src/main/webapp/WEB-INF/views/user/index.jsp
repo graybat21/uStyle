@@ -1,14 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html class='no-js' lang='ko'>
-<head>
-</head>
-<body class="cms-index-index">
-	<div class="wrapper">
-		<div class="page one-column">
-		
 <div class="em-wrapper-main">
 	<div class="container-main">
 
@@ -84,7 +76,7 @@
                                          </div>
                                      </div>
                                  </div><!-- /.em-wrapper-new-arrivals-tabs -->
-                                 <div class="row hidden-xs">
+                                 <%--div class="row hidden-xs">
                                      <div class="em-wrapper-banners">
                                          <div class="col-sm-12 img-banner text-center">
                                              <div class="em-effect06">
@@ -99,7 +91,7 @@
                                              </div>
                                          </div>
                                      </div><!-- /.em-wrapper-banners -->
-                                 </div>
+                                 </div--%>
                                  <div class="em-wrapper-new-arrivals-tabs">
                                      <div class="em-new-arrivals-tabs em-line-01">
                                          <div id="em_ajax_tabs_5de40bf47604862e9458a84dddf16d97" class="emtabs-ajaxblock-loaded">
@@ -169,7 +161,7 @@
 				                 </div><!-- /.em-inner-main -->
 				             </div><!-- /.container -->
 				
-				             <div class="em-wrapper-area03">
+				             <%--div class="em-wrapper-area03">
 				                 <div class="em-wrapper-ads-17 hidden-xs">
 				                     <div class="em-wrapper-parallax">
 				                         <div class="em-box-info">
@@ -283,7 +275,7 @@
 				                             </div>
 				                         </div>
 				                     </div>
-				                 </div><!-- /.em-wrapper-area06 -->
+				                 </div--%><!-- /.em-wrapper-area06 -->
 				
 				             </div><!-- /.container -->
 						</div>
@@ -293,9 +285,3 @@
          </div><!-- /.container-main -->
      </div><!-- /.em-wrapper-main -->		
 
-</div>
-<!-- /.page -->
-</div>
-<!-- /.wrapper -->
-</body>
-</html>

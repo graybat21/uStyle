@@ -34,21 +34,13 @@
 									</tr>
 								</thead>
 								<tbody>
-									
 									<c:if test="${itemList.size() == 0 }">
 										<tr><td colspan="9" style="text-align: center"><strong>자료가 없습니다.</strong></td></tr>
 									</c:if>
 									<c:if test="${itemList.size() != 0 }">
 									
 									<c:forEach var="list" items="${gradeList}" varStatus="status">
-										<%-- <c:url var="deleteGrade" value="/admin/grade/deleteGrade.do">
-											<c:param name="idx" value="${list.idx}" />
-										</c:url> 
-										<c:url var="modifyGrade" value="/admin/item/modifyGrade.do">
-											<c:param name="itemid" value="${list.itemid }" />
-										</c:url>--%>
 										<form action="gradeUpdate.do" method="post">
-										<!-- <input type="hidden" name="_method" value="put" /> -->
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										<tr>
 											<td><strong><input type="text" name="idx" value="${list.idx }" readonly></strong></td>
@@ -58,21 +50,12 @@
 											<td><input type="text" name="min" value="${list.min }"></td>
 											<td><input type="text" name="max" value="${list.max }"></td>
 											<td>
-											<%-- <a href="${modifyGrade }"><input type="button"
-													value="수정"></a> --%>
 											<input type="submit" value="수정">
-												<%-- <a href="${deleteGrade }"><input type="button"
-													value="삭제" onclick="return deleteGrade()"></a> --%>
 											</td>
 										</tr>
 										</form>
 									</c:forEach>
 									</c:if>
-									<script>
-										function deleteGrade() {
-											return confirm("선택한 등급을 삭제하겠습니까?");
-										}
-									</script>
 								</tbody>
 							</table>
 						</div>
@@ -83,7 +66,6 @@
 				<!-- /.col -->
 			</div>
 			<!-- /.row -->
-
 		</section>
 		<!-- /.content -->
 	</div>

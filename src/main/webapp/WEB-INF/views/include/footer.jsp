@@ -6,8 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
-
 <div class="em-wrapper-footer">
 	<div class="em-footer-style07">
 		<div class="em-footer-top">
@@ -30,22 +28,15 @@
 													<p class="em-info">
 														uStyle
 													</p>
+													<p class="em-info">
+														Tel. 010) 0000-1111
+														
+													</p>
+													<p class="em-info">
+														E-mail. ustyle1111@gmail.com
+													</p>
 													<p class="em-social">
-														<a class="em-social-icon em-facebook f-left"
-															title="em-sample-title" href="#"><span
-															class="fa fa-fw"></span></a> <a
-															class="em-social-icon em-twitter f-left"
-															title="em-sample-title" href="#"><span
-															class="fa fa-fw"></span></a> <a
-															class="em-social-icon em-pinterest  f-left"
-															title="em-sample-title" href="#"><span
-															class="fa fa-fw"></span></a> <a
-															class="em-social-icon em-google f-left"
-															title="em-sample-title" href="#"><span
-															class="fa fa-fw"></span></a> <a
-															class="em-social-icon em-rss  f-left"
-															title="em-sample-title" href="#"><span
-															class="fa fa-fw"></span></a>
+														
 													</p>
 												</div>
 											</div>
@@ -60,24 +51,8 @@
 													<div class="row">
 														<div class="col-sm-12">
 															<ul class="em-links">
-																<li class="em-links-item"><a
-																	title="em-sample-title" href="#"><span>Contact
-																			Us</span></a></li>
-																<li class="em-links-item"><a
-																	title="em-sample-title" href="#"><span>Sitemap</span></a>
-																</li>
-																<li class="em-links-item"><a
-																	title="em-sample-title" href="#"><span>Term
-																			&amp; Conditions</span></a></li>
-															</ul>
-														</div>
-														<div class="col-sm-12">
-															<ul class="em-links">
 																<li class="em-links-item"><a title="em-sample-title" href="/purchaseList.do"><span>Purchase List</span></a></li>
 																<li class="em-links-item"><a title="em-sample-title" href="/pin/myPinBoardList.do"><span>My PinBoard List</span></a></li>
-																<li class="em-links-item"><a
-																	title="em-sample-title" href="#"><span>My
-																			Addresses</span></a></li>
 															</ul>
 														</div>
 													</div>
@@ -93,24 +68,7 @@
 												</div>
 												<div id="collapse04" class="em-block-content">
 													<ul class="em-tags-list">
-														<%--li class="em-tags-item"><a
-															title="em-sample-title" href="#"><span>awesome</span></a>
-														</li>
-														<li class="em-tags-item"><a
-															title="em-sample-title" href="#"><span>nice</span></a>
-														</li>
-														<li class="em-tags-item"><a
-															title="em-sample-title" href="#"><span>beautiful</span></a>
-														</li>
-														<li class="em-tags-item"><a
-															title="em-sample-title" href="#"><span>love</span></a>
-														</li>
-														<li class="em-tags-item"><a
-															title="em-sample-title" href="#"><span>like</span></a>
-														</li>
-														<li class="em-tags-item"><a
-															title="em-sample-title" href="#"><span>emthemes</span></a>
-														</li--%>
+														
 													</ul>
 												</div>
 												<!-- /#collapse04 -->
