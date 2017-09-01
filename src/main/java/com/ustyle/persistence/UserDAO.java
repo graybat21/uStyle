@@ -11,9 +11,11 @@ public interface UserDAO {
 	public User userLogin(User user);
 	public boolean userAuthOk(User user);
 	public void userAuthInitialize(String username);
-	public int userExist(String username);
+	public int userExist(User user);
+	public HashMap<String, Object> selectUserInfo(String username);
 	public void update(User user);
 	public void updatePoint(User user);
+	public void updateTemporaryPassword(User user);
 	public void delete(String username);
 	public int selectListCnt(HashMap<String, Object> map);
 	public List<User> userList(HashMap<String, Object> map);

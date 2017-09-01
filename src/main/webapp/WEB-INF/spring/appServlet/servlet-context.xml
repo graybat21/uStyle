@@ -66,10 +66,12 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/loginPost.do" />
+			<mapping path="/searchPassword.do" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 
 		<interceptor>
+			<mapping path="/userInfo.do" />
 			<mapping path="/update.do" />
 			<mapping path="/delete.do" />
 			<mapping path="/purchaseList.do" />
@@ -78,6 +80,8 @@
 			<mapping path="/pin/myPinBoardList.do" />
 			<mapping path="/pin/createPinBoard.do" />
 			<mapping path="/board/qnaWrite.do" />
+			<mapping path="/board/qnaModify.do" />
+			<mapping path="/board/myQnaList.do" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>

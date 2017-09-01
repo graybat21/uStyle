@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script src="/resources/admin/js/commonBoard.js"></script>
 
 <!-- Content Wrapper. Contains page content -->
 <body>
@@ -17,13 +18,13 @@
 						<div class="box-header">
 							<h3 class="box-title">Item 리스트</h3>
 							
-							<form action="itemList.do">
+							<form name="form_search" id="form_search" action="itemList.do" onsubmit="return verifyOK()">
 							<select name="o">
 								<option value="productname" ${param.o eq "productname" ? "selected" : "" }>productname</option>
 								<option value="productid" ${param.o eq "productid" ? "selected" : "" }>productid</option>
 								<option value="itemid" ${param.o eq "itemid" ? "selected" : "" }>itemid</option>
 							</select>
-							<input type="text" name="k" value="${searchKeyword }">
+							<input type="text" name="k" value="${searchKeyword}">
 							<input type="submit" value="검색">
 							</form>
 							

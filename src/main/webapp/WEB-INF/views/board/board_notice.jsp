@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script src="/resources/js/commonBoard.js"></script>
 <style>
 .board {
 	border: 1.5px solid #e0e0e0;
@@ -38,14 +39,13 @@
 					<div class="em-wrapper-area02"></div>
 					<div class="em-main-container em-col1-layout">
 						<div class="row">
-							<div class="em-col-main col-sm-24">
+							<div class="em-col-main col-xs-24 col-sm-24">
 								<div class="page-header">
 									<div><h1>공지사항</h1></div>
 									<div><h3>최신 정보를 알려드립니다.</h3></div>
 								</div>
 								<div class="board">
 									<table class="table table-striped" id="board">
-
 										<thead>
 											<tr>
 												<th style="width: 10%; text-align: center">번호</th>
@@ -55,42 +55,63 @@
 												<th style="width: 7%; text-align: center">조회수</th>
 											</tr>
 										</thead>
-
 										<tbody>
-
-											<c:forEach var="item" items="${noticeList }">
+											<c:if test="${not empty noticeList}">
+											<c:forEach var="item" items="${noticeList}">
 												<c:url var="viewNotice" value="noticeView.do">
 													<c:param name="bno" value="${item.bno }" />
+													<c:param name="page" value="${pageMaker.page}" />
+													<c:if test="${ not empty param.o }">
+														<c:param name="o" value="${param.o}" />
+														<c:param name="k" value="${param.k}" />
+													</c:if>
 												</c:url>
 												<tr>
-
-													<td style="text-align: center;"><a
-														href="${viewNotice }">${item.bno }</a></td>
-													<td style="text-align: center;"><a
-														href="${viewNotice }">${item.title }</a></td>
+													<td style="text-align: center;">
+														<a href="${viewNotice }">${item.bno }</a></td>
+													<td style="text-align: center;">
+														<a href="${viewNotice }">${item.title }</a></td>
 													<td style="text-align: center;">관리자</td>
-													<td style="text-align: center;"><fmt:formatDate
-															value="${item.regdate }" pattern="yyyy-MM-dd a hh:mm" /></td>
+													<td style="text-align: center;">
+														<fmt:formatDate value="${item.regdate }" pattern="yyyy-MM-dd HH:mm" /></td>
 													<td style="text-align: center;">${item.viewcnt }</td>
 												</tr>
 											</c:forEach>
-
+											</c:if>
+											<c:if test="${empty noticeList}">
+												<td colspan="5" style="text-align: center">
+												요청하신 자료가 존재하지 않습니다.
+												</td>
+											</c:if>
 										</tbody>
 									</table>
 								</div>
 
 								<div class="bottom">
-									<div class="text-center">
+									<div class="col-xs-24 col-sm-24">
+										<div class="form-search" style="border-style: none; margin: 10px;">
+											<form name="form_search" id="form_search" action="notice.do" onsubmit="return verifyOK()">
+												<select id="searchOption" name="o">
+													<option value="tnc" ${param.o eq "tnc" ? "selected" : "" }>제목 + 내용</option>
+													<option value="tit" ${param.o eq "tit" ? "selected" : "" }>제목</option>
+													<option value="con" ${param.o eq "con" ? "selected" : "" }>내용</option>
+												</select>
+												<input type="text" id="k" name="k" value="${searchKeyword}">
+												<input type="submit" value="검색" />
+											</form> 
+										</div>
+									</div>
+									<div class="col-xs-24 col-sm-24 text-center">
 										<ul class="pagination">
 											<c:if test="${pageMaker.prev }">
-												<c:if test="${searchKeyword != null }">
+												<c:if test="${ not empty param.o }">
 													<c:url var="noticeListP" value="notice.do">
 														<c:param name="page" value="${pageMaker.start - 1}" />
-														<c:param name="o" value="${searchOption }"></c:param>
-														<c:param name="k" value="${searchKeyword }"></c:param>
+														<c:param name="o" value="${param.o}"></c:param>
+														<c:param name="k" value="${param.k}"></c:param>
 													</c:url>
 												</c:if>
-												<c:if test="${searchKeyword == null }">
+												<c:if test="${ empty param.o }">
 													<c:url var="noticeListP" value="notice.do">
 														<c:param name="page" value="${pageMaker.start - 1}" />
 													</c:url>
@@ -99,14 +120,14 @@
 											</c:if>
 											<c:forEach begin="${pageMaker.start }"
 												end="${pageMaker.end}" var="idx">
-												<c:if test="${searchKeyword != null }">
+												<c:if test="${ not empty param.o }">
 													<c:url var="noticeListP" value="notice.do">
 														<c:param name="page" value="${idx}" />
-														<c:param name="o" value="${searchOption }"></c:param>
-														<c:param name="k" value="${searchKeyword }"></c:param>
+														<c:param name="o" value="${param.o}"></c:param>
+														<c:param name="k" value="${param.k}"></c:param>
 													</c:url>
 												</c:if>
-												<c:if test="${searchKeyword == null }">
+												<c:if test="${ empty param.o }">
 													<c:url var="noticeListP" value="notice.do">
 														<c:param name="page" value="${idx}" />
 													</c:url>
@@ -115,17 +136,16 @@
 													class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>'>
 													<a href='${noticeListP }'>${idx}</a>
 												</li>
-
 											</c:forEach>
 											<c:if test="${pageMaker.next }">
-												<c:if test="${searchKeyword != null }">
+												<c:if test="${ not empty param.o }">
 													<c:url var="noticeListP" value="notice.do">
 														<c:param name="page" value="${pageMaker.end + 1}" />
-														<c:param name="o" value="${searchOption }"></c:param>
-														<c:param name="k" value="${searchKeyword }"></c:param>
+														<c:param name="o" value="${param.o}"></c:param>
+														<c:param name="k" value="${param.k}"></c:param>
 													</c:url>
 												</c:if>
-												<c:if test="${searchKeyword == null }">
+												<c:if test="${ empty param.o }">
 													<c:url var="noticeListP" value="notice.do">
 														<c:param name="page" value="${pageMaker.end + 1}" />
 													</c:url>

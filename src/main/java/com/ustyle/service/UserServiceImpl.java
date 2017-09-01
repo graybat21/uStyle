@@ -46,8 +46,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int userExist(String username) throws Exception {
-		return userDao.userExist(username);
+	public int userExist(User user) throws Exception {
+		return userDao.userExist(user);
+	}
+	
+	@Override
+	public HashMap<String, Object> selectUserInfo(String username) throws Exception {
+		return userDao.selectUserInfo(username);
 	}
 	
 	@Override
@@ -58,6 +63,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updatePoint(User user) throws Exception {
 		userDao.updatePoint(user);
+	}
+	
+	@Override
+	public void updateTemporaryPassword(User user) throws Exception {
+		userDao.updateTemporaryPassword(user);
 	}
 
 	@Transactional

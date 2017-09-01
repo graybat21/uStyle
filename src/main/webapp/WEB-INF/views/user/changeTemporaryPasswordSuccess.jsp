@@ -8,8 +8,8 @@
 <body class="cms-index-index">
 	<div class="wrapper">
 		<div class="page one-column">
-			<h1>가입에 성공하셨습니다.</h1>
-			<h2>등록하신 이메일로 인증해주십시오.</h2>
+			<h1>임시 비밀번호로 변경되었습니다.</h1>
+			<h2>이메일을 확인하여 임시 비밀번호를 확인한 후, 그 비밀번호로 로그인해주세요.</h2>
 		</div>
 		<!-- /.page -->
 	</div>

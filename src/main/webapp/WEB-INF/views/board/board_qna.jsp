@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script src="/resources/js/commonBoard.js"></script>
 <style>
 .board {
 	border: 1.5px solid #e0e0e0;
@@ -14,7 +15,6 @@
 </style>
 <div class="wrapper">
 	<div class="page one-column">
-
 		<div class="board-button">
 			<p>
 				<button class="btn btn-default" onclick="location.href='notice.do'">공지사항</button>
@@ -29,7 +29,7 @@
 					<div class="em-wrapper-area02"></div>
 					<div class="em-main-container em-col1-layout">
 						<div class="row">
-							<div class="em-col-main col-sm-24">
+							<div class="em-col-main col-xs-24 col-sm-24">
 
 								<div class="page-header">
 									<div><h1>Q&amp;A</h1></div>
@@ -49,10 +49,15 @@
 											</tr>
 										</thead>
 										<tbody>
+											<c:if test="${not empty qnaList}">
 											<c:forEach var="qna" items="${qnaList}">
 												<c:url var="viewQna" value="qnaView.do">
 													<c:param name="bno" value="${qna.bno}" />
 													<c:param name="page" value="${pageMaker.page}" />
+													<c:if test="${ not empty param.o }">
+														<c:param name="o" value="${param.o}" />
+														<c:param name="k" value="${param.k}" />
+													</c:if>
 												</c:url>
 												<tr>
 													<td style="text-align: center;">${qna.bno}</td>
@@ -65,27 +70,41 @@
 													<td style="text-align: center;">${qna.viewcnt}</td>
 												</tr>
 											</c:forEach>
+											</c:if>
+											<c:if test="${empty qnaList}">
+												<td colspan="6" style="text-align: center">
+												요청하신 자료가 존재하지 않습니다.
+												</td>
+											</c:if>
 										</tbody>
 									</table>
 								</div>
 
 								<div class="bottom">
-									<div class="col-sm-24">
-										<a href="qnaWrite.do">
-										<button class="btn btn-default pull-right">글쓰기</button>
-									</a>
+									<div class="col-xs-24 col-sm-24">
+										<div class="form-search" style="border-style: none; margin: 10px;">
+										<form name="form_search" id="form_search" action="qna.do" onsubmit="return verifyOK()">
+											<select id="searchOption" name="o">
+												<option value="tnc" ${param.o eq "tnc" ? "selected" : "" }>제목 + 내용</option>
+												<option value="tit" ${param.o eq "tit" ? "selected" : "" }>제목</option>
+												<option value="con" ${param.o eq "con" ? "selected" : "" }>내용</option>
+											</select>
+											<input type="text" id="k" name="k" value="${searchKeyword}">
+											<input type="submit" value="검색"> 
+										</form>
+										</div>
 									</div>
-									<div class="col-sm-24 text-center">
+									<div class="col-xs-24 col-sm-24 text-center">
 										<ul class="pagination">
 											<c:if test="${pageMaker.prev }">
-												<c:if test="${searchKeyword != null }">
+												<c:if test="${ not empty param.o }">
 													<c:url var="qnaListP" value="qna.do">
 														<c:param name="page" value="${pageMaker.start - 1}" />
-														<c:param name="o" value="${searchOption }" />
-														<c:param name="k" value="${searchKeyword }" />
+														<c:param name="o" value="${param.o}" />
+														<c:param name="k" value="${param.k}" />
 													</c:url>
 												</c:if>
-												<c:if test="${searchKeyword == null }">
+												<c:if test="${ empty param.o }">
 													<c:url var="qnaListP" value="qna.do">
 														<c:param name="page" value="${pageMaker.start - 1}" />
 													</c:url>
@@ -94,14 +113,14 @@
 											</c:if>
 											<c:forEach begin="${pageMaker.start }"
 												end="${pageMaker.end}" var="idx">
-												<c:if test="${searchKeyword != null }">
+												<c:if test="${ not empty param.o }">
 													<c:url var="qnaListP" value="qna.do">
 														<c:param name="page" value="${idx}" />
-														<c:param name="o" value="${searchOption }"></c:param>
-														<c:param name="k" value="${searchKeyword }"></c:param>
+														<c:param name="o" value="${param.o}" />
+														<c:param name="k" value="${param.k}" />
 													</c:url>
 												</c:if>
-												<c:if test="${searchKeyword == null }">
+												<c:if test="${ empty param.o }">
 													<c:url var="qnaListP" value="qna.do">
 														<c:param name="page" value="${idx}" />
 													</c:url>
@@ -113,14 +132,14 @@
 
 											</c:forEach>
 											<c:if test="${pageMaker.next }">
-												<c:if test="${searchKeyword != null }">
+												<c:if test="${ not empty param.o }">
 													<c:url var="qnaListP" value="qna.do">
 														<c:param name="page" value="${pageMaker.end + 1}" />
-														<c:param name="o" value="${searchOption }"></c:param>
-														<c:param name="k" value="${searchKeyword }"></c:param>
+														<c:param name="o" value="${param.o}"></c:param>
+														<c:param name="k" value="${param.k}"></c:param>
 													</c:url>
 												</c:if>
-												<c:if test="${searchKeyword == null }">
+												<c:if test="${ empty param.o }">
 													<c:url var="qnaListP" value="qna.do">
 														<c:param name="page" value="${pageMaker.end + 1}" />
 													</c:url>

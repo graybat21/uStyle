@@ -40,9 +40,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int userExist(String username) {
-		System.out.println("username = " + username);
-		return session.selectOne(namespace + ".userExist", username);
+	public int userExist(User user) {
+		return session.selectOne(namespace + ".userExist", user);
+	}
+	
+	@Override
+	public HashMap<String, Object> selectUserInfo(String username) {
+		return session.selectOne(namespace + ".selectUserInfo", username);
 	}
 
 	@Override
@@ -53,6 +57,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void updatePoint(User user) {
 		session.update(namespace + ".updatePoint", user);
+	}
+	
+	@Override
+	public void updateTemporaryPassword(User user) {
+		session.update(namespace + ".updateTemporaryPassword", user);
 	}
 
 	@Override

@@ -35,9 +35,11 @@ public class QnaServiceImpl implements QnaService {
 		System.out.println(qna.getParent());
 		
 		if ( qna.getParent() == 0 ) {
-			int bno = dao.getCurrentNo();
 			System.out.println("부모글이 없으면 새글 입력이므로 parent = 0, family는 bno와 같음");
-			qna.setFamily(bno + 1);
+			dao.qnaWrite(qna);
+			int bno = qna.getBno();
+			System.out.println("BNO = " + bno);
+			dao.updateFamilyNo(qna);
 		}
 		else {
 			int parent = qna.getParent();
@@ -45,11 +47,11 @@ public class QnaServiceImpl implements QnaService {
 			int family = dao.getFamilyNo(parent);
 			System.out.println(family);
 			System.out.println("부모글이 있으면 답변글 입력이므로 parent는 부모글번호, family는 부모글번호를 통해 얻은 원글의 family와 같음");
-//			qna.setParent(qna.getBno());
 			qna.setFamily(family);
+			dao.qnaWrite(qna);
 		}
 		
-		dao.qnaWrite(qna);
+		
 	}
 
 	@Transactional
@@ -63,7 +65,7 @@ public class QnaServiceImpl implements QnaService {
 	public Qna qnaViewFromAdmin(int bno) throws Exception {
 		return dao.qnaView(bno);
 	}
-
+	
 	@Override
 	public void qnaDelete(int bno) throws Exception {
 		dao.qnaDelete(bno);

@@ -3,6 +3,7 @@ package com.ustyle.controller;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -182,8 +183,8 @@ public class UserController {
 	 */
 
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, HttpSession session)
-			throws Exception {
+	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, 
+			HttpServletRequest request, HttpSession session) throws Exception {
 
 		logger.info(user.toString());
 		userEntryValidator.validate(user, bindingResult);
@@ -198,14 +199,31 @@ public class UserController {
 			mav.setViewName("user/register/Register");
 			return mav;
 		}
+		
+		String homeUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
 		String joinCode = getUuid();
 		user.setAuth(joinCode);
-		sendMail(user.getUsername(), user.getEmail(), joinCode);
+		sendMailForRegister(homeUrl, user.getUsername(), user.getEmail(), joinCode);
 
 		userService.insert(user);
 		mav.addObject(user);
 
+		return mav;
+	}
+	
+	@RequestMapping(value = "/userInfo.do", method = RequestMethod.GET)
+	public ModelAndView userInfo(HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("user/userInfo/회원 정보");
+		User user = (User) session.getAttribute("session_user");
+		String username = user.getUsername();
+		
+		HashMap<String, Object> userMap = new HashMap<String, Object>();
+		userMap = userService.selectUserInfo(username);
+		
+		mav.addObject("userMap", userMap);
+		
 		return mav;
 	}
 	
@@ -287,13 +305,14 @@ public class UserController {
 	/**
 	 * 가입인증 메일을 보내는 작업
 	 * 
+	 * @param homeUrl
 	 * @param username
 	 * @param email
 	 * @param joinCode
 	 * @throws Exception
 	 */
 	
-	private void sendMail(String username, String email, String joinCode) throws Exception {
+	private void sendMailForRegister(String uri, String username, String email, String joinCode) throws Exception {
 
 		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
 
@@ -304,15 +323,14 @@ public class UserController {
 		mimeMessage.setSubject(subject);
 
 		StringBuilder sb = new StringBuilder();
-		// String uri = "http://localhost:8080/uStyle/";
-		String uri = "http://localhost:8080/";
+
 		sb.append("<a href='" + uri + "'>");
 		sb.append("<img src='https://mark.trademarkia.com/logo-images/symeli-inc/ustyle-85007854.jpg'></a>");
 		sb.append("<h1>Welcome uStyle</h1>");
 		sb.append("저희 uStyle에 가입해 주셔서 감사드립니다.<br>");
 		sb.append("인증을 거친후 저희 사이트를 정상적으로 이용하실 수 있습니다.<br>");
 		sb.append("<hr><br>");
-		sb.append("<a href='" + uri + "auth/" + username + "/" + joinCode + "'>");
+		sb.append("<a href='" + uri + "/auth/" + username + "/" + joinCode + "'>");
 		sb.append("링크를 클릭하시면 인증됩니다.</a>");
 		mimeMessage.setText(sb.toString(), "UTF-8", "html");
 
@@ -382,10 +400,78 @@ public class UserController {
 	@ResponseBody
 	public int userExist(@RequestBody User user) throws Exception {
 		logger.info(user.getUsername());
-		int isUserExist = userService.userExist(user.getUsername());
+		int isUserExist = userService.userExist(user);
 		
 		System.out.println(isUserExist);
 		return isUserExist;
+	}
+	
+	@RequestMapping(value = "/searchPassword.do", method = RequestMethod.GET)
+	public String searchPasswordForm() {
+		return "user/searchPassword/SEARCH PASSWORD";
+	}
+	
+	@RequestMapping(value = "/changeTemporaryPassword.do", method = RequestMethod.POST)
+	public String changeTemporaryPassword(User user, HttpServletRequest request) throws Exception {
+		logger.info(user.toString());
+		int isUserExist = userService.userExist(user);
+		
+		if ( isUserExist == 0 )
+			return "user/changeTemporaryPasswordError/Error";
+		
+		String homeUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		
+		String changePassword = randPassword();
+		
+		String encryptPassword = passwordEncoder.encode(changePassword);
+		user.setPassword(encryptPassword);
+		
+		userService.updateTemporaryPassword(user);
+		
+		sendMailForChangePassword(homeUrl, user.getUsername(), user.getEmail(), changePassword);
+		
+		return "user/changeTemporaryPasswordSuccess/Success";
+	}
+	
+	private String randPassword() {
+		Random rnd = new Random();
+
+		StringBuffer buf =new StringBuffer();
+
+		for ( int i = 0; i < 8; i++ ) {
+		    if ( rnd.nextBoolean() ) {
+		        buf.append((char)((int)(rnd.nextInt(26)) + 97));
+		    }
+		    else {
+		        buf.append((rnd.nextInt(10))); 
+		    }
+		}
+		
+		return buf.toString();
+	}
+	
+	private void sendMailForChangePassword(String uri, String username, String email, String changePassword) throws Exception {
+
+		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
+
+		mimeMessage.setFrom(new InternetAddress("ustyle1111@gmail.com"));
+		mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(email));
+
+		String subject = "uStyle - 임시 비밀번호 변경 메일입니다.";
+		mimeMessage.setSubject(subject);
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("<a href='" + uri + "'>");
+		sb.append("<img src='https://mark.trademarkia.com/logo-images/symeli-inc/ustyle-85007854.jpg'></a>");
+		sb.append("<h1>Welcome uStyle</h1>");
+		sb.append(username + "님의 비밀번호가 아래와 같이 변경되었으니, 이 비밀번호로 우선 로그인하신 후, 원하시는 비밀번호로 변경해주시기 바랍니다.<br>");
+		sb.append("변경된 비밀번호 : " + changePassword + "<br>");
+		sb.append("<hr><br>");
+		
+		mimeMessage.setText(sb.toString(), "UTF-8", "html");
+
+		javaMailSenderImpl.send(mimeMessage);
 	}
 	
 	/**

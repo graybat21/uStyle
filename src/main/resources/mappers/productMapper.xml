@@ -34,11 +34,34 @@
 		AND TABLE_NAME = 'tbl_product'
  	</select>
  	
+ 	<sql id="search">
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+ 			<choose>
+ 				<when test="searchOption == 'productname'">
+ 					where productname like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'productid'">
+	   				where productid like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'brand'">
+	   				where brand like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'category'">
+	   				where category like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'subcategory'">
+	   				where subcategory like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'description'">
+	   				where description like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+ 			</choose>
+		</if>
+ 	</sql>
+ 	
  	<select id="selectListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_product
- 		<if test="searchKeyword != null || searchKeyword == ''">
-   		where ${searchOption} like '%${searchKeyword}%'
-		</if>
+ 		<include refid="search"></include>
  	</select>
  	
  	<select id="productList" resultType="product" parameterType="hashmap">
@@ -50,9 +73,7 @@
 					productid, productname, description, brand, 
 					category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
 			FROM tbl_product, (SELECT @row_number:=0) as t
-          	<if test="searchKeyword != null || searchKeyword == ''">
-    		WHERE ${searchOption} LIKE '%${searchKeyword}%'
-  			</if>
+          	<include refid="search"></include>
           	ORDER BY productid DESC
 			) X 
 		WHERE X.row_number BETWEEN #{first} AND #{last}
@@ -150,6 +171,42 @@
 		WHERE 
 			subcategory = #{subcategory} 
 		GROUP BY originalprice
+	</select>
+	
+	<select id="selectListCntForProductname" resultType="int" parameterType="hashmap">
+ 		SELECT count(*) 
+ 		FROM 
+ 			tbl_product
+ 		WHERE
+			productname like CONCAT('%', #{productname}, '%')
+ 	</select>
+	
+	<select id="productListForProductname" resultType="product" parameterType="hashmap">
+		SELECT 
+			productid, productname, description, brand, 
+			category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
+		FROM
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					productid, productname, description, brand, 
+					category, subcategory, pictureurl, mainpictureurl, originalprice, saleprice
+			FROM tbl_product, (SELECT @row_number:=0) as t
+			WHERE productname like CONCAT('%', #{productname}, '%')
+			<choose>
+				<when test="sortby == 'productname'">
+	          	ORDER BY productname ASC
+	          	</when>
+	          	<when test="sortby == 'create_time'">
+	          	ORDER BY create_time DESC
+	          	</when>
+				<when test="sortby == 'saleprice_asc'">
+	          	ORDER BY saleprice ASC
+	          	</when>
+	          	<when test="sortby == 'saleprice_desc'">
+	          	ORDER BY saleprice DESC
+	          	</when>
+          	</choose>
+			) X 
+		WHERE X.row_number BETWEEN #{first} and #{last}
 	</select>
 	
 	<update id="update" parameterType="product">

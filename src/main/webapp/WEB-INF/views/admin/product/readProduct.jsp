@@ -6,7 +6,7 @@
 <!-- Main content -->
 
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>상품 정보</h1>
@@ -26,9 +26,10 @@
 					<form role="form" action="modifyPage" method="post">
 						<input type="hidden" name="productid" value="${product.productid}">
 						<input type="hidden" name="page" value="${page}">
-						<%--input type="hidden" name="perPageNum" value="${cri.perPageNum}">
-						<input type="hidden" name="searchType" value="${cri.searchType}">
-						<input type="hidden" name="keyword" value="${cri.keyword}"--%>
+						<c:if test="${ not empty param.o }">
+							<input type="hidden" name="o" value="${param.o}" />
+							<input type="hidden" name="k" value="${param.k}" />
+						</c:if>
 					</form>
 					
 					<div class="box-body">		
@@ -118,6 +119,34 @@ var token  = $("meta[name='_csrf']").attr("content");
 
 var productid = '${product.productid}';
 
+function deleteProduct(productid) {
+	
+	$.ajax({
+		type: 'post',
+		url: 'deleteProduct.do',
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+	    },
+		headers: {
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType: "text",
+		data: JSON.stringify({productid: productid}),
+		success: function(result) {
+			console.log("result: " + result);
+			
+			if ( result == 'SUCCESS' ) {
+				alert("선택한 Product가 삭제되었습니다.");
+				location.href = "/admin/product/productList.do";
+			}
+		},
+		error: function(request, status, error) {
+		    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
+	    }
+	});
+}
+
 $(document).ready(function() {
 	
 	var formObj = $("form[role='form']");
@@ -131,36 +160,59 @@ $(document).ready(function() {
 	});
 	
 	$("#removeBtn").on("click", function() {
-		var result = confirm("선택한 물품을 삭제하시겠습니까?");
 		
-		if ( result )
-		{
-			var arr = [];
+		if ( confirm("선택한 Product를 삭제하시겠습니까?") ) {
+			$.ajax({
+				type: 'post',
+				url: 'isDeleteProduct.do',
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(header, token);
+			    },
+				headers: {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType: "text",
+				data: JSON.stringify({productid: productid}),
+				success: function(result) {
+					console.log("result: " + result);
+					
+					if ( result == 'FAIL' ) {
+						alert("사용자의 Pin에 들어가있거나 구매 내역이 있는 Product는 삭제가 불가능합니다.");
+						return false;
+					}
+					else {
+						
+						var arr = [];
+						
+						$.ajaxSetup({
+						    beforeSend: function(xhr) {
+						    	xhr.setRequestHeader(header, token);
+						    }
+						});
 
-			$.ajaxSetup({
-			    beforeSend: function(xhr) {
-			    	xhr.setRequestHeader(header, token);
+						$(".uploadedList li").each(function(index) {
+							arr.push($(this).attr("data-src"));
+						});
+						
+						if ( arr.length > 0 )
+						{
+							$.post("/deleteAllFiles", {files: arr}, function() {
+								
+							});
+						}
+						
+						deleteProduct(productid);
+					}
+				},
+				error: function(request, status, error) {
+				    alert("code:" + request.status + "\n" + "message:" + request.responseText+"\n" + "error:" + error);
 			    }
 			});
-			
-			$(".uploadedList li").each(function(index) {
-				arr.push($(this).attr("data-src"));
-			});
-			
-			if ( arr.length > 0 )
-			{
-				$.post("/deleteAllFiles", {files: arr}, function() {
-					
-				});
-			}	
-			
-			formObj.attr("action", "/admin/product/deleteProduct.do");
-			formObj.attr("method", "get");
-			formObj.submit();
+			return false;
 		}
-		else
-		{
-			
+		else {
+			return false;
 		}
 	});
 	

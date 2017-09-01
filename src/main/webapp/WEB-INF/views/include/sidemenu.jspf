@@ -5,7 +5,7 @@
 
 
 <!-- 사이드바 -->
-<div class="col-sm-6 col-sm-pull-18 em-col-left em-sidebar">
+<div class="col-xs-24 col-sm-6 col-sm-pull-18 em-col-left em-sidebar">
 	<div class="em-wrapper-area02"></div>
 	<div class="em-line-01 block block-layered-nav">
 		<div class="em-block-title block-title">
@@ -14,7 +14,8 @@
 		<div class="block-content">
 			<p class="block-subtitle"></p>
 			<dl id="narrow-by-list">
-				<dt>회원정보</dt>
+				<a class="tree-item" href="userInfo.do">
+				<dt>회원정보</dt></a>
 				<dd>
 					<ol class="filter tree-filter">
 						<li>
@@ -35,14 +36,14 @@
 						</li>
 					</ol>
 				</dd>
-				<a class="tree-item" href="viewPinBoard.do">
+				<a class="tree-item" href="/pin/myPinBoardList.do">
 				<dt>PinBoard</dt></a>
 				<dd>
 					<div class="rslider">
 						<div id="slider-range"></div>
 						<div class="values">
-							<span id="from-val"><span class="price">Q&A</span></span>
-							<a href="myQnaList.do">
+							<a href="/board/myQnaList.do">
+							<span id="from-val"><span class="price">Q&amp;A</span></span>
 							<span id="to-val"><span class="price">내가쓴글</span></span>
 							</a>
 						</div>
@@ -52,14 +53,5 @@
 		</div>
 	</div>
 	<!-- /.block-layered-nav -->
-	<div class="em-line-01 block block-list block-compare ">
-		<div class="em-block-title block-title">
-			<strong><span>Compare Products (0)</span></strong>
-		</div>
-		<div class="block-content">
-			<p class="empty">You have no items to compare.</p>
-		</div>
-	</div>
-	<!-- /.block-compare -->
 </div>
 <!-- /.em-sidebar -->

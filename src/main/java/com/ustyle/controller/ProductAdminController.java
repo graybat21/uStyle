@@ -1,5 +1,6 @@
 package com.ustyle.controller;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -122,8 +123,8 @@ public class ProductAdminController {
 	}
 	
 	@RequestMapping(value = "modifyProduct.do", method = RequestMethod.POST)
-	public ModelAndView modifyProduct(@ModelAttribute @Valid Product product, BindingResult bindingResult)
-			throws Exception {
+	public ModelAndView modifyProduct(@ModelAttribute @Valid Product product, int page, 
+			String searchOption, String searchKeyword) throws Exception {
 
 		String[] files = product.getFiles();
 		
@@ -137,9 +138,19 @@ public class ProductAdminController {
 
 		logger.info(product.toString());
 
-		ModelAndView mav = new ModelAndView("main/base");
+		ModelAndView mav = new ModelAndView();
 
 		service.update(product);
+		
+		int productid = product.getProductid();
+		
+		if ( searchKeyword != null ) {
+			searchKeyword = URLEncoder.encode(searchKeyword, "UTF-8");		// 한글이 깨져나오지 않게 하기 위한 처리
+			mav.setViewName("redirect:/admin/product/readProduct.do?productid=" + productid +"&page=" + page + "&o=" + searchOption + "&k=" + searchKeyword);
+		}
+		else
+			mav.setViewName("redirect:/admin/product/readProduct.do?productid=" + productid + "&page=" + page);
+		
 		mav.addObject(product);
 		return mav;
 	}
@@ -148,6 +159,10 @@ public class ProductAdminController {
 	public ModelAndView productList(PageMaker pagemaker, @RequestParam(value = "o", required = false) String searchOption,
 			@RequestParam(value = "k", required = false) String searchKeyword) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		
+		if ( searchKeyword != null )
+			searchKeyword = searchKeyword.trim();
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		int page = pagemaker.getPage() != null ? pagemaker.getPage() : 1;
@@ -192,7 +207,7 @@ public class ProductAdminController {
 	
 	@ResponseBody
 	@RequestMapping(value = "isDeleteProduct.do", method = RequestMethod.POST)
-	public ResponseEntity<String> isDeleteItem(@RequestBody Product product) throws Exception {
+	public ResponseEntity<String> isDeleteProduct(@RequestBody Product product) throws Exception {
 		
 		ResponseEntity<String> entity = null;
 		

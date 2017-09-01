@@ -14,12 +14,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, 
-			HttpServletResponse response, Object handler) throws Exception
-	{
+			HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 
-		if ( session.getAttribute("session_user") == null )
-		{
+		if ( session.getAttribute("session_user") == null ) {
 			logger.info("current user is not logined");
 			
 			String oldUrl = request.getHeader("referer");		// 이전 페이지 주소값

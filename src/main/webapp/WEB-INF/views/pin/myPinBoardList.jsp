@@ -10,8 +10,8 @@
 }
 
 .pinBoardImage {
-	width: 200px;
-	height: 250px;
+	max-width: 200px;
+	max-height: 200px;
 }
 .modal.modal-center{
 	text-align: center;
@@ -85,12 +85,14 @@ $('body').on('hidden.bs.modal', '.modal', function (e) {
 					        </c:url>
 							<a href="${pinUrl}" data-toggle="modal" data-target="#myModal">
 								<div class="well col-md-5 pinboard-element">
+									<div class="col-xs-24 col-sm-24 col-md-24">
 									<c:if test="${pinBoard.mainpictureproductid > 0}">
 										<img class="pinBoardImage" src="/displayMainPictureurl?productid=${pinBoard.mainpictureproductid}" />
 									</c:if>
 									<c:if test="${pinBoard.mainpictureproductid == 0}">
 										<img class="pinBoardImage" src="/displayFile?fileName=/ustylenone.jpg" />
 									</c:if>
+									</div>
 									<div>${pinBoard.pinboardname}</div>
 									<div>${pinBoard.likecnt} LIKE</div>
 								</div>

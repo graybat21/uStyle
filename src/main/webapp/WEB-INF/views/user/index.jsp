@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+.product-image-img {
+	max-height: 300px;
+}
+</style>
 <div class="em-wrapper-main">
 	<div class="container-main">
 
@@ -34,8 +39,8 @@
 	                                                                                         <div class="product-shop-top">
 	                                                                                             <a href="/product/productDetail.do?productid=${newArrivalProduct.productid}" title="${newArrivalProduct.productname}" class="product-image" target="_blank">
 	                                                                                                 <!--show label product - label extension is required-->
-	                                                                                                 <img class="em-alt-hover img-responsive em-img-lazy" src="/displayMainPictureurl?productid=${newArrivalProduct.productid}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
-	                                                                                                 <img class="img-responsive em-img-lazy em-alt-org" src="/displayMainPictureurl?productid=${newArrivalProduct.productid}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
+	                                                                                                 <img class="em-alt-hover img-responsive em-img-lazy product-image-img" src="/displayMainPictureurl?productid=${newArrivalProduct.productid}" alt="${newArrivalProduct.productname}" />
+	                                                                                                 <img class="img-responsive em-img-lazy em-alt-org product-image-img" src="/displayMainPictureurl?productid=${newArrivalProduct.productid}" alt="${newArrivalProduct.productname}" />
 	                                                                                             </a>
 	                                                                                         </div><!-- /.product-shop-top -->
 	                                                                                         <div class="product-shop">
@@ -115,8 +120,8 @@
 		                                                                                    <div class="product-shop-top">
 		                                                                                        <a href="/product/productDetail.do?productid=${bestProduct.productid}" title="${bestProduct.productname}" class="product-image" target="_blank">
 		                                                                                            <!--show label product - label extension is required-->
-		                                                                                            <img class="em-alt-hover img-responsive em-img-lazy" src="/displayFile?fileName=${bestProduct.mainpictureurl}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
-		                                                                                            <img class="img-responsive em-img-lazy em-alt-org" src="/displayFile?fileName=${bestProduct.mainpictureurl}" width="200px" height="250px" alt="${newArrivalProduct.productname}" />
+		                                                                                            <img class="em-alt-hover img-responsive em-img-lazy product-image-img" src="/displayMainPictureurl?productid=${bestProduct.productid}" alt="${newArrivalProduct.productname}" />
+		                                                                                            <img class="img-responsive em-img-lazy em-alt-org product-image-img" src="/displayMainPictureurl?productid=${bestProduct.productid}" alt="${newArrivalProduct.productname}" />
 		                                                                                        </a>
 		                                                                                    </div><!-- /.product-shop-top -->
 		                                                                                    <div class="product-shop">

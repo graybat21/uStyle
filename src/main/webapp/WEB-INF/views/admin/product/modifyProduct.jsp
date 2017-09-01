@@ -32,6 +32,13 @@
 				
 				<form id="registerProductForm" name="registerProductForm" method="post">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<input type="hidden" name="page" value="${param.page}">
+					
+					<c:if test="${ not empty param.o }">
+						<input type="hidden" name="searchOption" value="${param.o}">
+						<input type="hidden" name="searchKeyword" value="${param.k}">
+					</c:if>
+					
 					<div class="box-body">
 						<div class="col-sm-8 form-group">
 							<label for="exampleInputEmail1">상품명</label>
@@ -91,7 +98,7 @@
   </div>
   <!-- /.content-wrapper -->
   
- <script type="text/javascript" src="/resources/js/upload.js"></script>
+<script type="text/javascript" src="/resources/js/upload.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <script id="template" type="text/x-handlebars-template">

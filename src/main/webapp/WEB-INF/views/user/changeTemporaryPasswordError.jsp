@@ -4,12 +4,16 @@
 <!DOCTYPE html>
 <html class='no-js' lang='ko'>
 <head>
+<script>
+function noMatch(){
+	alert('아이디와 이메일 주소를 다시 확인하세요.');
+	location.href= "/searchPassword.do";
+}
+</script>
 </head>
-<body class="cms-index-index">
+<body class="cms-index-index" onload="noMatch()">
 	<div class="wrapper">
 		<div class="page one-column">
-			<h1>가입에 성공하셨습니다.</h1>
-			<h2>등록하신 이메일로 인증해주십시오.</h2>
 		</div>
 		<!-- /.page -->
 	</div>

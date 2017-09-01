@@ -13,6 +13,7 @@ import com.ustyle.domain.Qna;
 @Repository
 public class QnaDAOImpl implements QnaDAO {
 	private static String namespace = "com.ustyle.mappers.qnaMapper";
+	
 	@Inject
 	private SqlSession session;
 
@@ -30,6 +31,11 @@ public class QnaDAOImpl implements QnaDAO {
 	public void qnaWrite(Qna qna) {
 		session.insert(namespace+".qnaWrite",qna);
 	}
+	
+	@Override
+	public void updateFamilyNo(Qna qna) {
+		session.update(namespace + ".updateFamilyNo", qna);
+	}
 
 	@Override
 	public Qna qnaView(int bno) {
@@ -43,32 +49,32 @@ public class QnaDAOImpl implements QnaDAO {
 
 	@Override
 	public int getCurrentNo() {
-		return session.selectOne(namespace+".getCurrentNo");
+		return session.selectOne(namespace + ".getCurrentNo");
 	}
 
 	@Override
 	public int getFamilyNo(int parent) {
-		return session.selectOne(namespace+".getFamilyNo",parent);
+		return session.selectOne(namespace + ".getFamilyNo",parent);
 	}
-
+	
 	@Override
 	public void qnaDelete(int bno) {
-		session.delete(namespace+".qnaDelete",bno);
+		session.delete(namespace + ".qnaDelete",bno);
 	}
 
 	@Override
 	public int selectMyListCnt(HashMap<String, Object> map) {
-		return session.selectOne(namespace+".selectMyListCnt", map);
+		return session.selectOne(namespace + ".selectMyListCnt", map);
 	}
 
 	@Override
 	public List<Qna> myQnaList(HashMap<String, Object> map) {
-		return session.selectList(namespace+".myQnaList",map);
+		return session.selectList(namespace +".myQnaList",map);
 	}
 
 	@Override
 	public void qnaModify(Qna qna) {
-		session.update(namespace+".qnaModify",qna);
+		session.update(namespace +".qnaModify",qna);
 	}
 
 }

@@ -75,6 +75,16 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
+	public int selectListCntForProductname(HashMap<String, Object> map) throws Exception {
+		return session.selectOne(namespace + ".selectListCntForProductname", map);
+	}
+	
+	@Override
+	public List<Product> productListForProductname(HashMap<String, Object> map) throws Exception {
+		return session.selectList(namespace + ".productListForProductname", map);
+	}
+	
+	@Override
 	public void update(Product product) throws Exception {
 		session.update(namespace + ".update", product);
 	}

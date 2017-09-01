@@ -87,7 +87,7 @@ public class ProductController {
 		List<HashMap<String,Object>> subcategoryList = productService.subcategoryListForSubcategory(subcategory);
 		List<HashMap<String,Object>> priceList = productService.priceRangeForSubcategory(subcategory);
 
-		logger.info(brandList.toString());
+		logger.info(productList.toString());
 		mav.addObject("productList", productList);
 		mav.addObject("brandList", brandList);
 		mav.addObject("subcategoryList", subcategoryList);
@@ -102,7 +102,53 @@ public class ProductController {
 		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "searchProductList.do", method = RequestMethod.GET)
+	public ModelAndView searchProductList(@RequestParam(value = "pageCount", required = false) Integer pageCount, 
+		@RequestParam(value = "countPerPage", required = false) Integer countPerPage, 
+		@RequestParam(value = "productname", required = false) String productname,
+		@RequestParam(value = "sortby",  defaultValue = "productid") String sortby) throws Exception {
+
+		PageMaker pageMaker = new PageMaker();
 		
+		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
+		pageMaker.setPage(page);
+		
+		ModelAndView mav = new ModelAndView("product/searchProductList/검색 결과");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("productname", productname);
+		
+		int totalCnt = productService.selectListCntForProductname(map); // DB연동_ 총 갯수 구해오기
+		
+		int countPerPaging = 10;
+		
+		int pageCnt = ( countPerPage != null ) ? countPerPage.intValue() : 12;
+		
+		pageMaker.setCount(totalCnt, pageCnt, countPerPaging);
+		
+		logger.info("PRODUCTNAME TO SEARCH = " + productname);
+		logger.info("SORTBY = " + sortby);
+		
+		int first = ((pageMaker.getPage() - 1) * pageCnt) + 1;
+		int last = ( first + pageCnt - 1 > totalCnt ) ? totalCnt : first + pageCnt - 1;
+		
+		map.put("first", first);
+		map.put("last", last);
+		map.put("sortby", sortby);
+		
+		List<Product> productList = productService.productListForProductname(map);
+		System.out.println(totalCnt);
+		logger.info(productList.toString());
+		mav.addObject("productList", productList);
+		mav.addObject("sortby", sortby);
+		mav.addObject("totalCnt", totalCnt);
+		mav.addObject("first", first);
+		mav.addObject("last", last);
+		mav.addObject("pageMaker", pageMaker);
+		
+		return mav;
 	}
 	
 	/**

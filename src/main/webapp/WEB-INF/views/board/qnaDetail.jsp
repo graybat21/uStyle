@@ -37,11 +37,14 @@
 		                    </li>
 		                </ul>
 		            <div class="board-button">
-						<button class="btn btn-default" onclick="location.href='qna.do'">목록</button>
-						<c:if test="${qna.username == session_user['username']}">
-							<button class="btn btn-default" onclick="location.href='qnaModify.do?bno=${qna.bno}'">글수정</button>
-							<button class="btn btn-default" onclick="removeQnA(${qna.bno})">글삭제</button>
-	                    </c:if>
+		            	<c:url var="qnaList" value="qna.do">
+							<c:param name="page" value="${param.page}" />
+							<c:if test="${ not empty param.o }">
+								<c:param name="o" value="${param.o}" />
+								<c:param name="k" value="${param.k}" />
+							</c:if>
+						</c:url>
+						<button class="btn btn-default" onclick="location.href='${qnaList}'">목록</button>
 				    </div>
 			    </div>
 			</div><!-- /.form_review -->
@@ -50,43 +53,3 @@
 	<!-- /.container -->
 </div>
 </body>
-
-<script type="text/javascript">
-var header = $("meta[name='_csrf_header']").attr("content");
-var token  = $("meta[name='_csrf']").attr("content");
-
-var page = '${page}';
-
-function removeQnA(bno) {
-	
-	if ( confirm("이 글을 삭제하시겠습니까?") == true )
-	{
-		$.ajax({
-			type: 'post',
-			url: 'qnaDelete.do',
-			beforeSend: function(xhr){
-				xhr.setRequestHeader(header, token);
-		    },
-			headers: {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType: "text",
-			data: JSON.stringify({bno: bno}),
-			success: function(result) {
-				console.log("result: " + result);
-				
-				if ( result == 'SUCCESS' ) {
-					window.location.href = "qna.do?page=" + page;
-				}
-			},
-			error: function(request, status, error) {
-			    alert("올바르지 않은 글 삭제입니다.");
-			    window.location.href = "qna.do?page=" + page;
-		    }
-		});
-	}
-}
-</script>
-
-</html>

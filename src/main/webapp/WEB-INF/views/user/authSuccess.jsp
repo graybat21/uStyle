@@ -8,16 +8,7 @@
 <body class="cms-index-index">
 	<div class="wrapper">
 		<div class="page one-column">
-		
-		
-		<h1>인증 성공</h1>
-		
-		
-		
-		
-		
-		
-		
+			<h1>인증 성공</h1>
 		</div>
 		<!-- /.page -->
 	</div>

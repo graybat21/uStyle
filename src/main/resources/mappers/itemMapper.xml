@@ -15,20 +15,27 @@
 		select count(*) > 0 as existitem from tbl_item
 		where productid = #{productid} and color = #{color} and size = #{size}
    	</select>
+   	
+   	<sql id="search">
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+ 			<choose>
+ 				<when test="searchOption == 'productname'">
+  					AND p.productname LIKE CONCAT('%', #{searchKeyword}, '%')
+  				</when>
+	   			<when test="searchOption == 'productid'">
+	   				AND i.productid like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'itemid'">
+	   				AND i.itemid like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+ 			</choose>
+		</if>
+ 	</sql>
   
  	<select id="selectListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_item as i, tbl_product as p
  		WHERE i.productid = p.productid
- 		<if test="searchKeyword != null || searchKeyword != ''">
-  			<choose>
-  				<when test="searchOption == 'productname'">
-  				AND p.productname LIKE '%${searchKeyword}%'
-  				</when>
-  				<otherwise>
-  				AND i.${searchOption} LIKE '%${searchKeyword}%'
-  				</otherwise>
-  			</choose>
- 		</if>
+ 		<include refid="search"></include>
  	</select>
  	
  	<select id="itemList" resultType="item" parameterType="hashmap">
@@ -40,16 +47,7 @@
 					p.productname, i.* 
 			FROM tbl_item as i, tbl_product as p, (SELECT @row_number:=0) as t
 			WHERE i.productid = p.productid 
-          	<if test="searchKeyword != null || searchKeyword != ''">
-  			<choose>
-  				<when test="searchOption == 'productname'">
-  				AND p.productname LIKE '%${searchKeyword}%'
-  				</when>
-  				<otherwise>
-  				AND i.${searchOption} LIKE '%${searchKeyword}%'
-  				</otherwise>
-  			</choose>
-  			</if>
+          	<include refid="search"></include>
           	ORDER BY itemid DESC
 			) X 
 		WHERE X.row_number BETWEEN #{first} and #{last}

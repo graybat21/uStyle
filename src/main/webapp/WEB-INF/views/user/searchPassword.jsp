@@ -1,5 +1,32 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var mailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/g;
+	
+	$('#search_password_form').submit(function () {
+	
+	    var username = $.trim($('#username').val());
+	    var email = $.trim($('#email').val());
+	    
+	    if (username === '') {
+	        alert('아이디를 입력하세요.');
+	        return false;
+	    }
+	    else if (email  === '') {
+	        alert('이메일을 입력하세요.');
+	        return false;
+	    }
+	    else if ( !mailReg.test(email) ) 
+		{
+			alert("올바른 메일주소 형식이 아닙니다. 다시 확인해주세요.");
+			return false;
+		}
+	});
+});
+</script>
+
 <div class="wrapper">
 	<!-- 스크립트 비활성화할 경우에 나오는 부분 -->
 	
@@ -15,32 +42,15 @@
 								<div class="account-login">
 									<div class="page-title em-box-02">
 										<div class="title-box">
-											<h1>Login or Create an Account</h1>
+											<h1>Search Password</h1>
 										</div>
 									</div>
-									<form action="/loginPost.do" method="post" id="login-form">
-										<input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" />
+									<form action="changeTemporaryPassword.do" method="post" id="search_password_form">
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										<div class="col2-set">
-											<div class="col-1 new-users">
+											<div class="col-1 registered-users">
 												<div class="content">
-													<h2>New Customers</h2>
-													<p>By creating an account with our store, you will be
-														able to move through the checkout process faster, store
-														multiple shipping addresses, view and track your orders
-														in your account and more.</p>
-												</div>
-												<div class="buttons-set">
-													<button type="button" title="Create an Account"
-														class="button" onclick="location.href='register.do'">
-														<span><span>Create an Account</span></span>
-													</button>
-												</div>
-											</div>
-											<div class="col-2 registered-users">
-												<div class="content">
-													<h2>Registered Customers</h2>
-													<p>If you have an account with us, please log in.</p>
+													<h2>Search Password</h2>
 													<ul class="form-list">
 														<li><label for="email" class="required"><em>*</em>UserName</label>
 															<div class="input-box">
@@ -49,11 +59,11 @@
 																	class="input-text required-entry validate-username"
 																	title="UserName" />
 															</div></li>
-														<li><label for="pass" class="required"><em>*</em>Password</label>
+														<li><label for="pass" class="required"><em>*</em>Email Address</label>
 															<div class="input-box">
-																<input type="password" name="password"
+																<input type="text" name="email"
 																	class="input-text required-entry validate-password"
-																	id="pass" title="Password" />
+																	id="email" title="Email Address" />
 															</div></li>
 													</ul>
 													<div id="window-overlay" class="window-overlay"
@@ -79,9 +89,8 @@
 												<div class="buttons-set">
 													<button type="submit" class="button" title="Login"
 														name="send" id="send2">
-														<span><span>Login</span></span>
+														<span><span>Search Password</span></span>
 													</button>
-													<a href="searchPassword.do" class="f-left">Forgot Your Password?</a>
 													<p class="required">* Required Fields</p>
 												</div>
 											</div>

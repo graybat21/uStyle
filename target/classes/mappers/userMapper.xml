@@ -17,9 +17,12 @@
     	where username = #{username}
     </select>
     
-    <select id="userExist" parameterType="String" resultType="int">
+    <select id="userExist" parameterType="user" resultType="int">
     	select count(*) from tbl_user
     	where username = #{username}
+    	<if test="email != null || email == ''">
+   		and email = #{email}
+		</if>
     </select>
     
     <update id="userAuthInitialize" parameterType="String">
@@ -27,13 +30,25 @@
     	where username = #{username}
     </update>
     
+    <select id="selectUserInfo" parameterType="String" resultType="hashmap">
+    	select realname, email, postcode, addr1, addr2, create_time, phone, grade 
+		from tbl_user as user, tbl_grade as grade 
+		where username = #{username} and user.grade_idx = grade.idx;
+    </select>
+    
     <update id="update" parameterType="user">
 		update tbl_user set password = #{password}, postcode = #{postcode}, phone = #{phone}, realname = #{realname},
 		addr1 = #{addr1}, addr2 = #{addr2}
 		where username = #{username}
 	</update>
+	
 	<update id="updatePoint" parameterType="user">
 		update tbl_user set point = #{point}
+		where username = #{username}
+	</update>
+	
+	<update id="updateTemporaryPassword" parameterType="user">
+		update tbl_user set password = #{password}
 		where username = #{username}
 	</update>
  
