@@ -1,7 +1,11 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<style>
+.product-image-img {
+	max-height: 300px;
+}
+</style>
 <div class="wrapper">
     <noscript>
         <div class="global-site-notice noscript">
@@ -115,7 +119,7 @@
                                                              <div class="text-center ">
                                                                  <div class="price-box"> 
                                                                   <c:if test="${ product.originalprice > product.saleprice }">
-                                                                     	<span class="price"><del><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></del></span><br>
+                                                                     	<p class="old-price"><span class="price"><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></span></p>
                                                                      </c:if>
                                                                   <span class="price" id="product-price-206"> <span class="price" style="font-color:red"><fmt:formatNumber value="${product.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
                                                                  </div>

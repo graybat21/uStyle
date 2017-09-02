@@ -1,9 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-        
-	<body class=" checkout-cart-index ">
-    	
         <div class="wrapper">
             <noscript>
                 <div class="global-site-notice noscript">
@@ -65,7 +62,7 @@
 		                                                            <tr class="last even">
 		                                                                <td>
 		                                                                    <div class="cart-product">
-		                                                                        <a title="${userPurchase.productname}" class="product-image"><img src="/displayMainPictureurl?productid=${userPurchase.productid}" width="100" alt="${userPurchase.productname }" />
+		                                                                        <a title="${userPurchase.productname}" class="product-image"><img src="/displayFile?fileName=${userPurchase.mainpictureurl}" alt="${userPurchase.productname }" />
 		                                                                        </a>
 		                                                                    </div>
 		                                                                </td>
@@ -275,6 +272,3 @@
     	}
     }
 </script>
-
-    </body>
-</html>
