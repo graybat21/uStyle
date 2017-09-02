@@ -322,7 +322,7 @@ $(document).ready(function(){
 												<div class="action-forgot">
 													<div class="login_forgotpassword">
 														<p>
-															<a href="/searchPassword.do">Forgot Your Password?</a>
+															<a href="/changePassword.do">Forgot Your Password?</a>
 														</p>
 														<p>
 															<span>Don't have an account?</span><a
@@ -631,7 +631,7 @@ $(document).ready(function(){
 														</ul>
 													</li>
 													<!-- /.menu-item-link -->
-													<li class="menu-item-link menu-item-depth-0 hidden-sm hidden-md menu-item-parent">
+													<li class="menu-item-link menu-item-depth-0 menu-item-parent">
 														<a class="em-menu-link" href="#"> <span>Shoes</span></a>
 														<ul class="menu-container">
 															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12 menu-item-parent">
@@ -676,7 +676,7 @@ $(document).ready(function(){
 														</ul>
 													</li>
 													<!-- /.menu-item-link -->
-													<li class="menu-item-link menu-item-depth-0 hidden-sm hidden-md menu-item-parent">
+													<li class="menu-item-link menu-item-depth-0 menu-item-parent">
 														<a class="em-menu-link" href="#"><span>Accessories</span></a>
 														<ul class="menu-container">
 															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12 menu-item-parent">

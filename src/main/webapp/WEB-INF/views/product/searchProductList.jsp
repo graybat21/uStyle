@@ -1,7 +1,11 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<style>
+.product-image-img {
+	max-height: 300px;
+}
+</style>
 	<body class="catalog-category-view">
     	
         <div class="wrapper">
@@ -64,12 +68,10 @@
                                                             <div class="toolbar-title">
                                                                 <label>Sort By</label>
                                                                 <form name="sortForm">
-                                                                <input type="hidden" name="pageCount" value="${pageCount }">
-                                                                <input type="hidden" name="countPerPage" value="${countPerPage }">
+                                                                <input type="hidden" name="pageCount" value="${pageCount}">
+                                                                <input type="hidden" name="countPerPage" value="${countPerPage}">
                                                                 <input type="hidden" name="subcategory" value="${subcategory}">
-                                                                <c:if test="${brand != null || brand == '' }">
-                                                                <input type="hidden" name="brand" value="${brand}">
-                                                                </c:if>
+                                                                <input type="hidden" name="productname" value="${param.productname}">
                                                                 <select class="sortby" name="sortby" id="sortby" onchange="javascript:sortForm.submit()">
                                                                     <option value="create_time" <c:out value="${sortby == 'create_time' ? 'selected' : ''}" />>등록순</option>
                                                                     <option value="productname" <c:out value="${sortby == 'productname' ? 'selected' : ''}" />>이름순</option>
@@ -88,22 +90,16 @@
 	                                                    <li class="item">
 	                                                        <div class="product-item">
 	                                                            <div class="product-shop-top">
-	                                                                <a href="/product/productDetail.do?productid=${product.productid}" title="${product.productname}" class="product-image"> <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org" src="/displayMainPictureurl?productid=${product.productid}" width="150px" height="150px" alt="${product.productname}" /><span class="bkg-hover"></span> </a>
+	                                                                <a href="/product/productDetail.do?productid=${product.productid}" title="${product.productname}" class="product-image"> 
+	                                                                <img id="product-collection-image-215" class="em-img-lazy img-responsive em-alt-org product-image-img" src="/displayMainPictureurl?productid=${product.productid}" width="150px" height="150px" alt="${product.productname}" /><span class="bkg-hover"></span> </a>
 	                                                            </div>
 	                                                            <div class="product-shop">
 	                                                                <div class="f-fix">
 	                                                                    <h2 class="product-name text-center  "><a href="/product/productDetail.do?productid=${product.productid}" title="${product.productname}">${product.productname}</a></h2>
-	                                                                    <div class=" text-center">
-	                                                                        <div class="ratings">
-	                                                                            <div class="rating-box">
-	                                                                                <div class="rating" style="width:%"></div>
-	                                                                            </div> <span class="amount"><a href="#" onclick="215">(0)</a></span>
-	                                                                        </div>
-	                                                                    </div>
 	                                                                    <div class="text-center ">
 	                                                                        <div class="price-box"> 
 		                                                                        <c:if test="${ product.originalprice > product.saleprice }">
-	                                                                            	<span class="price"><del><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></del></span><br>
+	                                                                            	<p class="old-price"><span class="price"><del><fmt:formatNumber value="${product.originalprice}" type="currency" currencySymbol="￦"/></del></span></p>
 	                                                                            </c:if>
 		                                                                        <span class="price" id="product-price-206"> <span class="price" style="font-color:red"><fmt:formatNumber value="${product.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
 	                                                                        </div>
@@ -128,9 +124,7 @@
 																        <c:param name="countPerPage" value="12" />
 																        <c:param name="subcategory" value="${subcategory}" />
 																        <c:param name="sortby" value="${sortby}" />
-																        <c:if test="${brand != null || brand == '' }">
-																        <c:param name="brand" value="${brand}" />
-																        </c:if>
+																        <c:param name="productname" value="${param.prouctname}" />
 																    </c:url>
                                                             		<li><a class="fa fa-angle-left" href="${productListP }" title="Prev"> </a></li>
                                                             	</c:if>
@@ -140,9 +134,7 @@
 																        <c:param name="countPerPage" value="12" />
 																        <c:param name="subcategory" value="${subcategory}" />
 																        <c:param name="sortby" value="${sortby}" />
-																        <c:if test="${brand != null || brand == '' }">
-																        <c:param name="brand" value="${brand}" />
-																        </c:if>
+																        <c:param name="productname" value="${param.prouctname}" />
 																    </c:url>
 																    <li>
 																        <a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${productListP }'>${idx}</a>
@@ -154,9 +146,7 @@
 																        <c:param name="countPerPage" value="12" />
 																        <c:param name="subcategory" value="${subcategory}" />
 																        <c:param name="sortby" value="${sortby}" />
-																        <c:if test="${brand != null || brand == '' }">
-																        <c:param name="brand" value="${brand}" />
-																        </c:if>
+																        <c:param name="productname" value="${param.prouctname}" />
 																    </c:url>
 																    <li><a class="fa fa-angle-right" href="${productListP }" title="Next"></a></li>
 																</c:if>

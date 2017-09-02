@@ -89,26 +89,10 @@
 					<div class="col-sm-24">
 						<div class="em-footer-address">
 							<address class="f-left">
-								&copy; 2017 uStyle. All Rights
-								Reserved.<span>HTML Templates by <a
-									href="http://www.emthemes.com/responsive-magento-themes.html"
-									title="Responsive HTML Themes &amp; Responsive HTML Templates">htmlcooker.com</a></span>
+								&copy; 2017 uStyle. All Rights Reserved.
 							</address>
 						</div>
-						<div class="em-payment-method f-right">
-							<div class="em-payment f-right">
-								<a class="em-payment-icon em-visa" title="em-sample-title"
-									href="#">visa</a> <a class="em-payment-icon em-master"
-									title="em-sample-title" href="#">master</a> <a
-									class="em-payment-icon em-express " title="em-sample-title"
-									href="#">express</a><a class="em-payment-icon em-paypal"
-									title="em-sample-title" href="#">paypal</a> <a
-									class="em-payment-icon em-other " title="em-sample-title"
-									href="#">other</a>
-							</div>
-						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
