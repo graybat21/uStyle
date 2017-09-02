@@ -301,7 +301,7 @@ $(document).ready(function(){
 										title="Login">Login</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">
-										<form method="post" id="top-login-form">
+										<form method="post" id="top-login-form" action="/loginPost.do">
 											<input name="form_key" type="hidden" value="W2ZAZqxDCT2TpZYs" />
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												
@@ -322,11 +322,11 @@ $(document).ready(function(){
 												<div class="action-forgot">
 													<div class="login_forgotpassword">
 														<p>
-															<a href="#">Forgot Your Password?</a>
+															<a href="/searchPassword.do">Forgot Your Password?</a>
 														</p>
 														<p>
 															<span>Don't have an account?</span><a
-																class="create-account-link-wishlist" href="#"
+																class="create-account-link-wishlist" href="/register.do"
 																title="Sign Up">Sign Up</a>
 														</p>
 													</div>
@@ -357,7 +357,7 @@ $(document).ready(function(){
 										title="Logout">${session_user['username'] }님</a>
 									<div class="em-account" id="em-account-login-form"
 										style="display: none;">
-										<form method="post" id="top-login-form">
+										<form method="post" id="top-login-form" action="/loginPost.do">
 											<input name="form_key" type="hidden" value="iMzNKKno559ogiTe" />
 											<div class="block-content">
 												<p class="login-title h6 primary">Login</p>
