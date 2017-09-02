@@ -23,9 +23,14 @@
 
 - Frontend
   - RESTful API 문서화 도구 Swagger 사용
-  - tiles 를 이용한 template framework 이용
-  - Ajax 를 이용 파일 업로드 
-  -
+  - AspectJ를 통해 Intercept 가능한 AOP
+  - tiles 를 이용한 template framework
+  - Ajax 를 이용하여 파일 업로드, 장바구니, 댓글기능 구현
+  - Java mailsender를 이용하여 회원가입인증, 비밀번호찾기 기능 구현
+  - Security 를 통해 csrf token 적용
+  - UUID를 통해 password 암호화
+  - 만들어진 CSS template 이용(themeforest, AdminLTE)
+  - bootstrap modal을 이용하여 pinboard 기능 구현
 
 
 <hr/>
