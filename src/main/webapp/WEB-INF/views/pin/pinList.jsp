@@ -80,8 +80,6 @@ div img {
 			<!-- 글 부분 -->
 			<div class="container col-md-8">
 				<p align="center">${pinBoard.content}</p>
-				<%-- <c:forEach var="reply" items="${replyList }">
-					<p align="center">${reply.content}--%>
 			</div>
 		</div>
 	</div>

@@ -47,9 +47,6 @@
 							</thead>
 							<tbody>
 								<c:forEach var="list" items="${productList}" varStatus="status">
-									<c:url var="deleteProduct" value="/admin/product/deleteProduct.do">
-										<c:param name="productid" value="${list.productid}" />
-									</c:url>
 									<c:url var="addItem" value="/admin/item/addItem.do">
 										<c:param name="productid" value="${list.productid}" />
 									</c:url>
@@ -62,10 +59,10 @@
 										</c:if>
 									</c:url>
 									<tr>
-										<td><strong>${list.productid }</strong></td>
+										<td><strong>${list.productid}</strong></td>
 										<td>
 										<img src="/displayFile?fileName=${list.pictureurl}" width="100px"></td>
-										<td><a href="${readProduct}">${list.productname }</a></td>
+										<td><a href="${readProduct}">${list.productname}</a></td>
 										<td>${list.brand}</td>
 										<td>${list.category}</td>
 										<td>${list.subcategory}</td>
@@ -98,8 +95,7 @@
 								</c:if>
 								<li><a href="${productListP }">이전</a></li>
 							</c:if>
-							<c:forEach begin="${pageMaker.start }"
-								end="${pageMaker.end}" var="idx">
+							<c:forEach begin="${pageMaker.start}" end="${pageMaker.end}" var="idx">
 								<c:if test="${ not empty param.o }">
 									<c:url var="productListP" value="productList.do">
 										<c:param name="page" value="${idx}" />
@@ -113,11 +109,11 @@
 									</c:url>
 								</c:if>
 								<li class='<c:out value="${idx == pageMaker.page ? 'active' : ''}"/>'>
-									<a href='${productListP }'>${idx}</a>
+									<a href='${productListP}'>${idx}</a>
 								</li>
 								
 							</c:forEach>
-							<c:if test="${pageMaker.next }">
+							<c:if test="${pageMaker.next}">
 								<c:if test="${ not empty param.o }">
 									<c:url var="productListP" value="productList.do">
 										<c:param name="page" value="${pageMaker.end + 1}" />
@@ -130,7 +126,7 @@
 										<c:param name="page" value="${pageMaker.end + 1}" />
 									</c:url>
 								</c:if>
-								<li><a href="${productListP }">다음</a></li>
+								<li><a href="${productListP}">다음</a></li>
 							</c:if>
 						</ul>
 					</div>
@@ -140,7 +136,6 @@
 			<!-- /.col -->
 		</div>
 		<!-- /.row -->
-
 	</section>
 	<!-- /.content -->
 </div>

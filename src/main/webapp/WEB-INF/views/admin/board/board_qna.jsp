@@ -46,63 +46,59 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<!-- <a href="qnaWrite.do">
-						<div class="btn btn-default pull-right">글쓰기</div></a> -->
 					</div>
 					<!-- /.box-body -->
 					<!-- Paging -->
 					<div class="box-footer clearfix">
 						<div class="col-md-12">
 							<ul class="pagination pull-right">
-								<c:if test="${pageMaker.prev }">
-									<c:if test="${ searchKeyword != null }">
+								<c:if test="${pageMaker.prev}">
+									<c:if test="${not empty param.o}">
 										<c:url var="qnaListP" value="qna.do">
 											<c:param name="page" value="${pageMaker.start - 1}" />
-											<c:param name="o" value="${searchOption }"></c:param>
-											<c:param name="k" value="${searchKeyword }"></c:param>
+											<c:param name="o" value="${param.o}"></c:param>
+											<c:param name="k" value="${param.k}"></c:param>
 										</c:url>
 									</c:if>
-									<c:if test="${searchKeyword == null }">
+									<c:if test="${empty param.o}">
 										<c:url var="qnaListP" value="qna.do">
 											<c:param name="page" value="${pageMaker.start - 1}" />
 										</c:url>
 									</c:if>
-									<li><a href="${qnaListP }">이전</a></li>
+									<li><a href="${qnaListP}">이전</a></li>
 								</c:if>
-								<c:forEach begin="${pageMaker.start }"
-									end="${pageMaker.end}" var="idx">
-									<c:if test="${searchKeyword != null }">
+								<c:forEach begin="${pageMaker.start}" end="${pageMaker.end}" var="idx">
+									<c:if test="${not empty param.o}">
 										<c:url var="qnaListP" value="qna.do">
 											<c:param name="page" value="${idx}" />
-											<c:param name="o" value="${searchOption }"></c:param>
-											<c:param name="k" value="${searchKeyword }"></c:param>
+											<c:param name="o" value="${param.o}"></c:param>
+											<c:param name="k" value="${param.k}"></c:param>
 										</c:url>
 									</c:if>
-									<c:if test="${searchKeyword == null }">
+									<c:if test="${empty param.o}">
 										<c:url var="qnaListP" value="qna.do">
 											<c:param name="page" value="${idx}" />
 										</c:url>
 									</c:if>
-									<li
-										class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>'>
-										<a href='${qnaListP }'>${idx}</a>
+									<li class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>'>
+										<a href='${qnaListP}'>${idx}</a>
 									</li>
 	
 								</c:forEach>
 								<c:if test="${pageMaker.next }">
-									<c:if test="${searchKeyword != null }">
+									<c:if test="${not empty param.o}">
 										<c:url var="qnaListP" value="qna.do">
 											<c:param name="page" value="${pageMaker.end + 1}" />
-											<c:param name="o" value="${searchOption }"></c:param>
-											<c:param name="k" value="${searchKeyword }"></c:param>
+											<c:param name="o" value="${param.o}"></c:param>
+											<c:param name="k" value="${param.k}"></c:param>
 										</c:url>
 									</c:if>
-									<c:if test="${searchKeyword == null }">
+									<c:if test="${empty param.o}">
 										<c:url var="qnaListP" value="qna.do">
 											<c:param name="page" value="${pageMaker.end + 1}" />
 										</c:url>
 									</c:if>
-									<li><a href="${qnaListP }">다음</a></li>
+									<li><a href="${qnaListP}">다음</a></li>
 								</c:if>
 							</ul>
 						</div>

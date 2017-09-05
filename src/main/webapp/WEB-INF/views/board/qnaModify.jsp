@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
 	$("#category option").each(function(){
 		if ( $(this).val() == "${qna.category}" ) {

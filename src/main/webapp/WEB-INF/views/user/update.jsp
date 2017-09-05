@@ -12,7 +12,6 @@
 			         <div class="em-wrapper-area02"></div>
 			         <div class="em-main-container em-col1-layout">
 			             <div class="row">
-			             
 			             	<div class="col-sm-18 col-sm-push-6 em-col-main">
 			                     <div class="account-create">
 			                         <div class="page-title">

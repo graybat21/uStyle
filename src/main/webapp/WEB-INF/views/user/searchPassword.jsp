@@ -29,9 +29,7 @@ $(document).ready(function(){
 
 <div class="wrapper">
 	<!-- 스크립트 비활성화할 경우에 나오는 부분 -->
-	
 	<div class="page one-column">
-
 		<div class="em-wrapper-main">
 			<div class="container container-main">
 				<div class="em-inner-main">

@@ -119,5 +119,3 @@ function removeQnA(bno) {
 	}
 }
 </script>
-
-</html>

@@ -60,14 +60,14 @@
 						<div class="col-md-12">
 							<ul class="pagination pull-right">
 								<c:if test="${pageMaker.prev}">
-									<c:if test="${searchKeyword != null}">
+									<c:if test="${not empty param.o}">
 										<c:url var="noticeListP" value="notice.do">
 											<c:param name="page" value="${pageMaker.start - 1}" />
-											<c:param name="o" value="${searchOption}"></c:param>
-											<c:param name="k" value="${searchKeyword}"></c:param>
+											<c:param name="o" value="${param.o}"></c:param>
+											<c:param name="k" value="${param.k}"></c:param>
 										</c:url>
 									</c:if>
-									<c:if test="${searchKeyword == null}">
+									<c:if test="${empty param.o}">
 										<c:url var="noticeListP" value="notice.do">
 											<c:param name="page" value="${pageMaker.start - 1}" />
 										</c:url>
@@ -75,14 +75,14 @@
 									<li><a href="${noticeListP}">이전</a></li>
 								</c:if>
 								<c:forEach begin="${pageMaker.start}" end="${pageMaker.end}" var="idx">
-									<c:if test="${searchKeyword != null}">
+									<c:if test="${not empty param.o}">
 										<c:url var="noticeListP" value="notice.do">
 											<c:param name="page" value="${idx}" />
-											<c:param name="o" value="${searchOption}"></c:param>
-											<c:param name="k" value="${searchKeyword}"></c:param>
+											<c:param name="o" value="${param.o}"></c:param>
+											<c:param name="k" value="${param.k}"></c:param>
 										</c:url>
 									</c:if>
-									<c:if test="${searchKeyword == null}">
+									<c:if test="${empty param.o}">
 										<c:url var="noticeListP" value="notice.do">
 											<c:param name="page" value="${idx}" />
 										</c:url>
@@ -92,14 +92,14 @@
 									</li>
 								</c:forEach>
 								<c:if test="${pageMaker.next}">
-									<c:if test="${searchKeyword != null}">
+									<c:if test="${not empty param.o}">
 										<c:url var="noticeListP" value="notice.do">
 											<c:param name="page" value="${pageMaker.end + 1}" />
-											<c:param name="o" value="${searchOption}"></c:param>
-											<c:param name="k" value="${searchKeyword}"></c:param>
+											<c:param name="o" value="${param.o}"></c:param>
+											<c:param name="k" value="${param.k}"></c:param>
 										</c:url>
 									</c:if>
-									<c:if test="${searchKeyword == null}">
+									<c:if test="${empty param.o}">
 										<c:url var="noticeListP" value="notice.do">
 											<c:param name="page" value="${pageMaker.end + 1}" />
 										</c:url>
