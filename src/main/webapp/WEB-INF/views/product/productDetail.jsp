@@ -173,24 +173,6 @@
                                                                     <div class="std">${product.description}</div>
                                                                 </div>
                                                             </div><!-- /.box-collateral -->
-                                                            <div class="box-collateral box-tags em-line-01">
-                                                                <div class="em-block-title">
-                                                                    <h2>Product Tags</h2>
-                                                                </div>
-                                                                <div class="box-collateral-content">
-                                                                    <form id="addTagForm" method="get">
-                                                                        <div class="form-add">
-                                                                            <label for="productTagName">Add Your Tags:</label>
-                                                                            <div class="input-box">
-                                                                                <input type="text" class="input-text required-entry" name="productTagName" id="productTagName" />
-                                                                            </div>
-                                                                            <button type="button" title="Add Tags" class="button"> <span> <span>Add Tags</span> </span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                    <p class="note">Use spaces to separate tags. Use single quotes (') for phrases.</p>
-                                                                </div><!-- /.box-collateral-content -->
-                                                            </div><!-- /.box-collateral -->
                                                         </div><!-- /.em-details-tabs-content -->
                                                     </div><!-- /.em-details-tabs -->
                                                     <div class="box-collateral box-reviews em-line-01" id="customer-reviews">
@@ -216,10 +198,10 @@
                                                                             </li>
                                                                         </ul>
                                                                     </fieldset>
-                                                             <div class="buttons-set">
-                                                                 <button type="button" id="submit_Review" name="submit_Review" title="Submit Review" class="button"><span><span>Submit Review</span></span>
-                                                                 </button>
-                                                             </div>
+	                                                             <div class="buttons-set">
+	                                                                 <button type="button" id="submit_Review" name="submit_Review" title="Submit Review" class="button"><span><span>Submit Review</span></span>
+	                                                                 </button>
+	                                                             </div>
                                                             </div>
                                                         </div><!-- /.form_review -->
                                                     </div><!-- /.box-collateral -->
@@ -229,65 +211,21 @@
                                                                 <h2><span>Product Reviews</span></h2>
                                                             </div>
                                                             <div id="block-reviewlist">
-                                                             <div class="pagetotalcnt">
+                                                             	<div class="pagetotalcnt">
 
-                                                    </div>
+                                                   				</div>
                                                         	</div>
                                                         </div>
                                                     </div><!-- /.block -->
                                                     <div class="toolbar-bottom em-box-03">
-                                            <div class="toolbar">
-                                                <div class="pager">
-                                                 <div class="pages pagination">
-
-                                                    </div>
-                                                </div><!-- /.pager -->
-                                            </div>
-                                        </div><!-- /.toolbar-bottom -->
-                                                    <div class="box-collateral box-up-sell em-line-01" id="em-wrapper-upsell">
-                                                        <div>
-                                                            <div class="em-block-title">
-                                                                <h2><span>You may also be interested</span></h2>
-                                                            </div>
-                                                            <div id="upsell-product-table">
-                                                                <ul id="em-upsell" class="products-grid em-upsell-slider">
-                                                                    <li class="item">
-                                                                        <div class="product-item">
-                                                                            <a href="#" title="Ink Eater: Destroyed Tee" class="product-image">
-                                                                                <ul class="productlabels_icons">
-                                                                                    <li class="label new">
-                                                                                        <p> New</p>
-                                                                                    </li>
-                                                                                </ul> <img class="em-img-lazy img-responsive" src="http://placehold.it/180x180" width="180" height="180" alt="Ink Eater: Destroyed Tee" /> </a>
-                                                                            <div class="product-shop">
-                                                                                <div class="f-fix">
-                                                                                    <h3 class="product-name"><a href="#" title="Ink Eater: Destroyed Tee">Ink Eater: Destroyed Tee</a></h3>
-                                                                                    <div class="ratings">
-                                                                                        <div class="rating-box">
-                                                                                            <div class="rating" style="width:%"></div>
-                                                                                        </div> <span class="amount"><a href="#">(0)</a></span>
-                                                                                    </div>
-                                                                                    <div class="price-box" itemscope itemtype="http://schema.org/Product"> <span class="regular-price" id="product-price-120-upsell"> <span class="price">$22.00</span> </span>
-                                                                                        <a href="#" class="minimal-price-link"> <span class="label">As low as:</span> <span class="price" id="product-minimal-price-120-upsell"> $18.00 </span> </a>
-                                                                                    </div>
-                                                                                    <div class="em-btn-addto">
-                                                                                        <button type="submit" title="Add to Cart" class="button btn-cart"><span><span>Add to Cart</span></span>
-                                                                                        </button>
-                                                                                        <ul class="add-to-links">
-                                                                                            <li><a href="#" class="link-wishlist" title="Add to Wishlist">Add to Wishlist</a>
-                                                                                            </li>
-                                                                                            <li><span class="separator">|</span> <a href="#" class="link-compare" title="Add to Compare">Add to Compare</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div><!-- /.product-shop -->
-                                                                        </div><!-- /.product-item -->
-                                                                    </li>
-                                                                </ul>
-                                                            </div><!-- /#upsell-product-table -->
-                                                        </div><!-- /#em-wrapper-upsell -->
-                                                    </div><!-- /.box-collateral -->
+			                                            <div class="toolbar">
+			                                                <div class="pager">
+			                                                 <div class="pages pagination">
+			
+			                                                    </div>
+			                                                </div><!-- /.pager -->
+			                                            </div>
+			                                        </div><!-- /.toolbar-bottom -->
                                                 </div><!-- /.em-product-details -->
                                             </div><!-- /.em-product-info -->
                                             <div id="em-product-shop-pos-bottom" style="display:inline-block;"></div>

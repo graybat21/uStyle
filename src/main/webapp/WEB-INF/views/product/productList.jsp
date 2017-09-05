@@ -109,13 +109,6 @@
                                                      <div class="product-shop">
                                                          <div class="f-fix">
                                                              <h2 class="product-name text-center  "><a href="/product/productDetail.do?productid=${product.productid}" title="${product.productname}">${product.productname}</a></h2>
-                                                             <div class=" text-center">
-                                                                 <div class="ratings">
-                                                                     <div class="rating-box">
-                                                                         <div class="rating" style="width:%"></div>
-                                                                     </div> <span class="amount"><a href="#" onclick="215">(0)</a></span>
-                                                                 </div>
-                                                             </div>
                                                              <div class="text-center ">
                                                                  <div class="price-box"> 
                                                                   <c:if test="${ product.originalprice > product.saleprice }">
