@@ -25,7 +25,6 @@
 				<!-- general form elements -->
 				<div class="box box-primary">
 					<div class="box-header">
-						<h3 class="box-title">Add Item</h3>
 					</div>
 					<!-- /.box-header -->
 					

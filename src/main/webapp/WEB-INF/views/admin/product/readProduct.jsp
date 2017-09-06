@@ -20,7 +20,6 @@
 			<!-- general form elements -->
 				<div class="box box-primary">
 					<div class="box-header">
-						<h3 class="box-title">상품 정보</h3>
 					</div>
 					
 					<form role="form" action="modifyPage" method="post">

@@ -13,8 +13,6 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">Product 리스트</h3>
-						
 						<form name="form_search" id="form_search" action="productList.do" onsubmit="return verifyOK()">
 						<select name="o">
 							<option value="productname" ${param.o eq "productname" ? "selected" : "" }>productname</option>

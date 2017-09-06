@@ -22,8 +22,8 @@
 								<tr>
 									<th style="width: 7%; text-align: center">글번호</th>
 									<th style="width: 7%; text-align: center">분류</th>
-									<th style="width: 53%; text-align: center">내용</th>
-									<th style="width: 7%; text-align: center">action</th>
+									<th style="width: 45%; text-align: center">내용</th>
+									<th style="width: 15%; text-align: center">action</th>
 								</tr>
 							</thead>
 							<tbody>
