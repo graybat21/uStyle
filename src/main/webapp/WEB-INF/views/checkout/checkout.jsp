@@ -347,16 +347,14 @@ function updatePoint() {
  	console.log(maxPoint);
  	console.log(usePoint);
  	
- 	if ( parseInt(maxPoint) < parseInt(usePoint) )
-		{
- 		alert('입력하신 포인트가 가지고 있는 포인트보다 많습니다. 다시 확인 후 입력해주세요.');
- 		return;
-		}
- 	else if ( parseInt(usePoint) > parseInt(finalPrice) )
-		{
- 		alert('입력하신 포인트가 결제금액보다 많습니다. 다시 확인 후 입력해주세요.');
- 		return;
-		}
+ 	if ( parseInt(maxPoint) < parseInt(usePoint) ) {
+		alert('입력하신 포인트가 가지고 있는 포인트보다 많습니다. 다시 확인 후 입력해주세요.');
+		return;
+	}
+ 	else if ( parseInt(usePoint) > parseInt(finalPrice) ) {
+		alert('입력하신 포인트가 결제금액보다 많습니다. 다시 확인 후 입력해주세요.');
+		return;
+	}
  	
  	$('#usedpoint').val(usePoint);
  	document.getElementById("usepoint").innerHTML = usePoint;
@@ -367,10 +365,11 @@ function updatePoint() {
 	document.getElementById("finalPrice_span").innerHTML = "￦" + set_comma(finalPrice);
 }
  
-function verifyOK()
-{
+function verifyOK() {
+	var phoneReg = /^\d{3}-\d{3,4}-\d{4}$/;
+	
  	if ( $('#recipientname').val() == '' || $('#shippingaddr1').val() == '' || $('#shippingaddr2').val() == '' || 
- 			$('#shippingpostcode').val() == '' || $('#recipientphone').val() == '' ) 
+ 			$('#shippingpostcode').val() == '' || !(phoneReg.test($('#recipientphone').val())) ) 
  	{
  		alert("배송 정보를 올바르게 입력하세요.");
  		return false;

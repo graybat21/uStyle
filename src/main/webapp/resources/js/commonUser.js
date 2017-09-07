@@ -134,6 +134,7 @@ function verifyOK()
 	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;		
 	var pwReg = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/g;
 	var mailReg = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/g;
+	var phoneReg = /^\d{3}-\d{3,4}-\d{4}$/;
 	
 	if ( document.form_validate.password.value != document.form_validate.confirmation.value )
 	{
@@ -153,6 +154,11 @@ function verifyOK()
 	else if ( !mailReg.test(document.form_validate.email.value) ) 
 	{
 		alert("올바른 메일주소 형식이 아닙니다. 다시 확인해주세요.");
+		return false;
+	}
+	else if ( !phoneReg.test(document.form_validate.phone.value) ) 
+	{
+		alert("올바른 연락처 형식이 아닙니다. 다시 확인해주세요.");
 		return false;
 	}
 	else

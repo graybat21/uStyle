@@ -56,8 +56,6 @@
                                                         </th>
                                                         <th class="a-center">Product Name</th>
                                                         <th class="a-center">Category</th>
-                                                        <th class="a-center"><span class="nobr">Move to Wishlist</span>
-                                                        </th>
                                                         <th class="a-center" colspan="1"><span class="nobr">Unit Price</span>
                                                         </th>
                                                         <th class="a-center">Qty</th>
@@ -93,8 +91,6 @@
                                                           </td>
                                                           <td class="a-center"> <a href="/product/productList.do?subcategory=${userCartInfo.subcategory}" title="Edit item parameters">${userCartInfo.subcategory}</a>
                                                           </td>
-                                                          <td class="a-center"> <a href="#" class="link-wishlist use-ajax" title="Move">Move</a>
-                                                          </td>
                                                           <td class="a-center"> <span class="cart-price"> <span class="price"><fmt:formatNumber value="${userCartInfo.saleprice}" type="currency" currencySymbol="￦"/></span> </span>
                                                           </td>
                                                           <td class="a-center">
@@ -115,7 +111,7 @@
                                              	</c:if>
                                              	<c:if test="${empty userCartInfoList}">
                                              		<tr class="last even">
-                                                         <td colspan="7" class="a-center last">
+                                                         <td colspan="6" class="a-center last">
                                                          	장바구니에 담겨있는 상품이 없습니다.
                                                          </td>
                                                      </tr>

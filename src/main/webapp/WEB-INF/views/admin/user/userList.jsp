@@ -56,7 +56,7 @@
 										<td>${list.point}</td>
 										<td>${ list.auth == 'y' }</td>
 										<td>${list.addr1}&nbsp;${list.addr2}&nbsp;${list.postcode}</td>
-										<td>${list.create_time}</td>
+										<td><fmt:formatDate value="${list.create_time}" pattern="yyyy-MM-dd HH:mm" /></td>
 										<td>
 											<c:if test="${ list.username != 'administrator' }">
 											<input type="button" value="탈 퇴" onclick="deleteUser('${list.username}')"> 
