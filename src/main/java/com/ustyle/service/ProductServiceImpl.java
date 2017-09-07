@@ -120,6 +120,4 @@ public class ProductServiceImpl implements ProductService {
 	public List<HashMap<String, Object>> priceRangeForSubcategory(String subcategory) throws Exception {
 		return dao.priceRangeForSubcategory(subcategory);
 	}
-	
-
 }
