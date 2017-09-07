@@ -23,25 +23,22 @@
 									<th>create_time</th>
 									<th>content</th>
 									<th>likecnt</th>
-									<th>pincnt</th>
 									<th style="width: 60px">act</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="list" items="${pinBoardList}" varStatus="status">
-									<c:url var="deletePinBoard" value="/admin/deletePinBoard.do">
-										<c:param name="pinboardno" value="${list.pinboardno}" />
-									</c:url>
 									<tr>
-										<td>${list.pinboardno }</td>
-										<td>${list.username }</td>
-										<td>${list.pinboardname }</td>
-										<td>${list.create_time}</td>
-										<td>${list.content }</td>
+										<td>${list.pinboardno}</td>
+										<td>${list.username}</td>
+										<td>${list.pinboardname}</td>
+										<td>
+											<fmt:formatDate value="${list.create_time}" pattern="yyyy-MM-dd HH:mm" />
+										</td>
+										<td>${list.content}</td>
 										<td>${list.likecnt }</td>
-										<td><%-- ${list.pincnt } --%></td>
-										<td><a href="${deletePinBoard}"><input type="button"
-												value="삭제" onclick="return deletePinBoard()"></a> 
+										<td>
+											<input type="button" value="삭제" onclick="deletePinBoard(${list.pinboardno})">
 										</td>
 									</tr>
 								</c:forEach>
@@ -114,7 +111,38 @@
 </div>
 <!-- /.content-wrapper -->
 <script type="text/javascript">
-function deletePinBoard() {
-	return confirm("선택한 PinBoard를 삭제하시겠습니까?");
+var header = $("meta[name='_csrf_header']").attr("content");
+var token  = $("meta[name='_csrf']").attr("content");
+
+function deletePinBoard(pinboardno) {
+	var result = confirm("선택한 PinBoard를 삭제하시겠습니까?");
+
+	if ( result )
+	{
+		$.ajax({
+			type: 'post',
+			url: 'pinBoardDelete.do',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+		    },
+			headers: {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType: "text",
+			data: JSON.stringify({pinboardno: pinboardno}),
+			success: function(result) {
+				console.log("result: " + result);
+				
+				if ( result == 'SUCCESS' ) {
+					window.location.href = "pinBoardList.do";
+				}
+			},
+			error: function(request, status, error) {
+			    alert("올바르지 않은 PinBoard 삭제입니다.");
+			    window.location.href = "faq.do?";
+		    }
+		});
+	}	
 }
 </script>

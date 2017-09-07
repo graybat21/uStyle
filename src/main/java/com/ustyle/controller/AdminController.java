@@ -81,6 +81,7 @@ public class AdminController {
 		int last = first + countPerPage - 1;
 		map.put("first", first);
 		map.put("last", last);
+		
 		List<User> list = userService.userList(map);
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		mav.addObject("userList", list);
@@ -292,7 +293,6 @@ public class AdminController {
 		mav.addObject("salesDetailList", salesDetailList);
 		
 		return mav;
-		
 	}
 
 	// =============================== pin =============================== //
@@ -327,10 +327,26 @@ public class AdminController {
 		logger.info(list.toString());
 		return mav;
 	}
-
-	@RequestMapping("deletePinBoard.do")
-	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
-		pinService.deletePinBoard(pinboardno);
-		return "redirect:/admin/pinBoardList.do";
+	
+	@ResponseBody
+	@RequestMapping(value = "pinBoardDelete.do", method = RequestMethod.POST)
+	public ResponseEntity<String> pinBoardDelete(@RequestBody PinBoard pinBoard) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			int pinBoardno = pinBoard.getPinboardno();
+			logger.info("DELETE TO PINBOARD = " + pinBoard.toString());
+			pinService.deletePinBoard(pinBoardno);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 }
