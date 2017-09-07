@@ -22,6 +22,9 @@ public class UserServiceImpl implements UserService {
 	@Inject
 	private ReviewDAO reviewDao;
 	
+	@Inject 
+	private QnaService qnaService;
+	
 	@Inject
 	private PinService pinService;
 
@@ -74,6 +77,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(String username) throws Exception {
 		reviewDao.deleteReviewByUsername(username);
+		qnaService.qnaDeleteByUsername(username);;
 		pinService.deletePinBoardByUsername(username);
 		userDao.delete(username);
 	}

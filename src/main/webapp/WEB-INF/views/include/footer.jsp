@@ -30,10 +30,9 @@
 													</p>
 													<p class="em-info">
 														Tel. 010) 0000-1111
-														
 													</p>
 													<p class="em-info">
-														E-mail. ustyle1111@gmail.com
+														E-mail. ustyle11111@gmail.com
 													</p>
 													<p class="em-social">
 														

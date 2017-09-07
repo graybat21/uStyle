@@ -85,6 +85,19 @@
 		delete from tbl_qna where bno = #{bno}
 	</delete>
 	
+	<select id="selectBnoListByUsername" parameterType="String" resultType="Integer">
+		select bno from tbl_qna where username = #{username}
+	</select>
+	
+	<delete id="qnaDeleteByUsername" parameterType="hashmap">
+		delete from tbl_qna 
+		where 
+			family in 
+		<foreach collection="bnoList" item="bno" separator="," open="(" close=")">
+			#{bno}
+		</foreach>
+	</delete>
+	
 	<select id="selectMyListCnt" resultType="int" parameterType="hashmap">
  		select count(*) from tbl_qna
  		where 

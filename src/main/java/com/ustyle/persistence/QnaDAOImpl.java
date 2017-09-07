@@ -61,6 +61,16 @@ public class QnaDAOImpl implements QnaDAO {
 	public void qnaDelete(int bno) {
 		session.delete(namespace + ".qnaDelete",bno);
 	}
+	
+	@Override
+	public List<Integer> selectBnoListByUsername(String username) {
+		return session.selectList(namespace + ".selectBnoListByUsername", username);
+	}
+	
+	@Override
+	public void qnaDeleteByUsername(HashMap<String, Object> map) {
+		session.delete(namespace + ".qnaDeleteByUsername", map);
+	}
 
 	@Override
 	public int selectMyListCnt(HashMap<String, Object> map) {

@@ -250,10 +250,8 @@ public class PinController {
 		List<Pin> pinList = pinService.getPins(pinboardno);
 		PinBoard pinBoard = pinService.getPinBoardByNo(pinboardno);
 		List<HashMap<String, Object>> pinBoardProductList = pinService.selectPinBoardProductList(pinboardno);
-//		List<PinBoardReply> pinBoardReplyList = pinService.getPinBoardReplyByPinBoardNo(pinboardno);
 		logger.info("=============" + pinList.toString());
 		logger.info("=============" + pinBoard.toString());
-//		logger.info("=============" + pinBoardReplyList.toString());
 		
 		for ( HashMap<String, Object> map : pinBoardProductList ) 
 		{
@@ -287,7 +285,6 @@ public class PinController {
 		if ( productid != null )
 			mav.addObject("productid", productid);
 
-//		mav.addObject(pinBoardReplyList);
 		return mav;
 	}
 	
@@ -379,19 +376,5 @@ public class PinController {
 		}
 		
 		return entity;
-	}
-	
-//	=======================================================================
-	
-	@RequestMapping(value="pinBoardReply.do", method=RequestMethod.POST)
-	public String insertPinBoardReply(PinBoardReply pinBoardReply){
-		pinService.insertPinBoardReply(pinBoardReply);
-		return "redirect:/viewPinBoard.do";
-	}
-	
-	@RequestMapping(value="pinBoardReply.do", method=RequestMethod.DELETE)
-	public String deletePinBoardReply(int pinboardreplyno){
-		pinService.deletePinBoardReply(pinboardreplyno);
-		return "redirect:/viewPinBoard.do";
 	}
 }

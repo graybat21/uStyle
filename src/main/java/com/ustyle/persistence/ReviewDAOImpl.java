@@ -29,16 +29,6 @@ public class ReviewDAOImpl implements ReviewDAO
 	}
 
 	@Override
-	public void update(Review vo) throws Exception {
-		session.update(namespace + ".update", vo);
-	}
-
-	@Override
-	public void delete(Integer rno) throws Exception {
-		session.delete(namespace + ".delete", rno);
-	}
-	
-	@Override
 	public int selectReviewCnt(int productid) throws Exception {
 		return session.selectOne(namespace + ".selectReviewCnt", productid);
 	}

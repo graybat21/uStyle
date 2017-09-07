@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -43,10 +39,12 @@ function execDaumPostcode() {
         }
     }).open();
 }
+
 function pressKey() {
 	var _val = document.getElementById('phone').value.trim();
 	document.getElementById('phone').value = autoHypenPhone(_val);
 }
+
 function autoHypenPhone(str){
     str = str.replace(/[^0-9]/g, '');
     var tmp = '';
@@ -74,26 +72,7 @@ function autoHypenPhone(str){
     }
     return str;
 }
-/*function checkPwd()
-{
-	  var f1 = document.forms[0];
-	  var pw1 = password.value;
-	  var pw2 = confirmation.value;
-	  alert(f1);
-	  if ( pw1 != pw2 )
-	  {
-		document.getElementById('checkPwd').style.color = "red";
-		document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
-		password.value = "";
-		confirmation.value = "";
-	  }
-	  else
-	  {
-	   document.getElementById('checkPwd').style.color = "black";
-	   document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
-	   
-	  }
-}*/
+
 function verifynotify(field1, field2, result_id, match_html, nomatch_html) 
 {
   this.field1 = field1;
@@ -193,7 +172,6 @@ function isExistUser()		// use keyup event -> To check id
 		  type : "post",
 		  contentType : 'application/json; charset=utf-8',
 		  data : JSON.stringify({ username : $("#username").val() }),
-		  //data : $("#username").val(),
 		  dataType: "json",
 		  beforeSend: function(xhr){
 		        xhr.setRequestHeader(header, token);
