@@ -81,9 +81,6 @@ public class ProductAdminController {
 				 Model model) throws Exception
 	{
 		Product readProduct = service.read(productid);
-		
-//		String[] imageFiles = readProduct.getPictureurl().split(",");
-//		readProduct.setFiles(imageFiles);
 
 		logger.info(readProduct.toString());
 		
@@ -100,10 +97,9 @@ public class ProductAdminController {
 		String readPictureUrl = service.selectPictureurl(productid).replaceAll("\\[|\\]", "");
 		String[] imageFiles = readPictureUrl.split(", ");
 		List<String> readPictureList = new ArrayList<String>(Arrays.asList(imageFiles));
-//		readPictureList = readPictureList.stream().map(String :: trim).collect(Collectors.toList());		// 리스트 각 요소의 앞뒤 공백을 없애줌(Java 1.8부터 사용 가능)
 		
-		for ( String aaa : readPictureList )
-			logger.info(aaa.toString());
+		for ( String pictureUrl : readPictureList )
+			logger.info(pictureUrl.toString());
 		
 		return readPictureList;
 	}
@@ -237,8 +233,6 @@ public class ProductAdminController {
 	@ResponseBody
 	@RequestMapping(value = "deleteProduct.do", method = RequestMethod.POST)
 	public ResponseEntity<String> productDelete(@RequestBody Product product) throws Exception {
-//		String[] picurl = service.selectPictureurl(productid).split(",");
-//		deleteFile(picurl);
 			
 		ResponseEntity<String> entity = null;
 		

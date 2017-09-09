@@ -27,16 +27,6 @@ public class ReviewServiceImpl implements ReviewService
 	}
 
 	@Override
-	public void modifyReply(Review vo) throws Exception {
-		dao.update(vo);
-	}
-	
-	@Override
-	public void removeReply(Integer rno) throws Exception {
-		dao.delete(rno);
-	}
-	
-	@Override
 	public int selectReviewCnt(int productid) throws Exception {
 		return dao.selectReviewCnt(productid);
 	}

@@ -16,6 +16,8 @@ public interface QnaDAO {
 	public int getFamilyNo(int parent);
 	public void qnaModify(Qna qna);
 	public void qnaDelete(int bno);
+	public List<Integer> selectBnoListByUsername(String username);
+	public void qnaDeleteByUsername(HashMap<String, Object> map);
 	public int selectMyListCnt(HashMap<String, Object> map);
 	public List<Qna> myQnaList(HashMap<String, Object> map);
 }

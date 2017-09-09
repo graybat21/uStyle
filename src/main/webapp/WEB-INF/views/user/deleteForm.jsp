@@ -37,7 +37,7 @@
                                             	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												<h2>비밀번호를 입력하세요.</h2>
 												<input type="hidden" id="username" name="username" value="${session_user.username}"> 
-												<input type="password" id="password" name="password"> 
+												<input type="password" id="password" name="password" onkeypress="if (event.keyCode == 13) {return false;}"> 
 												<input type="button" value="탈퇴" onclick="deleteCheck()">
 											</form>
                                         </div><!-- /.category-products -->

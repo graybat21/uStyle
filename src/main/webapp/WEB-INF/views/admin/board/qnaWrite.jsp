@@ -84,7 +84,7 @@
 									<tr>
 										<th>제목:</th>
 										<td><input type="text" placeholder="질문을 입력하세요. " id="title"
-											name="title" class="form-control" value="[답변] ${qna.title }"/></td>
+											name="title" class="form-control" value="[답변] ${qna.title}"/></td>
 									</tr>
 									<tr>
 										<th>답변:</th>

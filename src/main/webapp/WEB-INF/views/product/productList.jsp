@@ -109,13 +109,6 @@
                                                      <div class="product-shop">
                                                          <div class="f-fix">
                                                              <h2 class="product-name text-center  "><a href="/product/productDetail.do?productid=${product.productid}" title="${product.productname}">${product.productname}</a></h2>
-                                                             <div class=" text-center">
-                                                                 <div class="ratings">
-                                                                     <div class="rating-box">
-                                                                         <div class="rating" style="width:%"></div>
-                                                                     </div> <span class="amount"><a href="#" onclick="215">(0)</a></span>
-                                                                 </div>
-                                                             </div>
                                                              <div class="text-center ">
                                                                  <div class="price-box"> 
                                                                   <c:if test="${ product.originalprice > product.saleprice }">
@@ -139,43 +132,43 @@
                                                 <div class="pages">
                                                     <ol>
                                                     	<c:if test="${pageMaker.prev }">
-								    <c:url var="productListP" value="productList.do">
-								        <c:param name="pageCount" value="${pageMaker.start - 1}" />
-								        <c:param name="countPerPage" value="12" />
-								        <c:param name="subcategory" value="${subcategory}" />
-								        <c:param name="sortby" value="${sortby}" />
-								        <c:if test="${brand != null || brand == '' }">
-								        <c:param name="brand" value="${brand}" />
-								        </c:if>
-								    </c:url>
+														    <c:url var="productListP" value="productList.do">
+														        <c:param name="pageCount" value="${pageMaker.start - 1}" />
+														        <c:param name="countPerPage" value="12" />
+														        <c:param name="subcategory" value="${subcategory}" />
+														        <c:param name="sortby" value="${sortby}" />
+														        <c:if test="${brand != null || brand == '' }">
+														        <c:param name="brand" value="${brand}" />
+														        </c:if>
+														    </c:url>
                                                     		<li><a class="fa fa-angle-left" href="${productListP }" title="Prev"> </a></li>
                                                     	</c:if>
                                                     	<c:forEach begin="${pageMaker.start }" end="${pageMaker.end}" var="idx">
-								    <c:url var="productListP" value="productList.do">
-								        <c:param name="pageCount" value="${idx}" />
-								        <c:param name="countPerPage" value="12" />
-								        <c:param name="subcategory" value="${subcategory}" />
-								        <c:param name="sortby" value="${sortby}" />
-								        <c:if test="${brand != null || brand == '' }">
-								        <c:param name="brand" value="${brand}" />
-								        </c:if>
-								    </c:url>
-								    <li>
-								        <a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${productListP }'>${idx}</a>
-								    </li>    
-								</c:forEach>
-								<c:if test="${pageMaker.next }">
-								    <c:url var="productListP" value="productList.do">
-								        <c:param name="pageCount" value="${pageMaker.end + 1}" />
-								        <c:param name="countPerPage" value="12" />
-								        <c:param name="subcategory" value="${subcategory}" />
-								        <c:param name="sortby" value="${sortby}" />
-								        <c:if test="${brand != null || brand == '' }">
-								        <c:param name="brand" value="${brand}" />
-								        </c:if>
-								    </c:url>
-								    <li><a class="fa fa-angle-right" href="${productListP }" title="Next"></a></li>
-								</c:if>
+														    <c:url var="productListP" value="productList.do">
+														        <c:param name="pageCount" value="${idx}" />
+														        <c:param name="countPerPage" value="12" />
+														        <c:param name="subcategory" value="${subcategory}" />
+														        <c:param name="sortby" value="${sortby}" />
+														        <c:if test="${brand != null || brand == '' }">
+														        <c:param name="brand" value="${brand}" />
+														        </c:if>
+														    </c:url>
+														    <li>
+														        <a class='<c:out value="${idx == pageMaker.page ? 'current' : ''}"/>' href='${productListP }'>${idx}</a>
+														    </li>    
+														</c:forEach>
+														<c:if test="${pageMaker.next }">
+														    <c:url var="productListP" value="productList.do">
+														        <c:param name="pageCount" value="${pageMaker.end + 1}" />
+														        <c:param name="countPerPage" value="12" />
+														        <c:param name="subcategory" value="${subcategory}" />
+														        <c:param name="sortby" value="${sortby}" />
+														        <c:if test="${brand != null || brand == '' }">
+														        <c:param name="brand" value="${brand}" />
+														        </c:if>
+														    </c:url>
+														    <li><a class="fa fa-angle-right" href="${productListP }" title="Next"></a></li>
+														</c:if>
                                                     </ol>
                                                 </div>
                                             </div><!-- /.pager -->
@@ -196,7 +189,7 @@
                                 </div><!-- /.category-products -->
                             </div><!-- /.em-col-main -->
                             
-	<!-- left sidemenu -->
+							<!-- left sidemenu -->
                             <div class="col-sm-6 col-sm-pull-18 em-col-left em-sidebar">
                                 <div class="em-wrapper-area02"></div>
                                 <div class="em-line-01 block block-layered-nav">

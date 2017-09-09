@@ -45,7 +45,7 @@
 									<tr>
 										<th>질문:</th>
 										<td><input type="text" placeholder="질문을 입력하세요." id="content"
-											name="content" class="form-control" value="${faq.content }"/></td>
+											name="content" class="form-control" value="${faq.content}"/></td>
 									</tr>
 									<tr>
 										<th>분류:</th>

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,8 @@ import com.ustyle.persistence.QnaDAO;
 
 @Service
 public class QnaServiceImpl implements QnaService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(QnaService.class);
 
 	@Inject
 	private QnaDAO dao;
@@ -30,28 +34,24 @@ public class QnaServiceImpl implements QnaService {
 	@Transactional
 	@Override
 	public void qnaWrite(Qna qna) throws Exception {
-		System.out.println(qna.getBno());
-		System.out.println(qna.getFamily());
-		System.out.println(qna.getParent());
 		
 		if ( qna.getParent() == 0 ) {
-			System.out.println("부모글이 없으면 새글 입력이므로 parent = 0, family는 bno와 같음");
+			logger.info("부모글이 없으면 새글 입력이므로 parent = 0, family는 bno와 같음");
+
 			dao.qnaWrite(qna);
 			int bno = qna.getBno();
-			System.out.println("BNO = " + bno);
+
+			logger.info("BNO = " + bno);
 			dao.updateFamilyNo(qna);
 		}
 		else {
 			int parent = qna.getParent();
-			System.out.println(parent);
 			int family = dao.getFamilyNo(parent);
-			System.out.println(family);
-			System.out.println("부모글이 있으면 답변글 입력이므로 parent는 부모글번호, family는 부모글번호를 통해 얻은 원글의 family와 같음");
+			
+			logger.info("부모글이 있으면 답변글 입력이므로 parent는 부모글번호, family는 부모글번호를 통해 얻은 원글의 family와 같음");
 			qna.setFamily(family);
 			dao.qnaWrite(qna);
 		}
-		
-		
 	}
 
 	@Transactional
@@ -70,7 +70,19 @@ public class QnaServiceImpl implements QnaService {
 	public void qnaDelete(int bno) throws Exception {
 		dao.qnaDelete(bno);
 	}
-
+	
+	@Override
+	public void qnaDeleteByUsername(String username) throws Exception {
+		List<Integer> bnoList = dao.selectBnoListByUsername(username);
+		
+		if ( !(bnoList.isEmpty()) ) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("bnoList", bnoList);
+			
+			dao.qnaDeleteByUsername(map);
+		}
+	}
+	
 	@Override
 	public int selectMyListCnt(HashMap<String, Object> map) throws Exception {
 		return dao.selectMyListCnt(map);

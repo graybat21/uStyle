@@ -22,8 +22,8 @@
 								<tr>
 									<th style="width: 7%; text-align: center">글번호</th>
 									<th style="width: 7%; text-align: center">분류</th>
-									<th style="width: 53%; text-align: center">내용</th>
-									<th style="width: 7%; text-align: center">action</th>
+									<th style="width: 45%; text-align: center">내용</th>
+									<th style="width: 15%; text-align: center">action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -31,17 +31,14 @@
 									<tr id="${item.bno }">
 										<td style="text-align: center;">${item.bno }</td>
 										<td style="text-align: center;">${item.category }</td>
-									
 										<td style="text-align: center;">	
-										<a href="javascript:viewComment(${item.bno })">${item.content }</a></td>
-										<%-- <td style="text-align: center;"><fmt:formatDate
-												value="${item.regdate }" pattern="yyyy-MM-dd hh:mm" /></td> --%>
+											<a href="javascript:viewComment(${item.bno })">${item.content }</a>
+										</td>
 										<td style="text-align: center;">
 											<button class="btn btn-warning" onClick="modifyFaq(${item.bno}, ${pageMaker.page})">수정</button>
 											<button class="btn btn-danger" onClick="removeFaq(${item.bno}, ${pageMaker.page})">삭제</button>
 										</td>
 									</tr>
-									<%-- <c:if test="${item.comment != null }"> --%>
 									<tr>
 										<td id="comment_${item.bno }" colspan="4" style="display:none">
 										${item.comment }
@@ -146,7 +143,7 @@ function modifyFaq(bno, page) {
 }
 	
 function removeFaq(bno, page) {
-	
+
 	var result = confirm("이 글을 삭제하시겠습니까?");
 	
 	if ( result )

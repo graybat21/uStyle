@@ -67,6 +67,7 @@
 		<interceptor>
 			<mapping path="/loginPost.do" />
 			<mapping path="/searchPassword.do" />
+			<mapping path="/register.do" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 

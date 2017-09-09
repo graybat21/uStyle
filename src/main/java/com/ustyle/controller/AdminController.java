@@ -13,12 +13,16 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ustyle.domain.Grade;
@@ -77,6 +81,7 @@ public class AdminController {
 		int last = first + countPerPage - 1;
 		map.put("first", first);
 		map.put("last", last);
+		
 		List<User> list = userService.userList(map);
 		pagemaker.setCount(totalCnt, countPerPage, countPerPaging);
 		mav.addObject("userList", list);
@@ -87,20 +92,49 @@ public class AdminController {
 		logger.info(list.toString());
 		return mav;
 	}
-
-	@RequestMapping("initializePoint.do")
-	public String initializePoint(@RequestParam String username) throws Exception {
-		User user = new User();
-		user.setUsername(username);
-		user.setPoint(0);
-		userService.updatePoint(user);
-		return "redirect:/admin/userList.do";
+	
+	@ResponseBody
+	@RequestMapping(value = "initializePoint.do", method = RequestMethod.POST)
+	public ResponseEntity<String> initializePoint(@RequestBody User user) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			user.setPoint(0);
+			logger.info("INITIALIZE POINT TO USERNAME = " + user.getUsername());
+			userService.updatePoint(user);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
-
-	@RequestMapping("userDelete.do")
-	public String userDelete(@RequestParam String username) throws Exception {
-		userService.delete(username);
-		return "redirect:/admin/userList.do";
+	
+	@ResponseBody
+	@RequestMapping(value = "userDelete.do", method = RequestMethod.POST)
+	public ResponseEntity<String> userDelete(@RequestBody User user) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			String username = user.getUsername();
+			logger.info("DELETE TO USERNAME = " + username);
+			userService.delete(username);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 
 	@RequestMapping(value = "grade.do", method = RequestMethod.GET)
@@ -259,7 +293,6 @@ public class AdminController {
 		mav.addObject("salesDetailList", salesDetailList);
 		
 		return mav;
-		
 	}
 
 	// =============================== pin =============================== //
@@ -294,10 +327,26 @@ public class AdminController {
 		logger.info(list.toString());
 		return mav;
 	}
-
-	@RequestMapping("deletePinBoard.do")
-	public String deletePinBoard(@RequestParam int pinboardno) throws Exception {
-		pinService.deletePinBoard(pinboardno);
-		return "redirect:/admin/pinBoardList.do";
+	
+	@ResponseBody
+	@RequestMapping(value = "pinBoardDelete.do", method = RequestMethod.POST)
+	public ResponseEntity<String> pinBoardDelete(@RequestBody PinBoard pinBoard) throws Exception {
+		
+		ResponseEntity<String> entity = null;
+		
+		try 
+		{
+			int pinBoardno = pinBoard.getPinboardno();
+			logger.info("DELETE TO PINBOARD = " + pinBoard.toString());
+			pinService.deletePinBoard(pinBoardno);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}
+		catch ( Exception e ) 
+		{
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 }

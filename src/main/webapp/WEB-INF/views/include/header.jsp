@@ -144,13 +144,13 @@ $(document).ready(function(){
 																		<a href="#"><span>Tops</span></a>
 																		<ul class="level0">
 																			<li class="level1 nav-1-1 first">
-																				<a href="#"><span>Blouses</span></a>
+																				<a href="/product/productList.do?subcategory=Blouses"><span>Blouses</span></a>
 																			</li>
 																			<li class="level1 nav-1-2">
-																				<a href="#"><span>Shirts</span></a>
+																				<a href="/product/productList.do?subcategory=Shirts"><span>Shirts</span></a>
 																			</li>
 																			<li class="level1 nav-1-3 last">
-																				<a href="#"><span>Jackets</span></a>
+																				<a href="/product/productList.do?subcategory=Jackets"><span>Jackets</span></a>
 																			</li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
@@ -158,33 +158,33 @@ $(document).ready(function(){
 																		<a href="#"> <span>Bottoms</span></a>
 																		<ul class="level0">
 																			<li class="level1 nav-2-1 first">
-																				<a href="#"><span>Skirts</span></a>
+																				<a href="/product/productList.do?subcategory=Skirts"><span>Skirts</span></a>
 																			</li>
 																			<li class="level1 nav-2-2">
-																				<a href="#"><span>Dresses</span></a>
+																				<a href="/product/productList.do?subcategory=Dresses"><span>Dresses</span></a>
 																			</li>
 																			<li class="level1 nav-2-3">
-																				<a href="#"><span>Pants</span></a>
+																				<a href="/product/productList.do?subcategory=Pants"><span>Pants</span></a>
 																			</li>
 																			<li class="level1 nav-2-4">
-																				<a href="#"><span>Jeans</span></a>
+																				<a href="/product/productList.do?subcategory=Jeans"><span>Jeans</span></a>
 																			</li>
-																			<li class="level1 nav-2-5 last"><a href="#">
-																					<span>Shorts</span>
-																			</a></li>
+																			<li class="level1 nav-2-5 last">
+																				<a href="/product/productList.do?subcategory=Shorts"><span>Shorts</span></a>
+																			</li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
 																	<li class="level0 nav-3 parent">
 																		<a href="#"> <span>Bags</span></a>
 																		<ul class="level0">
 																			<li class="level1 nav-3-1 first">
-																				<a href="#"><span>Totes</span></a>
+																				<a href="/product/productList.do?subcategory=Totes"><span>Totes</span></a>
 																			</li>
 																			<li class="level1 nav-3-2">
-																				<a href="#"><span>Backpacks</span></a>
+																				<a href="/product/productList.do?subcategory=Backpacks"><span>Backpacks</span></a>
 																			</li>
 																			<li class="level1 nav-3-3 last">
-																				<a href="#"><span>Satchels</span></a>
+																				<a href="/product/productList.do?subcategory=Satchels"><span>Satchels</span></a>
 																			</li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
@@ -192,13 +192,13 @@ $(document).ready(function(){
 																		<a href="#"><span>Underwear</span></a>
 																		<ul class="level0">
 																			<li class="level1 nav-4-1 first">
-																				<a href="#"><span>Bras</span></a>
+																				<a href="/product/productList.do?subcategory=Bras"><span>Bras</span></a>
 																			</li>
 																			<li class="level1 nav-4-2">
-																				<a href="#"><span>Panties</span></a>
+																				<a href="/product/productList.do?subcategory=Panties"><span>Panties</span></a>
 																			</li>
 																			<li class="level1 nav-4-3 last">
-																				<a href="#"><span>Pajamas</span></a>
+																				<a href="/product/productList.do?subcategory=Pajamas"><span>Pajamas</span></a>
 																			</li>
 																		</ul></li>
 																	<!-- /.menu-item-vbox -->
@@ -206,16 +206,16 @@ $(document).ready(function(){
 																		<a href="#"><span>Shoes</span></a>
 																		<ul class="level0">
 																			<li class="level1 nav-5-1 first">
-																				<a href="#"><span>Heels</span></a>
+																				<a href="/product/productList.do?subcategory=Heels"><span>Heels</span></a>
 																			</li>
 																			<li class="level1 nav-5-2">
-																				<a href="#"><span>Sneakers</span></a>
+																				<a href="/product/productList.do?subcategory=Sneakers"><span>Sneakers</span></a>
 																			</li>
 																			<li class="level1 nav-5-3">
-																				<a href="#"><span>Flats</span></a>
+																				<a href="/product/productList.do?subcategory=Flats"><span>Flats</span></a>
 																			</li>
-																			<li class="level1 nav-5-5 last">
-																				<a href="#"><span>Boots</span></a>
+																			<li class="level1 nav-5-4 last">
+																				<a href="/product/productList.do?subcategory=Boots"><span>Boots</span></a>
 																			</li>
 																		</ul>
 																	</li>
@@ -224,16 +224,16 @@ $(document).ready(function(){
 																		<a href="#"><span>Accessories</span></a>
 																		<ul class="level0">
 																			<li class="level1 nav-6-1 first">
-																				<a href="#"><span>Jewelry</span></a>
+																				<a href="/product/productList.do?subcategory=Jewelry"><span>Jewelry</span></a>
 																			</li>
 																			<li class="level1 nav-6-2">
-																				<a href="#"><span>Watches</span></a>
+																				<a href="/product/productList.do?subcategory=Watches"><span>Watches</span></a>
 																			</li>
 																			<li class="level1 nav-6-3">
-																				<a href="#"><span>Hats</span></a>
+																				<a href="/product/productList.do?subcategory=Hats"><span>Hats</span></a>
 																			</li>
 																			<li class="level1 nav-6-4 last">
-																				<a href="#"><span>Sunglasses</span></a>
+																				<a href="/product/productList.do?subcategory=Sunglasses"><span>Sunglasses</span></a>
 																			</li>
 																		</ul>
 																	</li>

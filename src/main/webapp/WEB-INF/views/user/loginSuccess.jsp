@@ -7,16 +7,7 @@
 <body class="cms-index-index">
 	<div class="wrapper">
 		<div class="page one-column">
-		
-		
 		<h1>로그인 성공</h1>
-		
-		
-		
-		
-		
-		
-		
 		</div>
 		<!-- /.page -->
 	</div>
