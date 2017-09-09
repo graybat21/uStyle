@@ -26,11 +26,12 @@
   - 로그인이 필요한 페이지를 판별하기 위해 Interceptor 클래스 활용
   - tiles 를 이용한 template framework
   - Ajax 를 이용하여 아이디 중복체크, 파일 업로드, 장바구니, 상품리뷰 작성 구현
-  - Java mailsender를 이용하여 회원가입인증, 비밀번호찾기 기능 구현
-  - Security 를 통해 csrf token 적용
-  - BCriptPasswordEncoder 를 통해 password 암호화
+  - Java mailsender를 이용하여 회원가입 이메일 인증, 비밀번호찾기 기능 구현
+  - Spring Security를 통해 csrf token 적용
+  - BCryptPasswordEncoder 를 통해 password 암호화
   - 만들어진 CSS template 이용(themeforest, AdminLTE)
   - bootstrap modal을 이용하여 pinboard 기능 구현
+  - 반응형 웹페이지 적용
 
 
 <hr/>
