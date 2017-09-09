@@ -23,16 +23,16 @@
 
 - Frontend
   - RESTful API 문서화 도구 Swagger 사용
-  - AspectJ를 통해 Intercept 가능한 AOP
+  - 로그인이 필요한 페이지를 판별하기 위해 Interceptor 클래스 활용
   - tiles 를 이용한 template framework
-  - Ajax 를 이용하여 파일 업로드, 장바구니, 댓글기능 구현
+  - Ajax 를 이용하여 아이디 중복체크, 파일 업로드, 장바구니, 상품리뷰 작성 구현
   - Java mailsender를 이용하여 회원가입인증, 비밀번호찾기 기능 구현
   - Security 를 통해 csrf token 적용
-  - UUID를 통해 password 암호화
+  - BCriptPasswordEncoder 를 통해 password 암호화
   - 만들어진 CSS template 이용(themeforest, AdminLTE)
   - bootstrap modal을 이용하여 pinboard 기능 구현
 
 
 <hr/>
 
-### more details, https://graybat21.github.io/uStyle 
+### more details, https://graybat21.github.io/uStyle
