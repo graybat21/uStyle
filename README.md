@@ -31,7 +31,7 @@
   - BCryptPasswordEncoder 를 통해 password 암호화
   - 만들어진 CSS template 이용(themeforest, AdminLTE)
   - bootstrap modal을 이용하여 pinboard 기능 구현
-  - 반응형 웹페이지 적용
+  - 반응형 웹페이지 적용
 
 
 <hr/>
