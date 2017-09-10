@@ -36,4 +36,4 @@
 
 <hr/>
 
-### more details, https://graybat21.github.io/uStyle
+### more details, https://graybat21.github.io/uStyle/uStyle_Project.pdf
