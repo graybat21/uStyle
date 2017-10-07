@@ -10,8 +10,8 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<http auto-config="true">
-		<intercept-url pattern="/admin/**.do"
-			access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/admin/login" access="permitAll"/>
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<form-login login-page="/admin/login" login-processing-url="/admin/loginAuth" 
 			authentication-failure-url="/admin/login?login_error=1" default-target-url="/admin/main.do" />
 		<session-management>
