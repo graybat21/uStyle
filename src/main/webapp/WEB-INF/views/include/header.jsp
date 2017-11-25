@@ -460,9 +460,9 @@ $(document).ready(function(){
 													<li class="menu-item-link menu-item-depth-0  menu-item-parent">
 														<a class="em-menu-link" href=""> <span>Tops</span></a>
 														<ul class="menu-container">
-															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12	menu-item-parent">
+															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col8 grid_8 menu-item-parent">
 																<ul class="menu-container" style="padding: 0 10px">
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6 alpha menu-item-parent">
+																	<li class="menu-item-vbox menu-item-depth-2 col-sm-24 grid_24 alpha menu-item-parent">
 																		<ul class="menu-container">
 																			<li class="menu-item-text menu-item-depth-3  ">
 																				<div class="em-line-01">
@@ -484,15 +484,6 @@ $(document).ready(function(){
 																			</li>
 																		</ul>
 																	</li>
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-18 grid_18 omega menu-item-parent">
-																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
-																				<p class="img-banner-menu pull-right">
-																					<img class="img-responsive" src="${pageContext.request.contextPath}/resources/images/product/tops.png" alt="menu_adv" />
-																				</p>
-																			</li>
-																		</ul>
-																	</li>
 																</ul>
 															</li>
 															<!-- /.menu-item-hbox -->
@@ -502,9 +493,9 @@ $(document).ready(function(){
 													<li class="menu-item-link menu-item-depth-0  menu-item-parent">
 														<a class="em-menu-link" href="#"> <span>Bottoms</span></a>
 														<ul class="menu-container">
-															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12 menu-item-parent">
+															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col8 grid_8 menu-item-parent">
 																<ul class="menu-container" style="padding: 0 10px">
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6 alpha menu-item-parent">
+																	<li class="menu-item-vbox menu-item-depth-2 col-sm-24 grid_24 alpha menu-item-parent">
 																		<ul class="menu-container">
 																			<li class="menu-item-text menu-item-depth-3  ">
 																				<div class="em-line-01">
@@ -532,15 +523,6 @@ $(document).ready(function(){
 																			</li>
 																		</ul>
 																	</li>
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-18 grid_18 omega menu-item-parent">
-																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
-																				<p class="img-banner-menu pull-right">
-																					<img class="img-responsive" src="${pageContext.request.contextPath}/resources/images/product/bottoms.png" alt="menu_adv" />
-																				</p>
-																			</li>
-																		</ul>
-																	</li>
 																</ul>
 															</li>
 															<!-- /.menu-item-hbox -->
@@ -550,9 +532,9 @@ $(document).ready(function(){
 													<li class="menu-item-link menu-item-depth-0  menu-item-parent">
 														<a class="em-menu-link" href="#"> <span>Bags</span></a>
 														<ul class="menu-container">
-															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12 menu-item-parent">
+															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col8 grid_8 menu-item-parent">
 																<ul class="menu-container" style="padding: 0 10px">
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6 alpha menu-item-parent">
+																	<li class="menu-item-vbox menu-item-depth-2 col-sm-24 grid_24 alpha menu-item-parent">
 																		<ul class="menu-container">
 																			<li class="menu-item-text menu-item-depth-3  ">
 																				<div class="em-line-01">
@@ -574,15 +556,6 @@ $(document).ready(function(){
 																			</li>
 																		</ul>
 																	</li>
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-18 grid_18 omega menu-item-parent">
-																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
-																				<p class="img-banner-menu pull-right">
-																					<img class="img-responsive" src="${pageContext.request.contextPath}/resources/images/product/bags.png" alt="menu_adv" />
-																				</p>
-																			</li>
-																		</ul>
-																	</li>
 																</ul>
 															</li>
 															<!-- /.menu-item-hbox -->
@@ -592,9 +565,9 @@ $(document).ready(function(){
 													<li class="menu-item-link menu-item-depth-0  menu-item-parent">
 														<a class="em-menu-link" href="#"> <span>Underwear</span></a>
 														<ul class="menu-container">
-															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12 menu-item-parent">
+															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col8 grid_8 menu-item-parent">
 																<ul class="menu-container" style="padding: 0 10px">
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6 alpha menu-item-parent">
+																	<li class="menu-item-vbox menu-item-depth-2 col-sm-24 grid_24 alpha menu-item-parent">
 																		<ul class="menu-container">
 																			<li class="menu-item-text menu-item-depth-3  ">
 																				<div class="em-line-01">
@@ -616,15 +589,6 @@ $(document).ready(function(){
 																			</li>
 																		</ul>
 																	</li>
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-18 grid_18 omega menu-item-parent">
-																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
-																				<p class="img-banner-menu pull-right">
-																					<img class="img-responsive" src="${pageContext.request.contextPath}/resources/images/product/underwear.png" alt="menu_adv" />
-																				</p>
-																			</li>
-																		</ul>
-																	</li>
 																</ul>
 															</li>
 															<!-- /.menu-item-hbox -->
@@ -634,9 +598,9 @@ $(document).ready(function(){
 													<li class="menu-item-link menu-item-depth-0 menu-item-parent">
 														<a class="em-menu-link" href="#"> <span>Shoes</span></a>
 														<ul class="menu-container">
-															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12 menu-item-parent">
+															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col8 grid_8 menu-item-parent">
 																<ul class="menu-container" style="padding: 0 10px">
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6 alpha menu-item-parent">
+																	<li class="menu-item-vbox menu-item-depth-2 col-sm-24 grid_24 alpha menu-item-parent">
 																		<ul class="menu-container">
 																			<li class="menu-item-text menu-item-depth-3  ">
 																				<div class="em-line-01">
@@ -661,15 +625,6 @@ $(document).ready(function(){
 																			</li>
 																		</ul>
 																	</li>
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-18 grid_18 omega menu-item-parent">
-																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
-																				<p class="img-banner-menu pull-right">
-																					<img class="img-responsive" src="${pageContext.request.contextPath}/resources/images/product/shoes.png" alt="menu_adv" />
-																				</p>
-																			</li>
-																		</ul>
-																	</li>
 																</ul>
 															</li>
 															<!-- /.menu-item-hbox -->
@@ -679,9 +634,9 @@ $(document).ready(function(){
 													<li class="menu-item-link menu-item-depth-0 menu-item-parent">
 														<a class="em-menu-link" href="#"><span>Accessories</span></a>
 														<ul class="menu-container">
-															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col12 grid_12 menu-item-parent">
+															<li class="menu-item-hbox menu-item-depth-1 col-menu menu_col8 grid_8 menu-item-parent">
 																<ul class="menu-container" style="padding: 0 10px">
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-6 grid_6 alpha menu-item-parent">
+																	<li class="menu-item-vbox menu-item-depth-2 col-sm-24 grid_24 alpha menu-item-parent">
 																		<ul class="menu-container">
 																			<li class="menu-item-text menu-item-depth-3  ">
 																				<div class="em-line-01">
@@ -703,15 +658,6 @@ $(document).ready(function(){
 																						</ul>
 																					</div>
 																				</div>
-																			</li>
-																		</ul>
-																	</li>
-																	<li class="menu-item-vbox menu-item-depth-2 col-sm-18 grid_18 omega menu-item-parent">
-																		<ul class="menu-container">
-																			<li class="menu-item-text menu-item-depth-3  ">
-																				<p class="img-banner-menu pull-right">
-																					<img class="img-responsive" src="${pageContext.request.contextPath}/resources/images/product/accessories.png" alt="menu_adv" />
-																				</p>
 																			</li>
 																		</ul>
 																	</li>
