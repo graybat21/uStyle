@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.salesMapper">
+
+	<insert id="insert" parameterType="sales">
+   		insert into tbl_sales(count, purchaseid, itemid)
+   		values(#{count}, #{purchaseid}, #{itemid})
+    </insert>
+    
+    <insert id="insertPurchase" parameterType="purchase" keyColumn="purchaseid" useGeneratedKeys="true" keyProperty="purchaseid">
+   		insert into tbl_purchase(recipientname, shippingaddr1, shippingaddr2, shippingpostcode, recipientphone, username, purchasedate, usedpoint)
+   		values(#{recipientname}, #{shippingaddr1}, #{shippingaddr2}, #{shippingpostcode}, #{recipientphone}, #{username}, now(), #{usedpoint})
+    </insert>
+    
+    <update id="updateAddPoint" parameterType="hashmap">
+    	update tbl_user
+    	set point = point + #{addpoint}
+    	where username = #{username}
+    </update>
+    
+    <update id="updateUsedPoint" parameterType="purchase">
+    	update tbl_user
+    	set point = point - #{usedpoint}
+    	where username = #{username}
+    </update>
+	
+	<select id="selectUserCartListForPurchase" resultType="sales" parameterType="String">
+		select
+			itemid, count
+		from 
+			tbl_cart
+		where 
+			username = #{username}
+ 	</select>
+ 	
+ 	<select id="selectSalesForDaterange" resultType="hashmap" parameterType="hashmap">
+ 		select 
+ 			COALESCE(sum(T.totalprice), 0) as totalsalesprice, COALESCE(sum(T.point), 0) as totalusedpoint, count(*) as totalcnt
+ 		from
+			(select sum(I.saleprice * S.count) as totalprice, P.usedpoint as point
+			from tbl_purchase P, tbl_sales S, tbl_item I 
+			where P.purchasedate between #{start} and #{end} 
+			and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid) as T
+ 	</select>
+ 	
+ 	<select id="selectSalesForDaterangeAndPagination" resultType="hashmap" parameterType="hashmap">
+		select 
+			P.username, P.purchasedate, sum(I.saleprice * S.count) as totalprice, P.usedpoint
+		from 
+			tbl_purchase P, tbl_sales S, tbl_item I 
+		where 
+			purchasedate between #{start} and #{end}
+			and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid
+		order by P.purchasedate asc
+		limit #{firstrow}, #{pagecnt}
+	</select>
+	
+	<select id="selectSalesForDate" resultType="hashmap" parameterType="hashmap">
+ 		select 
+ 			*
+ 		from
+			(select 
+				sum(I.saleprice * S.count) as totalsalesprice, P.usedpoint as totalusedpoint, P.recipientname as recipientname,
+				P.shippingaddr1 as addr1, P.shippingaddr2 as addr2, P.purchaseid as purchaseid
+			from 
+				tbl_purchase P, tbl_sales S, tbl_item I 
+			where 
+				P.purchasedate = #{purchasedate} and
+			<choose>
+				<when test="username != ''">
+					 P.username = #{username} 
+				</when>
+				<otherwise>
+					 P.username is null
+				</otherwise>
+			</choose>
+				and P.purchaseid = S.purchaseid and I.itemid = S.itemid group by S.purchaseid) as T
+ 	</select>
+ 	
+ 	<select id="selectSalesDetail" resultType="hashmap" parameterType="int">
+ 		select
+			P.productname, I.color, I.size, I.originalprice, I.saleprice, S.count
+		from        
+			tbl_sales S, tbl_item I, tbl_product P
+		where
+			S.purchaseid = #{purchaseid} and S.itemid = I.itemid and P.productid = I.productid;
+ 	</select>
+ 
+</mapper>

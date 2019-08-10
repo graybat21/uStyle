@@ -160,6 +160,23 @@
 		<version>1.4.7</version>
 	</dependency>
 	
+	<!-- swagger -->
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <version>2.7.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <version>2.7.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>18.0</version>
+	</dependency>
+
 	<!-- Test -->
 	<dependency>
 		<groupId>junit</groupId>
@@ -250,6 +267,7 @@
 	
 	
     <build>
+		<finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
@@ -275,6 +293,7 @@
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -285,6 +304,25 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+	            <groupId>org.apache.tomcat.maven</groupId>
+	            <artifactId>tomcat7-maven-plugin</artifactId>
+	            <version>2.2</version>
+	            <configuration>
+	                <url>http://localhost:8081</url>
+	                <path>/</path>
+	            </configuration>
+	        </plugin>
         </plugins>
+        
+        <pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
     </build>
 </project>

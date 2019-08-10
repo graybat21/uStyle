@@ -1,20 +1,28 @@
 package com.ustyle.service;
 
+import java.util.HashMap;
+import java.util.List;
+
+import com.ustyle.domain.Grade;
 import com.ustyle.domain.User;
 
 public interface UserService {
-	// 회원정보 입력해서 db에 입력
 	public void insert(User user) throws Exception;
-
-	// username, password 이용해서 전체정보 불러오기
 	public User userLogin(User user) throws Exception;
-
-	// 이메일인증 확인하여 t/f
 	public boolean userAuthOk(User user) throws Exception;
-
-	// 인증에 사용한 point 칼럼 초기화
-	public void userPointInitialize(String username) throws Exception;
-	
-	// 회원가입 시 중복되는 ID 걸러내는 메소드
-	public int userExist(String username) throws Exception;
+	public void userAuthInitialize(String username) throws Exception;
+	public int userExist(User user) throws Exception;
+	public HashMap<String, Object> selectUserInfo(String username) throws Exception;
+	public void update(User user) throws Exception;
+	public void updatePoint(User user) throws Exception;
+	public void updateTemporaryPassword(User user) throws Exception;
+	public void delete(String username) throws Exception;
+	public int selectListCnt(HashMap<String, Object> map) throws Exception;
+	public List<User> userList(HashMap<String, Object> map) throws Exception;
+	public User selectOneUser(String username) throws Exception;
+	public void modifyAllUsersGradeInitialize();
+	public void modifyAllUsersGrade(Grade grade);
+	public int selectUserPurchaseCount(String username) throws Exception;
+	public List<HashMap<String, Object>> selectUserPurchaseList(HashMap<String, Object> map) throws Exception;
+	public double selectUserPointRatio(String username) throws Exception;
 }

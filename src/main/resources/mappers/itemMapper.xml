@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.itemMapper">
+
+	<insert id="insert" parameterType="item">
+   		insert into tbl_item(originalprice, saleprice, color, size, stock, productid)
+   		values(#{originalprice}, #{saleprice}, #{color}, #{size}, #{stock}, #{productid} )
+    </insert>
+    
+    <select id="read" resultType="item">
+ 		select * from tbl_item where itemid=#{itemid}
+ 	</select>
+ 	
+ 	<select id="existItem" parameterType="item" resultType="boolean">
+		select count(*) > 0 as existitem from tbl_item
+		where productid = #{productid} and color = #{color} and size = #{size}
+   	</select>
+   	
+   	<sql id="search">
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+ 			<choose>
+ 				<when test="searchOption == 'productname'">
+  					AND p.productname LIKE CONCAT('%', #{searchKeyword}, '%')
+  				</when>
+	   			<when test="searchOption == 'productid'">
+	   				AND i.productid like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'itemid'">
+	   				AND i.itemid like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+ 			</choose>
+		</if>
+ 	</sql>
+  
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_item as i, tbl_product as p
+ 		WHERE i.productid = p.productid
+ 		<include refid="search"></include>
+ 	</select>
+ 	
+ 	<select id="itemList" resultType="item" parameterType="hashmap">
+		SELECT 
+			itemid, originalprice, saleprice, color, 
+			size, stock, productid, productname
+		FROM
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					p.productname, i.* 
+			FROM tbl_item as i, tbl_product as p, (SELECT @row_number:=0) as t
+			WHERE i.productid = p.productid 
+          	<include refid="search"></include>
+          	ORDER BY itemid DESC
+			) X 
+		WHERE X.row_number BETWEEN #{first} and #{last}
+	</select>
+	
+	<select id="selectColorList" resultType="String" parameterType="int">
+		SELECT DISTINCT 
+			color 
+		FROM
+			tbl_item
+		WHERE
+			productid = #{productid}
+	</select>
+	
+	<select id="selectedColorItemList" resultType="item" parameterType="item">
+		SELECT 
+			* 
+		FROM
+			tbl_item
+		WHERE
+			color = #{color} AND productid = #{productid}
+	</select>
+	
+	<select id="selectedColorSizeItem" resultType="item" parameterType="item">
+		SELECT 
+			* 
+		FROM
+			tbl_item
+		WHERE
+			color = #{color} AND size = #{size} AND productid = #{productid}
+	</select>
+	
+	<select id="totalItem" resultType="int" parameterType="int">
+		SELECT 
+			COALESCE(sum(stock), 0)
+		FROM
+			tbl_item
+		WHERE
+			productid = #{productid}
+	</select>
+	
+	<update id="update" parameterType="item">
+   		update tbl_item
+   		set originalprice = #{originalprice}, saleprice = #{saleprice}, color = #{color}, 
+   			size = #{size}, stock = #{stock}
+   		where itemid = #{itemid}
+   	</update>
+   	
+   	<update id="updateForSales" parameterType="sales">
+   		update tbl_item
+   		set stock = stock - #{count}
+   		where itemid = #{itemid}
+   	</update>
+   	
+   	<select id="existSalesTable" parameterType="int" resultType="boolean">
+   	<![CDATA[
+		select count(*) > 0 as existsales from tbl_sales
+		where itemid = #{itemid}
+	]]>
+   	</select>
+	
+	<delete id="deleteItem" parameterType="int">
+ 		delete from tbl_item
+ 		where itemid = #{itemid}
+ 	</delete>
+</mapper>

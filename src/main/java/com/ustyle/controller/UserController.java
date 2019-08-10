@@ -1,6 +1,10 @@
 package com.ustyle.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.mail.internet.InternetAddress;
@@ -24,8 +28,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ustyle.domain.Product;
 import com.ustyle.domain.User;
+import com.ustyle.service.ProductService;
 import com.ustyle.service.UserService;
+import com.ustyle.utils.PageMaker;
 import com.ustyle.utils.UserEntryValidator;
 
 @Controller
@@ -37,51 +44,107 @@ public class UserController {
 	private JavaMailSenderImpl javaMailSenderImpl;
 
 	@Inject
-	private UserService service;
-
+	private UserService userService;
+	
+	@Inject
+	private ProductService productService;
+	
 	@Inject
 	private UserEntryValidator userEntryValidator;
 
 	@Inject
 	BCryptPasswordEncoder passwordEncoder;
+	
+	/**
+	 * 홈페이지 호출
+	 * 
+	 * @return 홈 페이지
+	 */
+	
+	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	public ModelAndView index() throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		List<Product> newArrivalProductList = productService.recentProductList();		// 새로 추가된 상품을 가져옴(총 4개)
+		List<Product> bestProductList = productService.popularProductList();			// 인기 상품을 가져옴(총 4개)
+		
+		for ( Product newArrivalProduct : newArrivalProductList ) {
+			logger.info("NEW ARRIVAL PRODUCT - " + newArrivalProduct.toString());
+		}
+		
+		for ( Product bestProduct : bestProductList ) {
+			logger.info("BEST PRODUCT - " + bestProduct.toString());
+		}
+		
+		mav.addObject("newArrivalProductList", newArrivalProductList);
+		mav.addObject("bestProductList", bestProductList);
+		
+		mav.setViewName("user/index/uStyleHome");
+		return mav;
+	}
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * 로그인 페이지를 호출함
+	 * 
+	 * @param request
+	 * @return 각각의 페이지(로그인이 이미 되어있는 경우, 메인 페이지로 리다이렉션됨)
 	 */
 
-	@RequestMapping(value = "login.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String loginForm() {
 		return "user/login/LOGIN";
 	}
-
-	@RequestMapping(value = "login.do", method = RequestMethod.POST)
+	
+	/**
+	 * 로그인 페이지에서 로그인 버튼을 눌러서 회원의 로그인을 진햄함
+	 * 
+	 * @param request, user
+	 * @return 로그인 이전 페이지, 만약 없거나 로그인 페이지일 경우 메인 페이지
+	 */
+	
+	@RequestMapping(value = "/loginPost.do", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, User user) throws Exception {
 
-		try {
-			User resultUser = service.userLogin(user);
-			logger.info("{}", resultUser);
+		User resultUser = userService.userLogin(user);
+		logger.info("{}", resultUser);
+		
+		if ( resultUser == null || !resultUser.getAuth().equals("y")) {
+            return "user/loginError/Login Error";
+        }
 
-			String rawPassword = user.getPassword();
-			String encodedPassword = resultUser.getPassword();
+		String rawPassword = user.getPassword();
+		String encodedPassword = resultUser.getPassword();
+		logger.info(resultUser.getAuth().toString());
 
-			if (resultUser == null || !(passwordEncoder.matches(rawPassword, encodedPassword))) {
-				return "user/loginError/No Match PW";
-			}
+		if ( !(passwordEncoder.matches(rawPassword, encodedPassword)) ) {
+            return "user/loginError/No Match PW";
+		} 
 
-			HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
 
-			session.setAttribute("USER", resultUser);
-			// session.setAttribute("session_realname",
-			// resultUser.getRealname());
-			session.setAttribute("session_username", resultUser.getUsername());
-			session.setAttribute("session_point", resultUser.getPoint());
-			// session.setAttribute("TOKEN_SAVE_CHECK", "TRUE");
+         session.setAttribute("session_user", resultUser);
+         session.setAttribute("session_userpoint", resultUser.getPoint());
+         
+         User loginUser = (User) session.getAttribute("session_user");
+         logger.info(loginUser.toString());
+         
+         String dest = (String)session.getAttribute("dest");	
+         logger.info("dest: " + dest);
 
-			return "user/loginSuccess/LOGIN SUCCESS";
-		} catch (NullPointerException e) {
-			return "user/loginError/LOGIN ERROR";
-		}
+         if ( dest == null || dest.equals("") || dest.endsWith("/login.do") ) {
+            return "redirect:/";
+         }
+         else {
+            return "redirect:" + dest;
+         }
 	}
+	
+	/**
+	 * 회원의 로그아웃 수행
+	 * 
+	 * @param request
+	 * @return 로그인 페이지
+	 */
 
 	@RequestMapping("/logout.do")
 	public ModelAndView logout(HttpServletRequest request) {
@@ -91,20 +154,37 @@ public class UserController {
 		if (session != null) {
 			session.invalidate();
 		}
+		
 		mav.addObject("user", new User());
-		mav.setViewName("redirect:/login.do");
+		mav.setViewName("redirect:/");
 
 		return mav;
 	}
+	
+	/**
+	 * 회원가입 페이지를 호출함
+	 * 
+	 * @return 회원가입 페이지
+	 */
 
-	@RequestMapping(value = "register.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/register.do", method = RequestMethod.GET)
 	public String registerForm() {
 		return "user/register/Register";
 	}
+	
+	/**
+	 * 회원가입 진행 
+	 * 
+	 * @param user
+	 * @param bindingResult
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
 
-	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, HttpSession session)
-			throws Exception {
+	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+	public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, 
+			HttpServletRequest request, HttpSession session) throws Exception {
 
 		logger.info(user.toString());
 		userEntryValidator.validate(user, bindingResult);
@@ -112,65 +192,172 @@ public class UserController {
 		String encryptPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptPassword);
 
-		ModelAndView mav = new ModelAndView("joinSuccess");
+		ModelAndView mav = new ModelAndView("user/joinSuccess/JoinSuccess");
 
 		if (bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
 			mav.setViewName("user/register/Register");
 			return mav;
 		}
+		
+		String homeUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
-		int ran = new Random().nextInt(90000) + 10000; // 10000 ~ 99999
-		user.setPoint(ran);
-		String joinCode = String.valueOf(ran);
-		sendMail(user.getUsername(), user.getEmail(), joinCode);
+		String joinCode = getUuid();
+		user.setAuth(joinCode);
+		sendMailForRegister(homeUrl, user.getUsername(), user.getEmail(), joinCode);
 
-		service.insert(user);
-		session.setAttribute("USER", user);
+		userService.insert(user);
 		mav.addObject(user);
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "/userInfo.do", method = RequestMethod.GET)
+	public ModelAndView userInfo(HttpSession session) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("user/userInfo/회원 정보");
+		User user = (User) session.getAttribute("session_user");
+		String username = user.getUsername();
+		
+		HashMap<String, Object> userMap = new HashMap<String, Object>();
+		userMap = userService.selectUserInfo(username);
+		
+		mav.addObject("userMap", userMap);
+		
+		return mav;
+	}
+	
+	/**
+	 * 회원정보 수정 페이지를 불러옴
+	 * 
+	 * @param session
+	 * @return 회원정보 수정 페이지
+	 */
+		
+	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
+	public String updateForm(HttpSession session) {
+		return "user/update/Update";
+		
+	}
+	
+	/**
+	 * 회원정보 수정 작업 진행
+	 * 
+	 * @param updateUser
+	 * @param bindingResult
+	 * @param session
+	 * @return mav
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute @Valid User updateUser, BindingResult bindingResult, HttpSession session)
+			throws Exception {
 
-	private void sendMail(String username, String email, String joinCode) throws Exception {
+		logger.info(updateUser.toString());
+		userEntryValidator.validate(updateUser, bindingResult);
+
+		String encryptPassword = passwordEncoder.encode(updateUser.getPassword());
+		updateUser.setPassword(encryptPassword);
+
+		ModelAndView mav = new ModelAndView("user/updateSuccess/UpdateSuccess");
+
+		if (bindingResult.hasErrors()) {
+			mav.getModel().putAll(bindingResult.getModel());
+			mav.setViewName("user/update/Update");
+			return mav;
+		}
+
+		userService.update(updateUser);
+		
+		if (session != null) {	// 회원정보를 변경한 후, 다시 로그인하도록 유도한다.
+			session.invalidate();
+		}
+		mav.addObject(updateUser);
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
+	public String deleteForm() {
+		return "user/deleteForm/Delete";
+	}
+	
+	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
+	public String delete(User user, HttpSession session) throws Exception {
+		logger.info(user.toString());
+		User resultUser = userService.userLogin(user);
+		logger.info(resultUser.toString());
+		String encodedPassword = resultUser.getPassword();
+		String encryptPassword = user.getPassword();
+		
+		String username = user.getUsername();
+
+		if ( !(passwordEncoder.matches(encryptPassword, encodedPassword)) ) {
+			return "user/deleteError/No Match PW";
+		}
+		
+		userService.delete(username);
+
+		return "redirect:/logout.do";
+	}
+	
+	/**
+	 * 가입인증 메일을 보내는 작업
+	 * 
+	 * @param homeUrl
+	 * @param username
+	 * @param email
+	 * @param joinCode
+	 * @throws Exception
+	 */
+	
+	private void sendMailForRegister(String uri, String username, String email, String joinCode) throws Exception {
 
 		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
 
 		mimeMessage.setFrom(new InternetAddress("ustyle1111@gmail.com"));
 		mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(email));
 
-		String subject = "uStyle - ȸ������ ������û���� �Դϴ�.";
+		String subject = "uStyle - 회원가입 인증요청메일 입니다.";
 		mimeMessage.setSubject(subject);
 
 		StringBuilder sb = new StringBuilder();
-		// String uri = "http://localhost:8080/uStyle/";
-		String uri = "http://localhost:8080/";
+
 		sb.append("<a href='" + uri + "'>");
 		sb.append("<img src='https://mark.trademarkia.com/logo-images/symeli-inc/ustyle-85007854.jpg'></a>");
 		sb.append("<h1>Welcome uStyle</h1>");
-		sb.append("���� uStyle�� ������ �ּż� ����帳�ϴ�.<br>");
-		sb.append("������ ��ģ�� ���� ����Ʈ�� ���������� �̿��Ͻ� �� �ֽ��ϴ�.<br>");
+		sb.append("저희 uStyle에 가입해 주셔서 감사드립니다.<br>");
+		sb.append("인증을 거친후 저희 사이트를 정상적으로 이용하실 수 있습니다.<br>");
 		sb.append("<hr><br>");
-		sb.append("<a href='" + uri + "auth/" + username + "/" + joinCode + "'>");
-		sb.append("��ũ�� Ŭ���Ͻø� �����˴ϴ�.</a>");
-		logger.info("content : {}", sb);
+		sb.append("<a href='" + uri + "/auth/" + username + "/" + joinCode + "'>");
+		sb.append("링크를 클릭하시면 인증됩니다.</a>");
 		mimeMessage.setText(sb.toString(), "UTF-8", "html");
 
 		javaMailSenderImpl.send(mimeMessage);
 	}
+	
+	/**
+	 * 가입인증 메일에 있는 링크를 통한 인증 작업 진행
+	 * 
+	 * @param username
+	 * @param auth
+	 * @return mav
+	 * @throws Exception
+	 */
 
-	@RequestMapping(value = "/auth/{username}/{point}")
-	public ModelAndView authOk(@PathVariable String username, @PathVariable String point) throws Exception {
+	@RequestMapping(value = "/auth/{username}/{auth}")
+	public ModelAndView authOk(@PathVariable String username, @PathVariable String auth) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
 		User user = new User();
-		user.setPoint(Integer.parseInt(point));
+		user.setAuth(auth);
 		user.setUsername(username);
 
-		boolean isUserAuthOk = service.userAuthOk(user);
+		boolean isUserAuthOk = userService.userAuthOk(user);
 
 		if (isUserAuthOk) {
-			service.userPointInitialize(username);
+			userService.userAuthInitialize(username);
 			mav.setViewName("redirect:/authSuccess.do");
 		} else {
 			mav.setViewName("redirect:/authError.do");
@@ -178,24 +365,181 @@ public class UserController {
 
 		return mav;
 	}
+	
+	/**
+	 * 인증에 성공했을 때 호출됨.
+	 * 
+	 * @return 인증 성공 페이지
+	 */
 
 	@RequestMapping("/authSuccess.do")
 	public String authSuccess() {
-		return "user/authSuccess/���� ����";
+		return "user/authSuccess/인증 성공";
 	}
+	
+	/**
+	 * 인증에 실패했을 때 호출됨.
+	 * 
+	 * @return 인증 실패 페이지
+	 */
 
 	@RequestMapping("/authError.do")
 	public String authError() {
-		return "user/authError/���� ����";
+		return "user/authError/인증 실패";
 	}
+	
+	/**
+	 * 이미 가입된 회원이 있는지 확인하기 위해 호출되는 메소드
+	 * 
+	 * @param username
+	 * @return
+	 * @throws Exception
+	 */
 
-	@RequestMapping(value = "duplicationCheck.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/duplicationCheck.do", method = RequestMethod.POST)
 	@ResponseBody
-	public int userExist(@RequestBody String username) throws Exception {
-
-		logger.info(username);
-		int isUserExist = service.userExist(username);
+	public int userExist(@RequestBody User user) throws Exception {
+		logger.info(user.getUsername());
+		int isUserExist = userService.userExist(user);
+		
+		System.out.println(isUserExist);
 		return isUserExist;
 	}
+	
+	@RequestMapping(value = "/searchPassword.do", method = RequestMethod.GET)
+	public String searchPasswordForm() {
+		return "user/searchPassword/SEARCH PASSWORD";
+	}
+	
+	@RequestMapping(value = "/changeTemporaryPassword.do", method = RequestMethod.POST)
+	public String changeTemporaryPassword(User user, HttpServletRequest request) throws Exception {
+		logger.info(user.toString());
+		int isUserExist = userService.userExist(user);
+		
+		if ( isUserExist == 0 )
+			return "user/changeTemporaryPasswordError/Error";
+		
+		String homeUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
+		
+		String changePassword = randPassword();
+		
+		String encryptPassword = passwordEncoder.encode(changePassword);
+		user.setPassword(encryptPassword);
+		
+		userService.updateTemporaryPassword(user);
+		
+		sendMailForChangePassword(homeUrl, user.getUsername(), user.getEmail(), changePassword);
+		
+		return "user/changeTemporaryPasswordSuccess/Success";
+	}
+	
+	private String randPassword() {
+		Random rnd = new Random();
 
+		StringBuffer buf =new StringBuffer();
+
+		for ( int i = 0; i < 8; i++ ) {
+		    if ( rnd.nextBoolean() ) {
+		        buf.append((char)((int)(rnd.nextInt(26)) + 97));
+		    }
+		    else {
+		        buf.append((rnd.nextInt(10))); 
+		    }
+		}
+		
+		return buf.toString();
+	}
+	
+	private void sendMailForChangePassword(String uri, String username, String email, String changePassword) throws Exception {
+
+		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
+
+		mimeMessage.setFrom(new InternetAddress("ustyle1111@gmail.com"));
+		mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(email));
+
+		String subject = "uStyle - 임시 비밀번호 변경 메일입니다.";
+		mimeMessage.setSubject(subject);
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("<a href='" + uri + "'>");
+		sb.append("<img src='https://mark.trademarkia.com/logo-images/symeli-inc/ustyle-85007854.jpg'></a>");
+		sb.append("<h1>Welcome uStyle</h1>");
+		sb.append(username + "님의 비밀번호가 아래와 같이 변경되었으니, 이 비밀번호로 우선 로그인하신 후, 원하시는 비밀번호로 변경해주시기 바랍니다.<br>");
+		sb.append("변경된 비밀번호 : " + changePassword + "<br>");
+		sb.append("<hr><br>");
+		
+		mimeMessage.setText(sb.toString(), "UTF-8", "html");
+
+		javaMailSenderImpl.send(mimeMessage);
+	}
+	
+	/**
+	 * 회원의 구매내역을 불러옴
+	 * 
+	 * @param session
+	 * @param pageCount
+	 * @return mav
+	 * @throws Exception
+	 */
+	
+	@RequestMapping("/purchaseList.do")
+	public ModelAndView purchaseList(HttpSession session, Integer pageCount) throws Exception {
+		ModelAndView mav = new ModelAndView("user/purchaseList/구매내역");
+		User loginUser = (User) session.getAttribute("session_user");
+		String loginUsername = loginUser.getUsername();
+		
+		int purchaseCount = userService.selectUserPurchaseCount(loginUsername);
+		
+		PageMaker pagemaker = new PageMaker();
+		int page = ( pageCount != null ) ? pageCount.intValue() : 1;
+		int pageCnt = 10;
+		pagemaker.setPage(page);
+		pagemaker.setCount(purchaseCount, pageCnt, 10);		// 구매한 상품들을 10개씩 보여줌
+		
+		int start = ((pagemaker.getPage() - 1) * pageCnt);
+		
+		logger.info("PURCHASECOUNT = " + purchaseCount);
+		logger.info("START = " + start);
+		logger.info("PAGECNT = " + pageCnt);
+
+		HashMap<String, Object> searchQueryMap = new HashMap<String, Object>();
+		searchQueryMap.put("username", loginUsername);
+		searchQueryMap.put("start", start);
+		searchQueryMap.put("pagecnt", pageCnt);
+		
+		List<HashMap<String, Object>> userPurchaseList = userService.selectUserPurchaseList(searchQueryMap);
+		
+		for ( HashMap<String, Object> map : userPurchaseList )
+		{
+			Iterator<String> iterator = map.keySet().iterator();
+		    while (iterator.hasNext()) {
+		        String key = String.valueOf(iterator.next());
+		        logger.info("key = " + key);
+		        logger.info(" value = " + map.get(key));
+		    }
+		}
+		
+		int first = start + 1;
+		int last = ( first + pageCnt - 1 > purchaseCount ) ? purchaseCount : first + pageCnt - 1;
+		
+		mav.addObject("userPurchaseList", userPurchaseList);
+		mav.addObject("purchaseCount", purchaseCount);
+		mav.addObject("first", first);
+		mav.addObject("last", last);
+		mav.addObject("pageMaker", pagemaker);
+		
+		return mav;
+	}
+	
+	/**
+	 * 고유성 보장을 위해 '-'가 빠진 범용 고유 식별자(UUID, 소프트웨어 구축에 쓰이는 식별자 표준)를 가져옴.
+	 * 
+	 * @return '-'가 빠진 범용 고유 식별자
+	 */
+
+	private String getUuid() {
+		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
+	
 }

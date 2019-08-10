@@ -956,7 +956,7 @@ p.required {
 }
 .pager select,
 .sorter select {
-    width: 100px;
+    width: 120px;
     padding: 5px 10px;
     height: 31px;
     line-height: 30px;
@@ -5623,8 +5623,9 @@ position:relative;*/
 }
 .cart-collaterals .em-box {
     padding: 17px 20px 9px;
-    min-height: 326px;
-    margin-bottom: 50px;
+    min-height: 120px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 .cart-collaterals .em-box p {
     margin-bottom: 10px;
@@ -5639,7 +5640,7 @@ position:relative;*/
     margin-top: 0;
 }
 .cart-collaterals input.input-text {
-    width: 100%;
+   /* width: 100%; */
 }
 .cart-collaterals .buttons-set {
     padding-top: 20px;
@@ -7090,7 +7091,7 @@ div.desc {
     right: 45px;
 }
 .product-view-detail select {
-    width: 100%;
+    width: 70%;
 }
 .product-view-detail .product-img-box {
     margin-bottom: 50px;
@@ -7103,11 +7104,15 @@ div.desc {
     max-width: 100%;
 }
 .product-view-detail .product-img-box .media-left .product-image img {
-    max-width: 100%;
+    max-width: 80%;		/* 이미지 크기 조정 */
     border: 1px solid #f7f7f7;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 5px;	
+    
+    margin-left: auto;	/* 이미지 가운데 정렬 */
+    margin-right: auto;
+    display: block;
 }
 .product-view-detail .product-img-box .more-views {
     position: relative;
@@ -7226,7 +7231,7 @@ div.desc {
     margin: 0;
 }
 .product-view-detail .product-shop .add-to-cart label {
-    display: none;
+    /*display: none;*/
 }
 .product-view-detail .product-shop .ratings {
     float: left;
@@ -7320,13 +7325,15 @@ div.desc {
     margin: 0;
 }
 .product-view-detail button.button {
-    width: 49%;
+    /*width: 49%;*/
+    width: 70%;
     margin-right: 2%;
     text-align: center;
 }
 .product-view-detail button.button.btn-cart {
     margin-right: 0;
-    float: right;
+    margin-top: 10px;
+    /*float: right;*/
 }
 .product-view-detail button.button.btn-cart:before {
     font-size: 100%;
@@ -7366,7 +7373,7 @@ div.desc {
     text-align: left;
 }
 .product-view .box {
-    margin-bottom: 50px;
+   /* margin-bottom: 50px;*/
 }
 .product-view .data-table tr td,
 .product-view .data-table th {
@@ -12494,7 +12501,7 @@ border-top-color: transparent;*/
     content: "\f100";
 }
 .em-wrapper-ads-17 {
-    background-image: url(../images/media/home/bkg-parallax.jpg);
+    background-image: url(../images/bkg-parallax.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;

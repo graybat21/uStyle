@@ -1,7 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/main/webapp/WEB-INF/views/user/authError.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/user/authSuccess.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/user/base.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/user/joinSuccess.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/user/login.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/user/register.jsp=UTF-8
+encoding//src/main/java=UTF-8
+encoding//src/main/java/com/ustyle/controller/AdminController.java=UTF-8
+encoding//src/main/java/com/ustyle/controller/CheckoutController.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/user/deleteForm.jsp=UTF-8
+encoding//src/test/java=UTF-8

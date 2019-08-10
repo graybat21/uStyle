@@ -10,10 +10,19 @@ public class User {
 	private Date create_time;
 	private String addr1;
 	private String addr2;
-	private int postcode;
+	private String postcode;
 	private String phone;
 	private int point;
 	private String realname;
+	private String auth;
+	
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
 
 	public String getUsername() {
 		return username;
@@ -63,11 +72,11 @@ public class User {
 		this.addr2 = addr2;
 	}
 
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 
@@ -99,7 +108,8 @@ public class User {
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + ", create_time="
 				+ create_time + ", addr1=" + addr1 + ", addr2=" + addr2 + ", postcode=" + postcode + ", phone=" + phone
-				+ ", point=" + point + ", realname=" + realname + "]";
+				+ ", point=" + point + ", realname=" + realname + ", auth=" + auth + "]";
 	}
+
 
 }

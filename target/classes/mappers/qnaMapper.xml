@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.qnaMapper">
+
+	<sql id="search">
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+ 			<choose>
+ 				<when test="searchOption == 'tnc'">
+ 					where ( title like CONCAT('%', #{searchKeyword}, '%') 
+							OR content like CONCAT('%', #{searchKeyword}, '%') )
+	   			</when>
+	   			<when test="searchOption == 'tit'">
+	   				where title like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'con'">
+	   				where content like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+ 			</choose>
+		</if>
+ 	</sql>
+ 	
+ 	<sql id="searchMyQna">
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+ 			<choose>
+ 				<when test="searchOption == 'tnc'">
+ 					and ( title like CONCAT('%', #{searchKeyword}, '%') 
+							OR content like CONCAT('%', #{searchKeyword}, '%') )
+	   			</when>
+	   			<when test="searchOption == 'tit'">
+	   				and title like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'con'">
+	   				and content like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+ 			</choose>
+		</if>
+ 	</sql>
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_qna
+ 		<include refid="search"></include>
+ 	</select>
+ 	
+ 	<select id="qnaList" resultType="qna" parameterType="hashmap">
+		select 
+			bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
+		from
+			(select (@row_number:=@row_number+1) as row_number,
+				bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
+			from tbl_qna, (SELECT @row_number:=0) as t
+			<include refid="search"></include>
+          	order by family desc
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
+	<select id="getFamilyNo" parameterType="int" resultType="int">
+		select family from tbl_qna where bno = #{parent} 
+	</select>
+	
+	<insert id="qnaWrite" parameterType="qna" keyColumn="bno" useGeneratedKeys="true" keyProperty="bno">
+		insert into tbl_qna(title, content, category, username, family, parent, depth, indent)
+		values(#{title}, #{content}, #{category}, #{username}, #{family}, #{parent},#{depth},#{indent})
+	</insert>
+	
+	<update id="updateFamilyNo">
+		update tbl_qna set family = #{bno}
+		where bno = #{bno}
+	</update>
+	
+	<select id="qnaView" parameterType="int" resultType="qna">
+		select * from tbl_qna where bno = #{bno}
+	</select>
+	
+	<update id="qnaModify" parameterType="qna">
+		update tbl_qna set title = #{title}, content = #{content}, category = #{category}
+		where bno = #{bno}
+	</update>
+	
+	<update id="viewCntPlus" parameterType="int">
+		update tbl_qna set viewcnt = viewcnt + 1 where bno = #{bno}
+	</update>
+	
+	<delete id="qnaDelete" parameterType="int">
+		delete from tbl_qna where bno = #{bno}
+	</delete>
+	
+	<select id="selectBnoListByUsername" parameterType="String" resultType="Integer">
+		select bno from tbl_qna where username = #{username}
+	</select>
+	
+	<delete id="qnaDeleteByUsername" parameterType="hashmap">
+		delete from tbl_qna 
+		where 
+			family in 
+		<foreach collection="bnoList" item="bno" separator="," open="(" close=")">
+			#{bno}
+		</foreach>
+	</delete>
+	
+	<select id="selectMyListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_qna
+ 		where 
+ 			family in (select bno from tbl_qna where username = #{username})
+ 		<include refid="searchMyQna"></include>
+ 	</select>
+ 	
+	<select id="myQnaList" resultType="qna" parameterType="hashmap">
+		select 
+			*
+		from 
+			(select 
+				(@row_number:=@row_number+1) as row_number,
+				bno, username, title, content, category, regdate, viewcnt, family, parent, depth, indent
+			from tbl_qna, (SELECT @row_number:=0) as t
+			where family in 
+				(select bno from tbl_qna where username = #{username})
+				<include refid="searchMyQna"></include>
+			order by family desc
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
+</mapper>

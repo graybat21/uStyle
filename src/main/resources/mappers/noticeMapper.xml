@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.noticeMapper">
+
+	<sql id="search">
+ 		<if test="searchKeyword != null || searchKeyword == ''">
+ 			<choose>
+ 				<when test="searchOption == 'tnc'">
+ 					where ( title like CONCAT('%', #{searchKeyword}, '%') 
+							OR content like CONCAT('%', #{searchKeyword}, '%') )
+	   			</when>
+	   			<when test="searchOption == 'tit'">
+	   				where title like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+	   			<when test="searchOption == 'con'">
+	   				where content like CONCAT('%', #{searchKeyword}, '%')
+	   			</when>
+ 			</choose>
+		</if>
+ 	</sql>
+ 	
+ 	<select id="selectListCnt" resultType="int" parameterType="hashmap">
+ 		select count(*) from tbl_notice
+ 		<include refid="search"></include>
+ 	</select>
+ 	
+ 	<select id="noticeList" resultType="notice" parameterType="hashmap">
+		select 
+			bno, title, content, regdate, viewcnt
+		from
+			(SELECT (@row_number:=@row_number+1) as row_number,
+					bno, title, content, regdate, viewcnt 
+			from tbl_notice, (SELECT @row_number:=0) as t
+          	<include refid="search"></include>
+          	ORDER BY bno DESC
+			) X 
+		where X.row_number between #{first} and #{last}
+	</select>
+	
+	<insert id="noticeWrite" parameterType="notice">
+		insert into tbl_notice(title, content, viewcnt)
+		values(#{title}, #{content}, 0)
+	</insert>
+	
+	<select id="noticeView" parameterType="int" resultType="notice">
+		select * from tbl_notice where bno = #{bno}
+	</select>
+	
+	<update id="viewCntPlus" parameterType="int">
+		update tbl_notice set viewcnt = viewcnt + 1 where bno = #{bno}
+	</update>
+	
+	<update id="noticeModify" parameterType="notice">
+		update tbl_notice set title = #{title}, content = #{content}
+		where bno = #{bno}
+	</update>
+	
+	<delete id="noticeDelete" parameterType="int">
+		delete from tbl_notice where bno = #{bno}
+	</delete>
+</mapper>

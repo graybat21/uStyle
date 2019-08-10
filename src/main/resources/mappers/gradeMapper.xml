@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustyle.mappers.gradeMapper">
+
+	<select id="selectList" resultType="grade">
+		select * from tbl_grade
+	</select>	
+	
+	<insert id="insert" parameterType="grade">
+   		insert into tbl_grade(grade, point_ratio, buy_term, min, max)
+   		values(#{grade}, #{point_ratio}, #{buy_term}, #{min}, #{max})
+    </insert>
+    
+ 	<update id="update" parameterType="grade">
+   		update tbl_grade
+   		set grade = #{grade}, point_ratio = #{point_ratio}, buy_term = #{buy_term}, min = #{min}, max = #{max}
+   		where idx = #{idx}
+   	</update>
+   	
+   	<delete id="delete" parameterType="int">
+   		delete from tbl_grade
+   		where idx = #{idx}
+   	</delete>
+ 
+</mapper>
